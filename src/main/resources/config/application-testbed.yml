@@ -1,0 +1,29 @@
+spring:
+    profiles:
+        active: testbed
+    devtools:
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
+    thymeleaf:
+        cache: true
+server:
+    port: 8081
+    tomcat:
+        remote_ip_header: x-forwarded-for
+        protocol_header: x-forwarded-proto
+    ssl:
+        key-store: classpath:/keystore/hooraKeystore.p12
+        key-store-password: 523371366
+        keyStoreType: PKCS12
+        keyAlias: hoora
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+        min-response-size: 1024
+zuul:
+  routes:
+    voldemort:
+      path: /api/**
+      url: http://testbed.avand.io:8080/api

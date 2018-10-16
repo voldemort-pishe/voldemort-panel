@@ -1,0 +1,48 @@
+.login-container form {
+  width:300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container > * {
+  width: 100%;
+}
+
+.login-form button{
+  width: 100%;
+}
+
+.login-container form {
+  margin-bottom: 20px;
+}
+
+.login-container form > * {
+  margin: 10px 0;
+}
+
+.login-container .mat-radio-button {
+  margin: 0 5px;
+}
+
+mat-card-header{
+  display:flex;
+  justify-content:center;
+}
+
+
+mat-card-header{
+
+  mat-card-title{
+    font-size: 18px;
+    text-align: center;
+  }
+
+}
+
+
+.forgot-password{
+  text-align: center;
+}
+.mat-button.register-button{
+  margin: 10px 0;
+}

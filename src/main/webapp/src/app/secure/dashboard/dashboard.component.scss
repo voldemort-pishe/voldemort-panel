@@ -1,0 +1,18 @@
+.no-gutter.row,
+.no-gutter.container,
+.no-gutter.container-fluid{
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.no-gutter>[class^="col-"]{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.latest-info{
+  height: 177px;
+  background: url(/assets/images/header-top-updates.png) no-repeat center;
+}

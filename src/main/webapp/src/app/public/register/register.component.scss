@@ -1,0 +1,48 @@
+.register-container form {
+  width:300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-container > * {
+  width: 100%;
+}
+
+.register-form button{
+  width: 100%;
+}
+
+.register-container form {
+  margin-bottom: 20px;
+}
+
+.register-container form > * {
+  margin: 10px 0;
+}
+
+.register-container .mat-radio-button {
+  margin: 0 5px;
+}
+
+mat-card-header{
+  display:flex;
+  justify-content:center;
+}
+
+
+mat-card-header{
+
+  mat-card-title{
+    font-size: 18px;
+    text-align: center;
+  }
+
+}
+
+
+.forgot-password{
+  text-align: center;
+}
+.mat-button.register-button{
+  margin: 10px 0;
+}

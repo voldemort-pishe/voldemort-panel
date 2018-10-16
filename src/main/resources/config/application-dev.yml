@@ -1,0 +1,21 @@
+spring:
+    profiles:
+        active: dev
+        include:
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false # we use gulp + BrowserSync for livereload
+    jackson:
+        serialization.indent_output: true
+    thymeleaf:
+        cache: false
+server:
+    port: 8081
+
+zuul:
+  routes:
+    voldemort:
+      path: /api/**
+      url: http://testbed.avand.io:8080/api

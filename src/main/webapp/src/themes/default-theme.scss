@@ -1,0 +1,54 @@
+$anms-primary: mat-palette($mat-indigo, 800, 300, 900);
+$anms-accent: mat-palette($mat-light-blue);
+$anms-warn: mat-palette($mat-pink, 600);
+
+$anms-theme: mat-light-theme($anms-primary, $anms-accent, $anms-warn);
+
+.mat-input-element.ltr{
+  direction: ltr;
+  text-align: left;
+}
+
+body{
+  text-align: right;
+}
+body,
+.mat-card,
+.mat-checkbox,
+.mat-input-element, .mat-form-field-label, .mat-form-field,
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab,
+.mat-toolbar, .mat-toolbar h1, .mat-toolbar h2, .mat-toolbar h3, .mat-toolbar h4, .mat-toolbar h5, .mat-toolbar h6{
+  font-family: Vazir, Tahoma, serif;
+}
+.mat-input-element, .mat-form-field-label{
+  font: normal 14px/18px Vazir !important;
+}
+
+
+body.public .default-theme .mat-drawer-container{
+  height: 100%;
+  background: url(./assets/bg.svg) no-repeat no-repeat center;
+  background-size: cover;
+}
+
+body .default-theme .mat-list .mat-list-item,
+body .default-theme .mat-nav-list .mat-list-item,
+body .default-theme .mat-selection-list .mat-list-item {
+  color: #B3B3B3;
+}
+
+body .default-theme .mat-list-option:hover,
+body .default-theme .mat-list-option.mat-list-item-focus,
+body .default-theme .mat-nav-list .mat-list-item:hover,
+body .default-theme .mat-nav-list .mat-list-item.mat-list-item-focus,
+body .default-theme mat-sidenav-container mat-sidenav .mat-list-item.active{
+  background: #fff;
+  color: #00A6EA;
+}
+body .default-theme mat-sidenav-container mat-sidenav .mat-list-item.active:hover{
+  background-color: #fff !important;
+}
+body .default-theme mat-sidenav-container mat-sidenav .mat-list-item.active{
+  background-color: #fff !important;
+  color: #00A6EA;
+}
