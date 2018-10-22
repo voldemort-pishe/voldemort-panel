@@ -15,6 +15,8 @@ body{
 body,
 .mat-card,
 .mat-checkbox,
+.mat-list-item,
+.mat-table,
 .mat-input-element, .mat-form-field-label, .mat-form-field,
 .mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab,
 .mat-toolbar, .mat-toolbar h1, .mat-toolbar h2, .mat-toolbar h3, .mat-toolbar h4, .mat-toolbar h5, .mat-toolbar h6{
@@ -51,4 +53,8 @@ body .default-theme mat-sidenav-container mat-sidenav .mat-list-item.active:hove
 body .default-theme mat-sidenav-container mat-sidenav .mat-list-item.active{
   background-color: #fff !important;
   color: #00A6EA;
+}
+
+body .default-theme .mat-toolbar.mat-primary {
+  background: #383579;
 }

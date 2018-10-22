@@ -20,6 +20,7 @@ import {
   RouterStateSerializer
 } from '@ngrx/router-store';
 import { CustomSerializer } from './router/custom-serializer';
+import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { CustomSerializer } from './router/custom-serializer';
     AuthGuardService,
     AnimationsService,
     TitleService,
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    PersianNumberHelper,
   ],
   exports: [TranslateModule]
 })

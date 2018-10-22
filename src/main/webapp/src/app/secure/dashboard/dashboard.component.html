@@ -3,10 +3,149 @@
     <div class="col-sm-12">
       <div class="latest-info">
         <div class="row no-gutter">
-          <div class="col-sm-2">22</div>
-          <div class="col-sm-10">333</div>
+          <div class="col-sm-2">
+            <div class="date-info">
+              <div class="greeting">
+                <span>{{greetingText}} بخیر</span>
+                <span>مهدی</span>
+              </div>
+              <div class="today">
+                <span class="day">{{todayDateDay}}</span>
+                <span class="month">{{todayDateMonth}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-10">
+            <div class="recent-event">
+              <div class="event">
+                <span class="time"><mat-icon>access_time</mat-icon> ۲۲:۳۰ </span>
+                <span class="date"><mat-icon>calendar_today</mat-icon> چهارشنبه ۴ مهر </span>
+                <span class="with"><mat-icon>person</mat-icon>مهدی شریعتمداری</span>
+              </div>
+              <div class="event">
+                <span class="time"><mat-icon>access_time</mat-icon> ۲۲:۳۰ </span>
+                <span class="date"><mat-icon>calendar_today</mat-icon> چهارشنبه ۴ مهر </span>
+                <span class="with"><mat-icon>person</mat-icon>مهدی شریعتمداری</span>
+              </div>
+            </div>
+            <div class="event-description">امروز ۲ مصاحبه زمانبدی شده</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="col-sm-12">
+      <div class="row no-gutter">
+        <div class="col-sm-2">
+          <div class="inner-menu">
+            <mat-nav-list>
+              <a mat-list-item [routerLink]="['/dashboard']" routerLinkActive="active-inner-menu">
+                <mat-icon mat-list-icon>inbox</mat-icon>
+                <h4 mat-line>همه تازه‌ها</h4>
+                <span>۲۵</span>
+              </a>
+              <mat-divider></mat-divider>
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>flag</mat-icon>
+                <h4 mat-line>مهم</h4>
+                <span>۲</span>
+              </a>
+
+              <mat-divider></mat-divider>
+
+
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>calendar_today</mat-icon>
+                <h4 mat-line>زمانبدی</h4>
+                <span>۲</span>
+              </a>
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>feedback</mat-icon>
+                <h4 mat-line>بازخورد</h4>
+                <span>۲</span>
+              </a>
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>comment</mat-icon>
+                <h4 mat-line>کامنت‌ها</h4>
+                <span>۲</span>
+              </a>
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>email</mat-icon>
+                <h4 mat-line>ایمیل</h4>
+                <span>۲</span>
+              </a>
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>notifications</mat-icon>
+                <h4 mat-line>هشدارها</h4>
+                <span>۲</span>
+              </a>
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>alarm</mat-icon>
+                <h4 mat-line>یادآوری‌ها</h4>
+                <span>۲</span>
+              </a>
+
+              <mat-divider></mat-divider>
+
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>check_circle_outline</mat-icon>
+                <h4 mat-line>انجام شده</h4>
+                <span>۲</span>
+              </a>
+
+              <mat-divider></mat-divider>
+
+              <a mat-list-item href="...">
+                <mat-icon mat-list-icon>settings</mat-icon>
+                <h4 mat-line>تنظیمات</h4>
+                <span>۲</span>
+              </a>
+
+            </mat-nav-list>
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+
+          <div class="today-event-table">
+
+            <h4>امروز</h4>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z5">
+
+              <!-- Action Column -->
+              <ng-container matColumnDef="action">
+                <td mat-cell *matCellDef="let element">
+                  <button mat-button mat-icon-button><mat-icon>flag</mat-icon></button>
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <td mat-cell *matCellDef="let element">
+                  <div class="name">{{element.name}}</div>
+                  <small>۱۲:۰۰</small>
+                </td>
+              </ng-container>
+
+              <!-- Description Column -->
+              <ng-container matColumnDef="description">
+                <td mat-cell *matCellDef="let element">
+                  <div class="description with-icon"><mat-icon>email</mat-icon>  {{element.description}}</div>
+                  <span class="position">مدیر اجرایی</span>
+                </td>
+              </ng-container>
+
+
+              <tr mat-row
+                  *matRowDef="let row; columns: displayedColumns;"
+                  (click)="showDetail()"></tr>
+            </table>
+
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
