@@ -11,6 +11,7 @@ export const environment = {
   production: false,
   test: false,
   i18nPrefix: '',
+  serverApiUrl : 'http://localhost:8080/',
   versions: {
     app: packageJson.version,
     angular: packageJson.dependencies['@angular/core'],

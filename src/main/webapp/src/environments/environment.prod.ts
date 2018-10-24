@@ -6,6 +6,7 @@ export const environment = {
   production: true,
   test: false,
   i18nPrefix: '/angular-ngrx-material-starter',
+  serverApiUrl : 'http://testbed.avand.io:8080/',
   versions: {
     app: packageJson.version,
     angular: packageJson.dependencies['@angular/core'],

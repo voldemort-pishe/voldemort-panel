@@ -3,11 +3,10 @@ import { Action, select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap, withLatestFrom } from 'rxjs/operators';
 
-import { LocalStorageService } from '@app/core';
-
 import { State } from '../examples.state';
 import { BookActionTypes } from './books.actions';
 import { selectBooks } from './books.selectors';
+import {LocalStorageService} from 'ngx-webstorage';
 
 export const BOOKS_KEY = 'EXAMPLES.BOOKS';
 
@@ -24,7 +23,7 @@ export class BooksEffects {
     ofType(BookActionTypes.UPSERT_ONE, BookActionTypes.DELETE_ONE),
     withLatestFrom(this.store.pipe(select(selectBooks))),
     tap(([actions, booksState]) =>
-      this.localStorageService.setItem(BOOKS_KEY, booksState)
+      this.localStorageService.store(BOOKS_KEY, booksState)
     )
   );
 }

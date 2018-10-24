@@ -3,9 +3,8 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
-import { LocalStorageService } from '@app/core';
-
 import { ActionTodosPersist, TodosActionTypes } from './todos.actions';
+import {LocalStorageService} from 'ngx-webstorage';
 
 export const TODOS_KEY = 'EXAMPLES.TODOS';
 
@@ -20,7 +19,7 @@ export class TodosEffects {
   persistTodos = this.actions$.pipe(
     ofType<ActionTodosPersist>(TodosActionTypes.PERSIST),
     tap(action =>
-      this.localStorageService.setItem(TODOS_KEY, action.payload.todos)
+      this.localStorageService.store(TODOS_KEY, action.payload.todos)
     )
   );
 }

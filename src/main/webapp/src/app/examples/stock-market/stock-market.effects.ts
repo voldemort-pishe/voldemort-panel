@@ -11,8 +11,6 @@ import {
   catchError
 } from 'rxjs/operators';
 
-import { LocalStorageService } from '@app/core';
-
 import { StockMarketService } from './stock-market.service';
 import {
   ActionStockMarketRetrieve,
@@ -20,6 +18,7 @@ import {
   ActionStockMarketRetrieveSuccess,
   StockMarketActionTypes
 } from './stock-market.actions';
+import {LocalStorageService} from 'ngx-webstorage';
 
 export const STOCK_MARKET_KEY = 'EXAMPLES.STOCKS';
 
@@ -35,7 +34,7 @@ export class StockMarketEffects {
   retrieveStock = this.actions$.pipe(
     ofType<ActionStockMarketRetrieve>(StockMarketActionTypes.RETRIEVE),
     tap(action =>
-      this.localStorageService.setItem(STOCK_MARKET_KEY, {
+      this.localStorageService.store(STOCK_MARKET_KEY, {
         symbol: action.payload.symbol
       })
     ),

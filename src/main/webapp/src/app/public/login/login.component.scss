@@ -1,5 +1,4 @@
 .login-container form {
-  width:300px;
   display: flex;
   flex-direction: column;
 }
@@ -39,10 +38,15 @@ mat-card-header{
 
 }
 
-
+.login-form {
+  mat-card-actions{
+    text-align: center;
+    font-size: 13px;
+    div{
+      margin: 10px 0;
+    }
+  }
+}
 .forgot-password{
   text-align: center;
-}
-.mat-button.register-button{
-  margin: 10px 0;
 }

@@ -4,13 +4,12 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
-import { LocalStorageService } from '../local-storage/local-storage.service';
-
 import {
   ActionAuthLogin,
   ActionAuthLogout,
   AuthActionTypes
 } from './auth.actions';
+import {LocalStorageService} from 'ngx-webstorage';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -26,7 +25,7 @@ export class AuthEffects {
   login = this.actions$.pipe(
     ofType<ActionAuthLogin>(AuthActionTypes.LOGIN),
     tap(() =>
-      this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: true })
+      this.localStorageService.store(AUTH_KEY, { isAuthenticated: true })
     )
   );
 
@@ -35,7 +34,7 @@ export class AuthEffects {
     ofType<ActionAuthLogout>(AuthActionTypes.LOGOUT),
     tap(() => {
       this.router.navigate(['']);
-      this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: false });
+      this.localStorageService.store(AUTH_KEY, { isAuthenticated: false });
     })
   );
 }

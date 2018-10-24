@@ -9,18 +9,19 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '@env/environment';
 
-import { LocalStorageService } from './local-storage/local-storage.service';
 import { AuthEffects } from './auth/auth.effects';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AnimationsService } from './animations/animations.service';
 import { TitleService } from './title/title.service';
-import { reducers, metaReducers } from './core.state';
+import { reducers } from './core.state';
 import {
   StoreRouterConnectingModule,
   RouterStateSerializer
 } from '@ngrx/router-store';
 import { CustomSerializer } from './router/custom-serializer';
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
+import {StateStorageService} from "@app/core/auth/state-storage.service";
+import {SessionStorageService , LocalStorageService} from 'ngx-webstorage';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
     HttpClientModule,
 
     // ngrx
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([AuthEffects]),
     environment.production
@@ -50,6 +51,8 @@ import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
   declarations: [],
   providers: [
     LocalStorageService,
+    SessionStorageService,
+    StateStorageService,
     AuthGuardService,
     AnimationsService,
     TitleService,

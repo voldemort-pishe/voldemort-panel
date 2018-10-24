@@ -3,9 +3,8 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
-import { LocalStorageService } from '@app/core';
-
 import { ActionFormUpdate, FormActionTypes } from './form.actions';
+import {LocalStorageService} from 'ngx-webstorage';
 
 export const FORM_KEY = 'EXAMPLES.FORM';
 
@@ -20,7 +19,7 @@ export class FormEffects {
   persistForm = this.actions$.pipe(
     ofType<ActionFormUpdate>(FormActionTypes.UPDATE),
     tap(action =>
-      this.localStorageService.setItem(FORM_KEY, { form: action.payload.form })
+      this.localStorageService.store(FORM_KEY, { form: action.payload.form })
     )
   );
 }

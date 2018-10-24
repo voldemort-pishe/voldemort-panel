@@ -3,9 +3,10 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
-import { LocalStorageService, AnimationsService } from '@app/core';
+import { AnimationsService } from '@app/core';
 
 import { ActionSettingsPersist, SettingsActionTypes } from './settings.actions';
+import {LocalStorageService} from 'ngx-webstorage';
 
 export const SETTINGS_KEY = 'SETTINGS';
 
@@ -23,7 +24,7 @@ export class SettingsEffects {
     tap(action => {
       const { settings } = action.payload;
       const { pageAnimations, elementsAnimations } = settings;
-      this.localStorageService.setItem(SETTINGS_KEY, settings);
+      this.localStorageService.store(SETTINGS_KEY, settings);
       this.animationsService.updateRouteAnimationType(
         pageAnimations,
         elementsAnimations

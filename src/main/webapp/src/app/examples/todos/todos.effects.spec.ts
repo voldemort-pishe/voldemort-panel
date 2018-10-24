@@ -3,11 +3,11 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from '@app/core';
 import { TodosEffects, TODOS_KEY } from './todos.effects';
 import { TodosState, TodosFilter, Todo } from './todos.model';
 import { ActionTodosPersist } from './todos.actions';
 import { cold } from 'jasmine-marbles';
+import {LocalStorageService} from 'ngx-webstorage';
 
 describe('TodosEffects', () => {
   let actions$: Observable<Action>;
