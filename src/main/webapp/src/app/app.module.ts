@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -50,6 +51,10 @@ import { AppComponent } from './app.component';
 import {LoginComponent, RegisterComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure';
+import {AuthInterceptor} from "@app/blocks/interceptor/auth.interceptor";
+import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
+import {AuthExpiredInterceptor} from "@app/blocks/interceptor/auth-expired.interceptor";
+import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.interceptor";
 
 
 @NgModule({
@@ -114,7 +119,25 @@ import {DashboardComponent} from '@app/secure';
     RegisterComponent,
     DashboardComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+      deps: [LocalStorageService, SessionStorageService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthExpiredInterceptor,
+      multi: true,
+      deps: [Injector]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

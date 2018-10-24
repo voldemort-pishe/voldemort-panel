@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from "@app/core/login/login.service";
 import {Router} from '@angular/router';
 import {StateStorageService} from "@app/core/auth/state-storage.service";
@@ -12,57 +12,57 @@ import {StateStorageService} from "@app/core/auth/state-storage.service";
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  username: FormControl;
-  password: FormControl;
-  rememberMe : boolean;
+  userLoginForm: FormGroup;
 
   constructor(private renderer: Renderer2,
               private loginService: LoginService,
               private router: Router,
-              private stateStorageService: StateStorageService) {
+              private stateStorageService: StateStorageService,
+              private fb: FormBuilder) {
     this.renderer.addClass(document.body, 'public');
+
+    this.userLoginForm = fb.group({
+      username: ['admin@avand.com',[Validators.email,Validators.required]],
+      password: ['admin',Validators.required],
+      rememberMe: false
+    });
+
   }
 
   ngOnInit() {
-    this.username = new FormControl('', [Validators.required, Validators.email]);
-    this.password = new FormControl('', [Validators.required]);
   }
 
   ngOnDestroy() {
     this.renderer.removeClass(document.body, 'public');
   }
 
-  getUsernameErrorMessage() {
-    return this.username.hasError('required') ? 'فیلد نام کاربری اجباری است' : this.username.hasError('email') ? 'نام کابری صحیح نیست' : '';
-  }
-
-  getPasswordErrorMessage() {
-    return this.password.hasError('required') ? 'فیلد کلمه عبور اجباری است' : '';
-  }
-
   login() {
-    this.loginService
-      .login({
-        username: this.username,
-        password: this.password,
-        rememberMe: this.rememberMe
-      })
-      .then(() => {
-        if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
-          this.router.navigate(['']);
-        }
+    if(this.userLoginForm.valid){
+      this.loginService
+        .login({
+          username: this.userLoginForm.controls.username.value,
+          password: this.userLoginForm.controls.password.value,
+          rememberMe: this.userLoginForm.controls.rememberMe.value
+        })
+        .then(() => {
+          if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
+            this.router.navigate(['']);
+          }
 
-        // previousState was set in the authExpiredInterceptor before being redirected to login modal.
-        // since login is succesful, go to stored previousState and clear previousState
-        const redirect = this.stateStorageService.getUrl();
-        if (redirect) {
-          this.stateStorageService.storeUrl(null);
-          this.router.navigate([redirect]);
-        }
-      })
-      .catch(() => {
-        console.log('error');
-      });
+          // previousState was set in the authExpiredInterceptor before being redirected to login modal.
+          // since login is succesful, go to stored previousState and clear previousState
+          const redirect = this.stateStorageService.getUrl();
+          if (redirect) {
+            this.stateStorageService.storeUrl(null);
+            this.router.navigate([redirect]);
+          }else{
+            this.router.navigate(['/dashboard']);
+          }
+        })
+        .catch(() => {
+          console.log('error');
+        });
+    }
   }
 
 }

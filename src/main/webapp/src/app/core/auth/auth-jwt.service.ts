@@ -15,11 +15,11 @@ export class AuthServerProvider {
 
     login(credentials): Observable<any> {
         const data = {
-            username: credentials.username,
+            email: credentials.username,
             password: credentials.password,
             rememberMe: credentials.rememberMe
         };
-        return this.http.post(env.serverApiUrl + 'api/authenticate', data, { observe: 'response' }).pipe(map(authenticateSuccess.bind(this)));
+        return this.http.post(env.serverApiUrl + 'api/account/authenticate', data, { observe: 'response' }).pipe(map(authenticateSuccess.bind(this)));
 
         function authenticateSuccess(resp) {
             const bearerToken = resp.headers.get('Authorization');
