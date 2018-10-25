@@ -5,7 +5,7 @@ import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { cold } from 'jasmine-marbles';
 
-import { AnimationsService, LocalStorageService } from '@app/core';
+import { AnimationsService } from '@app/core';
 
 import {
   ActionSettingsChangeLanguage,
@@ -13,6 +13,7 @@ import {
 } from './settings.actions';
 import { SETTINGS_KEY, SettingsEffects } from './settings.effects';
 import { SettingsState } from './settings.model';
+import {LocalStorageService} from 'ngx-webstorage';
 
 describe('SettingsEffects', () => {
   let actions$: Observable<Action>;

@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { LocalStorageService } from '@app/core';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action, Store, StoreModule } from '@ngrx/store';
@@ -8,6 +7,7 @@ import { MockStore, provideMockStore } from '@testing/utils';
 import { State } from '../examples.state';
 import { BooksEffects, BOOKS_KEY } from './books.effects';
 import { BookState } from './books.model';
+import {LocalStorageService} from 'ngx-webstorage';
 
 describe('BooksEffects', () => {
   const actions$: Observable<Action> = null;
