@@ -5,6 +5,7 @@ import { SettingsContainerComponent } from './settings';
 import {LoginComponent, RegisterComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure/dashboard';
+import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
 
 
 const routes: Routes = [
@@ -40,8 +41,10 @@ const routes: Routes = [
   {
     path: '',
     component: SecureComponent,
+    canActivate: [UserRouteAccessService],
     data: {
-      title: 'Secure Views'
+      title: 'Secure Views',
+      authorities: ['ROLE_ADMIN']
     },
     children: [
       {
@@ -57,7 +60,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'about'
+    redirectTo: 'login'
   }
 ];
 
