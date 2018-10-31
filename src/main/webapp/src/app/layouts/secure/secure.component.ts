@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import {filter} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
+import {LoginService} from "@app/core/login/login.service";
 
 
 @Component({
@@ -23,12 +24,16 @@ export class SecureComponent implements OnInit, OnDestroy {
 
   private readonly _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private title: Title,
-              router: Router, private route: ActivatedRoute, private translate: TranslateService) {
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              private media: MediaMatcher,
+              private title: Title,
+              private router: Router,
+              private route: ActivatedRoute,
+              private translate: TranslateService,
+              private loginService: LoginService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
   }
 
   ngOnInit() {
@@ -47,6 +52,11 @@ export class SecureComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  logout(){
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 
 

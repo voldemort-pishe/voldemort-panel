@@ -44,3 +44,14 @@ h1.page-title {
   position: relative;
   z-index: 2;
 }
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.logout{
+  .mat-icon{
+    margin: 0 0 0 4px;
+  }
+  margin: 0 0 0 14px;
+}
