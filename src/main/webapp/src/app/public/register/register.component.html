@@ -7,36 +7,46 @@
       </mat-card-header>
       <mat-card-content>
         <div class="register-container">
-          <form>
+          <form [formGroup]="userRegisterForm" (ngSubmit)="register(submitBtn)">
             <mat-form-field>
-              <input class="ltr" matInput placeholder="نام" [formControl]="firstname" name="firstname" autocomplete="off" required>
-              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+              <input matInput placeholder="نام" formControlName="firstName" autocomplete="off">
+              <mat-error *ngIf="userRegisterForm.get('firstName')?.errors?.required">نام اجباری است</mat-error>
+              <mat-error *ngIf="userRegisterForm.get('firstName')?.errors?.minlength">حداقل ۳ کاراکتر مجاز است</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input class="ltr" matInput placeholder="نام خانوادگی" [formControl]="lastname" name="lastname" autocomplete="off" required>
-              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+              <input matInput placeholder="نام خانوادگی" formControlName="lastName" autocomplete="off">
+              <mat-error *ngIf="userRegisterForm.get('lastName')?.errors?.required">نام خانوادگی اجباری است</mat-error>
+              <mat-error *ngIf="userRegisterForm.get('lastName')?.errors?.minlength">حداقل ۳ کاراکتر مجاز است</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input class="ltr" matInput placeholder="پست الکترونیکی" [formControl]="email" name="email" autocomplete="off" required>
-              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+              <input class="ltr" matInput placeholder="پست الکترونیکی" formControlName="email" autocomplete="off">
+              <mat-error *ngIf="userRegisterForm.get('email')?.errors?.required">پست الکترونیکی اجباری است</mat-error>
+              <mat-error *ngIf="userRegisterForm.get('email')?.errors?.email">پست الکترونیکی صحیح نیست</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input class="ltr" matInput placeholder="کلمه عبور" [formControl]="password" name="password" autocomplete="off" required>
-              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+              <input class="ltr" matInput placeholder="کلمه عبور"  formControlName="password" type="password" autocomplete="off">
+              <mat-error *ngIf="userRegisterForm.get('password')?.errors?.required">کلمه عبور اجباری است</mat-error>
+              <mat-error *ngIf="userRegisterForm.get('password')?.errors?.minlength">حداقل ۶ کاراکتر مجاز است</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input class="ltr" matInput placeholder="تکرار کلمه عبور" [formControl]="password" name="password" autocomplete="off" required>
-              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+              <input class="ltr" matInput placeholder="تکرار کلمه عبور" formControlName="confirmPassword" type="password" autocomplete="off">
+              <mat-error *ngIf="userRegisterForm.get('confirmPassword')?.errors?.required">تکرار کلمه عبور اجباری است</mat-error>
+              <mat-error *ngIf="userRegisterForm.get('confirmPassword')?.errors?.notEquivalent">تکرار کلمه عبور با کلمه عبور یکسان نیست</mat-error>
             </mat-form-field>
 
-            <mat-checkbox>قوانین را قبول دارم</mat-checkbox>
+            <mat-checkbox formControlName="agreement" required>قوانین را قبول دارم</mat-checkbox>
+            <small class="agreement-error" *ngIf="acceptAgreementError">شما قوانین استفاده از آوند را قبول نکرده‌اید</small>
+
+            <button color="primary" type="submit" mat-raised-button #submitBtn>ثبت نام</button>
+
           </form>
         </div>
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-raised-button color="primary">ثبت نام</button>
-        <button class="register-button" mat-button [routerLink]="['/login']">بازگشت</button>
+        <div class="login-link">
+          <a [routerLink]="['/login']">بازگشت</a>
+        </div>
       </mat-card-actions>
 
     </mat-card>

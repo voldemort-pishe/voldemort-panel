@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SettingsContainerComponent } from './settings';
-import {LoginComponent, RegisterComponent} from '@app/public';
+import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure/dashboard';
 import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
@@ -36,6 +36,11 @@ const routes: Routes = [
         component: LoginComponent,
         data: { title: 'anms.login' }
       },
+      {
+        path: 'verification',
+        component: VerificationComponent,
+        data: { title: 'anms.verification' }
+      },
     ]
   },
   {
@@ -44,7 +49,7 @@ const routes: Routes = [
     canActivate: [UserRouteAccessService],
     data: {
       title: 'Secure Views',
-      authorities: ['ROLE_ADMIN']
+      authorities: ['ROLE_USER']
     },
     children: [
       {

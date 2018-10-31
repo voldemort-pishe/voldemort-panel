@@ -1,25 +1,25 @@
-.login-container form {
+.verification-container form {
   display: flex;
   flex-direction: column;
 }
 
-.login-container > * {
+.verification-container > * {
   width: 100%;
 }
 
-.login-form button{
+.verification-form button{
   width: 100%;
 }
 
-.login-container form {
+.verification-container form {
   margin-bottom: 20px;
 }
 
-.login-container form > * {
+.verification-container form > * {
   margin: 10px 0;
 }
 
-.login-container .mat-radio-button {
+.verification-container .mat-radio-button {
   margin: 0 5px;
 }
 
@@ -30,15 +30,13 @@ mat-card-header{
 
 
 mat-card-header{
-
   mat-card-title{
     font-size: 18px;
     text-align: center;
   }
-
 }
 
-.login-form {
+.verification-form {
   mat-card-actions{
     text-align: center;
     font-size: 13px;
@@ -48,6 +46,11 @@ mat-card-header{
     }
   }
 }
-.forgot-password{
-  text-align: center;
+
+.mat-button.register-button{
+  margin: 10px 0;
+}
+.agreement-error{
+  color: #d81b60;
+  margin: 0;
 }

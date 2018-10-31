@@ -57,7 +57,7 @@ import {SessionStorageService , LocalStorageService} from 'ngx-webstorage';
     AnimationsService,
     TitleService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
-    PersianNumberHelper,
+    PersianNumberHelper
   ],
   exports: [TranslateModule]
 })

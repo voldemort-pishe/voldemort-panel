@@ -31,18 +31,27 @@ mat-card-header{
 
 
 mat-card-header{
-
   mat-card-title{
     font-size: 18px;
     text-align: center;
   }
-
 }
 
-
-.forgot-password{
-  text-align: center;
+.register-form {
+  mat-card-actions{
+    text-align: center;
+    font-size: 13px;
+    padding: 0;
+    div{
+      margin: 10px 0;
+    }
+  }
 }
+
 .mat-button.register-button{
   margin: 10px 0;
+}
+.agreement-error{
+  color: #d81b60;
+  margin: 0;
 }

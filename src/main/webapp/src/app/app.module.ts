@@ -48,7 +48,7 @@ import { StaticModule } from './static';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {LoginComponent, RegisterComponent} from '@app/public';
+import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure';
 import {AuthInterceptor} from "@app/blocks/interceptor/auth.interceptor";
@@ -107,9 +107,8 @@ import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.inte
     StaticModule,
     SettingsModule,
 
-
     // app
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
@@ -117,6 +116,7 @@ import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.inte
     SecureComponent,
     LoginComponent,
     RegisterComponent,
+    VerificationComponent,
     DashboardComponent
   ],
   providers: [

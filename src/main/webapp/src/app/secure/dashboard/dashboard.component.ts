@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'jalali-moment';
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
+import {Principal} from '@app/core/auth/principal.service';
 
 
 export interface PeriodicElement {
@@ -29,11 +30,16 @@ export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['action','name', 'description',];
   dataSource = ELEMENT_DATA;
 
-  constructor(private persianNumberHelper: PersianNumberHelper) { }
+  constructor(private persianNumberHelper: PersianNumberHelper,
+              private principal: Principal) { }
 
   ngOnInit() {
-    this.greetingText = DashboardComponent.getGreetingTime(moment().locale('en').format('HH'));
-    this.todayDateDay = this.persianNumberHelper.toPersianNumber(moment().locale('fa').format('jD'));
+    this.greetingText = DashboardComponent
+      .getGreetingTime(moment().locale('en').format('HH'));
+
+    this.todayDateDay = this.persianNumberHelper
+      .toPersianNumber(moment().locale('fa').format('jD'));
+
     this.todayDateMonth = moment().locale('fa').format('jMMMM');
   }
 
