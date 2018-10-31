@@ -4,6 +4,7 @@ import {AccountUserService} from "@app/core";
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {LoginService} from "@app/core/login/login.service";
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'anms-verification',
@@ -40,43 +41,24 @@ export class VerificationComponent implements OnInit, OnDestroy {
     submitBtn.disabled = true;
 
     if(this.verificationForm.valid){
-
-      this.verifyPromise(this.verificationForm.value.verifyCode)
-        .then((response) => {
+      this.accountUserService
+        .active(this.verificationForm.value.verifyCode)
+        .toPromise()
+        .then(response => {
           submitBtn.disabled = false;
           this.loginService.loginWithToken(response.body.token,false);
           this.router.navigate(['../dashboard']);
         })
-        .catch((response) => {
-          this.snackBar.open(response.error.message, "بستن", {
+        .catch(err => {
+          this.snackBar.open(err.error.message, "بستن", {
             duration: 2500
           });
           submitBtn.disabled = false;
         });
-
     }else{
       submitBtn.disabled = false;
     }
 
   }
-
-  private verifyPromise(key, callback?){
-    const cb = callback || function() {};
-
-    return new Promise((resolve, reject) => {
-      this.accountUserService.active(key).subscribe(
-        data => {
-          resolve(data);
-          return cb();
-        },
-        err => {
-          reject(err);
-          return cb(err);
-        }
-      );
-    });
-
-  }
-
 
 }

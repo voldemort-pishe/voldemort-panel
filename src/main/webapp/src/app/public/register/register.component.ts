@@ -50,42 +50,24 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if(this.userRegisterForm.valid){
       const userRegister: UserRegister = Object.assign({}, this.userRegisterForm.value);
 
-      this.registerPromise(userRegister)
-        .then(() => {
+      this.accountUserService
+        .register(userRegister)
+        .toPromise()
+        .then(response => {
           submitBtn.disabled = false;
           this.router.navigate(['../verification']);
         })
-        .catch((response) => {
-          this.snackBar.open(response.error.message, "بستن", {
+        .catch(err => {
+          this.snackBar.open(err.error.message, "بستن", {
             duration: 2500
           });
           submitBtn.disabled = false;
         });
 
-
     }else{
       submitBtn.disabled = false;
     }
   }
-
-  private registerPromise(userRegister, callback?){
-    const cb = callback || function() {};
-
-    return new Promise((resolve, reject) => {
-      this.accountUserService.register(userRegister).subscribe(
-        data => {
-          resolve(data);
-          return cb();
-        },
-        err => {
-          reject(err);
-          return cb(err);
-        }
-      );
-    });
-
-  }
-
 
   private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
