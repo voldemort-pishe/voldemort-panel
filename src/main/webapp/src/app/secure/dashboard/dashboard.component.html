@@ -17,6 +17,10 @@
           </div>
           <div class="col-sm-10">
             <div class="recent-event">
+              <div *ngIf="!contentSchedule" class="no-recent-event">
+                <h2>شما هنوز مصاحبه‌ای تنظیم نکرده‌اید</h2>
+                <p>هر زمان برای کاندیدای ثبت نام شده تاریخ مصاحبه تنظیم کنید، آخرین و نزدیک ترین آن مصاحبه را در قسمت مشاهده خواهید کرد.</p>
+              </div>
               <div class="event" *ngFor="let event of contentSchedule">
                 <span class="time"><mat-icon>access_time</mat-icon>{{formatDateToTime(event.data.scheduleDate)}}</span>
                 <span class="date"><mat-icon>calendar_today</mat-icon> {{formatDateToHumanReadable(event.data.scheduleDate)}}</span>
