@@ -1,0 +1,33 @@
+.plan-page{
+  .plan-row{
+    padding-top: 15px;
+  }
+  .plan-des{
+    padding: 0 0 20px 0;
+  }
+}
+
+mat-card-header{
+
+  display:flex;
+  justify-content:center;
+
+  mat-card-title{
+    text-align: center;
+  }
+  mat-card-subtitle{
+    text-align: center;
+  }
+
+}
+
+mat-card-content{
+  text-align: center;
+}
+
+
+mat-card-actions{
+  button{
+    width: 100%;
+  }
+}

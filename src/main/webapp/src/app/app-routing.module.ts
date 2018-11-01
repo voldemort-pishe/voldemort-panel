@@ -6,6 +6,7 @@ import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/pub
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure/dashboard';
 import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
+import {PlanComponent} from "@app/secure";
 
 
 const routes: Routes = [
@@ -56,6 +57,11 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         data: { title: 'anms.dashboard' }
+      },
+      {
+        path: 'plan',
+        component: PlanComponent,
+        data: { title: 'anms.plan' }
       },
     ]
   },

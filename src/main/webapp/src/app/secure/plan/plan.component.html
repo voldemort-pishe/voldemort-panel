@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="plan-page">
+    <div class="row plan-row">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12 plan-des">
+            <h2 class="text-center">پلن‌ها</h2>
+            <div class="lead text-center">لطفا پلن مورد نظر خود را انتخاب کنید</div>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor="let planItem of planList" class="col-sm-3">
+            <mat-card class="plan-card">
+              <mat-card-header>
+                <mat-card-title>{{planItem.title}}</mat-card-title>
+                <mat-card-subtitle>{{packagePriceToHuman(planItem.amount)}} ریال</mat-card-subtitle>
+                <mat-card-subtitle>{{packageLengthToHuman(planItem.length)}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="plan-list" [innerHTML]="planItem.description"></div>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-raised-button color="primary">
+                  <mat-icon>shopping_cart</mat-icon>
+                  خرید
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

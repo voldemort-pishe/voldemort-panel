@@ -50,11 +50,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
-import {DashboardComponent} from '@app/secure';
+import {DashboardComponent, PlanComponent} from '@app/secure';
 import {AuthInterceptor} from "@app/blocks/interceptor/auth.interceptor";
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 import {AuthExpiredInterceptor} from "@app/blocks/interceptor/auth-expired.interceptor";
 import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.interceptor";
+import {SubscriptionExpiredInterceptor} from "@app/blocks/interceptor/subscription-expired.interceptor";
+import {CurrencyPipe} from '@angular/common';
 
 
 @NgModule({
@@ -117,7 +119,8 @@ import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.inte
     LoginComponent,
     RegisterComponent,
     VerificationComponent,
-    DashboardComponent
+    DashboardComponent,
+    PlanComponent
   ],
   providers: [
     {
@@ -134,9 +137,16 @@ import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.inte
     },
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: SubscriptionExpiredInterceptor,
+      multi: true,
+      deps: [Injector]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
       multi: true,
-    }
+    },
+    CurrencyPipe
   ],
   bootstrap: [AppComponent]
 })

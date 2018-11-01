@@ -10,3 +10,4 @@ export * from './core.state';
 export * from './core.module';
 export * from './services/accountuser.service';
 export * from './services/candidate-schedule.service';
+export * from './services/plan.service';
