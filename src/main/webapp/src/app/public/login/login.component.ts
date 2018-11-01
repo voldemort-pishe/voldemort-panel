@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from "@app/core/login/login.service";
 import {Router} from '@angular/router';
 import {StateStorageService} from "@app/core/auth/state-storage.service";
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               private loginService: LoginService,
               private router: Router,
               private stateStorageService: StateStorageService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private snackBar: MatSnackBar) {
     this.renderer.addClass(document.body, 'public');
 
     this.userLoginForm = fb.group({
@@ -59,8 +61,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate(['/dashboard']);
           }
         })
-        .catch(() => {
-          console.log('error');
+        .catch((err) => {
+          this.snackBar.open(err.error.message, "بستن", {
+            duration: 2500
+          });
         });
     }
   }

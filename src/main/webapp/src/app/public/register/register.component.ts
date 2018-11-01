@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserRegister} from "@app/core/models/register.model";
+import {UserRegister} from "@app/shared/model/register.model";
 import {AccountUserService} from "@app/core";
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';

@@ -54,6 +54,10 @@ $light-gray-color:#fbfbfb;
   width: 200px;
   margin: 0 0 0 15px;
   background: rgba(47, 142, 189, 0.5);
+  cursor: pointer;
+  &:hover{
+    background: rgba(51, 179, 230, 0.5);
+  }
 }
 .event span{
   display: block;

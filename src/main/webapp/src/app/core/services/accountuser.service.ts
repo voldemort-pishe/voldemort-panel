@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Message } from "@app/core/models/message.model";
-import { UserRegister } from "@app/core/models/register.model";
+import { Message } from "@app/shared/model/message.model";
+import { UserRegister } from "@app/shared/model/register.model";
 
 import { environment as env } from '@env/environment';
-import {tap, finalize} from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AccountUserService {
@@ -15,7 +14,7 @@ export class AccountUserService {
   constructor(private http: HttpClient) {}
 
   register(user: UserRegister): Observable<HttpResponse<Message>> {
-    return this.http.post<Message>(this.resourceUrl + "register", user, { observe: 'response' });
+    return this.http.post<Message>(this.resourceUrl + "/register", user, { observe: 'response' });
   }
 
   active(key): Observable<HttpResponse<any>> {

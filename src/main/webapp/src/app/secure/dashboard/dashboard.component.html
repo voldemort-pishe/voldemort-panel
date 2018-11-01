@@ -7,7 +7,7 @@
             <div class="date-info">
               <div class="greeting">
                 <span>{{greetingText}} بخیر</span>
-                <span>مهدی</span>
+                <span>{{userFirstName}}</span>
               </div>
               <div class="today">
                 <span class="day">{{todayDateDay}}</span>
@@ -17,18 +17,16 @@
           </div>
           <div class="col-sm-10">
             <div class="recent-event">
-              <div class="event">
-                <span class="time"><mat-icon>access_time</mat-icon> ۲۲:۳۰ </span>
-                <span class="date"><mat-icon>calendar_today</mat-icon> چهارشنبه ۴ مهر </span>
-                <span class="with"><mat-icon>person</mat-icon>مهدی شریعتمداری</span>
-              </div>
-              <div class="event">
-                <span class="time"><mat-icon>access_time</mat-icon> ۲۲:۳۰ </span>
-                <span class="date"><mat-icon>calendar_today</mat-icon> چهارشنبه ۴ مهر </span>
-                <span class="with"><mat-icon>person</mat-icon>مهدی شریعتمداری</span>
+              <div class="event" *ngFor="let event of contentSchedule">
+                <span class="time"><mat-icon>access_time</mat-icon>{{formatDateToTime(event.data.scheduleDate)}}</span>
+                <span class="date"><mat-icon>calendar_today</mat-icon> {{formatDateToHumanReadable(event.data.scheduleDate)}}</span>
+                <span class="with"><mat-icon>person</mat-icon> <small>{{event.include.candidate.firstName}} {{event.include.candidate.lastName}}</small></span>
               </div>
             </div>
-            <div class="event-description">امروز ۲ مصاحبه زمانبدی شده</div>
+            <div class="event-description">
+              <span *ngIf="countOfTodaySchedule > 0">امروز {{jCountOfTodaySchedule}} مصاحبه زمانبندی شده دارید</span>
+              <span *ngIf="countOfTodaySchedule == 0">برای امروز مصاحبه‌ای ندارید</span>
+            </div>
           </div>
         </div>
       </div>
