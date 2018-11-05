@@ -20,7 +20,7 @@
                 <div class="plan-list" [innerHTML]="planItem.description"></div>
               </mat-card-content>
               <mat-card-actions>
-                <button mat-raised-button color="primary">
+                <button mat-raised-button color="primary" (click)="showInvoice(planItem.id)">
                   <mat-icon>shopping_cart</mat-icon>
                   خرید
                 </button>

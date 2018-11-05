@@ -4,6 +4,8 @@ import {IPlan, Plan} from "@app/shared/model/plan.model";
 import {HttpResponse, HttpErrorResponse} from "@angular/common/http";
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {CurrencyPipe} from "@angular/common";
+import {UserPlanService} from "@app/core/services/user-plan.service";
+import {Invoice} from "@app/shared/model/invoice.model";
 
 
 @Component({
@@ -16,6 +18,7 @@ export class PlanComponent implements OnInit {
   planList: IPlan[];
 
   constructor(private planService: PlanService,
+              private userPlanService: UserPlanService,
               private persianNumberHelper: PersianNumberHelper,
               private currencyPipe: CurrencyPipe) {
   }
@@ -29,6 +32,15 @@ export class PlanComponent implements OnInit {
       );
   }
 
+
+  showInvoice(planId: number){
+    this.userPlanService
+      .saveUserPlan(planId)
+      .subscribe(
+        (res: HttpResponse<Invoice>) => this.onUserPlanSuccess(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
 
   packagePriceToHuman(data){
     return this.persianNumberHelper.toPersianNumber(
@@ -47,6 +59,10 @@ export class PlanComponent implements OnInit {
 
   private onSuccess(data: Plan){
     this.planList = data.content;
+  }
+
+  private onUserPlanSuccess(data: Invoice){
+    console.log(data);
   }
 
   private onError(errorMessage: string) {
