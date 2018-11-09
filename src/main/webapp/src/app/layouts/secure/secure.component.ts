@@ -35,6 +35,7 @@ export class SecureComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
+  //TODO : page title has bug when route change
   ngOnInit() {
     let lastChild = this.route.snapshot;
     while (lastChild.children.length) {
@@ -45,7 +46,6 @@ export class SecureComponent implements OnInit, OnDestroy {
       .get(title)
       .pipe(filter(translatedTitle => translatedTitle !== title))
       .subscribe(translatedTitle => {
-        console.log(translatedTitle)
         this.pageTitle = translatedTitle
       });
   }
