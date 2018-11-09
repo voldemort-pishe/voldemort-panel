@@ -6,6 +6,7 @@ import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {CurrencyPipe} from "@angular/common";
 import {UserPlanService} from "@app/core/services/user-plan.service";
 import {Invoice} from "@app/shared/model/invoice.model";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class PlanComponent implements OnInit {
   planList: IPlan[];
 
   constructor(private planService: PlanService,
+              private router: Router,
               private userPlanService: UserPlanService,
               private persianNumberHelper: PersianNumberHelper,
               private currencyPipe: CurrencyPipe) {
@@ -62,7 +64,7 @@ export class PlanComponent implements OnInit {
   }
 
   private onUserPlanSuccess(data: Invoice){
-    console.log(data);
+    this.router.navigate(['/invoice/',data.id]);
   }
 
   private onError(errorMessage: string) {

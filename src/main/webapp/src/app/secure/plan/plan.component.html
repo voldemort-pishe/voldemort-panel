@@ -13,8 +13,8 @@
             <mat-card class="plan-card">
               <mat-card-header>
                 <mat-card-title>{{planItem.title}}</mat-card-title>
-                <mat-card-subtitle>{{packagePriceToHuman(planItem.amount)}} ریال</mat-card-subtitle>
-                <mat-card-subtitle>{{packageLengthToHuman(planItem.length)}}</mat-card-subtitle>
+                <mat-card-subtitle>{{planItem.amount | riyalCurrency}}</mat-card-subtitle>
+                <mat-card-subtitle>{{planItem.length | riyalCurrency}}</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
                 <div class="plan-list" [innerHTML]="planItem.description"></div>
