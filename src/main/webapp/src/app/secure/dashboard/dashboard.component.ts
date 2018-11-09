@@ -7,6 +7,8 @@ import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import {CandidateScheduleService} from "@app/core";
 import {CandidateSchedule, ContentSchedule} from "@app/shared/model/candidate-schedule.model";
 import {DateRange} from "@app/shared/model/date-range.model";
+import {Event} from "@app/shared/model/event.model";
+import {EventService} from "@app/core/services/event.service";
 
 
 export interface PeriodicElement {
@@ -32,16 +34,18 @@ export class DashboardComponent implements OnInit {
   greetingText: string;
   todayDateDay: string;
   todayDateMonth: string;
-  displayedColumns: string[] = ['action','name', 'description',];
+  displayedColumns: string[] = ['action','title', 'description',];
   dataSource = ELEMENT_DATA;
   contentSchedule: ContentSchedule[];
   jCountOfTodaySchedule: string;
   countOfTodaySchedule: number;
   userFirstName: string;
+  eventResult: Event[];
 
   constructor(private persianNumberHelper: PersianNumberHelper,
               private principal: Principal,
-              private candidateScheduleService: CandidateScheduleService) { }
+              private candidateScheduleService: CandidateScheduleService,
+              private eventService: EventService) { }
 
   ngOnInit() {
     this.greetingText = DashboardComponent
@@ -71,6 +75,14 @@ export class DashboardComponent implements OnInit {
         (res: HttpResponse<CandidateSchedule>) => this.onSuccessCandidateSchedule(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+
+    this.eventService
+      .loadAllByOwner()
+      .subscribe(
+        (res: HttpResponse<Event[]>) => this.onSuccessEvent(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+
   }
 
   showDetail(){
@@ -93,6 +105,12 @@ export class DashboardComponent implements OnInit {
     this.countOfTodaySchedule = data.totalElements;
     this.jCountOfTodaySchedule = this.persianNumberHelper.toPersianNumber(data.totalElements);
   }
+
+  private onSuccessEvent(data: Event[]){
+    this.eventResult = data;
+  }
+
+
 
   private onError(errorMessage: string) {
     console.log(errorMessage);
