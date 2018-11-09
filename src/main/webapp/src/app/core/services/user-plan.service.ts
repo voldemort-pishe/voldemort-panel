@@ -15,8 +15,11 @@ export class UserPlanService {
   constructor(private http: HttpClient) {}
 
   saveUserPlan(planId: number): Observable<EntityArrayResponseType> {
-    return this.http.get<Invoice>(`${this.resourceUrl}/${planId}`, { observe: 'response' });
+    return this.http.post<Invoice>(`${this.resourceUrl}/${planId}`,null, { observe: 'response' });
   }
 
+  getUserPlan(planId: number): Observable<EntityArrayResponseType> {
+    return this.http.get<Invoice>(`${this.resourceUrl}/${planId}`, { observe: 'response' });
+  }
 
 }
