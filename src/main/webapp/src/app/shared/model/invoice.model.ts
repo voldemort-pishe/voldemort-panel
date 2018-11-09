@@ -1,19 +1,11 @@
 import {Moment} from "moment";
 import {InvoiceItem} from "@app/shared/model/invoice-item.model";
+import {PaymentType} from "@app/shared/model/enumeration/payment-type.model";
+import {InvoiceStatusList} from "@app/shared/model/enumeration/invoice-status.model";
 
-enum PaymentType {
-  PASARGARD = "پاسارگارد",
-  SAMAN = "سامان",
-  ZARINPAL = "زرین پال",
-}
-
-enum InvoiceStatus {
-  SUCCESS,
-  FAILED,
-  INITIALIZED
-}
 
 export class Invoice {
+  id: number;
   paymentType: PaymentType;
   paymentDate: Moment;
   amount: number;
@@ -22,7 +14,7 @@ export class Invoice {
   total: number;
   trackingCode: string;
   referenceId: string;
-  status: InvoiceStatus;
+  status: InvoiceStatusList;
   invoiceItem: InvoiceItem[];
   userId: number;
 }

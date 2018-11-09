@@ -1,0 +1,30 @@
+.page{
+  margin: 19px 0 0;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+
+  table{
+    width: 100%;
+
+    th, td{
+      text-align: center;
+    }
+
+  }
+
+  .invoice-total{
+    margin: 50px 0 0;
+  }
+
+  .invoice-action{
+    margin: 20px;
+
+    button{
+      width: 100%;
+    }
+
+  }
+
+}
+

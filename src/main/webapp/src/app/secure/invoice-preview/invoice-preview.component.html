@@ -1,0 +1,119 @@
+<div class="container-fluid">
+
+<div class="page">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-md-4 col-p-4"></div>
+        <div class="col-md-4 col-p-4">
+          <div class="text-center b-r-b-rad-30 b-l-b-rad-30 pa15 ">
+            <div class="fs18">صورتحساب فروش کالا و خدمات</div>
+            <div class="mt-2">
+              <span>وضعیت: </span>
+              <span>{{getInvoiceStatus(invoiceDetails?.status)}}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="invoiceDetails?.status != 'INITIALIZED'" class="col-md-4 col-p-4">
+          <div>
+            <span>کد رهگیری درگاه:</span>
+            <span></span>
+          </div>
+          <div class="mt-2">
+            <span>شماره فاکتور: </span>
+            <span></span>
+          </div>
+          <div class="mt-2">
+            <span>تاریخ فاکتور: </span>
+            <span></span>
+          </div>
+          <div class="mt-2">
+            <span>تاریخ پرداخت: </span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table mat-table [dataSource]="invoiceDetails?.invoiceItem">
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef> ردیف </th>
+              <td mat-cell *matCellDef="let element; let i = index;"> {{i+1 | persianNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef> نام سرویس </th>
+              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+              <td mat-cell *matCellDef="let element"> {{element.price | riyalCurrency}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef> مبلغ کل </th>
+              <td mat-cell *matCellDef="let element"> {{element.total | riyalCurrency}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="row invoice-total">
+        <div class="col-sm-12">
+
+          <table mat-table [dataSource]="invoice">
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+              <td mat-cell *matCellDef="let element"> {{element.amount | riyalCurrency}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="discount">
+              <th mat-header-cell *matHeaderCellDef> تخفیف </th>
+              <td mat-cell *matCellDef="let element"> {{element.discount | persianNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tax">
+              <th mat-header-cell *matHeaderCellDef> مالیات </th>
+              <td mat-cell *matCellDef="let element"> {{element.tax | riyalCurrency}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef> مبلغ کل </th>
+              <td mat-cell *matCellDef="let element"> {{element.total | riyalCurrency}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="invoiceDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: invoiceDisplayedColumns;"></tr>
+
+          </table>
+
+        </div>
+      </div>
+
+      <div class="row invoice-action">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" (click)="pay(planItem.id)">
+            <mat-icon>payment</mat-icon>
+            پرداخت
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button mat-raised-button (click)="showInvoice(planItem.id)">
+            <mat-icon>cancel</mat-icon>
+            انصراف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
