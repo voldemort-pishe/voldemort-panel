@@ -26,7 +26,6 @@ export class SecureComponent implements OnInit, OnDestroy {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private media: MediaMatcher,
-              private title: Title,
               private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
@@ -45,9 +44,10 @@ export class SecureComponent implements OnInit, OnDestroy {
     this.translate
       .get(title)
       .pipe(filter(translatedTitle => translatedTitle !== title))
-      .subscribe(translatedTitle =>
+      .subscribe(translatedTitle => {
+        console.log(translatedTitle)
         this.pageTitle = translatedTitle
-      );
+      });
   }
 
   ngOnDestroy(): void {

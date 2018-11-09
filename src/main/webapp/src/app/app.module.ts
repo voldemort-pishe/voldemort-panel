@@ -63,6 +63,7 @@ import {SubscriptionExpiredInterceptor} from "@app/blocks/interceptor/subscripti
 import {CurrencyPipe} from '@angular/common';
 import {RiyalCurrencyPipe} from "@app/shared/pipe/riyal-currency.pipe";
 import {PersianNumberPipePipe} from "@app/shared/pipe/persian-number.pipe";
+import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
 
 
 @NgModule({
@@ -122,6 +123,7 @@ import {PersianNumberPipePipe} from "@app/shared/pipe/persian-number.pipe";
     AppComponent,
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
+    JalaliPipe,
     PublicComponent,
     SecureComponent,
     LoginComponent,

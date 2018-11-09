@@ -6,6 +6,8 @@ import {HttpResponse, HttpErrorResponse} from "@angular/common/http";
 import {InvoiceStatusList} from "@app/shared/model/enumeration/invoice-status.model";
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {CurrencyPipe} from "@angular/common";
+import {PaymentService} from "@app/core/services/payment.service";
+import {Payment} from "@app/shared/model/payment.model";
 
 
 @Component({
@@ -19,12 +21,12 @@ export class InvoicePreviewComponent implements OnInit {
   invoiceDisplayedColumns: string[] = ['amount', 'discount', 'tax', 'total'];
   invoiceDetails: Invoice;
   invoice: any;
+  invoiceId: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userPlanService: UserPlanService,
-              private persianNumberHelper: PersianNumberHelper,
-              private currencyPipe: CurrencyPipe) {
+              private paymentService: PaymentService) {
 
 
   }
@@ -33,8 +35,9 @@ export class InvoicePreviewComponent implements OnInit {
 
     this.route.params
       .subscribe( params => {
+        this.invoiceId = params.invoiceId;
         this.userPlanService
-          .getUserPlan(params.invoiceId)
+          .getUserPlan(this.invoiceId)
           .subscribe(
             (res: HttpResponse<Invoice>) => this.onUserPlanSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -48,10 +51,17 @@ export class InvoicePreviewComponent implements OnInit {
     return InvoiceStatusList[status];
   }
 
-  invoicePriceToHuman(data){
-    return this.persianNumberHelper.toPersianNumber(
-      this.currencyPipe.transform(data," "," ","0.0-0")
-    );
+  doPayment(){
+    this.paymentService
+      .createPaymentUrl(this.invoiceId)
+      .subscribe(
+        (res: HttpResponse<Payment>) => this.onCreatePaymentSuccess(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      )
+  }
+
+  goBackToPanel(){
+    this.router.navigate(['/plan']);
   }
 
   private onUserPlanSuccess(data: Invoice){
@@ -59,6 +69,10 @@ export class InvoicePreviewComponent implements OnInit {
     this.invoice = [
       data
     ];
+  }
+
+  private onCreatePaymentSuccess(data: Payment){
+    window.location.href = data.paymentUrl;
   }
 
   private onError(errorMessage: string) {

@@ -17,20 +17,16 @@
         </div>
         <div *ngIf="invoiceDetails?.status != 'INITIALIZED'" class="col-md-4 invoice-info">
           <div>
-            <span>کد رهگیری درگاه:</span>
-            <span></span>
+            <span>کد رهگیری درگاه : </span>
+            <span>{{invoiceDetails?.trackingCode | persianNumber}}</span>
           </div>
           <div class="mt-2">
-            <span>شماره فاکتور: </span>
-            <span></span>
+            <span>شماره فاکتور : </span>
+            <span>{{invoiceDetails?.id | persianNumber}}</span>
           </div>
           <div class="mt-2">
-            <span>تاریخ فاکتور: </span>
-            <span></span>
-          </div>
-          <div class="mt-2">
-            <span>تاریخ پرداخت: </span>
-            <span></span>
+            <span>تاریخ پرداخت : </span>
+            <span>{{invoiceDetails?.paymentDate | jalali}}</span>
           </div>
         </div>
       </div>
@@ -97,15 +93,15 @@
         </div>
       </div>
 
-      <div class="row invoice-action">
+      <div *ngIf="invoiceDetails?.status != 'SUCCESS'" class="row invoice-action">
         <div class="col-md-6">
-          <button mat-raised-button color="primary" (click)="pay(planItem.id)">
+          <button mat-raised-button color="primary" (click)="doPayment()">
             <mat-icon>payment</mat-icon>
             پرداخت
           </button>
         </div>
         <div class="col-md-6">
-          <button mat-raised-button (click)="showInvoice(planItem.id)">
+          <button mat-raised-button (click)="goBackToPanel()">
             <mat-icon>cancel</mat-icon>
             انصراف
           </button>
