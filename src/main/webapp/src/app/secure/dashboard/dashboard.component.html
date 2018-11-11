@@ -95,9 +95,9 @@
                 <span>۲</span>
               </a>
 
-              <mat-divider></mat-divider>
+              <mat-divider class="d-none"></mat-divider>
 
-              <a mat-list-item href="...">
+              <a class="d-none" mat-list-item href="...">
                 <mat-icon mat-list-icon>settings</mat-icon>
                 <h4 mat-line>تنظیمات</h4>
                 <span>۲</span>
@@ -127,15 +127,15 @@
 
               <ng-container matColumnDef="title">
                 <td mat-cell *matCellDef="let element">
-                  <div class="name">{{element.title}}</div>
-                  <small>{{element.createdDate | jalali}}</small>
+                  <div class="name">{{element.data.title}}</div>
+                  <small>{{element.data.createdDate | jalali}}</small>
                 </td>
               </ng-container>
 
               <ng-container matColumnDef="description">
                 <td mat-cell *matCellDef="let element">
-                  <div class="description with-icon"><mat-icon>{{element.type.toLowerCase()}}</mat-icon>  {{element.description}}</div>
-                  <span class="position">مدیر اجرایی</span>
+                  <div class="description with-icon"><mat-icon>{{element.data.type | lowercase}}</mat-icon>  {{(element.data.description.length>40)? (element.data.description | slice:0:40)+'..':(element.data.description)}}</div>
+                  <span class="position">{{element.include.user.firstName}} {{element.include.user.lastName}}</span>
                 </td>
               </ng-container>
 

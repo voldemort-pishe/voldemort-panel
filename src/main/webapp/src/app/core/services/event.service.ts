@@ -3,10 +3,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
-import {Event} from "@app/shared/model/event.model";
+import {IEvent} from "@app/shared/model/event.model";
 
 
-type EntityArrayResponseType = HttpResponse<Event[]>;
+type EntityArrayResponseType = HttpResponse<IEvent[]>;
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -16,7 +16,7 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   loadAllByOwner(): Observable<EntityArrayResponseType> {
-    return this.http.get<Event[]>(`${this.resourceUrl}`, { observe: 'response' });
+    return this.http.get<IEvent[]>(`${this.resourceUrl}`, { observe: 'response' });
   }
 
 

@@ -7,21 +7,8 @@ import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import {CandidateScheduleService} from "@app/core";
 import {CandidateSchedule, ContentSchedule} from "@app/shared/model/candidate-schedule.model";
 import {DateRange} from "@app/shared/model/date-range.model";
-import {Event} from "@app/shared/model/event.model";
+import {IEvent} from "@app/shared/model/event.model";
 import {EventService} from "@app/core/services/event.service";
-
-
-export interface PeriodicElement {
-  name: string;
-  description: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'حامد محمودی', description: 'ایمیل از حامد محمودی'},
-  {name: 'امیر عزیمی', description: 'یک رویداد زمانبندی شده'},
-  {name: 'امیر عزیمی', description: 'یادآوری'},
-  {name: 'امیر عزیمی', description: 'یادآوری'}
-];
 
 
 @Component({
@@ -35,12 +22,11 @@ export class DashboardComponent implements OnInit {
   todayDateDay: string;
   todayDateMonth: string;
   displayedColumns: string[] = ['action','title', 'description',];
-  dataSource = ELEMENT_DATA;
   contentSchedule: ContentSchedule[];
   jCountOfTodaySchedule: string;
   countOfTodaySchedule: number;
   userFirstName: string;
-  eventResult: Event[];
+  eventResult: IEvent[];
 
   constructor(private persianNumberHelper: PersianNumberHelper,
               private principal: Principal,
@@ -79,7 +65,7 @@ export class DashboardComponent implements OnInit {
     this.eventService
       .loadAllByOwner()
       .subscribe(
-        (res: HttpResponse<Event[]>) => this.onSuccessEvent(res.body),
+        (res: HttpResponse<IEvent[]>) => this.onSuccessEvent(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
 
@@ -106,7 +92,7 @@ export class DashboardComponent implements OnInit {
     this.jCountOfTodaySchedule = this.persianNumberHelper.toPersianNumber(data.totalElements);
   }
 
-  private onSuccessEvent(data: Event[]){
+  private onSuccessEvent(data: IEvent[]){
     this.eventResult = data;
   }
 
