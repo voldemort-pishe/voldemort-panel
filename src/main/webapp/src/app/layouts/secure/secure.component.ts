@@ -33,10 +33,26 @@ export class SecureComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+
+    router.events.subscribe((val) => {
+      this.pageTitleChanger();
+    });
+
   }
 
-  //TODO : page title has bug when route change
-  ngOnInit() {
+  ngOnInit() {}
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  logout(){
+    this.loginService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  private pageTitleChanger(){
     let lastChild = this.route.snapshot;
     while (lastChild.children.length) {
       lastChild = lastChild.children[0];
@@ -48,15 +64,6 @@ export class SecureComponent implements OnInit, OnDestroy {
       .subscribe(translatedTitle => {
         this.pageTitle = translatedTitle
       });
-  }
-
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
-
-  logout(){
-    this.loginService.logout();
-    this.router.navigate(['/login']);
   }
 
 
