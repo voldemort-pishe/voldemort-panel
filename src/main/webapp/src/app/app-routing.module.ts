@@ -6,7 +6,7 @@ import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/pub
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure/dashboard';
 import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
-import {InvoicePreviewComponent, PlanComponent} from "@app/secure";
+import {CandidateComponent, InvoicePreviewComponent, PlanComponent} from "@app/secure";
 
 
 const routes: Routes = [
@@ -68,11 +68,12 @@ const routes: Routes = [
         component: InvoicePreviewComponent,
         data: { title: 'anms.invoice' }
       },
+      {
+        path: 'candidate',
+        component: CandidateComponent,
+        data: { title: 'anms.candidate' }
+      },
     ]
-  },
-  {
-    path: 'examples',
-    loadChildren: 'app/examples/examples.module#ExamplesModule'
   },
   {
     path: '**',

@@ -51,6 +51,7 @@ import { AppComponent } from './app.component';
 import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {
+  CandidateComponent,
   DashboardComponent,
   InvoicePreviewComponent,
   PlanComponent
@@ -132,6 +133,7 @@ import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
     DashboardComponent,
     PlanComponent,
     InvoicePreviewComponent,
+    CandidateComponent,
   ],
   providers: [
     {
