@@ -1,37 +1,20 @@
-import {CandidateState} from "@app/shared/model/enumeration/candidate-state.model";
-import {CandidateType} from "@app/shared/model/enumeration/candidate-type.model";
 import {Pageable} from "@app/shared/model/pageable.model";
-import {ICandidateSchedule} from "@app/shared/model/candidate-schedule.model";
-import {Owner} from "@app/shared/model/owner.model";
-import {Job} from "@app/shared/model/job.model";
 import {CompanyPipeline} from "@app/shared/model/company-pipeline.model";
-
-export class ICandidate {
-  id: number;
-  firstName: string;
-  lastName: string;
-  cellphone: string;
-  email: string;
-  state: CandidateState;
-  type: CandidateType;
-  candidatePipeline: number;
-}
+import {Company} from "@app/shared/model/company.model";
 
 
 export class Include {
-  pipeline:CompanyPipeline;
-  job: Job;
-  candidate:Candidate;
+  company: Company;
 }
 
-export class ContentCandidate {
-  data:ICandidate;
+export class ContentCompanyPipeline {
+  data:CompanyPipeline;
   include:Include;
 }
 
-export class Candidate implements Pageable{
+export class CompanyPipelineVm  implements Pageable{
 
-  constructor(public content: ContentCandidate[],
+  constructor(public content: ContentCompanyPipeline[],
               public first: boolean,
               public last: boolean,
               public number: number,
