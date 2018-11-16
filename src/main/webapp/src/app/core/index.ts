@@ -12,3 +12,5 @@ export * from './services/accountuser.service';
 export * from './services/candidate-schedule.service';
 export * from './services/plan.service';
 export * from './services/user-plan.service';
+export * from './services/candidate.service';
+export * from  './services/company-pipeline.service';
