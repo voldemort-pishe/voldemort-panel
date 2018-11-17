@@ -6,7 +6,6 @@ import {MatTableDataSource} from "@angular/material";
 import {SelectionModel} from "@angular/cdk/collections";
 import {CompanyPipelineService} from "@app/core/services/company-pipeline.service";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
-import {CompanyPipeline} from "@app/shared/model/company-pipeline.model";
 
 
 @Component({
@@ -22,16 +21,19 @@ export class CandidateComponent implements OnInit {
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
 
-  displayedColumns: string[] = ['select', 'candidate', 'owner', 'createdDate', 'jobPosition', 'companyPipeline'];
+  displayedColumns: string[] = ['select', 'candidate', 'owner', 'createdDate', 'jobPosition', 'companyPipeline', 'action'];
   dataSource;
   dataSourceRaw;
   selection = new SelectionModel<ContentCandidate>(true, []);
   companyPipeline;
   selectedFilter: string = 'ALL';
+  showClearFilter: boolean = false;
+  searchKeyword = null;
+  searchJobPosition = null;
+  searchPipeline = null;
 
   constructor(private candidateService: CandidateService,
               private companyPipelineService: CompanyPipelineService) {
-
   }
 
   ngOnInit() {
@@ -55,18 +57,9 @@ export class CandidateComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  loadByFilter(state: string){
-    this.isLoading = true;
-    this.selectedFilter = state;
-    this.candidateService
-      .search('state=' + state)
-      .subscribe(
-        (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      )
+      this.dataSource.data.forEach(row => {
+        this.selection.select(row)
+      });
   }
 
   loadAll(){
@@ -78,6 +71,70 @@ export class CandidateComponent implements OnInit {
         (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       )
+  }
+
+
+  applyFilterByState(state: string){
+    this.isLoading = true;
+    this.selectedFilter = state;
+    this.candidateService
+      .search('state=' + state)
+      .subscribe(
+        (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      )
+  }
+
+
+  applyFilterBySearch(search: string){
+    this.showClearFilter = true;
+    if(search.length >= 3) {
+      this.isLoading = true;
+      this.candidateService
+        .search('search=' + search)
+        .subscribe(
+          (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+  }
+
+  applyFilterByPipeline(pipeline: string){
+    this.isLoading = true;
+    this.showClearFilter = true;
+    if(pipeline != 'ALL') {
+      this.candidateService
+        .search('pipeline=' + pipeline)
+        .subscribe(
+          (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        )
+    }else{
+      this.loadAll();
+    }
+  }
+
+  applyFilterByJobPosition(job: string){
+    this.isLoading = true;
+    this.showClearFilter = true;
+    if(job != 'ALL') {
+      this.candidateService
+        .search('job=' + job)
+        .subscribe(
+          (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        )
+    }else{
+      this.loadAll();
+    }
+  }
+
+  clearFilter(){
+    this.showClearFilter = false;
+    this.searchKeyword = null;
+    this.searchJobPosition = null;
+    this.searchPipeline = null;
+    this.loadAll();
   }
 
 

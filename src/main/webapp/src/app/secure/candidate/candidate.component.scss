@@ -45,6 +45,16 @@
 
   .label{
     margin: 0 0 0 20px;
+    .mat-icon{
+      vertical-align: middle;
+    }
+  }
+
+  .selection-count{
+    font-size: 14px;
+    margin: 0 0 0 16px;
+    vertical-align: middle;
+    color: #9c9696;
   }
 
   .mat-form-field{
