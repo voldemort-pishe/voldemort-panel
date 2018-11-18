@@ -6,7 +6,7 @@ import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/pub
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure/dashboard';
 import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
-import {CandidateComponent, InvoicePreviewComponent, PlanComponent} from "@app/secure";
+import {CandidateComponent, CandidatePageComponent, InvoicePreviewComponent, PlanComponent} from "@app/secure";
 
 
 const routes: Routes = [
@@ -71,6 +71,11 @@ const routes: Routes = [
       {
         path: 'candidate',
         component: CandidateComponent,
+        data: { title: 'anms.candidate' }
+      },
+      {
+        path: 'candidate/:candidateId',
+        component: CandidatePageComponent,
         data: { title: 'anms.candidate' }
       },
     ]

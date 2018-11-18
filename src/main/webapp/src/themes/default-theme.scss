@@ -62,3 +62,14 @@ body .default-theme mat-sidenav-container mat-sidenav .mat-list-item.active{
 body .default-theme .mat-toolbar.mat-primary {
   background: #383579;
 }
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

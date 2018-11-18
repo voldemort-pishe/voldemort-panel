@@ -21,7 +21,7 @@ export class CandidateComponent implements OnInit {
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
 
-  displayedColumns: string[] = ['select', 'candidate', 'owner', 'createdDate', 'jobPosition', 'companyPipeline', 'action'];
+  displayedColumns: string[] = ['select', 'candidate', 'owner', 'createdDate', 'jobPosition', 'companyPipeline'];
   dataSource;
   dataSourceRaw;
   selection = new SelectionModel<ContentCandidate>(true, []);

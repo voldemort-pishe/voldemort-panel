@@ -90,7 +90,9 @@
 
                   <ng-container matColumnDef="candidate">
                     <th mat-header-cell *matHeaderCellDef> کارجو </th>
-                    <td mat-cell *matCellDef="let element"> {{element.data.firstName}}  {{element.data.lastName}}</td>
+                    <td mat-cell *matCellDef="let element">
+                      <a href="...">{{element.data.firstName}}  {{element.data.lastName}}</a>
+                    </td>
                   </ng-container>
 
                   <ng-container matColumnDef="owner">
@@ -119,13 +121,6 @@
                     </td>
                   </ng-container>
 
-                  <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef> عملیات </th>
-                    <td mat-cell *matCellDef="let element">
-                      <button mat-button color="primary">جزییات</button>
-                    </td>
-                  </ng-container>
-
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;">
                   </tr>
@@ -151,7 +146,6 @@
           <mat-tab label="همه">
             <div class="row no-gutters">
               <div class="col-sm-12">
-                ddd
               </div>
             </div>
           </mat-tab>
