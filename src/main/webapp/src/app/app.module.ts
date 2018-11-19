@@ -51,7 +51,9 @@ import { AppComponent } from './app.component';
 import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {
-  CandidateComponent, CandidatePageComponent,
+  CandidateComponent,
+  CandidatePageComponent,
+  CandidateCreateDialog,
   DashboardComponent,
   InvoicePreviewComponent,
   PlanComponent
@@ -120,6 +122,10 @@ import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
     // app
     AppRoutingModule,
   ],
+  entryComponents: [
+    CandidatePageComponent,
+    CandidateCreateDialog
+  ],
   declarations: [
     AppComponent,
     RiyalCurrencyPipe,
@@ -135,6 +141,7 @@ import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
     InvoicePreviewComponent,
     CandidateComponent,
     CandidatePageComponent,
+    CandidateCreateDialog
   ],
   providers: [
     {

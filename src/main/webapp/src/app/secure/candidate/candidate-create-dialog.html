@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>افزودن کارجو</h2>
+<mat-dialog-content>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="candidate-form-container">
+
+        <div class="create-candidate-form">
+          <form [formGroup]="candidateCreateFormGroup" #candidateCreateForm="ngForm" id="ngForm" (ngSubmit)="save()">
+            <div class="row">
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <input  matInput type="text" placeholder="نام" formControlName="firstName">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="نام خانوادگی" formControlName="lastName">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="وضعیت" formControlName="state">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="تلفن همراه" formControlName="cellphone">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="email" placeholder="پست الکترونیکی" formControlName="email">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="نوع کارجو" formControlName="type">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="مرحله" formControlName="candidatePipeline">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="کارفرما" formControlName="employer">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="موقعیت شغلی" formControlName="jobId">
+                </mat-form-field>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>انصراف</button>
+  <button mat-button cdkFocusInitial  form="ngForm">ایجاد</button>
+</mat-dialog-actions>

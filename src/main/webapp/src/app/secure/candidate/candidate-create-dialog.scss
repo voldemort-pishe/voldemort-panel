@@ -1,0 +1,10 @@
+.candidate-form-container{
+
+  display: flex;
+  flex-direction: column;
+
+  .create-candidate-form form .row [class*="col-"] > * {
+    width: 100%;
+  }
+
+}

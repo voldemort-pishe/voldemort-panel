@@ -1,11 +1,12 @@
-import {Component, HostBinding, OnInit} from "@angular/core";
+import {Component, HostBinding, OnInit, ViewChild, ElementRef} from "@angular/core";
 import {CandidateService} from "@app/core/services/candidate.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Candidate, ContentCandidate} from "@app/shared/model/candidate.model";
-import {MatTableDataSource} from "@angular/material";
+import {MatTableDataSource, MatDialog} from "@angular/material";
 import {SelectionModel} from "@angular/cdk/collections";
 import {CompanyPipelineService} from "@app/core/services/company-pipeline.service";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 
 @Component({
@@ -33,7 +34,8 @@ export class CandidateComponent implements OnInit {
   searchPipeline = null;
 
   constructor(private candidateService: CandidateService,
-              private companyPipelineService: CompanyPipelineService) {
+              private companyPipelineService: CompanyPipelineService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -137,6 +139,14 @@ export class CandidateComponent implements OnInit {
     this.loadAll();
   }
 
+  openCreateCandidateDialog(){
+    const dialogRef = this.dialog.open(CandidateCreateDialog, {width: '600px'});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 
   private onCompanyPipelineSuccess(data: CompanyPipelineVm){
     this.companyPipeline = data.content;
@@ -151,6 +161,37 @@ export class CandidateComponent implements OnInit {
 
   private onError(errorMessage: string) {
     console.log(errorMessage);
+  }
+
+}
+
+@Component({
+  selector: 'candidate-create-dialog',
+  templateUrl: './candidate-create-dialog.html',
+  styleUrls: ['./candidate-create-dialog.scss']
+})
+export class CandidateCreateDialog {
+
+  @ViewChild('candidateCreateForm') candidateCreateForm: ElementRef;
+
+  candidateCreateFormGroup: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.candidateCreateFormGroup = fb.group({
+      firstName: [null,Validators.required],
+      lastName: [null,Validators.required],
+      state: [null,Validators.required],
+      cellphone: [null,Validators.required],
+      email: [null,[Validators.required, Validators.email]],
+      type: [null,Validators.required],
+      candidatePipeline: [null,Validators.required],
+      employer: [null,Validators.required],
+      jobId: [null,Validators.required],
+    });
+  }
+
+  save(){
+
   }
 
 }
