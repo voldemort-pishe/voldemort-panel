@@ -18,6 +18,8 @@ body,
 .mat-list-item,
 .mat-table,
 .mat-tab-group,
+.mat-tooltip,
+.mat-badge-content,
 .mat-simple-snackbar,
 .mat-select, .mat-option,
 .mat-dialog-title,
@@ -73,4 +75,10 @@ body .default-theme .mat-toolbar.mat-primary {
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+body .default-theme .mat-select-panel .mat-optgroup-label,
+body .default-theme .mat-select-panel .mat-option,
+body .default-theme .mat-form-field{
+  font-size: 14px;
 }

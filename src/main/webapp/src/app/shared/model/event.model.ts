@@ -1,6 +1,6 @@
 import {EventType} from "@app/shared/model/enumeration/event-type.model";
 import {EventStatus} from "@app/shared/model/enumeration/event-status.model";
-import {User} from "@app/shared/model/user.model";
+import {UserEvent} from "./user-event.model";
 
 export class Event {
   id: number;
@@ -15,5 +15,5 @@ export class Event {
 
 export class IEvent {
   data: Event;
-  include:User;
+  include:UserEvent;
 }

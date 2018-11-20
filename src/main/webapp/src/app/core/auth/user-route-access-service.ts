@@ -34,7 +34,7 @@ export class UserRouteAccessService implements CanActivate {
                             return true;
                         }
                         if (isDevMode()) {
-                            console.error('User has not any of required authorities: ', authorities);
+                            console.error('UserEvent has not any of required authorities: ', authorities);
                         }
                         return false;
                     });

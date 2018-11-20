@@ -18,12 +18,12 @@ export class CandidateScheduleService {
   constructor(private http: HttpClient) {}
 
   byOwner(): Observable<EntityArrayResponseType> {
-    return this.http.get<CandidateSchedule>(`${this.resourceUrl}/owner`, { observe: 'response' })
+    return this.http.get<CandidateSchedule>(`${this.resourceUrl}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
   byOwnerAndDate(dateRange: DateRange): Observable<EntityArrayResponseType> {
     const copy = this.convertDateFromClient(dateRange);
-    return this.http.post<CandidateSchedule>(`${this.resourceUrl}/owner`, copy, { observe: 'response' })
+    return this.http.post<CandidateSchedule>(`${this.resourceUrl}/time`, copy, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

@@ -1,12 +1,18 @@
-import {Component, HostBinding, OnInit, ViewChild, ElementRef} from "@angular/core";
+import {Component, HostBinding, OnInit, ViewChild, ElementRef, Inject} from "@angular/core";
 import {CandidateService} from "@app/core/services/candidate.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Candidate, ContentCandidate} from "@app/shared/model/candidate.model";
-import {MatTableDataSource, MatDialog} from "@angular/material";
+import {MatTableDataSource, MatDialog, MAT_DIALOG_DATA} from "@angular/material";
 import {SelectionModel} from "@angular/cdk/collections";
 import {CompanyPipelineService} from "@app/core/services/company-pipeline.service";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {CandidateType} from "@app/shared/model/enumeration/candidate-type.model";
+import {CandidateState} from "@app/shared/model/enumeration/candidate-state.model";
+import {UploadService} from "@app/core/services/upload.service";
+import {forkJoin} from "rxjs/internal/observable/forkJoin";
+import {JobService} from "@app/core/services/job.service";
+import {JobVm} from "@app/shared/model/job-vm.model";
 
 
 @Component({
@@ -32,9 +38,11 @@ export class CandidateComponent implements OnInit {
   searchKeyword = null;
   searchJobPosition = null;
   searchPipeline = null;
+  jobList;
 
   constructor(private candidateService: CandidateService,
               private companyPipelineService: CompanyPipelineService,
+              private jobService: JobService,
               public dialog: MatDialog) {
   }
 
@@ -47,6 +55,12 @@ export class CandidateComponent implements OnInit {
         (res: HttpErrorResponse) => this.onError(res.message)
       );
 
+    this.jobService
+      .loadAll()
+      .subscribe(
+        (res: HttpResponse<JobVm>) => this.onJobSuccess(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
 
@@ -140,7 +154,15 @@ export class CandidateComponent implements OnInit {
   }
 
   openCreateCandidateDialog(){
-    const dialogRef = this.dialog.open(CandidateCreateDialog, {width: '600px'});
+    const dialogRef = this.dialog.open(
+      CandidateCreateDialog,
+      {
+        width: '800px',
+        data: {
+          companyPipeline: this.companyPipeline
+        }
+      }
+    );
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -158,6 +180,11 @@ export class CandidateComponent implements OnInit {
     this.dataSource = new MatTableDataSource<ContentCandidate>(data.content);
     this.isLoading = false;
   }
+  private onJobSuccess(data: JobVm){
+    console.log(data);
+    this.jobList = data;
+  }
+
 
   private onError(errorMessage: string) {
     console.log(errorMessage);
@@ -170,13 +197,27 @@ export class CandidateComponent implements OnInit {
   templateUrl: './candidate-create-dialog.html',
   styleUrls: ['./candidate-create-dialog.scss']
 })
-export class CandidateCreateDialog {
+export class CandidateCreateDialog implements OnInit{
 
   @ViewChild('candidateCreateForm') candidateCreateForm: ElementRef;
+  @ViewChild('file') file;
 
   candidateCreateFormGroup: FormGroup;
+  candidateType: object;
+  candidateState: object;
+  files: Set<File> = new Set();
+  progress;
+  canBeClosed = true;
+  primaryButtonText = 'Upload';
+  showCancelButton = true;
+  uploading = false;
+  uploadSuccessful = false;
 
-  constructor(private fb: FormBuilder) {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private fb: FormBuilder,
+              private uploadService: UploadService) {
+
     this.candidateCreateFormGroup = fb.group({
       firstName: [null,Validators.required],
       lastName: [null,Validators.required],
@@ -188,7 +229,59 @@ export class CandidateCreateDialog {
       employer: [null,Validators.required],
       jobId: [null,Validators.required],
     });
+
   }
+
+  ngOnInit() {
+    this.candidateType = Object.keys(CandidateType)
+      .map( c => ({
+        key: c,
+        value : CandidateType[c]
+      }));
+
+    this.candidateState = Object.keys(CandidateState)
+      .map( c => ({
+        key: c,
+        value : CandidateState[c]
+      }));
+
+  }
+
+  addFiles() {
+    this.file.nativeElement.click();
+    return false;
+  }
+
+  onFilesAdded() {
+    const files: { [key: string]: File } = this.file.nativeElement.files;
+    for (let key in files) {
+      if (!isNaN(parseInt(key))) {
+        this.files.add(files[key]);
+      }
+    }
+
+    this.uploading = true;
+    this.progress = this.uploadService.upload(this.files);
+    let allProgressObservables = [];
+    for (let key in this.progress) {
+      allProgressObservables.push(this.progress[key].progress);
+    }
+
+
+    forkJoin(allProgressObservables).subscribe(end => {
+      // ... the dialog can be closed again...
+      this.canBeClosed = true;
+
+      // ... the upload was successful...
+      this.uploadSuccessful = true;
+
+      // ... and the component is no longer uploading
+      this.uploading = false;
+    });
+
+
+  }
+
 
   save(){
 

@@ -1,7 +1,10 @@
+import {UserAuthority} from "@app/shared/model/user-authority.model";
+
 export class User {
-  id: number;
-  email: string;
-  fileId: number;
+  login: string;
   firstName: string;
   lastName: string;
+  email: string;
+  userAuthorities: Set<UserAuthority>;
+  fileId: number;
 }

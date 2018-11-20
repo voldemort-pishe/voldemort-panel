@@ -15,7 +15,7 @@ export class CompanyPipelineService {
   constructor(private http: HttpClient) {}
 
   loadAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<CompanyPipelineVm>(`${this.resourceUrl}/company`, { observe: 'response' });
+    return this.http.get<CompanyPipelineVm>(`${this.resourceUrl}`, { observe: 'response' });
   }
 
 

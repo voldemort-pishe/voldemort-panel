@@ -1,5 +1,6 @@
 import {LanguageType} from "@app/shared/model/enumeration/language-type.model";
 import {JobType} from "@app/shared/model/enumeration/job-type.model";
+import {JobStatus} from "@app/shared/model/enumeration/job-status.model";
 
 export class Job{
   uniqueId: string;
@@ -14,4 +15,5 @@ export class Job{
   hiredManagerId: number;
   hiredExpertId: number;
   companyId: number;
+  status: JobStatus;
 }

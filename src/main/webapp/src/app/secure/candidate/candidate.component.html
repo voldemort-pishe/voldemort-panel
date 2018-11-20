@@ -53,7 +53,7 @@
                                 [(ngModel)]="searchJobPosition"
                                 (selectionChange)="applyFilterByJobPosition($event.value)">
                       <mat-option value="ALL">انتخاب کنید</mat-option>
-                      <mat-option *ngFor="let items of dataSourceRaw?.content" value="{{items.include.job.id}}">{{items.include.job.nameFa}}</mat-option>
+                      <mat-option *ngFor="let items of jobList?.content" value="{{items.data.id}}">{{items.data.nameFa}}</mat-option>
                     </mat-select>
                   </mat-form-field>
 

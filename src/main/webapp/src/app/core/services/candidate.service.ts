@@ -15,11 +15,11 @@ export class CandidateService {
   constructor(private http: HttpClient) {}
 
   loadAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<Candidate>(`${this.resourceUrl}/company`, { observe: 'response' });
+    return this.http.get<Candidate>(`${this.resourceUrl}`, { observe: 'response' });
   }
 
   search(param: string): Observable<EntityArrayResponseType> {
-    return this.http.get<Candidate>(`${this.resourceUrl}/company?${param}`, { observe: 'response' });
+    return this.http.get<Candidate>(`${this.resourceUrl}?${param}`, { observe: 'response' });
   }
 
 
