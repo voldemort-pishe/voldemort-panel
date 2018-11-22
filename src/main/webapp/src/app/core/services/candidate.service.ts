@@ -3,9 +3,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
-import {Candidate} from "@app/shared/model/candidate.model";
+import {Candidate, ContentCandidate, ICandidate} from "@app/shared/model/candidate.model";
 
 type EntityArrayResponseType = HttpResponse<Candidate>;
+type EntityUpdateResponseType = HttpResponse<ContentCandidate>;
 
 @Injectable({ providedIn: 'root' })
 export class CandidateService {
@@ -14,12 +15,20 @@ export class CandidateService {
 
   constructor(private http: HttpClient) {}
 
-  loadAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<Candidate>(`${this.resourceUrl}`, { observe: 'response' });
+  create(candidate: ICandidate): Observable<EntityArrayResponseType> {
+    return this.http.post<Candidate>(`${this.resourceUrl}`, candidate, { observe: 'response' });
   }
 
-  search(param: string): Observable<EntityArrayResponseType> {
-    return this.http.get<Candidate>(`${this.resourceUrl}?${param}`, { observe: 'response' });
+  update(candidate: ICandidate): Observable<EntityUpdateResponseType> {
+    return this.http.put<ContentCandidate>(`${this.resourceUrl}`, candidate, { observe: 'response' });
+  }
+
+  loadAll(sort?: string, page?: number, size?: number): Observable<EntityArrayResponseType> {
+    return this.http.get<Candidate>(`${this.resourceUrl}?sort=${sort}&page=${page}&size=${size}`, { observe: 'response' });
+  }
+
+  search(param: string, sort?: string): Observable<EntityArrayResponseType> {
+    return this.http.get<Candidate>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
   }
 
 

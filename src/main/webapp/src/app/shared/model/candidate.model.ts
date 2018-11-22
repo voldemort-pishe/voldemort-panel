@@ -15,8 +15,10 @@ export class ICandidate {
   state: CandidateState;
   type: CandidateType;
   candidatePipeline: number;
-}
+  fileId?: number;
+  jobId?: number;
 
+}
 
 export class Include {
   pipeline:CompanyPipeline;

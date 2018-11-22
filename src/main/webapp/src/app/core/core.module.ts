@@ -22,6 +22,8 @@ import { CustomSerializer } from './router/custom-serializer';
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {StateStorageService} from "@app/core/auth/state-storage.service";
 import {SessionStorageService , LocalStorageService} from 'ngx-webstorage';
+import {MatPaginatorIntlPer} from "@app/core/intl/matPaginatorIntlPer";
+import {MatPaginatorIntl} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -57,6 +59,7 @@ import {SessionStorageService , LocalStorageService} from 'ngx-webstorage';
     AnimationsService,
     TitleService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPer},
     PersianNumberHelper
   ],
   exports: [TranslateModule]

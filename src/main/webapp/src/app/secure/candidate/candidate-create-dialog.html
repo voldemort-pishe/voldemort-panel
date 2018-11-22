@@ -21,7 +21,7 @@
                 <mat-form-field>
                   <mat-select placeholder="وضعیت"
                               formControlName="state">
-                    <mat-option value="ALL">انتخاب کنید</mat-option>
+                    <mat-option value="">انتخاب کنید</mat-option>
                     <mat-option *ngFor="let state of candidateState" value="{{state.key}}">{{state.value}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="candidateCreateFormGroup.get('state')?.errors?.required">وضعیت اجباری است</mat-error>
@@ -41,7 +41,7 @@
                 <mat-form-field>
                   <mat-select placeholder="نوع کارجو"
                               formControlName="type">
-                    <mat-option value="ALL">انتخاب کنید</mat-option>
+                    <mat-option value="">انتخاب کنید</mat-option>
                     <mat-option *ngFor="let type of candidateType" value="{{type.key}}">{{type.value}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="candidateCreateFormGroup.get('type')?.errors?.required">نوع کارجو اجباری است</mat-error>
@@ -52,7 +52,7 @@
                 <mat-form-field>
                   <mat-select placeholder="مرحله"
                               formControlName="candidatePipeline">
-                    <mat-option value="ALL">انتخاب کنید</mat-option>
+                    <mat-option value="">انتخاب کنید</mat-option>
                     <mat-option *ngFor="let pipeline of data.companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="candidateCreateFormGroup.get('candidatePipeline')?.errors?.required">مرحله اجباری است</mat-error>
@@ -62,14 +62,17 @@
                   <mat-error *ngIf="candidateCreateFormGroup.get('employer')?.errors?.required">کارفرما اجباری است</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput type="text" placeholder="موقعیت شغلی" formControlName="jobId">
+                  <mat-select formControlName="jobId" placeholder="موقعیت شغلی">
+                    <mat-option value="">انتخاب کنید</mat-option>
+                    <mat-option *ngFor="let items of data.jobList" value="{{items.data.id}}">{{items.data.nameFa}}</mat-option>
+                  </mat-select>
                   <mat-error *ngIf="candidateCreateFormGroup.get('jobId')?.errors?.required">موقعیت شغلی اجباری است</mat-error>
                 </mat-form-field>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <div *ngIf="!uploadSuccessful" class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                <div *ngIf="!uploadSuccessful" class="container">
                   <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
                   <div>
                     <button *ngIf="!uploading" mat-raised-button color="primary" class="add-files-btn" (click)="addFiles()">
