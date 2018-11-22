@@ -6,7 +6,7 @@ import { environment as env } from '@env/environment';
 import {Candidate, ContentCandidate, ICandidate} from "@app/shared/model/candidate.model";
 
 type EntityArrayResponseType = HttpResponse<Candidate>;
-type EntityUpdateResponseType = HttpResponse<ContentCandidate>;
+type EntityResponseType = HttpResponse<ContentCandidate>;
 
 @Injectable({ providedIn: 'root' })
 export class CandidateService {
@@ -19,7 +19,11 @@ export class CandidateService {
     return this.http.post<Candidate>(`${this.resourceUrl}`, candidate, { observe: 'response' });
   }
 
-  update(candidate: ICandidate): Observable<EntityUpdateResponseType> {
+  get(candidateId: number): Observable<EntityResponseType> {
+    return this.http.get<ContentCandidate>(`${this.resourceUrl}/${candidateId}`, { observe: 'response' });
+  }
+
+  update(candidate: ICandidate): Observable<EntityResponseType> {
     return this.http.put<ContentCandidate>(`${this.resourceUrl}`, candidate, { observe: 'response' });
   }
 

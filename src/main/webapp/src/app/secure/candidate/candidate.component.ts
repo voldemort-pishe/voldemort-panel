@@ -24,7 +24,7 @@ export class CandidateComponent implements OnInit {
 
   @HostBinding('@.disabled') disabled = true;
 
-  isLoading;
+  isLoading = true;
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
 
@@ -44,7 +44,7 @@ export class CandidateComponent implements OnInit {
   constructor(private candidateService: CandidateService,
               private companyPipelineService: CompanyPipelineService,
               private jobService: JobService,
-              public dialog: MatDialog,
+              private dialog: MatDialog,
               private snackBar: MatSnackBar) {
   }
 
@@ -93,10 +93,6 @@ export class CandidateComponent implements OnInit {
       pageSize = 5;
     }
 
-    console.log(pageIndex);
-    console.log(pageSize);
-
-    this.isLoading = true;
     this.selectedFilter = 'ALL';
     this.candidateService
       .loadAll(

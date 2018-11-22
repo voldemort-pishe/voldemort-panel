@@ -3,7 +3,22 @@
     <div class="col-sm-12">
       <div class="candidate-header">
         <div class="row no-gutter">
+
           <div class="col-sm-2">
+            <div class="candidate-info">
+              <button mat-icon-button routerLink="/candidate">
+                <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
+              </button>
+              <div class="candidate-text">
+                <h3>{{candidate?.data.firstName}} {{candidate?.data.lastName}}</h3>
+                <span><mat-icon>work</mat-icon> {{candidate?.include.job.nameFa}}</span>
+                <mat-form-field>
+                  <mat-select (selectionChange)="onChangePipeline(candidate, $event)" [(value)]="'' + candidate?.include.pipeline.id">
+                    <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
           </div>
 
           <div class="col-sm-8">

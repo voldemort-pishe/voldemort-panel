@@ -27,7 +27,7 @@
     border: none;
 
     .mat-tab-link{
-      min-width: 143px;
+      min-width: 100px;
       opacity: 1;
     }
     .mat-tab-link:hover{
@@ -49,3 +49,39 @@
 .default-theme .candidate-page .mat-tab-label-active{
   color: #fff;
 }
+
+
+.candidate-info{
+  color: #fff;
+  .candidate-text{
+    margin:0 30px 0 0;
+  }
+  .mat-icon-button{
+    margin: 0 16px 0 0;
+  }
+  h3{
+    font-size: 23px;
+  }
+  span{
+    color: #b5b5b5;
+    .mat-icon{
+      color: #fff;
+      vertical-align: middle;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .mat-select{
+    background: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    .mat-select-value-text span{
+      color: #222222;
+    }
+  }
+  .mat-form-field-appearance-legacy .mat-form-field-underline{
+    background: none;
+  }
+}
+
