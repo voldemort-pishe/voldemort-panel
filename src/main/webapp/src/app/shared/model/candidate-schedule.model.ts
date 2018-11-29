@@ -2,11 +2,15 @@ import { Moment as jMoment } from 'jalali-moment';
 import {Owner} from "@app/shared/model/owner.model";
 import {Candidate} from "@app/shared/model/candidate.model";
 import {Pageable} from "@app/shared/model/pageable.model";
+import {ScheduleStatus} from "@app/shared/model/enumeration/schedule-status.model";
 
 export class ICandidateSchedule {
   id: number;
-  owner: number;
-  scheduleDate: jMoment;
+  startDate: jMoment;
+  endDate: jMoment;
+  location: string;
+  status: ScheduleStatus;
+  description: string;
   candidateId: number;
 }
 

@@ -22,8 +22,8 @@
                 <p>هر زمان برای کاندیدای ثبت نام شده تاریخ مصاحبه تنظیم کنید، آخرین و نزدیک ترین آن مصاحبه را در این قسمت مشاهده خواهید کرد.</p>
               </div>
               <div class="event" *ngFor="let event of contentSchedule">
-                <span class="time"><mat-icon>access_time</mat-icon>{{formatDateToTime(event.data.scheduleDate)}}</span>
-                <span class="date"><mat-icon>calendar_today</mat-icon> {{formatDateToHumanReadable(event.data.scheduleDate)}}</span>
+                <span class="time"><mat-icon>access_time</mat-icon>{{formatDateToTime(event.data.startDate)}}</span>
+                <span class="date"><mat-icon>calendar_today</mat-icon> {{formatDateToHumanReadable(event.data.startDate)}}</span>
                 <span class="with"><mat-icon>person</mat-icon> <small>{{event.include.candidate.firstName}} {{event.include.candidate.lastName}}</small></span>
               </div>
             </div>

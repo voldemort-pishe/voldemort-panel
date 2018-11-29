@@ -19,6 +19,7 @@ export class CandidatePageComponent implements OnInit {
   @HostBinding('@.disabled') disabled = true;
   candidate: ContentCandidate;
   companyPipeline;
+  activeTab: string = 'background';
 
   constructor(private candidateService: CandidateService,
               private companyPipelineService: CompanyPipelineService,
@@ -32,7 +33,7 @@ export class CandidatePageComponent implements OnInit {
         this.candidateService
           .get(params.candidateId)
           .subscribe(
-            (res: HttpResponse<ContentCandidate>) => this.onUserPlanSuccess(res.body),
+            (res: HttpResponse<ContentCandidate>) => this.onCandidateSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           )
       } );
@@ -48,7 +49,7 @@ export class CandidatePageComponent implements OnInit {
       )
   }
 
-  private onUserPlanSuccess(data: ContentCandidate){
+  private onCandidateSuccess(data: ContentCandidate){
     this.candidate = data;
 
     this.companyPipelineService

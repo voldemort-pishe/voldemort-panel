@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private onSuccess(data: CandidateSchedule){
+    console.log(data);
     this.contentSchedule = data.content.slice(0,5);
   }
 

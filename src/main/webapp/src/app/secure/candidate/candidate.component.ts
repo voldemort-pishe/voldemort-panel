@@ -22,8 +22,6 @@ import {JobVm} from "@app/shared/model/job-vm.model";
 })
 export class CandidateComponent implements OnInit {
 
-  @HostBinding('@.disabled') disabled = true;
-
   isLoading = true;
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];

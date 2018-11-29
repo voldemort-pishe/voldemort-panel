@@ -1,54 +1,95 @@
-<div class="candidate-page container-fluid no-gutter">
-  <div class="row no-gutter">
-    <div class="col-sm-12">
-      <div class="candidate-header">
-        <div class="row no-gutter">
+<div class="candidate-page">
 
-          <div class="col-sm-2">
-            <div class="candidate-info">
-              <button mat-icon-button routerLink="/candidate">
-                <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
-              </button>
-              <div class="candidate-text">
-                <h3>{{candidate?.data.firstName}} {{candidate?.data.lastName}}</h3>
-                <span><mat-icon>work</mat-icon> {{candidate?.include.job.nameFa}}</span>
-                <mat-form-field>
-                  <mat-select (selectionChange)="onChangePipeline(candidate, $event)" [(value)]="'' + candidate?.include.pipeline.id">
-                    <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
+  <div class="container-fluid header-container no-gutter">
+    <div class="row no-gutter">
+      <div class="col-sm-12">
+        <div class="candidate-header">
+          <div class="row no-gutter">
+
+            <div class="col-sm-3">
+              <div class="candidate-info">
+                <button mat-icon-button routerLink="/candidate" matTooltip="بازگشت" matTooltipPosition="left">
+                  <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
+                </button>
+                <div class="candidate-text">
+                  <h3>{{candidate?.data.firstName}} {{candidate?.data.lastName}}</h3>
+                  <div class="candidate-job"><mat-icon>work</mat-icon> {{candidate?.include.job.nameFa}}</div>
+                  <mat-form-field>
+                    <mat-select (selectionChange)="onChangePipeline(candidate, $event)" [(value)]="'' + candidate?.include.pipeline.id">
+                      <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-sm-8">
-            <nav mat-tab-nav-bar>
-              <a mat-tab-link [active]="true">پیشینه</a>
-              <a mat-tab-link>فعالیت‌ها</a>
-              <a mat-tab-link>نظرات</a>
-              <a mat-tab-link>جدول زمانی</a>
-              <a mat-tab-link>بازخورد</a>
-              <a mat-tab-link>مستندات</a>
-            </nav>
-          </div>
+            <div class="col-sm-7">
+              <nav mat-tab-nav-bar>
+                <a mat-tab-link (click)="activeTab = 'background'" [active]="activeTab == 'background'">پیشینه</a>
+                <a mat-tab-link (click)="activeTab = 'activity'" [active]="activeTab == 'activity'">فعالیت‌ها</a>
+                <a mat-tab-link (click)="activeTab = 'comments'" [active]="activeTab == 'comments'">نظرات</a>
+                <a mat-tab-link (click)="activeTab = 'schedule'" [active]="activeTab == 'schedule'">جدول زمانی</a>
+                <a mat-tab-link (click)="activeTab = 'feedback'" [active]="activeTab == 'feedback'">بازخورد</a>
+                <a mat-tab-link (click)="activeTab = 'documents'" [active]="activeTab == 'documents'">مستندات</a>
+              </nav>
+            </div>
 
-          <div class="col-sm-2">
+            <div class="col-sm-2">
+              <div class="candidate-page-action">
+                <button mat-icon-button matTooltip="ارسال پست الکترونیکی" matTooltipPosition="right">
+                  <mat-icon aria-label="ارسال پست الکترونیکی">email</mat-icon>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-sm-12">
-      <div class="row no-gutter">
-        <div class="col-sm-2">
+  <div class="container-fluid content-tab">
 
-        </div>
-        <div class="col-sm-1"></div>
+    <div *ngIf="activeTab == 'background'" class="tab">
+      <div class="row">
         <div class="col-sm-8">
+          <mat-card>
+            <h3>خلاصه اطلاعات</h3>
+            <mat-card-content>
+              <mat-list>
+                <mat-list-item><mat-icon>work</mat-icon> موقعیت شغلی جاری</mat-list-item>
+                <mat-list-item><mat-icon>place</mat-icon> آدرس محل کار جاری</mat-list-item>
+                <mat-list-item><mat-icon>home</mat-icon> آدرس محل زندگی</mat-list-item>
+                <mat-list-item><mat-icon>build</mat-icon> Java, Linux, Docker, Typescript</mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
         </div>
-        <div class="col-sm-1"></div>
+
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="contact">
+                <h3>اطلاعات تماس</h3>
+                <mat-list>
+                  <mat-list-item><mat-icon>email</mat-icon> {{candidate?.data.email}}</mat-list-item>
+                  <mat-list-item><mat-icon>phone</mat-icon> {{candidate?.data.cellphone | persianNumber}}</mat-list-item>
+                  <mat-list-item><mat-icon>link</mat-icon> اضافه کردن وب‌سایت</mat-list-item>
+                  <mat-list-item *ngIf="!candidate?.include.file"><mat-icon>description</mat-icon>  اضافه کردن رزومه</mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+            <div class="col-sm-12 private-col">
+              <div class="private-note">
+                <h3>یاداشت مخفی</h3>
+                <p>می‌توانید یاداشتی مخفی از کاندیدا در این قسمت اضافه کنید</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
   </div>
+
 </div>

@@ -29,7 +29,8 @@ export class CandidateScheduleService {
 
   private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     res.body.content.forEach((candidateSchedule: ContentSchedule) => {
-      candidateSchedule.data.scheduleDate = candidateSchedule.data.scheduleDate  != null ? jmoment(candidateSchedule.data.scheduleDate ) : null;
+      candidateSchedule.data.startDate = candidateSchedule.data.startDate  != null ? jmoment(candidateSchedule.data.startDate ) : null;
+      candidateSchedule.data.endDate = candidateSchedule.data.endDate  != null ? jmoment(candidateSchedule.data.endDate ) : null;
     });
     return res;
   }
