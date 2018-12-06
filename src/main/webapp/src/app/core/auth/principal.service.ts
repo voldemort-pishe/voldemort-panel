@@ -21,11 +21,11 @@ export class Principal {
   }
 
   hasAnyAuthorityDirect(authorities: string[]): boolean {
-    if (!this.authenticated || !this.userIdentity || !this.userIdentity.userAuthorities) {
+    if (!this.authenticated || !this.userIdentity || !this.userIdentity.authorities) {
       return false;
     }
 
-    const authoritiesList = this.convertAuthorities(this.userIdentity.userAuthorities);
+    const authoritiesList = this.convertAuthorities(this.userIdentity.authorities);
 
     for (let i = 0; i < authorities.length; i++) {
       if (authoritiesList.includes(authorities[i])) {

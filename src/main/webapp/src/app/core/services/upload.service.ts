@@ -9,7 +9,7 @@ import {UploadResponse} from "@app/shared/model/upload-response.model";
 export class UploadService {
 
   response: UploadResponse;
-  private resourceUrl = env.serverApiUrl + 'api/file';
+  private resourceUrl = env.serverApiUrl + 'file';
 
   constructor(private http: HttpClient) {}
 

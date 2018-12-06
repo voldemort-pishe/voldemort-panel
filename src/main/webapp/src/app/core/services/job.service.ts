@@ -10,7 +10,7 @@ type EntityArrayResponseType = HttpResponse<JobVm>;
 @Injectable({ providedIn: 'root' })
 export class JobService {
 
-  private resourceUrl = env.serverApiUrl + 'api/job';
+  private resourceUrl = env.serverApiUrl + 'job';
 
   constructor(private http: HttpClient) {}
 

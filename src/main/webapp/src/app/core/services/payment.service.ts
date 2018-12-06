@@ -10,7 +10,7 @@ type EntityArrayResponseType = HttpResponse<Payment>;
 @Injectable({ providedIn: 'root' })
 export class PaymentService {
 
-  private resourceUrl = env.serverApiUrl + 'api/payment';
+  private resourceUrl = env.serverApiUrl + 'payment';
 
   constructor(private http: HttpClient) {}
 

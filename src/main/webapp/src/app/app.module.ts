@@ -67,6 +67,7 @@ import {CurrencyPipe} from '@angular/common';
 import {RiyalCurrencyPipe} from "@app/shared/pipe/riyal-currency.pipe";
 import {PersianNumberPipePipe} from "@app/shared/pipe/persian-number.pipe";
 import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
+import {CandidatePageEmailDialog} from "@app/secure/candidate-page/candidate-page.component";
 
 
 @NgModule({
@@ -124,7 +125,9 @@ import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
   ],
   entryComponents: [
     CandidatePageComponent,
-    CandidateCreateDialog
+    CandidateCreateDialog,
+    CandidatePageComponent,
+    CandidatePageEmailDialog
   ],
   declarations: [
     AppComponent,
@@ -140,8 +143,9 @@ import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
     PlanComponent,
     InvoicePreviewComponent,
     CandidateComponent,
+    CandidateCreateDialog,
     CandidatePageComponent,
-    CandidateCreateDialog
+    CandidatePageEmailDialog
   ],
   providers: [
     {

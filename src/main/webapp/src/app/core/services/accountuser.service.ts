@@ -9,7 +9,7 @@ import { environment as env } from '@env/environment';
 @Injectable({ providedIn: 'root' })
 export class AccountUserService {
 
-  private resourceUrl = env.serverApiUrl + 'api/account';
+  private resourceUrl = env.serverApiUrl + 'account';
 
   constructor(private http: HttpClient) {}
 

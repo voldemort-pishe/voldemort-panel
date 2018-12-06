@@ -10,7 +10,7 @@ type EntityArrayResponseType = HttpResponse<CompanyPipelineVm>;
 @Injectable({ providedIn: 'root' })
 export class CompanyPipelineService {
 
-  private resourceUrl = env.serverApiUrl + 'api/company-pipeline';
+  private resourceUrl = env.serverApiUrl + 'company-pipeline';
 
   constructor(private http: HttpClient) {}
 

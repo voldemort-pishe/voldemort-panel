@@ -13,7 +13,7 @@ type EntityArrayResponseType = HttpResponse<CandidateSchedule>;
 @Injectable({ providedIn: 'root' })
 export class CandidateScheduleService {
 
-  private resourceUrl = env.serverApiUrl + 'api/candidate-schedule';
+  private resourceUrl = env.serverApiUrl + 'candidate-schedule';
 
   constructor(private http: HttpClient) {}
 

@@ -11,7 +11,7 @@ type EntityResponseType = HttpResponse<ContentCandidate>;
 @Injectable({ providedIn: 'root' })
 export class CandidateService {
 
-  private resourceUrl = env.serverApiUrl + 'api/candidate';
+  private resourceUrl = env.serverApiUrl + 'candidate';
 
   constructor(private http: HttpClient) {}
 

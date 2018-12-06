@@ -9,10 +9,10 @@ export class AccountService {
     constructor(private http: HttpClient) {}
 
     get(): Observable<HttpResponse<Account>> {
-        return this.http.get<Account>(env.serverApiUrl + 'api/account', { observe: 'response' });
+        return this.http.get<Account>(env.serverApiUrl + 'account', { observe: 'response' });
     }
 
     save(account: any): Observable<HttpResponse<any>> {
-        return this.http.post(env.serverApiUrl + 'api/account', account, { observe: 'response' });
+        return this.http.post(env.serverApiUrl + 'account', account, { observe: 'response' });
     }
 }
