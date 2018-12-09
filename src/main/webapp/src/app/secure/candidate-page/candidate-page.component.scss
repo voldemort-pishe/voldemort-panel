@@ -107,7 +107,7 @@ body .default-theme .mat-selection-list .mat-list-item{
 .content-tab{
   font-size: 14px;
   color: #848382;
-  h3{
+  h3, h4{
     color: #5c5a58;
   }
   .mat-icon{
@@ -122,6 +122,33 @@ body .default-theme .mat-selection-list .mat-list-item{
   }
   .private-col{
     margin-top: 40px;
+  }
+
+  .activity-tab{
+    .title {
+      margin-bottom: 15px;
+      overflow: hidden;
+      h4 {
+        ngx-avatar {
+          float: right;
+          margin: 0 0 0 8px;
+        }
+        .info{
+          float:right;
+          margin: 5px 0 0;
+        }
+        small {
+          display: block;
+          margin: 4px 0 0;
+        }
+      }
+    }
+    .mat-card{
+      margin-bottom: 10px;
+    }
+    mat-card-content{
+      padding-right: 60px;
+    }
   }
 
 }

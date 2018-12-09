@@ -5,8 +5,10 @@ import {Observable} from 'rxjs';
 import {environment as env} from '@env/environment';
 import {CandidateMessageVm} from "@app/shared/model/candidate-message-vm.model";
 import {CandidateMessage} from "@app/shared/model/candidate-message.model";
+import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
 
 type EntityResponseType = HttpResponse<CandidateMessageVm>;
+type EntityArrayResponseType = HttpResponse<PageCandidateMessageVm>;
 
 @Injectable({ providedIn: 'root' })
 export class CandidateMessageService {
@@ -19,8 +21,8 @@ export class CandidateMessageService {
     return this.http.post<CandidateMessageVm>(`${this.resourceUrl}/create-specific`, candidateMessage, { observe: 'response' });
   }
 
-  getAllCandidateMessage(candidateId: number): Observable<EntityResponseType> {
-    return this.http.get<CandidateMessageVm>(`${this.resourceUrl}/candidate/${candidateId}`, { observe: 'response' });
+  getAllCandidateMessage(candidateId: number, sort?: string): Observable<EntityArrayResponseType> {
+    return this.http.get<PageCandidateMessageVm>(`${this.resourceUrl}/candidate/${candidateId}?sort=${sort}`, { observe: 'response' });
   }
 
 }

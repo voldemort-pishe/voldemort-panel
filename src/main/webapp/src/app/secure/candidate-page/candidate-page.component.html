@@ -25,12 +25,12 @@
 
             <div class="col-sm-7">
               <nav mat-tab-nav-bar>
-                <a mat-tab-link (click)="activeTab = 'background'" [active]="activeTab == 'background'">پیشینه</a>
-                <a mat-tab-link (click)="activeTab = 'activity'" [active]="activeTab == 'activity'">فعالیت‌ها</a>
-                <a mat-tab-link (click)="activeTab = 'comments'" [active]="activeTab == 'comments'">نظرات</a>
-                <a mat-tab-link (click)="activeTab = 'schedule'" [active]="activeTab == 'schedule'">جدول زمانی</a>
-                <a mat-tab-link (click)="activeTab = 'feedback'" [active]="activeTab == 'feedback'">بازخورد</a>
-                <a mat-tab-link (click)="activeTab = 'documents'" [active]="activeTab == 'documents'">مستندات</a>
+                <a mat-tab-link (click)="activeTab.current = 'background'" [active]="activeTab.current == 'background'">پیشینه</a>
+                <a mat-tab-link (click)="activeTab.current = 'activity'" [active]="activeTab.current == 'activity'">فعالیت‌ها</a>
+                <a mat-tab-link (click)="activeTab.current = 'comments'" [active]="activeTab.current == 'comments'">نظرات</a>
+                <a mat-tab-link (click)="activeTab.current = 'schedule'" [active]="activeTab.current == 'schedule'">جدول زمانی</a>
+                <a mat-tab-link (click)="activeTab.current = 'feedback'" [active]="activeTab.current == 'feedback'">بازخورد</a>
+                <a mat-tab-link (click)="activeTab.current = 'documents'" [active]="activeTab.current == 'documents'">مستندات</a>
               </nav>
             </div>
 
@@ -49,9 +49,12 @@
 
   <div class="container-fluid content-tab">
 
-    <div *ngIf="activeTab == 'background'" class="tab">
-      <div class="row">
-        <div class="col-sm-8">
+
+    <div class="row">
+
+      <div class="col-sm-8">
+
+        <div *ngIf="activeTab.current == 'background'" class="tab">
           <mat-card>
             <h3>خلاصه اطلاعات</h3>
             <mat-card-content>
@@ -65,30 +68,54 @@
           </mat-card>
         </div>
 
-        <div class="col-sm-4">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="contact">
-                <h3>اطلاعات تماس</h3>
-                <mat-list>
-                  <mat-list-item><mat-icon>email</mat-icon> {{candidate?.data.email}}</mat-list-item>
-                  <mat-list-item><mat-icon>phone</mat-icon> {{candidate?.data.cellphone | persianNumber}}</mat-list-item>
-                  <mat-list-item><mat-icon>link</mat-icon> اضافه کردن وب‌سایت</mat-list-item>
-                  <mat-list-item *ngIf="!candidate?.include.file"><mat-icon>description</mat-icon>  اضافه کردن رزومه</mat-list-item>
-                </mat-list>
-              </div>
+        <div *ngIf="activeTab.current == 'activity'" class="tab activity-tab">
+          <mat-card *ngFor="let message of candidateMessage.content">
+            <div class="title">
+              <h4>
+                <ngx-avatar name="{{message.include.from.firstName}}"
+                            gravatarId="{{message.include.from.email}}">
+                </ngx-avatar>
+                <span class="info">
+                  <span>{{message.include.from.firstName}} {{message.include.from.lastName}}</span>
+                  <small>{{message.data.createdDate | jalali}}</small>
+                </span>
+              </h4>
             </div>
-            <div class="col-sm-12 private-col">
-              <div class="private-note">
-                <h3>یاداشت مخفی</h3>
-                <p>می‌توانید یاداشتی مخفی از کاندیدا در این قسمت اضافه کنید</p>
-              </div>
-            </div>
-          </div>
+            <mat-card-content>
+              <h3>{{message.data.subject}}</h3>
+             <p>
+               {{message.data.message}}
+             </p>
+            </mat-card-content>
+          </mat-card>
         </div>
 
       </div>
+
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="contact">
+              <h3>اطلاعات تماس</h3>
+              <mat-list>
+                <mat-list-item><mat-icon>email</mat-icon> {{candidate?.data.email}}</mat-list-item>
+                <mat-list-item><mat-icon>phone</mat-icon> {{candidate?.data.cellphone | persianNumber}}</mat-list-item>
+                <mat-list-item><mat-icon>link</mat-icon> اضافه کردن وب‌سایت</mat-list-item>
+                <mat-list-item *ngIf="!candidate?.include.file"><mat-icon>description</mat-icon>  اضافه کردن رزومه</mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+          <div class="col-sm-12 private-col">
+            <div class="private-note">
+              <h3>یاداشت مخفی</h3>
+              <p>می‌توانید یاداشتی مخفی از کاندیدا در این قسمت اضافه کنید</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
 
   </div>
 

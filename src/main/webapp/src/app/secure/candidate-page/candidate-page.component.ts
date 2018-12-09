@@ -1,4 +1,13 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {
+  Component,
+  DoCheck,
+  ElementRef,
+  Inject,
+  KeyValueDiffers,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from "@angular/core";
 import {CandidateService} from "@app/core/services/candidate.service";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
@@ -6,9 +15,9 @@ import {ContentCandidate} from "@app/shared/model/candidate.model";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
 import {CompanyPipelineService} from "@app/core";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
-import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CandidateMessageService} from "@app/core/services/candidate-message.service";
-import {CandidateMessage} from "@app/shared/model/candidate-message.model";
+import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
 
 
 @Component({
@@ -17,18 +26,25 @@ import {CandidateMessage} from "@app/shared/model/candidate-message.model";
   styleUrls: ['./candidate-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class CandidatePageComponent implements OnInit {
+export class CandidatePageComponent implements OnInit, DoCheck {
 
-  candidate: ContentCandidate;
+  differ: any;
   companyPipeline;
-  activeTab: string = 'background';
+  activeTab: any = {current:'background'};
   candidateId: number;
+  candidate: ContentCandidate;
+  candidateMessage: PageCandidateMessageVm;
 
-  constructor(private candidateService: CandidateService,
+
+  constructor(private differs: KeyValueDiffers,
+              private candidateService: CandidateService,
+              private candidateMessageService: CandidateMessageService,
               private companyPipelineService: CompanyPipelineService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) {
+    this.differ = differs.find({}).create();
+
   }
 
   ngOnInit() {
@@ -40,8 +56,22 @@ export class CandidatePageComponent implements OnInit {
           .subscribe(
             (res: HttpResponse<ContentCandidate>) => this.onCandidateSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
-          )
+          );
       } );
+  }
+
+  ngDoCheck() {
+    let changes = this.differ.diff(this.activeTab);
+    if(changes) {
+      if(this.activeTab.current == 'activity'){
+       this.candidateMessageService
+         .getAllCandidateMessage(this.candidateId, 'createdDate,desc')
+         .subscribe(
+           (res: HttpResponse<PageCandidateMessageVm>) => this.onCandidateMessageSuccess(res.body),
+           (res: HttpErrorResponse) => this.onError(res.message)
+         );
+      }
+    }
   }
 
   onChangePipeline(candidate, $event){
@@ -67,13 +97,16 @@ export class CandidatePageComponent implements OnInit {
 
   private onCandidateSuccess(data: ContentCandidate){
     this.candidate = data;
-
     this.companyPipelineService
       .loadAll()
       .subscribe(
         (res: HttpResponse<CompanyPipelineVm>) => this.onCompanyPipelineSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+  }
+
+  private onCandidateMessageSuccess(data: PageCandidateMessageVm){
+    this.candidateMessage = data;
   }
 
   private onCompanyPipelineSuccess(data: CompanyPipelineVm){

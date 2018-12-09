@@ -39,6 +39,7 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { AvatarModule } from 'ngx-avatar';
 
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
@@ -111,6 +112,7 @@ import {CandidatePageEmailDialog} from "@app/secure/candidate-page/candidate-pag
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    AvatarModule,
 
     // core & shared
     CoreModule,
