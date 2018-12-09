@@ -37,7 +37,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatTreeModule,
+  MatTreeModule
 } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 
@@ -49,8 +49,12 @@ import { StaticModule } from './static';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
-import {PublicComponent, SecureComponent} from '@app/layouts';
+import {
+  LoginComponent,
+  RegisterComponent,
+  VerificationComponent
+} from '@app/public';
+import { PublicComponent, SecureComponent } from '@app/layouts';
 import {
   CandidateComponent,
   CandidatePageComponent,
@@ -59,17 +63,16 @@ import {
   InvoicePreviewComponent,
   PlanComponent
 } from '@app/secure';
-import {AuthInterceptor} from "@app/blocks/interceptor/auth.interceptor";
-import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
-import {AuthExpiredInterceptor} from "@app/blocks/interceptor/auth-expired.interceptor";
-import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.interceptor";
-import {SubscriptionExpiredInterceptor} from "@app/blocks/interceptor/subscription-expired.interceptor";
-import {CurrencyPipe} from '@angular/common';
-import {RiyalCurrencyPipe} from "@app/shared/pipe/riyal-currency.pipe";
-import {PersianNumberPipePipe} from "@app/shared/pipe/persian-number.pipe";
-import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
-import {CandidatePageEmailDialog} from "@app/secure/candidate-page/candidate-page.component";
-
+import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.interceptor';
+import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
+import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
+import { CurrencyPipe } from '@angular/common';
+import { RiyalCurrencyPipe } from '@app/shared/pipe/riyal-currency.pipe';
+import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
+import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
+import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-page.component';
 
 @NgModule({
   imports: [
@@ -123,7 +126,7 @@ import {CandidatePageEmailDialog} from "@app/secure/candidate-page/candidate-pag
     SettingsModule,
 
     // app
-    AppRoutingModule,
+    AppRoutingModule
   ],
   entryComponents: [
     CandidatePageComponent,
@@ -171,7 +174,7 @@ import {CandidatePageEmailDialog} from "@app/secure/candidate-page/candidate-pag
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
-      multi: true,
+      multi: true
     },
     CurrencyPipe
   ],
