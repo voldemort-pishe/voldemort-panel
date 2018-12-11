@@ -10,14 +10,21 @@ export class JalaliPipe implements PipeTransform {
   constructor(private persianNumberHelper: PersianNumberHelper) {
   }
 
-  transform(value: Date): String {
+  transform(value: Date, args?: any): String {
     if(value == null)
       return null;
-
-    return this.persianNumberHelper.toPersianNumber(
-      jmoment(value)
-        .locale('fa')
-        .format('YYYY/MM/DD')
-    );
+    if (args) {
+      return this.persianNumberHelper.toPersianNumber(
+        jmoment(value)
+          .locale('fa')
+          .format(args.format)
+      );
+    }else {
+      return this.persianNumberHelper.toPersianNumber(
+        jmoment(value)
+          .locale('fa')
+          .format('YYYY/M/D')
+      );
+    }
   }
 }
