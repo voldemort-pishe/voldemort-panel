@@ -1,11 +1,15 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {SettingsContainerComponent} from './settings';
-import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
-import {PublicComponent, SecureComponent} from '@app/layouts';
-import {DashboardComponent} from '@app/secure/dashboard';
-import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
+import { SettingsContainerComponent } from './settings';
+import {
+  LoginComponent,
+  RegisterComponent,
+  VerificationComponent
+} from '@app/public';
+import { PublicComponent, SecureComponent } from '@app/layouts';
+import { DashboardComponent } from '@app/secure/dashboard';
+import { UserRouteAccessService } from '@app/core/auth/user-route-access-service';
 import {
   CandidateComponent,
   CandidatePageComponent,
@@ -13,14 +17,13 @@ import {
   JobComponent,
   JobPageComponent,
   PlanComponent
-} from "@app/secure";
-
+} from '@app/secure';
 
 const routes: Routes = [
   {
     path: 'settings',
     component: SettingsContainerComponent,
-    data: {title: 'anms.menu.settings'}
+    data: { title: 'anms.menu.settings' }
   },
   {
     path: '',
@@ -37,18 +40,18 @@ const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent,
-        data: {title: 'anms.register'}
+        data: { title: 'anms.register' }
       },
       {
         path: 'login',
         component: LoginComponent,
-        data: {title: 'anms.login'}
+        data: { title: 'anms.login' }
       },
       {
         path: 'verification',
         component: VerificationComponent,
-        data: {title: 'anms.verification'}
-      },
+        data: { title: 'anms.verification' }
+      }
     ]
   },
   {
@@ -63,37 +66,37 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: {title: 'anms.dashboard'}
+        data: { title: 'anms.dashboard' }
       },
       {
         path: 'plan',
         component: PlanComponent,
-        data: {title: 'anms.plan'}
+        data: { title: 'anms.plan' }
       },
       {
         path: 'invoice/:invoiceId',
         component: InvoicePreviewComponent,
-        data: {title: 'anms.invoice'}
+        data: { title: 'anms.invoice' }
       },
       {
         path: 'candidate',
         component: CandidateComponent,
-        data: {title: 'anms.candidate'}
+        data: { title: 'anms.candidate' }
       },
       {
         path: 'candidate/:candidateId',
         component: CandidatePageComponent,
-        data: {title: 'anms.candidate'}
+        data: { title: 'anms.candidate' }
       },
       {
         path: 'job',
         component: JobComponent,
-        data: {title: 'anms.job'}
+        data: { title: 'anms.job' }
       },
       {
         path: 'job/:jobId',
         component: JobPageComponent,
-        data: {title: 'anms.job'}
+        data: { title: 'anms.job' }
       }
     ]
   },
@@ -113,5 +116,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

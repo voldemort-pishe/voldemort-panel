@@ -1,3 +1,3 @@
 export class Province {
-  name: string
+  name: string;
 }
