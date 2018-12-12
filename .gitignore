@@ -32,6 +32,7 @@
 
 ### dependencies ###
 /src/main/webapp/node_modules
+/src/main/webapp/node
 /src/main/webapp/yarn.lock
 
 ### IDEs and editors ###

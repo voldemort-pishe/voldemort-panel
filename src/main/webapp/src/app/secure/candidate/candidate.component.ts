@@ -78,14 +78,14 @@ export class CandidateComponent implements OnInit {
       });
   }
 
-  loadAll($event?){
+  loadAll(){
 
     let pageIndex;
     let pageSize;
 
-    if($event){
-      pageIndex = $event.pageIndex;
-      pageSize = $event.pageSize;
+    if(this.pageEvent){
+      pageIndex = this.pageEvent.pageIndex;
+      pageSize = this.pageEvent.pageSize;
     }else{
       pageIndex = 0;
       pageSize = 5;
@@ -101,7 +101,9 @@ export class CandidateComponent implements OnInit {
       .subscribe(
         (res: HttpResponse<Candidate>) => this.onCandidateSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
-      )
+      );
+
+    return true;
   }
 
 

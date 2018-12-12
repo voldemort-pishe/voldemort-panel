@@ -58,14 +58,14 @@ export class JobComponent implements OnInit {
       });
   }
 
-  loadAll($event?) {
+  loadAll() {
 
     let pageIndex;
     let pageSize;
 
-    if ($event) {
-      pageIndex = $event.pageIndex;
-      pageSize = $event.pageSize;
+    if (this.pageEvent) {
+      pageIndex = this.pageEvent.pageIndex;
+      pageSize = this.pageEvent.pageSize;
     } else {
       pageIndex = 0;
       pageSize = 5;

@@ -13,11 +13,6 @@ server:
     tomcat:
         remote_ip_header: x-forwarded-for
         protocol_header: x-forwarded-proto
-    ssl:
-        key-store: classpath:/keystore/hooraKeystore.p12
-        key-store-password: 523371366
-        keyStoreType: PKCS12
-        keyAlias: hoora
     compression:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
@@ -27,3 +22,6 @@ zuul:
     voldemort:
       path: /api/**
       url: http://testbed.avand.io:8080/api
+  host:
+    connect-timeout-millis: 30000
+    socket-timeout-millis: 30000
