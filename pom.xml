@@ -496,8 +496,6 @@
 									<goal>yarn</goal>
 								</goals>
 								<configuration>
-									<arguments>yarn config set proxy http://srv.nivst.com:8888</arguments>
-									<arguments>yarn config set https-proxy http://srv.nivst.com:8888</arguments>
 									<arguments>install --frozen-lockfile --non-interactive</arguments>
 								</configuration>
 							</execution>
