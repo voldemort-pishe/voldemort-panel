@@ -69,7 +69,7 @@
         </div>
 
         <div *ngIf="activeTab.current == 'activity'" class="tab activity-tab">
-          <mat-card *ngFor="let message of candidateMessage.content">
+          <mat-card *ngFor="let message of candidateMessage?.content">
             <div class="title">
               <h4>
                 <ngx-avatar name="{{message.include.from.firstName}}"
