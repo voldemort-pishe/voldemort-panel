@@ -61,7 +61,10 @@ import {
   CandidateCreateDialog,
   DashboardComponent,
   InvoicePreviewComponent,
-  PlanComponent
+  PlanComponent,
+  JobComponent,
+  JobCreateDialog,
+  JobPageComponent
 } from '@app/secure';
 import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
@@ -131,8 +134,10 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
   entryComponents: [
     CandidatePageComponent,
     CandidateCreateDialog,
+    JobCreateDialog,
     CandidatePageComponent,
-    CandidatePageEmailDialog
+    CandidatePageEmailDialog,
+    JobPageComponent
   ],
   declarations: [
     AppComponent,
@@ -150,7 +155,10 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
     CandidateComponent,
     CandidateCreateDialog,
     CandidatePageComponent,
-    CandidatePageEmailDialog
+    CandidatePageEmailDialog,
+    JobComponent,
+    JobCreateDialog,
+    JobPageComponent
   ],
   providers: [
     {
