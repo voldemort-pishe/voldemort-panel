@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, Injector } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgModule, Injector} from '@angular/core';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -39,40 +39,44 @@ import {
   MatTooltipModule,
   MatTreeModule
 } from '@angular/material';
-import { AvatarModule } from 'ngx-avatar';
+import {AvatarModule} from 'ngx-avatar';
 
-import { SharedModule } from '@app/shared';
-import { CoreModule } from '@app/core';
+import {SharedModule} from '@app/shared';
+import {CoreModule} from '@app/core';
 
-import { SettingsModule } from './settings';
-import { StaticModule } from './static';
+import {SettingsModule} from './settings';
+import {StaticModule} from './static';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {
   LoginComponent,
   RegisterComponent,
   VerificationComponent
 } from '@app/public';
-import { PublicComponent, SecureComponent } from '@app/layouts';
+import {PublicComponent, SecureComponent} from '@app/layouts';
 import {
   CandidateComponent,
   CandidatePageComponent,
   CandidateCreateDialog,
   DashboardComponent,
   InvoicePreviewComponent,
-  PlanComponent
+  PlanComponent,
+  JobComponent,
+  JobCreateDialog,
+  JobPageComponent
+
 } from '@app/secure';
-import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
-import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.interceptor';
-import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
-import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
-import { CurrencyPipe } from '@angular/common';
-import { RiyalCurrencyPipe } from '@app/shared/pipe/riyal-currency.pipe';
-import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
-import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
-import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-page.component';
+import {AuthInterceptor} from '@app/blocks/interceptor/auth.interceptor';
+import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
+import {AuthExpiredInterceptor} from '@app/blocks/interceptor/auth-expired.interceptor';
+import {ErrorHandlerInterceptor} from '@app/blocks/interceptor/errorhandler.interceptor';
+import {SubscriptionExpiredInterceptor} from '@app/blocks/interceptor/subscription-expired.interceptor';
+import {CurrencyPipe} from '@angular/common';
+import {RiyalCurrencyPipe} from '@app/shared/pipe/riyal-currency.pipe';
+import {PersianNumberPipePipe} from '@app/shared/pipe/persian-number.pipe';
+import {JalaliPipe} from '@app/shared/pipe/jalali.pipe';
+import {CandidatePageEmailDialog} from '@app/secure/candidate-page/candidate-page.component';
 
 @NgModule({
   imports: [
@@ -131,8 +135,10 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
   entryComponents: [
     CandidatePageComponent,
     CandidateCreateDialog,
+    JobCreateDialog,
     CandidatePageComponent,
-    CandidatePageEmailDialog
+    CandidatePageEmailDialog,
+    JobPageComponent
   ],
   declarations: [
     AppComponent,
@@ -150,7 +156,10 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
     CandidateComponent,
     CandidateCreateDialog,
     CandidatePageComponent,
-    CandidatePageEmailDialog
+    CandidatePageEmailDialog,
+    JobComponent,
+    JobCreateDialog,
+    JobPageComponent
   ],
   providers: [
     {
@@ -180,4 +189,5 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
