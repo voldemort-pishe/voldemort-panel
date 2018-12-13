@@ -1,12 +1,12 @@
-import {Component, HostBinding, OnInit, ViewChild, ElementRef, Inject} from "@angular/core";
+import {Component, ElementRef, Inject, OnInit, ViewChild} from "@angular/core";
 import {CandidateService} from "@app/core/services/candidate.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Candidate, ContentCandidate, ICandidate} from "@app/shared/model/candidate.model";
-import {MatTableDataSource, MatDialog, MAT_DIALOG_DATA, MatSnackBar, MatDialogRef, PageEvent} from "@angular/material";
+import {Candidate, ContentCandidate,} from "@app/shared/model/candidate.model";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar, MatTableDataSource, PageEvent} from "@angular/material";
 import {SelectionModel} from "@angular/cdk/collections";
 import {CompanyPipelineService} from "@app/core/services/company-pipeline.service";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
-import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CandidateType} from "@app/shared/model/enumeration/candidate-type.model";
 import {CandidateState} from "@app/shared/model/enumeration/candidate-state.model";
 import {UploadService} from "@app/core/services/upload.service";
@@ -37,7 +37,6 @@ export class CandidateComponent implements OnInit {
   searchJobPosition = null;
   searchPipeline = null;
   jobList;
-  pageEvent: PageEvent;
 
   constructor(private candidateService: CandidateService,
               private companyPipelineService: CompanyPipelineService,
@@ -78,14 +77,14 @@ export class CandidateComponent implements OnInit {
       });
   }
 
-  loadAll(){
+  loadAll(pageEvent?: PageEvent){
 
     let pageIndex;
     let pageSize;
 
-    if(this.pageEvent){
-      pageIndex = this.pageEvent.pageIndex;
-      pageSize = this.pageEvent.pageSize;
+    if(pageEvent){
+      pageIndex = pageEvent.pageIndex;
+      pageSize = pageEvent.pageSize;
     }else{
       pageIndex = 0;
       pageSize = 5;

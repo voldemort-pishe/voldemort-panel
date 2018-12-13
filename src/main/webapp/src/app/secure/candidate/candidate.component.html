@@ -129,7 +129,7 @@
                 <mat-paginator [length]="dataSourceRaw?.totalElements"
                                [pageSize]="dataSourceRaw?.size"
                                [pageSizeOptions]="[5, 10, 25, 100]"
-                               (page)="pageEvent = $event">
+                               (page)="loadAll($event)">
                 </mat-paginator>
 
                 <div class="loading" *ngIf="isLoading"

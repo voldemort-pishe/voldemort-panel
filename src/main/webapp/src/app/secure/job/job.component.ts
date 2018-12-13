@@ -23,7 +23,6 @@ export class JobComponent implements OnInit {
   isLoading = true;
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
-
   displayedColumns: string[] = ['select', 'name', 'department', 'createdDate', 'status'];
   dataSource;
   dataSourceRaw;
@@ -32,7 +31,6 @@ export class JobComponent implements OnInit {
   selectedFilter: string = 'ALL';
   showClearFilter: boolean = false;
   searchKeyword = null;
-  pageEvent: PageEvent;
 
   constructor(private candidateService: CandidateService,
               private companyPipelineService: CompanyPipelineService,
@@ -58,14 +56,14 @@ export class JobComponent implements OnInit {
       });
   }
 
-  loadAll() {
+  loadAll(pageEvent?: PageEvent) {
 
     let pageIndex;
     let pageSize;
 
-    if (this.pageEvent) {
-      pageIndex = this.pageEvent.pageIndex;
-      pageSize = this.pageEvent.pageSize;
+    if (pageEvent) {
+      pageIndex = pageEvent.pageIndex;
+      pageSize = pageEvent.pageSize;
     } else {
       pageIndex = 0;
       pageSize = 5;
