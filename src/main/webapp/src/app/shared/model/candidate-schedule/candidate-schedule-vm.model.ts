@@ -1,4 +1,4 @@
-import { CandidateSchedule } from './candidate-schedule.model';
+import {CandidateSchedule} from './candidate-schedule.model';
 import {ICandidate} from './../candidate.model';
 
 export class Include {

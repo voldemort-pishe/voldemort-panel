@@ -1,24 +1,14 @@
-import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef, OnInit} from '@angular/core';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
-import { Subject } from 'rxjs';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-  DAYS_OF_WEEK
-} from 'angular-calendar';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
+import {CalendarEvent, CalendarView, DAYS_OF_WEEK} from 'angular-calendar';
 import {JalaliPipe} from '@app/shared/pipe/jalali.pipe';
 import {PersianNumberPipePipe} from '@app/shared/pipe/persian-number.pipe';
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 
-import {
-  CandidateSchedulePage,
-  CandidateScheduleGetTime
-} from "@app/shared/model/candidate-schedule";
+import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
 import {CalendarService} from '@app/core/services/calendar.service';
-import {MOMENT} from "angular-calendar/angular-calendar";
 import * as moment from 'moment';
+import {CandidateScheduleGetTime} from "@app/shared/model/candidate-schedule/candidate-schedule-get-time.model";
 
 
 const colors: any = {

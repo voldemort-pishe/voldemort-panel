@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { environment as env } from '@env/environment';
-import {CandidateSchedulePage, CandidateScheduleGetTime} from "@app/shared/model/candidate-schedule";
+import {environment as env} from '@env/environment';
+import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
+import {CandidateScheduleGetTime} from "@app/shared/model/candidate-schedule/candidate-schedule-get-time.model";
 
-//type EntityArrayResponseType = HttpResponse<Calendar>;
 type EntityResponseType = HttpResponse<CandidateSchedulePage>;
 
 @Injectable({ providedIn: 'root' })

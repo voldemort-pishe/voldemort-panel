@@ -1,4 +1,4 @@
-import { CandidateScheduleMemebr } from './candidate-schedule-member.model';
+import {CandidateScheduleMemebr} from './candidate-schedule-member.model';
 import {Moment} from 'moment';
 
 export class CandidateSchedule {

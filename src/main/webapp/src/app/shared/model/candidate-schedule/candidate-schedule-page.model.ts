@@ -1,6 +1,5 @@
-import { CandidateScheduleVm } from './candidate-schedule-vm.model';
+import {CandidateScheduleVm} from './candidate-schedule-vm.model';
 import {Pageable} from "./../pageable.model";
-import {Moment} from 'moment';
 
 export class CandidateSchedulePage implements Pageable{
   constructor(public content: CandidateScheduleVm[],
