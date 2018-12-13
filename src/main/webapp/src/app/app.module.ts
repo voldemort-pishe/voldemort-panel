@@ -81,6 +81,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AvatarModule } from 'ngx-avatar';
 import localeFa from '@angular/common/locales/fa';
+import {MatProgressButtonsModule} from "mat-progress-buttons";
 registerLocaleData(localeFa);
 
 
@@ -133,6 +134,7 @@ registerLocaleData(localeFa);
     MatTooltipModule,
     MatTreeModule,
     AvatarModule,
+    MatProgressButtonsModule,
 
     // core & shared
     CoreModule,

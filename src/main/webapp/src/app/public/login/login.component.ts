@@ -4,6 +4,7 @@ import {LoginService} from "@app/core/login/login.service";
 import {Router} from '@angular/router';
 import {StateStorageService} from "@app/core/auth/state-storage.service";
 import {MatSnackBar} from '@angular/material';
+import { MatProgressButtonOptions } from 'mat-progress-buttons'
 
 
 @Component({
@@ -14,6 +15,18 @@ import {MatSnackBar} from '@angular/material';
 export class LoginComponent implements OnInit, OnDestroy {
 
   userLoginForm: FormGroup;
+  loginButton: MatProgressButtonOptions = {
+    active: false,
+    text: 'ورود',
+    spinnerSize: 18,
+    raised: true,
+    stroked: false,
+    buttonColor: 'primary',
+    spinnerColor: 'accent',
+    fullWidth: true,
+    disabled: false,
+    mode: 'indeterminate'
+  };
 
   constructor(private renderer: Renderer2,
               private loginService: LoginService,
@@ -39,7 +52,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.loginButton.disabled = true;
     if(this.userLoginForm.valid){
+      this.loginButton.active = true;
       this.loginService
         .login({
           username: this.userLoginForm.controls.username.value,
@@ -62,10 +77,14 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         })
         .catch((err) => {
+          this.loginButton.active = false;
+          this.loginButton.disabled = false;
           this.snackBar.open(err.error.message, "بستن", {
             duration: 2500
           });
         });
+    }else{
+      this.loginButton.disabled = false;
     }
   }
 

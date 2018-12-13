@@ -4,6 +4,7 @@ import {UserRegister} from "@app/shared/model/register.model";
 import {AccountUserService} from "@app/core";
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import { MatProgressButtonOptions } from 'mat-progress-buttons'
 
 
 @Component({
@@ -15,6 +16,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   userRegisterForm: FormGroup;
   acceptAgreementError: boolean;
+  registerButton: MatProgressButtonOptions = {
+    active: false,
+    text: 'ثبت نام',
+    spinnerSize: 18,
+    raised: true,
+    stroked: false,
+    buttonColor: 'primary',
+    spinnerColor: 'accent',
+    fullWidth: true,
+    disabled: false,
+    mode: 'indeterminate'
+  };
 
   constructor(private renderer: Renderer2,
               private fb: FormBuilder,
@@ -50,30 +63,31 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.renderer.removeClass(document.body, 'public');
   }
 
-  register(submitBtn: HTMLButtonElement){
-    submitBtn.disabled = true;
-
+  register(){
+    this.registerButton.disabled = true;
     this.acceptAgreementError = !this.userRegisterForm.value.agreement;
-    console.log(this.userRegisterForm);
     if(this.userRegisterForm.valid){
+      this.registerButton.active = true;
+
       const userRegister: UserRegister = Object.assign({}, this.userRegisterForm.value);
 
       this.accountUserService
         .register(userRegister)
         .toPromise()
         .then(response => {
-          submitBtn.disabled = false;
+          this.registerButton.disabled = false;
           this.router.navigate(['../verification']);
         })
         .catch(err => {
           this.snackBar.open(err.error.message, "بستن", {
             duration: 2500
           });
-          submitBtn.disabled = false;
+          this.registerButton.active = false;
+          this.registerButton.disabled = false;
         });
 
     }else{
-      submitBtn.disabled = false;
+      this.registerButton.disabled = false;
     }
   }
 
