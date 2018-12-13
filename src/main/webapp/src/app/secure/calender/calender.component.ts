@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, AfterViewInit, ViewChild} from '@angular/core';
 import {addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
 import {CalendarEvent, CalendarView, DAYS_OF_WEEK} from 'angular-calendar';
 import {JalaliPipe} from '@app/shared/pipe/jalali.pipe';
@@ -33,7 +33,7 @@ const colors: any = {
   styleUrls: ['./calender.component.scss'],
   providers: [ JalaliPipe, PersianNumberPipePipe ]
 })
-export class CalenderComponent  implements OnInit{
+export class CalenderComponent  implements AfterViewInit{
   constructor(private jalaliPipe: JalaliPipe,
               private persianNumber : PersianNumberPipePipe,
               private calendarService: CalendarService) {
@@ -41,35 +41,20 @@ export class CalenderComponent  implements OnInit{
   @ViewChild('modalContent')
   Today = new Date();
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = this.Today;
-
   locale: string = 'fa';
   weekStartsOn: number = DAYS_OF_WEEK.SATURDAY;
   activeDayIsOpen: boolean = false;
-
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(this.Today), 1),
-      end: addDays(this.Today, 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: false
-    }
-  ];
+  events: CalendarEvent[];
 
 
-  ngOnInit () {
+  ngAfterViewInit () {
     let date = new CandidateScheduleGetTime(moment().startOf('month'), moment().endOf('month'));
     this.calendarService.getByTime(date).subscribe(
-      (res: HttpResponse<CandidateSchedulePage>) => console.log(res.body),
+      (res: HttpResponse<CandidateSchedulePage>) => {
+        this.InitCalendarView (res.body.content);
+      },
       (res: HttpErrorResponse) => console.log(res)
     );
   }
@@ -86,5 +71,26 @@ export class CalenderComponent  implements OnInit{
       }
     }
   }
+  InitCalendarView (data) {
+    let list = [];
 
+    data.forEach(function(item){
+      list.push(
+        {
+          start: new Date(item.data.startDate),
+          title: ` ${item.data.description} با  ${item.include.candidate.firstName} ${item.include.candidate.lastName}
+          -`,
+          color: colors.red,
+          allDay: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          },
+          draggable: false
+        }
+      );
+    });
+
+    this.events = list;
+  }
   }

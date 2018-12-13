@@ -1,44 +1,46 @@
-<div class="custom-header">
-  <div class="row text-center">
-    <div class="col-md-12 ">
-      <div class="header-content">
-        <div class="arrow"
-             mwlCalendarPreviousView
-             [view]="view"
-             [(viewDate)]="viewDate"
-             (viewDateChange)="activeDayIsOpen = false">
-          <
-        </div>
-        <h3 class="main-title">{{ viewDate | jalali : {'format' : 'DD MMMM'} }}</h3>
-        <div class="arrow"
-             mwlCalendarNextView
-             [view]="view"
-             [(viewDate)]="viewDate"
-             (viewDateChange)="activeDayIsOpen = false">
-          >
+<div class="calendar-wrapper">
+  <div class="custom-header">
+    <div class="row text-center">
+      <div class="col-md-12 ">
+        <div class="header-content">
+          <div class="arrow"
+               mwlCalendarPreviousView
+               [view]="view"
+               [(viewDate)]="viewDate"
+               (viewDateChange)="activeDayIsOpen = false">
+            <
+          </div>
+          <h3 class="main-title">{{ viewDate | jalali : {'format' : 'DD MMMM'} }}</h3>
+          <div class="arrow"
+               mwlCalendarNextView
+               [view]="view"
+               [(viewDate)]="viewDate"
+               (viewDateChange)="activeDayIsOpen = false">
+            >
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<ng-template #customCellTemplate let-day="day" let-locale="locale">
-  <div class="cal-cell-top">
-    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal | persianNumber  }}</span>
-    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale | persianNumber }}</span>
-  </div>
-</ng-template>
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal | persianNumber  }}</span>
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale | persianNumber }}</span>
+    </div>
+  </ng-template>
 
 
-<div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    [locale]="locale"
-    [weekStartsOn]="weekStartsOn"
-    [cellTemplate]="customCellTemplate"
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      [locale]="locale"
+      [weekStartsOn]="weekStartsOn"
+      [cellTemplate]="customCellTemplate"
     >
-  </mwl-calendar-month-view>
+    </mwl-calendar-month-view>
+  </div>
 </div>
