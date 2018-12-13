@@ -1,4 +1,4 @@
-import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
+import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef, OnInit} from '@angular/core';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import { Subject } from 'rxjs';
 import {
@@ -10,6 +10,16 @@ import {
 } from 'angular-calendar';
 import {JalaliPipe} from '@app/shared/pipe/jalali.pipe';
 import {PersianNumberPipePipe} from '@app/shared/pipe/persian-number.pipe';
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+
+import {
+  CandidateSchedulePage,
+  CandidateScheduleGetTime
+} from "@app/shared/model/candidate-schedule";
+import {CalendarService} from '@app/core/services/calendar.service';
+import {MOMENT} from "angular-calendar/angular-calendar";
+import * as moment from 'moment';
+
 
 const colors: any = {
   red: {
@@ -33,44 +43,22 @@ const colors: any = {
   styleUrls: ['./calender.component.scss'],
   providers: [ JalaliPipe, PersianNumberPipePipe ]
 })
-export class CalenderComponent {
+export class CalenderComponent  implements OnInit{
   constructor(private jalaliPipe: JalaliPipe,
-              private persianNumber : PersianNumberPipePipe) {
+              private persianNumber : PersianNumberPipePipe,
+              private calendarService: CalendarService) {
   }
   @ViewChild('modalContent')
   Today = new Date();
-  modalContent: TemplateRef<any>;
-
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
 
   viewDate: Date = this.Today;
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
   locale: string = 'fa';
   weekStartsOn: number = DAYS_OF_WEEK.SATURDAY;
-
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-
-  refresh: Subject<any> = new Subject();
+  activeDayIsOpen: boolean = false;
 
   events: CalendarEvent[] = [
     {
@@ -78,44 +66,23 @@ export class CalenderComponent {
       end: addDays(this.Today, 1),
       title: 'A 3 day event',
       color: colors.red,
-      actions: this.actions,
       allDay: true,
       resizable: {
         beforeStart: true,
         afterEnd: true
       },
-      draggable: true
-    },
-    {
-      start: startOfDay(this.Today),
-      title: 'An event with no end date',
-      color: colors.blue,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(this.Today), 3),
-      end: addDays(endOfMonth(this.Today), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.indigo,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(this.Today), 2),
-      end: this.Today,
-      title: 'A draggable and resizable event',
-      color: colors.blue,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
+      draggable: false
     }
   ];
 
 
-  activeDayIsOpen: boolean = true;
-
+  ngOnInit () {
+    let date = new CandidateScheduleGetTime(moment().startOf('month'), moment().endOf('month'));
+    this.calendarService.getByTime(date).subscribe(
+      (res: HttpResponse<CandidateSchedulePage>) => console.log(res.body),
+      (res: HttpErrorResponse) => console.log(res)
+    );
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
@@ -130,34 +97,4 @@ export class CalenderComponent {
     }
   }
 
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd
-                    }: CalendarEventTimesChangedEvent): void {
-    event.start = newStart;
-    event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
-    this.refresh.next();
   }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    //this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(this.Today),
-      end: endOfDay(this.Today),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
-  }
-}

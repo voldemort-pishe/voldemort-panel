@@ -34,6 +34,8 @@
 /src/main/webapp/node_modules
 /src/main/webapp/node
 /src/main/webapp/yarn.lock
+/src/main/webapp/yarn-error.log
+
 
 ### IDEs and editors ###
 /.idea
