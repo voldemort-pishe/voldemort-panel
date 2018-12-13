@@ -57,8 +57,6 @@
   background: url(/assets/images/candidate_page_empty.jpg) no-repeat center;
 }
 
-
-
 .header-container{
   margin-bottom: 20px;
 }
@@ -159,4 +157,31 @@ body .default-theme .mat-selection-list .mat-list-item{
     }
   }
 
+}
+
+.comment-form{
+  display: flex;
+  ngx-avatar{
+    margin: 0 0 0 18px;
+  }
+}
+.comments-item{
+  margin: 20px 0 0;
+}
+.display-comment{
+  display: flex;
+  h3{
+    margin: 12px 6px 0;
+  }
+}
+.comment-text{
+  margin: 13px 0 0;
+}
+.comments-action{
+  display: flex;
+  align-items: left;
+  justify-content: flex-end;
+}
+.comment-input{
+  width: 100%;
 }

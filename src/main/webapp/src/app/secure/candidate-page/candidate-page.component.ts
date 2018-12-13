@@ -18,6 +18,12 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/ma
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CandidateMessageService} from "@app/core/services/candidate-message.service";
 import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
+import {Principal} from "@app/core/auth/principal.service";
+import {User} from "@app/shared/model/user.model";
+import {CommentService} from "@app/core/services/comment.service";
+import {Comment} from "@app/shared/model/comment.model";
+import {CommentVm} from "@app/shared/model/comment-vm.model";
+import {CommentPage} from "@app/shared/model/comment-page.mode";
 
 
 @Component({
@@ -34,12 +40,17 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   candidateId: number;
   candidate: ContentCandidate;
   candidateMessage: PageCandidateMessageVm;
+  identityUser: User;
+  commentText: string;
+  commentList: CommentPage;
 
 
   constructor(private differs: KeyValueDiffers,
+              private principal: Principal,
               private candidateService: CandidateService,
               private candidateMessageService: CandidateMessageService,
               private companyPipelineService: CompanyPipelineService,
+              private commentService: CommentService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) {
@@ -63,13 +74,25 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   ngDoCheck() {
     let changes = this.differ.diff(this.activeTab);
     if(changes) {
+
       if(this.activeTab.current == 'activity'){
-       this.candidateMessageService
-         .getAllCandidateMessage(this.candidateId, 'createdDate,desc')
-         .subscribe(
-           (res: HttpResponse<PageCandidateMessageVm>) => this.onCandidateMessageSuccess(res.body),
-           (res: HttpErrorResponse) => this.onError(res.message)
-         );
+        this.candidateMessageService
+          .getAllCandidateMessage(this.candidateId, 'createdDate,desc')
+          .subscribe(
+            (res: HttpResponse<PageCandidateMessageVm>) => this.onCandidateMessageSuccess(res.body),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+      }else if(this.activeTab.current == 'comments'){
+        this.principal.identityUser()
+          .then(res => {
+            this.identityUser = res;
+          });
+        this.commentService
+          .getCandidateComment(this.candidateId)
+          .subscribe(
+            (res: HttpResponse<CommentPage>) => this.onCandidateGetCommentSuccess(res.body),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          )
       }
     }
   }
@@ -95,6 +118,21 @@ export class CandidatePageComponent implements OnInit, DoCheck {
     );
   }
 
+  sendComment(){
+    this.commentService
+      .create(
+        new Comment(
+          this.commentText,
+          this.identityUser.id,
+          this.candidateId
+        )
+      )
+      .subscribe(
+        (res: HttpResponse<CommentVm>) => this.onCandidateSendCommentSuccess(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
   private onCandidateSuccess(data: ContentCandidate){
     this.candidate = data;
     this.companyPipelineService
@@ -116,6 +154,19 @@ export class CandidatePageComponent implements OnInit, DoCheck {
 
   private onCandidatePipelineSuccess(data: ContentCandidate){
     this.snackBar.open("مرحله‌ی کاندیدای مورد نظر به روز شد", "بستن", {
+      duration: 2500
+    });
+  }
+
+  private onCandidateGetCommentSuccess(data: CommentPage){
+    console.log(data);
+    this.commentList = data;
+  }
+
+  private onCandidateSendCommentSuccess(data: CommentVm){
+    console.log(data);
+    this.commentText = null;
+    this.snackBar.open("نظر شما با موفقیت ارسال شد", "بستن", {
       duration: 2500
     });
   }
