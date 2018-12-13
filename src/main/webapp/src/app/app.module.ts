@@ -37,9 +37,8 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatTreeModule
+  MatTreeModule,
 } from '@angular/material';
-import { AvatarModule } from 'ngx-avatar';
 
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
@@ -64,7 +63,8 @@ import {
   PlanComponent,
   JobComponent,
   JobCreateDialog,
-  JobPageComponent
+  JobPageComponent,
+  CalenderComponent
 } from '@app/secure';
 import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
@@ -77,11 +77,23 @@ import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
 import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
 import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-page.component';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+registerLocaleData(localeFa);
+
+
 @NgModule({
   imports: [
     // angular
     BrowserAnimationsModule,
     BrowserModule,
+    CommonModule,
+
+
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
 
     MatAutocompleteModule,
     MatBadgeModule,
@@ -158,7 +170,8 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
     CandidatePageEmailDialog,
     JobComponent,
     JobCreateDialog,
-    JobPageComponent
+    JobPageComponent,
+    CalenderComponent
   ],
   providers: [
     {

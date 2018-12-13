@@ -17,6 +17,8 @@
 @import 'app/shared/big-input/big-input.component.scss-theme';
 @import 'app/static/about/about.component.scss-theme';
 
+@import "./../node_modules/angular-calendar/css/angular-calendar.css";
+@import "./assets/style/custom-calender.scss";
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);

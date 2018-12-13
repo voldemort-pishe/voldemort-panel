@@ -1,0 +1,44 @@
+.custom-header{
+  background-color: #3b3790e3;
+  color: #fff;
+  padding: 30px 0;
+}
+.custom-header .header-content{
+  display: flex;
+  justify-content: center;
+}
+.custom-header .header-content .arrow{
+  margin: 0 10px;
+  min-width: 35px;
+  cursor: pointer;
+}
+.custom-header .main-title{
+  font-size: 21px;
+  min-width: 200px;
+}
+.custom-btn {
+  position: relative;
+  padding: 5px 15px;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  color: #ecf0f1;
+
+  transition: background-color .3s;
+}
+.add-event{
+  background-color: #17a2b8;
+}
+.add-event:hover {
+  background-color: #028da2;
+}
+.delete-event{
+  background-color: #dc3545;
+}
+.delete-event:hover {
+  background-color: #B12C3A;
+}
