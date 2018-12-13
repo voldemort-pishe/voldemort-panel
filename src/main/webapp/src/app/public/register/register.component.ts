@@ -28,6 +28,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
       firstName: [null,[Validators.required, Validators.minLength(3)]],
       lastName: [null,[Validators.required,Validators.minLength(3)]],
       email: [null,[Validators.required, Validators.email]],
+      cellphone: [null,
+        [
+          Validators.required,
+          Validators.pattern(/^[0-9]*$/g),
+          Validators.minLength(11),
+          Validators.maxLength(11)
+        ]
+      ],
       password: [null,[Validators.required,Validators.minLength(6)]],
       confirmPassword: [null,Validators.required],
       agreement: false
@@ -46,7 +54,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     submitBtn.disabled = true;
 
     this.acceptAgreementError = !this.userRegisterForm.value.agreement;
-
+    console.log(this.userRegisterForm);
     if(this.userRegisterForm.valid){
       const userRegister: UserRegister = Object.assign({}, this.userRegisterForm.value);
 

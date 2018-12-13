@@ -24,6 +24,11 @@
               <mat-error *ngIf="userRegisterForm.get('email')?.errors?.email">پست الکترونیکی صحیح نیست</mat-error>
             </mat-form-field>
             <mat-form-field>
+              <input class="ltr" matInput placeholder="تلفن همراه" formControlName="cellphone" autocomplete="off">
+              <mat-error *ngIf="userRegisterForm.get('cellphone')?.errors?.required">تلفن همراه اجباری است</mat-error>
+              <mat-error *ngIf="userRegisterForm.get('cellphone')?.errors?.pattern">شماره وارد شده صحبح نیست</mat-error>
+            </mat-form-field>
+            <mat-form-field>
               <input class="ltr" matInput placeholder="کلمه عبور"  formControlName="password" type="password" autocomplete="off">
               <mat-error *ngIf="userRegisterForm.get('password')?.errors?.required">کلمه عبور اجباری است</mat-error>
               <mat-error *ngIf="userRegisterForm.get('password')?.errors?.minlength">حداقل ۶ کاراکتر مجاز است</mat-error>
