@@ -70,6 +70,18 @@
 
                 </div>
 
+                <div class="loading" *ngIf="isLoading"
+                     style="display: flex; justify-content: center; align-items: center">
+                  <mat-progress-spinner
+                    color="primary"
+                    mode="indeterminate"
+                    [diameter]="50">
+                  </mat-progress-spinner>
+                </div>
+
+                <div *ngIf="dataSourceRaw?.totalElements == 0 && !isLoading" class="no-content">
+                </div>
+
                 <table *ngIf="!isLoading && dataSourceRaw?.totalElements > 0" mat-table [dataSource]="dataSource">
 
                   <!-- Checkbox Column -->
@@ -126,24 +138,13 @@
                   </tr>
                 </table>
 
-                <mat-paginator [length]="dataSourceRaw?.totalElements"
+                <mat-paginator
+                  *ngIf="dataSourceRaw?.totalElements > 0"
+                  [length]="dataSourceRaw?.totalElements"
                                [pageSize]="dataSourceRaw?.size"
                                [pageSizeOptions]="[5, 10, 25, 100]"
                                (page)="loadAll($event)">
                 </mat-paginator>
-
-                <div class="loading" *ngIf="isLoading"
-                     style="display: flex; justify-content: center; align-items: center">
-                  <mat-progress-spinner
-                    color="primary"
-                    mode="indeterminate"
-                    [diameter]="50">
-                  </mat-progress-spinner>
-                </div>
-
-                <div *ngIf="dataSourceRaw?.totalElements == 0" class="table-no-data">
-                  <p>اطلاعاتی برای نمایش وجود ندارد</p>
-                </div>
 
               </div>
             </div>

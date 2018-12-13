@@ -106,6 +106,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   }
 
   private onCandidateMessageSuccess(data: PageCandidateMessageVm){
+    console.log(data);
     this.candidateMessage = data;
   }
 

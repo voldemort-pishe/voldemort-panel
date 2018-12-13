@@ -69,6 +69,9 @@
         </div>
 
         <div *ngIf="activeTab.current == 'activity'" class="tab activity-tab">
+
+          <div *ngIf="candidateMessage?.totalElements == 0" class="no-content"></div>
+
           <mat-card *ngFor="let message of candidateMessage?.content">
             <div class="title">
               <h4>
