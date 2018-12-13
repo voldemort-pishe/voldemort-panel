@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.renderer.addClass(document.body, 'public');
 
     this.userLoginForm = fb.group({
-      username: ['admin@avand.com',[Validators.email,Validators.required]],
-      password: ['admin',Validators.required],
+      username: ['',[Validators.email,Validators.required]],
+      password: ['',Validators.required],
       rememberMe: false
     });
 
