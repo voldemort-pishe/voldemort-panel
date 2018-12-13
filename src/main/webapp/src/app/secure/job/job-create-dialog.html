@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>
+  <mat-icon>work</mat-icon>
+  افزودن شغل
+</h2>
+<mat-dialog-content>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="job-form-container">
+
+        <div class="create-job-form">
+          <form [formGroup]="jobCreateFormGroup" #jobCreateForm="ngForm" id="ngForm" (ngSubmit)="save()">
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="عنوان" formControlName="nameFa">
+                  <mat-error *ngIf="jobCreateFormGroup.get('nameFa')?.errors?.required">عنوان اجباری است</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="نوع"
+                              formControlName="type">
+                    <mat-option value="">انتخاب کنید</mat-option>
+                    <mat-option *ngFor="let state of jobType" value="{{state.key}}">{{state.value}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="jobCreateFormGroup.get('type')?.errors?.required">نوع اجباری است</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="دپارتمان" formControlName="department">
+                  <mat-error *ngIf="jobCreateFormGroup.get('department')?.errors?.required">دپارتمان اجباری است
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="مکان"
+                              formControlName="location">
+                    <mat-option value="">انتخاب کنید</mat-option>
+                    <mat-option *ngFor="let location of jobLocation" value="{{location.name}}">{{location.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="jobCreateFormGroup.get('type')?.errors?.required">مکان اجباری است</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="توضیحات" formControlName="descriptionFa">
+                  <mat-error *ngIf="jobCreateFormGroup.get('descriptionFa')?.errors?.required">توضیحات اجباری است
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>انصراف</button>
+  <button mat-raised-button cdkFocusInitial color="primary" form="ngForm">
+    <mat-icon>save</mat-icon>
+    ایجاد
+  </button>
+</mat-dialog-actions>

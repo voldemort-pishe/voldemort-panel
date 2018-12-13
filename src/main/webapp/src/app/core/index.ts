@@ -17,4 +17,6 @@ export * from './services/company-pipeline.service';
 export * from './services/upload.service';
 export * from './services/company.service';
 export * from './services/job.service';
+export * from './services/province.service';
 export * from './services/candidate-message.service';
+export * from './services/comment.service';

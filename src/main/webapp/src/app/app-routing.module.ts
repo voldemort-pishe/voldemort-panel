@@ -8,6 +8,23 @@ import {DashboardComponent} from '@app/secure/dashboard';
 import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
 import {CandidateComponent, CandidatePageComponent, InvoicePreviewComponent, PlanComponent, CalenderComponent} from "@app/secure";
 
+import {
+  LoginComponent,
+  RegisterComponent,
+  VerificationComponent
+} from '@app/public';
+import { PublicComponent, SecureComponent } from '@app/layouts';
+import { DashboardComponent } from '@app/secure/dashboard';
+import { UserRouteAccessService } from '@app/core/auth/user-route-access-service';
+import {
+  CandidateComponent,
+  CandidatePageComponent,
+  InvoicePreviewComponent,
+  JobComponent,
+  JobPageComponent,
+  PlanComponent,
+  CalenderComponent
+} from '@app/secure';
 
 const routes: Routes = [
   {
@@ -41,7 +58,7 @@ const routes: Routes = [
         path: 'verification',
         component: VerificationComponent,
         data: { title: 'anms.verification' }
-      },
+      }
     ]
   },
   {
@@ -83,6 +100,16 @@ const routes: Routes = [
         component: CalenderComponent,
         data: { title: 'anms.calender' }
       },
+      {
+        path: 'job',
+        component: JobComponent,
+        data: { title: 'anms.job' }
+      },
+      {
+        path: 'job/:jobId',
+        component: JobPageComponent,
+        data: { title: 'anms.job' }
+      }
     ]
   },
   {

@@ -1,12 +1,12 @@
 const packageJson = require('../../package.json');
 
 export const environment = {
-  appName: 'Angular Ngrx Material Starter',
+  appName: 'آوند',
   envName: 'PROD',
   production: true,
   test: false,
-  i18nPrefix: '/angular-ngrx-material-starter',
-  serverApiUrl : 'http://testbed.avand.io:8080/',
+  i18nPrefix: '',
+  serverApiUrl : '/api/',
   versions: {
     app: packageJson.version,
     angular: packageJson.dependencies['@angular/core'],

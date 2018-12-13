@@ -39,9 +39,6 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
-import { CommonModule } from '@angular/common';
-import { registerLocaleData } from '@angular/common';
-import localeFa from '@angular/common/locales/fa';
 
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
@@ -51,8 +48,12 @@ import { StaticModule } from './static';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
-import {PublicComponent, SecureComponent} from '@app/layouts';
+import {
+  LoginComponent,
+  RegisterComponent,
+  VerificationComponent
+} from '@app/public';
+import { PublicComponent, SecureComponent } from '@app/layouts';
 import {
   CandidateComponent,
   CandidatePageComponent,
@@ -60,22 +61,26 @@ import {
   DashboardComponent,
   InvoicePreviewComponent,
   PlanComponent,
+  JobComponent,
+  JobCreateDialog,
+  JobPageComponent,
   CalenderComponent
 } from '@app/secure';
-import {AuthInterceptor} from "@app/blocks/interceptor/auth.interceptor";
-import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
-import {AuthExpiredInterceptor} from "@app/blocks/interceptor/auth-expired.interceptor";
-import {ErrorHandlerInterceptor} from "@app/blocks/interceptor/errorhandler.interceptor";
-import {SubscriptionExpiredInterceptor} from "@app/blocks/interceptor/subscription-expired.interceptor";
-import {CurrencyPipe} from '@angular/common';
-import {RiyalCurrencyPipe} from "@app/shared/pipe/riyal-currency.pipe";
-import {PersianNumberPipePipe} from "@app/shared/pipe/persian-number.pipe";
-import {JalaliPipe} from "@app/shared/pipe/jalali.pipe";
-import {CandidatePageEmailDialog} from "@app/secure/candidate-page/candidate-page.component";
+import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.interceptor';
+import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
+import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
+import { CurrencyPipe } from '@angular/common';
+import { RiyalCurrencyPipe } from '@app/shared/pipe/riyal-currency.pipe';
+import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
+import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
+import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-page.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 registerLocaleData(localeFa);
+
 
 @NgModule({
   imports: [
@@ -125,6 +130,7 @@ registerLocaleData(localeFa);
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    AvatarModule,
 
     // core & shared
     CoreModule,
@@ -135,13 +141,15 @@ registerLocaleData(localeFa);
     SettingsModule,
 
     // app
-    AppRoutingModule,
+    AppRoutingModule
   ],
   entryComponents: [
     CandidatePageComponent,
     CandidateCreateDialog,
+    JobCreateDialog,
     CandidatePageComponent,
-    CandidatePageEmailDialog
+    CandidatePageEmailDialog,
+    JobPageComponent
   ],
   declarations: [
     AppComponent,
@@ -160,6 +168,9 @@ registerLocaleData(localeFa);
     CandidateCreateDialog,
     CandidatePageComponent,
     CandidatePageEmailDialog,
+    JobComponent,
+    JobCreateDialog,
+    JobPageComponent,
     CalenderComponent
   ],
   providers: [
@@ -184,7 +195,7 @@ registerLocaleData(localeFa);
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
-      multi: true,
+      multi: true
     },
     CurrencyPipe
   ],

@@ -28,11 +28,8 @@
 		<jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
 		<sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-		<node.version>v8.9.4</node.version>
-		<yarn.version>v1.3.2</yarn.version>
-
-		<!--<nodeVersion>v9.11.1</nodeVersion>-->
-		<!--<yarnVersion>v1.9.4</yarnVersion>-->
+		<node.version>v10.14.2</node.version>
+		<yarn.version>v1.12.3</yarn.version>
 	</properties>
 
 	<dependencyManagement>
@@ -257,7 +254,7 @@
 					<configuration>
 						<nodeVersion>${node.version}</nodeVersion>
 						<yarnVersion>${yarn.version}</yarnVersion>
-						<workingDirectory>src/main/webapp/app/</workingDirectory>
+						<workingDirectory>src/main/webapp/</workingDirectory>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -322,7 +319,7 @@
 						<configuration>
 							<nodeVersion>${node.version}</nodeVersion>
 							<yarnVersion>${yarn.version}</yarnVersion>
-							<workingDirectory>src/main/webapp/app/</workingDirectory>
+							<workingDirectory>src/main/webapp/</workingDirectory>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -336,6 +333,104 @@
 		</profile>
 		<profile>
 			<id>prod</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-undertow</artifactId>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>target/www/</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<warSourceDirectory>target/www/</warSourceDirectory>
+							<webResources>
+								<resource>
+									<directory>src/main/webapp</directory>
+									<includes>
+										<include>WEB-INF/**</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<executable>true</executable>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>build-info</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>${frontend-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>install node and yarn</id>
+								<goals>
+									<goal>install-node-and-yarn</goal>
+								</goals>
+								<phase>generate-resources</phase>
+							</execution>
+							<execution>
+								<id>yarn install</id>
+								<goals>
+									<goal>yarn</goal>
+								</goals>
+								<configuration>
+									<arguments>yarn config set proxy http://srv.nivst.com:8888</arguments>
+									<arguments>yarn config set https-proxy http://srv.nivst.com:8888</arguments>
+									<arguments>install --frozen-lockfile --non-interactive</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ng build</id>
+								<goals>
+									<goal>yarn</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<arguments>run build --prod --aot</arguments>
+								</configuration>
+							</execution>
+						</executions>
+						<configuration>
+							<nodeVersion>${node.version}</nodeVersion>
+							<yarnVersion>${yarn.version}</yarnVersion>
+							<workingDirectory>src/main/webapp/</workingDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+			<properties>
+				<!-- log configuration -->
+				<logback.loglevel>INFO</logback.loglevel>
+				<!-- default Spring profiles -->
+			</properties>
+		</profile>
+		<profile>
+			<id>testbed</id>
 			<dependencies>
 				<dependency>
 					<groupId>org.springframework.boot</groupId>
@@ -418,80 +513,7 @@
 						<configuration>
 							<nodeVersion>${node.version}</nodeVersion>
 							<yarnVersion>${yarn.version}</yarnVersion>
-							<workingDirectory>src/main/webapp/app/</workingDirectory>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-
-			<properties>
-				<!-- log configuration -->
-				<logback.loglevel>INFO</logback.loglevel>
-				<!-- default Spring profiles -->
-			</properties>
-		</profile>
-		<profile>
-			<id>testbed</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-undertow</artifactId>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-clean-plugin</artifactId>
-						<configuration>
-							<filesets>
-								<fileset>
-									<directory>target/www/</directory>
-								</fileset>
-							</filesets>
-						</configuration>
-					</plugin>
-
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<warSourceDirectory>target/www/</warSourceDirectory>
-							<webResources>
-								<resource>
-									<directory>src/main/webapp</directory>
-									<includes>
-										<include>WEB-INF/**</include>
-									</includes>
-								</resource>
-							</webResources>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>com.github.eirslett</groupId>
-						<artifactId>frontend-maven-plugin</artifactId>
-						<version>${frontend-maven-plugin.version}</version>
-						<executions>
-							<execution>
-								<id>install node and yarn</id>
-								<goals>
-									<goal>install-node-and-yarn</goal>
-								</goals>
-								<phase>generate-resources</phase>
-							</execution>
-							<execution>
-								<id>yarn install</id>
-								<goals>
-									<goal>yarn</goal>
-								</goals>
-								<configuration>
-									<arguments>install --frozen-lockfile --non-interactive</arguments>
-								</configuration>
-							</execution>
-						</executions>
-						<configuration>
-							<nodeVersion>${node.version}</nodeVersion>
-							<yarnVersion>${yarn.version}</yarnVersion>
-							<workingDirectory>src/main/webapp/app/</workingDirectory>
+							<workingDirectory>src/main/webapp/</workingDirectory>
 						</configuration>
 					</plugin>
 				</plugins>

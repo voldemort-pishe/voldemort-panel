@@ -5,14 +5,11 @@
     <div class="col-sm-2">
       <div class="inner-menu">
         <mat-nav-list>
-          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'PENDING'}" (click)="applyFilterByState('PENDING')">
-            <h4 mat-line>فعال</h4>
+          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'OPEN'}" (click)="applyFilterByStatus('OPEN')">
+            <h4 mat-line>باز</h4>
           </a>
-          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'REJECTED'}" (click)="applyFilterByState('REJECTED')">
-            <h4 mat-line>رد شده</h4>
-          </a>
-          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'ACCEPTED'}" (click)="applyFilterByState('ACCEPTED')">
-            <h4 mat-line>استخدام شده</h4>
+          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'CLOSE'}" (click)="applyFilterByStatus('CLOSE')">
+            <h4 mat-line>بسته</h4>
           </a>
           <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'ALL'}"  (click)="loadAll()">
             <h4 mat-line>همه</h4>
@@ -20,9 +17,9 @@
 
           <mat-divider></mat-divider>
 
-          <a mat-list-item (click)="openCreateCandidateDialog()">
+          <a mat-list-item (click)="openCreateJobDialog()">
             <mat-icon mat-list-icon>add</mat-icon>
-            <h4 mat-line>افزودن کارجو</h4>
+            <h4 mat-line>افزودن شغل</h4>
           </a>
 
         </mat-nav-list>
@@ -48,24 +45,6 @@
                            (keyup)="applyFilterBySearch($event.target.value)" placeholder="کلمات کلیدی">
                   </mat-form-field>
 
-                  <mat-form-field>
-                    <mat-select placeholder="موقعیت شغلی"
-                                [(ngModel)]="searchJobPosition"
-                                (selectionChange)="applyFilterByJobPosition($event.value)">
-                      <mat-option value="ALL">انتخاب کنید</mat-option>
-                      <mat-option *ngFor="let items of jobList?.content" value="{{items.data.id}}">{{items.data.nameFa}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <mat-select placeholder="مرحله"
-                                [(ngModel)]="searchPipeline"
-                                (selectionChange)="applyFilterByPipeline($event.value)">
-                      <mat-option value="ALL">انتخاب کنید</mat-option>
-                      <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                   <button *ngIf="showClearFilter" (click)="clearFilter()" mat-raised-button>حذف فیلتر</button>
 
                 </div>
@@ -88,16 +67,16 @@
                     </td>
                   </ng-container>
 
-                  <ng-container matColumnDef="candidate">
-                    <th mat-header-cell *matHeaderCellDef> کارجو </th>
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> عنوان </th>
                     <td mat-cell *matCellDef="let element">
-                      <a href="#/candidate/{{element.data.id}}">{{element.data.firstName}}  {{element.data.lastName}}</a>
+                      <a href="#/job/{{element.data.id}}">{{element.data.nameFa}}</a>
                     </td>
                   </ng-container>
 
-                  <ng-container matColumnDef="owner">
-                    <th mat-header-cell *matHeaderCellDef> کارفرما </th>
-                    <td mat-cell *matCellDef="let element"> {{element.data.employer}} </td>
+                  <ng-container matColumnDef="department">
+                    <th mat-header-cell *matHeaderCellDef> دپارتمان </th>
+                    <td mat-cell *matCellDef="let element"> {{element.data.department}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="createdDate">
@@ -105,20 +84,9 @@
                     <td mat-cell *matCellDef="let element"> {{element.data.createdDate | jalali}} </td>
                   </ng-container>
 
-                  <ng-container matColumnDef="jobPosition">
-                    <th mat-header-cell *matHeaderCellDef> موقعیت شغلی </th>
-                    <td mat-cell *matCellDef="let element"> {{element.include.job.nameFa}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="companyPipeline">
-                    <th mat-header-cell *matHeaderCellDef> مرحله </th>
-                    <td mat-cell *matCellDef="let element">
-                      <mat-form-field>
-                        <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="'' + element.include.pipeline.id">
-                          <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </td>
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                    <td mat-cell *matCellDef="let element"> {{jobStatus[element.data.status]}} </td>
                   </ng-container>
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
