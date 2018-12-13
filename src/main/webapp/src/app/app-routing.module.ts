@@ -6,25 +6,14 @@ import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/pub
 import {PublicComponent, SecureComponent} from '@app/layouts';
 import {DashboardComponent} from '@app/secure/dashboard';
 import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
-import {CandidateComponent, CandidatePageComponent, InvoicePreviewComponent, PlanComponent, CalenderComponent} from "@app/secure";
-
-import {
-  LoginComponent,
-  RegisterComponent,
-  VerificationComponent
-} from '@app/public';
-import { PublicComponent, SecureComponent } from '@app/layouts';
-import { DashboardComponent } from '@app/secure/dashboard';
-import { UserRouteAccessService } from '@app/core/auth/user-route-access-service';
 import {
   CandidateComponent,
   CandidatePageComponent,
   InvoicePreviewComponent,
-  JobComponent,
-  JobPageComponent,
   PlanComponent,
-  CalenderComponent
-} from '@app/secure';
+  CalenderComponent,
+  JobComponent,
+  JobPageComponent} from "@app/secure";
 
 const routes: Routes = [
   {

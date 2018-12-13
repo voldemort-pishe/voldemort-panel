@@ -1,8 +1,13 @@
 import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import { Subject } from 'rxjs';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,
-   DAYS_OF_WEEK} from 'angular-calendar';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+  DAYS_OF_WEEK
+} from 'angular-calendar';
 import {JalaliPipe} from '@app/shared/pipe/jalali.pipe';
 import {PersianNumberPipePipe} from '@app/shared/pipe/persian-number.pipe';
 
@@ -29,8 +34,8 @@ const colors: any = {
   providers: [ JalaliPipe, PersianNumberPipePipe ]
 })
 export class CalenderComponent {
-  constructor(public jalaliPipe: JalaliPipe,
-              public persianNumber : PersianNumberPipePipe) {
+  constructor(private jalaliPipe: JalaliPipe,
+              private persianNumber : PersianNumberPipePipe) {
   }
   @ViewChild('modalContent')
   Today = new Date();
@@ -126,10 +131,10 @@ export class CalenderComponent {
   }
 
   eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-    }: CalendarEventTimesChangedEvent): void {
+                      event,
+                      newStart,
+                      newEnd
+                    }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
     this.handleEvent('Dropped or resized', event);

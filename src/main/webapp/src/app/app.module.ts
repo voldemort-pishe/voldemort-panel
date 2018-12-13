@@ -71,7 +71,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
 import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, CommonModule, registerLocaleData } from '@angular/common';
 import { RiyalCurrencyPipe } from '@app/shared/pipe/riyal-currency.pipe';
 import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
 import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
@@ -79,6 +79,8 @@ import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-p
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AvatarModule } from 'ngx-avatar';
+import localeFa from '@angular/common/locales/fa';
 registerLocaleData(localeFa);
 
 
