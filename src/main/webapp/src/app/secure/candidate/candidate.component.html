@@ -37,39 +37,6 @@
             <div class="row no-gutters table-content">
               <div class="col-sm-12">
 
-                <div class="table-filter">
-
-                  <span class="label"><mat-icon>filter_list</mat-icon>‌</span>
-                  <span *ngIf="selection.selected.length > 0" class="selection-count">{{selection.selected.length | persianNumber}} کارجو</span>
-
-                  <mat-form-field>
-                    <input matInput
-                           [(ngModel)]="searchKeyword"
-                           (keyup)="applyFilterBySearch($event.target.value)" placeholder="کلمات کلیدی">
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <mat-select placeholder="موقعیت شغلی"
-                                [(ngModel)]="searchJobPosition"
-                                (selectionChange)="applyFilterByJobPosition($event.value)">
-                      <mat-option value="ALL">انتخاب کنید</mat-option>
-                      <mat-option *ngFor="let items of jobList?.content" value="{{items.data.id}}">{{items.data.nameFa}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <mat-select placeholder="مرحله"
-                                [(ngModel)]="searchPipeline"
-                                (selectionChange)="applyFilterByPipeline($event.value)">
-                      <mat-option value="ALL">انتخاب کنید</mat-option>
-                      <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <button *ngIf="showClearFilter" (click)="clearFilter()" mat-raised-button>حذف فیلتر</button>
-
-                </div>
-
                 <div class="loading" *ngIf="isLoading"
                      style="display: flex; justify-content: center; align-items: center">
                   <mat-progress-spinner
@@ -79,72 +46,110 @@
                   </mat-progress-spinner>
                 </div>
 
+                <div *ngIf="dataSourceRaw?.totalElements > 0 && !isLoading">
+
+                  <div class="table-filter">
+
+                    <span class="label"><mat-icon>filter_list</mat-icon>‌</span>
+                    <span *ngIf="selection.selected.length > 0" class="selection-count">{{selection.selected.length | persianNumber}} کارجو</span>
+
+                    <mat-form-field>
+                      <input matInput
+                             [(ngModel)]="searchKeyword"
+                             (keyup)="applyFilterBySearch($event.target.value)" placeholder="کلمات کلیدی">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                      <mat-select placeholder="موقعیت شغلی"
+                                  [(ngModel)]="searchJobPosition"
+                                  (selectionChange)="applyFilterByJobPosition($event.value)">
+                        <mat-option value="ALL">انتخاب کنید</mat-option>
+                        <mat-option *ngFor="let items of jobList?.content" value="{{items.data.id}}">{{items.data.nameFa}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                      <mat-select placeholder="مرحله"
+                                  [(ngModel)]="searchPipeline"
+                                  (selectionChange)="applyFilterByPipeline($event.value)">
+                        <mat-option value="ALL">انتخاب کنید</mat-option>
+                        <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <button *ngIf="showClearFilter" (click)="clearFilter()" mat-raised-button>حذف فیلتر</button>
+
+                  </div>
+                  <table mat-table [dataSource]="dataSource">
+
+                    <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                      <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                                      [checked]="selection.hasValue() && isAllSelected()"
+                                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                                      (change)="$event ? selection.toggle(row) : null"
+                                      [checked]="selection.isSelected(row)">
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="candidate">
+                      <th mat-header-cell *matHeaderCellDef> کارجو </th>
+                      <td mat-cell *matCellDef="let element">
+                        <a href="#/candidate/{{element.data.id}}">{{element.data.firstName}}  {{element.data.lastName}}</a>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="owner">
+                      <th mat-header-cell *matHeaderCellDef> کارفرما </th>
+                      <td mat-cell *matCellDef="let element"> {{element.data.employer}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="createdDate">
+                      <th mat-header-cell *matHeaderCellDef> تاریخ ایجاد </th>
+                      <td mat-cell *matCellDef="let element"> {{element.data.createdDate | jalali}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="jobPosition">
+                      <th mat-header-cell *matHeaderCellDef> موقعیت شغلی </th>
+                      <td mat-cell *matCellDef="let element"> {{element.include.job.nameFa}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="companyPipeline">
+                      <th mat-header-cell *matHeaderCellDef> مرحله </th>
+                      <td mat-cell *matCellDef="let element">
+                        <mat-form-field>
+                          <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="'' + element.include.pipeline.id">
+                            <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </tr>
+                  </table>
+
+                  <mat-paginator
+                    *ngIf="dataSourceRaw?.totalElements > 0"
+                    [length]="dataSourceRaw?.totalElements"
+                    [pageSize]="dataSourceRaw?.size"
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="loadAll($event)">
+                  </mat-paginator>
+
+                </div>
+
+
                 <div *ngIf="dataSourceRaw?.totalElements == 0 && !isLoading" class="no-content">
                 </div>
 
-                <table *ngIf="!isLoading && dataSourceRaw?.totalElements > 0" mat-table [dataSource]="dataSource">
-
-                  <!-- Checkbox Column -->
-                  <ng-container matColumnDef="select">
-                    <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox (change)="$event ? masterToggle() : null"
-                                    [checked]="selection.hasValue() && isAllSelected()"
-                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
-                      </mat-checkbox>
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                      <mat-checkbox (click)="$event.stopPropagation()"
-                                    (change)="$event ? selection.toggle(row) : null"
-                                    [checked]="selection.isSelected(row)">
-                      </mat-checkbox>
-                    </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="candidate">
-                    <th mat-header-cell *matHeaderCellDef> کارجو </th>
-                    <td mat-cell *matCellDef="let element">
-                      <a href="#/candidate/{{element.data.id}}">{{element.data.firstName}}  {{element.data.lastName}}</a>
-                    </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="owner">
-                    <th mat-header-cell *matHeaderCellDef> کارفرما </th>
-                    <td mat-cell *matCellDef="let element"> {{element.data.employer}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="createdDate">
-                    <th mat-header-cell *matHeaderCellDef> تاریخ ایجاد </th>
-                    <td mat-cell *matCellDef="let element"> {{element.data.createdDate | jalali}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="jobPosition">
-                    <th mat-header-cell *matHeaderCellDef> موقعیت شغلی </th>
-                    <td mat-cell *matCellDef="let element"> {{element.include.job.nameFa}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="companyPipeline">
-                    <th mat-header-cell *matHeaderCellDef> مرحله </th>
-                    <td mat-cell *matCellDef="let element">
-                      <mat-form-field>
-                        <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="'' + element.include.pipeline.id">
-                          <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </td>
-                  </ng-container>
-
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                  </tr>
-                </table>
-
-                <mat-paginator
-                  *ngIf="dataSourceRaw?.totalElements > 0"
-                  [length]="dataSourceRaw?.totalElements"
-                               [pageSize]="dataSourceRaw?.size"
-                               [pageSizeOptions]="[5, 10, 25, 100]"
-                               (page)="loadAll($event)">
-                </mat-paginator>
 
               </div>
             </div>
