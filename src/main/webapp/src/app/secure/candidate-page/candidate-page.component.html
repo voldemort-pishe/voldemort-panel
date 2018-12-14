@@ -70,7 +70,9 @@
 
         <div *ngIf="activeTab.current == 'activity'" class="tab activity-tab">
 
-          <div *ngIf="candidateMessage?.totalElements == 0" class="no-content"></div>
+          <div *ngIf="candidateMessage?.totalElements == 0" class="no-content">
+            <p>در حال حاضر فعالیتی از کاندیدا وجود ندارد</p>
+          </div>
 
           <mat-card *ngFor="let message of candidateMessage?.content">
             <div class="title">
@@ -122,6 +124,13 @@
             </div>
           </mat-card>
 
+        </div>
+
+        <div *ngIf="activeTab.current == 'schedule'" class="schedule">
+
+          <div class="no-interviews">
+            <p>محصاحبه تنظیم نشده است</p>
+          </div>
         </div>
 
       </div>

@@ -51,11 +51,26 @@
 }
 
 .no-content{
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center;
   background: url(/assets/images/candidate_page_empty.jpg) no-repeat center;
 }
+
+.no-interviews{
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center;
+  color: #848382;
+  background: url(/assets/images/no_interviews.jpg) no-repeat center;
+}
+
 
 .header-container{
   margin-bottom: 20px;
