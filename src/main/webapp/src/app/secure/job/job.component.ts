@@ -158,7 +158,10 @@ export class JobCreateDialog implements OnInit {
 
   @ViewChild('jobCreateForm') jobCreateForm: ElementRef;
 
-  jobCreateFormGroup: FormGroup;
+  BasicsJobCreateFormGroup: FormGroup;
+  DescJobCreateFormGroup: FormGroup;
+  HiringTeamFormGroup: FormGroup;
+  StagesJobCreateFormGroup: FormGroup;
   jobType: object;
   jobLocation;
 
@@ -170,12 +173,25 @@ export class JobCreateDialog implements OnInit {
               private provinceService: ProvinceService,
               private jobService: JobService) {
 
-    this.jobCreateFormGroup = fb.group({
+    this.BasicsJobCreateFormGroup = fb.group({
       nameFa: [null, Validators.required],
       type: ['', Validators.required],
       department: [null, Validators.required],
-      descriptionFa: [null, Validators.required],
       location: ['', Validators.required],
+    });
+
+    this.DescJobCreateFormGroup = fb.group({
+      descriptionFa: [null, Validators.required],
+    });
+
+    this.HiringTeamFormGroup = fb.group({
+      hiringManagersFa: [null, Validators.required],
+      recruiterFa: [null, Validators.required],
+      cordinatorFa: [null, Validators.required]
+    });
+
+    this.StagesJobCreateFormGroup = fb.group({
+      hiringProcessFa: [null, Validators.required],
     });
 
   }
@@ -202,14 +218,14 @@ export class JobCreateDialog implements OnInit {
   }
 
   save() {
-    if (this.jobCreateFormGroup.valid) {
-      this.jobService
-        .create(this.jobCreateFormGroup.value)
-        .subscribe(
-          (res: HttpResponse<JobVm>) => this.onCreateJobSuccess(res.body),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
+    // if (this.jobCreateFormGroup.valid) {
+    //   this.jobService
+    //     .create(this.jobCreateFormGroup.value)
+    //     .subscribe(
+    //       (res: HttpResponse<JobVm>) => this.onCreateJobSuccess(res.body),
+    //       (res: HttpErrorResponse) => this.onError(res.message)
+    //     );
+    // }
   }
 
   private onCreateJobSuccess(data: JobVm) {
