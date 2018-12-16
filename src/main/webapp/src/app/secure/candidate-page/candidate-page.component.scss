@@ -61,14 +61,18 @@
 }
 
 .no-interviews{
-  width: 300px;
-  height: 300px;
+  width: 296px;
+  height: 265px;
   margin: 0 auto;
   display: flex;
   flex-direction: column-reverse;
   text-align: center;
   color: #848382;
   background: url(/assets/images/no_interviews.jpg) no-repeat center;
+}
+.interview-empty{
+  text-align: center;
+  padding: 0 0 20px 0;
 }
 
 

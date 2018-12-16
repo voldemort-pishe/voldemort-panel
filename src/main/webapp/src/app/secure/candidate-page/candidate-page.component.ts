@@ -8,22 +8,43 @@ import {
   ViewChild,
   ViewEncapsulation
 } from "@angular/core";
-import {CandidateService} from "@app/core/services/candidate.service";
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MAT_DIALOG_DATA,
+  MatAutocomplete,
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
+  MatDialog,
+  MatDialogRef,
+  MatSnackBar,
+} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {CompanyPipelineService, PERSIAN_DATE_FORMATS} from "@app/core";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {CandidateService} from "@app/core/services/candidate.service";
+import {CommentService} from "@app/core/services/comment.service";
+import {CandidateMessageService} from "@app/core/services/candidate-message.service";
+import {Principal} from "@app/core/auth/principal.service";
+
 import {ContentCandidate} from "@app/shared/model/candidate.model";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
-import {CompanyPipelineService} from "@app/core";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {CandidateMessageService} from "@app/core/services/candidate-message.service";
 import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
-import {Principal} from "@app/core/auth/principal.service";
 import {User} from "@app/shared/model/user.model";
-import {CommentService} from "@app/core/services/comment.service";
 import {Comment} from "@app/shared/model/comment.model";
 import {CommentVm} from "@app/shared/model/comment-vm.model";
 import {CommentPage} from "@app/shared/model/comment-page.mode";
+import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
+import * as jalaliMoment from "jalali-moment";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {CompanyMemberService} from "@app/core/services/company-member.service";
+import {CompanyMemberPage} from "@app/shared/model/company-member/company-member-page.model";
+import {CandidateScheduleMember} from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
+import {CompanyMember} from "@app/shared/model/company-member/company-member.model";
 
 
 @Component({
@@ -110,6 +131,17 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   openEmailDialog(){
     const dialogRef = this.dialog.open(
       CandidatePageEmailDialog,
+      {
+        data: {
+          candidateId:this.candidateId
+        }
+      }
+    );
+  }
+
+  openAddScheduleDialog(){
+    const dialogRef = this.dialog.open(
+      CandidatePageAddScheduleDialog,
       {
         data: {
           candidateId:this.candidateId
@@ -227,5 +259,120 @@ export class CandidatePageEmailDialog implements OnInit{
   private onError(errorMessage: string) {
     console.log(errorMessage);
   }
+
+}
+
+@Component({
+  selector: 'candidate-page-add-schedule-dialog',
+  templateUrl: './candidate-page-add-schedule.component.html',
+  styleUrls: ['./candidate-page-add-schedule.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: JalaliMomentDate, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS }
+  ],
+  encapsulation: ViewEncapsulation.None
+})
+export class CandidatePageAddScheduleDialog implements OnInit{
+
+  @ViewChild('candidateAddScheduleForm') candidateAddScheduleForm: ElementRef;
+  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  candidateAddScheduleFormGroup: FormGroup;
+  date = new FormControl(jalaliMoment());
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruitCtrl = new FormControl();
+
+  filteredMember: Observable<CompanyMember[]>;
+  memberSet: CandidateScheduleMember[];
+  companyMemberPage: CompanyMemberPage;
+
+  fruits: string[] = ['Lemon'];
+
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,
+              private fb: FormBuilder,
+              private dialogRef: MatDialogRef<CandidatePageComponent>,
+              private companyMemberService: CompanyMemberService,
+              private snackBar: MatSnackBar) {
+
+    this.candidateAddScheduleFormGroup = fb.group({
+      subject: [null,Validators.required],
+      message: [null,Validators.required],
+      candidateId: new FormControl()
+    });
+
+
+  }
+
+  ngOnInit(): void {
+    this.companyMemberService
+      .getAll()
+      .subscribe(
+        (res: HttpResponse<CompanyMemberPage>) => this.onCompanyMemberSuccess(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      )
+  }
+
+  add(event: MatChipInputEvent): void {
+    // Add fruit only when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // Add our fruit
+      if ((value || '').trim()) {
+        this.fruits.push(value.trim());
+      }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.fruitCtrl.setValue(null);
+    }
+  }
+
+  remove(fruit: string): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.fruits.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.fruitCtrl.setValue(null);
+  }
+
+
+
+  private onCompanyMemberSuccess(data: CompanyMemberPage){
+    this.companyMemberPage = data;
+    this.filteredMember = this.fruitCtrl.valueChanges.pipe(
+      startWith(null),
+      map((userEmail: string | null) => {
+        return userEmail ? this._filter(userEmail) : this.companyMemberPage.content.map( e => { return e.data });
+      }));
+  }
+
+  private onError(errorMessage: string) {
+    console.log(errorMessage);
+  }
+
+  private _filter(value: string): CompanyMember[] {
+    return this.companyMemberPage.content
+      .filter( e => {
+        return e.data.userEmail.includes(value);
+      })
+      .map(e => {return e.data});
+  }
+
 
 }

@@ -1,4 +1,4 @@
-import {CandidateScheduleMemebr} from './candidate-schedule-member.model';
+import {CandidateScheduleMember} from './candidate-schedule-member.model';
 import {Moment} from 'moment';
 
 export class CandidateSchedule {
@@ -7,7 +7,7 @@ export class CandidateSchedule {
   endDate: Moment;
   id: number;
   location: string;
-  member: CandidateScheduleMemebr[];
+  member: CandidateScheduleMember[];
   startDate: Moment;
   status: string;
 }

@@ -24,6 +24,7 @@ import {StateStorageService} from "@app/core/auth/state-storage.service";
 import {SessionStorageService , LocalStorageService} from 'ngx-webstorage';
 import {MatPaginatorIntlPer} from "@app/core/intl/matPaginatorIntlPer";
 import {MatPaginatorIntl} from '@angular/material';
+import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import {MatPaginatorIntl} from '@angular/material';
     TitleService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPer},
-    PersianNumberHelper
+    PersianNumberHelper,
+    JalaliMomentDate
   ],
   exports: [TranslateModule]
 })

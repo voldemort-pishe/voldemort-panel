@@ -75,7 +75,10 @@ import { CurrencyPipe, CommonModule, registerLocaleData } from '@angular/common'
 import { RiyalCurrencyPipe } from '@app/shared/pipe/riyal-currency.pipe';
 import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
 import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
-import { CandidatePageEmailDialog } from '@app/secure/candidate-page/candidate-page.component';
+import {
+  CandidatePageAddScheduleDialog,
+  CandidatePageEmailDialog
+} from '@app/secure/candidate-page/candidate-page.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -153,6 +156,7 @@ registerLocaleData(localeFa);
     JobCreateDialog,
     CandidatePageComponent,
     CandidatePageEmailDialog,
+    CandidatePageAddScheduleDialog,
     JobPageComponent
   ],
   declarations: [
@@ -172,6 +176,7 @@ registerLocaleData(localeFa);
     CandidateCreateDialog,
     CandidatePageComponent,
     CandidatePageEmailDialog,
+    CandidatePageAddScheduleDialog,
     JobComponent,
     JobCreateDialog,
     JobPageComponent,

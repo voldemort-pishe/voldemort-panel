@@ -88,9 +88,9 @@
             </div>
             <mat-card-content>
               <h3>{{message.data.subject}}</h3>
-             <p>
-               {{message.data.message}}
-             </p>
+              <p>
+                {{message.data.message}}
+              </p>
             </mat-card-content>
           </mat-card>
         </div>
@@ -128,8 +128,11 @@
 
         <div *ngIf="activeTab.current == 'schedule'" class="schedule">
 
-          <div class="no-interviews">
-            <p>محصاحبه تنظیم نشده است</p>
+          <div class="interview-empty">
+            <div class="no-interviews">
+              <p>مصاحبه تنظیم نشده است</p>
+            </div>
+            <button (click)="openAddScheduleDialog()" mat-raised-button color="primary">تنظیم مصاحبه</button>
           </div>
         </div>
 

@@ -14,7 +14,6 @@
 @import 'styles-reset.scss-theme';
 @import "styles-fonts";
 @import 'app/app.component.scss-theme';
-@import 'app/shared/big-input/big-input.component.scss-theme';
 @import 'app/static/about/about.component.scss-theme';
 
 @import "./../node_modules/angular-calendar/css/angular-calendar.css";
@@ -24,7 +23,6 @@
   @include anms-styles-reset-theme($theme);
   @include anms-app-component-theme($theme);
   @include anms-about-component-theme($theme);
-  @include anms-big-input-component-theme($theme);
 }
 
 .default-theme {

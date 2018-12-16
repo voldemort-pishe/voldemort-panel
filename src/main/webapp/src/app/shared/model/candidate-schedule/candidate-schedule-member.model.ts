@@ -1,6 +1,6 @@
 import {Moment} from 'moment';
 
-export class CandidateScheduleMemebr {
+export class CandidateScheduleMember {
  candidateScheduleId: number;
  createdDate: Moment;
  id: number;

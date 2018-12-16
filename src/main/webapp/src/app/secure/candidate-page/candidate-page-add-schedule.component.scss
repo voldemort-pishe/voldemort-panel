@@ -1,0 +1,33 @@
+.mat-dialog-title .mat-icon{
+  vertical-align: middle;
+}
+
+.add-schedule-container{
+
+  display: flex;
+  flex-direction: column;
+
+  .add-schedule-candidate-form form .row [class*="col-"] > * {
+    width: 100%;
+  }
+
+  .mat-form-field{
+    margin: 0 0 5px 0;
+  }
+}
+
+span.mat-option-text {
+  text-align: left !important;
+  direction: ltr;
+  display: flex;
+  align-items: center;
+}
+ngx-avatar{
+  margin: 0 4px 0 0;
+}
+
+.avatar-content {
+  font: normal 16px/29px Vazir !important;
+}
+
+
