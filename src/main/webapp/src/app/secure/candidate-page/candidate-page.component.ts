@@ -352,6 +352,9 @@ export class CandidatePageAddScheduleDialog implements OnInit{
   }
 
 
+  addSchedule(){
+    
+  }
 
   private onCompanyMemberSuccess(data: CompanyMemberPage){
     this.companyMemberPage = data;
