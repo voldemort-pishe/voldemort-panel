@@ -1,6 +1,7 @@
 import {UserAuthority} from "@app/shared/model/user-authority.model";
 
 export class User {
+  id: number;
   login: string;
   firstName: string;
   lastName: string;

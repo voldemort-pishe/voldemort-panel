@@ -69,6 +69,11 @@
         </div>
 
         <div *ngIf="activeTab.current == 'activity'" class="tab activity-tab">
+
+          <div *ngIf="candidateMessage?.totalElements == 0" class="no-content">
+            <p>در حال حاضر فعالیتی از کاندیدا وجود ندارد</p>
+          </div>
+
           <mat-card *ngFor="let message of candidateMessage?.content">
             <div class="title">
               <h4>
@@ -88,6 +93,44 @@
              </p>
             </mat-card-content>
           </mat-card>
+        </div>
+
+        <div *ngIf="activeTab.current == 'comments'" class="comments">
+          <mat-card>
+            <div class="comment-form">
+              <ngx-avatar name="{{identityUser?.firstName}}"
+                          gravatarId="{{identityUser?.email}}">
+              </ngx-avatar>
+
+              <mat-form-field class="comment-input">
+                <input [(ngModel)]="commentText" matInput placeholder="نظر" autocomplete="off">
+              </mat-form-field>
+            </div>
+
+            <div class="comments-action">
+              <button (click)="sendComment()" mat-button color="primary">ارسال</button>
+            </div>
+          </mat-card>
+
+          <mat-card class="comments-item" *ngFor="let comments of commentList?.content" >
+            <div class="display-comment">
+              <ngx-avatar name="{{comments.include.owner.firstName}}"
+                          gravatarId="{{comments.include.owner.email}}">
+              </ngx-avatar>
+              <h3>{{comments.include.owner.firstName}} {{comments.include.owner.lastName}}</h3>
+            </div>
+            <div class="comment-text">
+              <p>{{comments.data.commentText}}</p>
+            </div>
+          </mat-card>
+
+        </div>
+
+        <div *ngIf="activeTab.current == 'schedule'" class="schedule">
+
+          <div class="no-interviews">
+            <p>محصاحبه تنظیم نشده است</p>
+          </div>
         </div>
 
       </div>
