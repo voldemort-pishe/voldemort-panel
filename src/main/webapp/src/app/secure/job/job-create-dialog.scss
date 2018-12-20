@@ -1,7 +1,7 @@
 .stepper-wrapper{
   min-height: 400px;
   .create-job-form{
-    min-height: 180px;
+    min-height: 200px;
   }
   .button-wrapper{
     margin-top: 30px;
@@ -12,7 +12,6 @@
   button{
   margin-left: 10px;
   }
-
 }
 .mat-dialog-title .mat-icon{
   vertical-align: middle;
@@ -31,5 +30,20 @@
   .mat-form-field{
     display: block;
     margin: 0 0 10px 0;
+  }
+}
+
+::ng-deep .mat-option-text {
+  display: flex;
+  span{
+    padding-right: 5px;
+  }
+  ngx-avatar {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .avatar-content{
+    font: 10px/30px Helvetica, Arial, sans-serif !important;
   }
 }

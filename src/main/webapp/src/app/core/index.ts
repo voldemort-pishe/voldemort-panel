@@ -22,3 +22,4 @@ export * from './services/province.service';
 export * from './services/candidate-message.service';
 export * from './services/comment.service';
 export * from './services/company-member.service';
+export * from './services/job-hire-team.service';

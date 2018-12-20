@@ -22,5 +22,8 @@ export class CompanyMemberService {
     return this.http.get<CompanyMemberPage>(`${this.resourceUrl}/active`, { observe: 'response' });
   }
 
+  searchByEmail(key): Observable<EntityArrayResponseType> {
+    return this.http.get<CompanyMemberPage>(`${this.resourceUrl}?email=${key}`, { observe: 'response' });
+  }
 
 }
