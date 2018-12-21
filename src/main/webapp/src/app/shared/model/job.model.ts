@@ -3,6 +3,7 @@ import {JobType} from "@app/shared/model/enumeration/job-type.model";
 import {JobStatus} from "@app/shared/model/enumeration/job-status.model";
 
 export class Job{
+  id: number;
   uniqueId: string;
   nameFa: string;
   descriptionFa: string;
