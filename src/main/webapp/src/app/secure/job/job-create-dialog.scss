@@ -33,6 +33,9 @@
   }
 }
 
+::ng-deep .mat-step-label{
+  font-family: Vazir, Tahoma, serif;
+}
 ::ng-deep .mat-option-text {
   display: flex;
   span{
