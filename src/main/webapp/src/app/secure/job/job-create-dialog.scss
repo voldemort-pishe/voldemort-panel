@@ -1,18 +1,3 @@
-.stepper-wrapper{
-  min-height: 400px;
-  .create-job-form{
-    min-height: 200px;
-  }
-  .button-wrapper{
-    margin-top: 30px;
-  }
-  textarea{
-    resize: none;
-  }
-  button{
-  margin-left: 10px;
-  }
-}
 .mat-dialog-title .mat-icon{
   vertical-align: middle;
 }
@@ -31,6 +16,10 @@
     display: block;
     margin: 0 0 10px 0;
   }
+}
+
+.button-wrapper button{
+  margin: 0 10px;
 }
 
 ::ng-deep .mat-step-label{

@@ -9,15 +9,49 @@
         <div class="add-schedule-candidate-form">
           <form [formGroup]="candidateAddScheduleFormGroup" #candidateAddScheduleFormG="ngForm" id="ngForm" (ngSubmit)="addSchedule()">
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-4">
                 <mat-form-field>
-                  <input placeholder="تاریخ" matInput [matDatepicker]="dp" [formControl]="date" autocomplete="off">
+                  <input placeholder="تاریخ"
+                         matInput
+                         [matDatepicker]="dp"
+                         formControlName="date"
+                         [min]="today"
+                         (dateChange)="onDateChange($event)"
+                         autocomplete="off">
                   <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                   <mat-datepicker #dp></mat-datepicker>
                 </mat-form-field>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <mat-select formControlName="startTime" placeholder="ساعت شروع">
+                    <mat-option *ngFor="let time of timeList" [value]="time">
+                      {{time.format("HH:mm")}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <mat-select formControlName="endTime" placeholder="ساعت پایان">
+                    <mat-option *ngFor="let time of timeList" [value]="time">
+                      {{time.format("HH:mm")}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="row ">
+              <div class="col-sm-12">
+                <mat-form-field>
+                  <input placeholder="محل" formControlName="location" matInput type="text" autocomplete="off">
+                </mat-form-field>
 
                 <mat-form-field>
-                  <input placeholder="ساعت" matInput type="time" autocomplete="off">
+                  <textarea matInput formControlName="description" placeholder="توضیحات"></textarea>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -26,19 +60,17 @@
                       *ngFor="let member of memberSet"
                       [selectable]="selectable"
                       [removable]="removable"
-                      (removed)="remove(fruit)">
-                      {{member.id}}
+                      (removed)="remove(member)">
+                      {{member.userEmail}}
                       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input
                       placeholder="اعضای حاضر در جلسه"
-                      #fruitInput
-                      [formControl]="fruitCtrl"
+                      #memberInput
+                      formControlName="memberCtrl"
                       [matAutocomplete]="auto"
                       [matChipInputFor]="chipList"
-                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                      [matChipInputAddOnBlur]="addOnBlur"
-                      (matChipInputTokenEnd)="add($event)">
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
                   </mat-chip-list>
                   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                     <mat-option *ngFor="let member of filteredMember | async" [value]="member">

@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as jmoment from 'jalali-moment';
 import * as moment from 'moment';
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {Principal} from '@app/core/auth/principal.service';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {CandidateScheduleService} from "@app/core";
-import {CandidateSchedule, ContentSchedule} from "@app/shared/model/candidate-schedule.model";
 import {DateRange} from "@app/shared/model/date-range.model";
 import {IEvent} from "@app/shared/model/event.model";
 import {EventService} from "@app/core/services/event.service";
+import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
+import {CandidateScheduleVm} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit {
   todayDateDay: string;
   todayDateMonth: string;
   displayedColumns: string[] = ['action','title', 'description',];
-  contentSchedule: ContentSchedule[];
+  contentSchedule: CandidateScheduleVm[];
   jCountOfTodaySchedule: string;
   countOfTodaySchedule: number;
   userFirstName: string;
@@ -51,14 +52,14 @@ export class DashboardComponent implements OnInit {
     this.candidateScheduleService
       .byOwner()
       .subscribe(
-        (res: HttpResponse<CandidateSchedule>) => this.onSuccess(res.body),
+        (res: HttpResponse<CandidateSchedulePage>) => this.onSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
 
     this.candidateScheduleService
       .byOwnerAndDate(new DateRange(moment().startOf('day'),moment().endOf('day')))
       .subscribe(
-        (res: HttpResponse<CandidateSchedule>) => this.onSuccessCandidateSchedule(res.body),
+        (res: HttpResponse<CandidateSchedulePage>) => this.onSuccessCandidateSchedule(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
 
@@ -80,14 +81,14 @@ export class DashboardComponent implements OnInit {
   }
 
   formatDateToHumanReadable(date){
-    return this.persianNumberHelper.toPersianNumber(date.locale('fa').format('dddd jD jMMMM'));
+    return this.persianNumberHelper.toPersianNumber(date.locale('fa').format('YYYY/M/D'));
   }
 
-  private onSuccess(data: CandidateSchedule){
+  private onSuccess(data: CandidateSchedulePage){
     this.contentSchedule = data.content.slice(0,5);
   }
 
-  private onSuccessCandidateSchedule(data: CandidateSchedule){
+  private onSuccessCandidateSchedule(data: CandidateSchedulePage){
     this.countOfTodaySchedule = data.totalElements;
     this.jCountOfTodaySchedule = this.persianNumberHelper.toPersianNumber(data.totalElements);
   }

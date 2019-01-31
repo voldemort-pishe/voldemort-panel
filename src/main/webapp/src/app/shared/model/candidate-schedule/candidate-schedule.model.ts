@@ -1,5 +1,6 @@
 import {CandidateScheduleMember} from './candidate-schedule-member.model';
-import {Moment} from 'moment';
+import {Moment} from 'jalali-moment';
+import {ScheduleStatus} from "@app/shared/model/enumeration/schedule-status.model";
 
 export class CandidateSchedule {
   candidateId: number;
@@ -7,7 +8,7 @@ export class CandidateSchedule {
   endDate: Moment;
   id: number;
   location: string;
-  member: CandidateScheduleMember[];
+  member: Array<CandidateScheduleMember>;
   startDate: Moment;
-  status: string;
+  status: ScheduleStatus;
 }

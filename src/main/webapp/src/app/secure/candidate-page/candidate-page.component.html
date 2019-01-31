@@ -128,7 +128,32 @@
 
         <div *ngIf="activeTab.current == 'schedule'" class="schedule">
 
-          <div class="interview-empty">
+
+          <mat-card *ngIf="candidateScheduleList?.totalElements > 0">
+            <h3>لیست مصاحبه‌ها</h3>
+            <mat-card-content>
+
+
+              <div *ngFor="let schedule of candidateScheduleList?.content"
+                   class="candidate-schedule-list">
+                <h4>تاریخ مصاحبه {{schedule.data.startDate | jalali}}</h4>
+                <mat-divider></mat-divider>
+                <mat-list>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      10am
+                    </div>
+                    <div class="col-sm-3">member</div>
+                    <div class="col-sm-3">place</div>
+                    <div class="col-sm-3">dev</div>
+                  </div>
+                </mat-list>
+              </div>
+
+            </mat-card-content>
+          </mat-card>
+
+          <div *ngIf="candidateScheduleList?.totalElements == 0" class="interview-empty">
             <div class="no-interviews">
               <p>مصاحبه تنظیم نشده است</p>
             </div>

@@ -13,9 +13,10 @@
           <mat-horizontal-stepper linear #stepper>
 
             <mat-step [stepControl]="BasicsJobCreateFormGroup">
-              <form [formGroup]="BasicsJobCreateFormGroup">
 
-                <ng-template matStepLabel>اطلاعات اولیه</ng-template>
+              <ng-template matStepLabel>اطلاعات اولیه</ng-template>
+
+              <form [formGroup]="BasicsJobCreateFormGroup">
 
                 <div class="job-form-container">
                   <div class="create-job-form">
@@ -23,7 +24,7 @@
 
                         <div class="col-sm-6">
                           <mat-form-field>
-                            <input matInput type="text" placeholder="عنوان" formControlName="nameFa">
+                            <input matInput type="text" placeholder="عنوان" formControlName="nameFa" autocomplete="off">
                               <mat-error *ngIf="BasicsJobCreateFormGroup.get('nameFa')?.errors?.required">عنوان اجباری است</mat-error>
                           </mat-form-field>
                           <mat-form-field>
@@ -38,7 +39,7 @@
 
                         <div class="col-sm-6">
                           <mat-form-field>
-                            <input matInput type="text" placeholder="دپارتمان" formControlName="department">
+                            <input matInput type="text" placeholder="دپارتمان" formControlName="department" autocomplete="off">
                             <mat-error *ngIf="BasicsJobCreateFormGroup.get('department')?.errors?.required">دپارتمان اجباری است
                             </mat-error>
                           </mat-form-field>
@@ -60,12 +61,13 @@
                   <button type="button" mat-raised-button matStepperNext color="primary">بعدی</button>
                 </div>
               </form>
+
             </mat-step>
 
-            <mat-step [stepControl]="DescJobCreateFormGroup" [editable]="EnableForward">
-              <form [formGroup]="DescJobCreateFormGroup">
+            <mat-step [stepControl]="DescJobCreateFormGroup" [editable]="enableForward">
 
-                <ng-template matStepLabel>توضیحات</ng-template>
+              <ng-template matStepLabel>توضیحات</ng-template>
+              <form [formGroup]="DescJobCreateFormGroup">
 
                 <div class="job-form-container">
                   <div class="create-job-form">
@@ -89,70 +91,18 @@
                     type="button"
                     mat-raised-button
                     color="primary"
-                    (click)="BasicInfos(stepper)"
-                  >بعدی</button>
+                    (click)="BasicInfos(stepper)">بعدی</button>
                 </div>
 
               </form>
+
             </mat-step>
+
+
             <mat-step [stepControl]="HiringTeamFormGroup">
-              <form [formGroup]="HiringTeamFormGroup" >
-                <ng-template matStepLabel>تیم استخدام</ng-template>
 
-                <div class="job-form-container" >
-                  <div class="create-job-form">
-                      <div class="row justify-content-md-center">
+              <ng-template matStepLabel>تیم استخدام</ng-template>
 
-                        <div class="col-sm-12">
-                         <div *ngFor="let hiringTeam of hiringTeamList">
-                           <mat-form-field>
-                             <mat-chip-list #hiringManagerChip>
-                               <span *ngFor="let member of JobHiringTeam">
-                                  <span *ngIf="member.role === hiringTeam.role">
-                                 <mat-chip
-                                   [selectable]="selectable"
-                                   [removable]="removable"
-                                   (removed)="remove(member)">
-                                   {{member.email}}
-                                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                  </mat-chip>
-                                  </span>
-                               </span>
-                               <input
-                                 required
-                                 placeholder="{{hiringTeam.placeholder}}"
-                                 formControlName="{{hiringTeam.formCtrl}}"
-                                 #{{hiringTeam.formCtrl}}
-                                 (keyup)="searchByEmail(hiringTeam.formCtrl)"
-                                 [formControl]="hiringTeam.formCtrl"
-                                 [matAutocomplete]="auto"
-                                 [matChipInputFor]="hiringManagerChip"
-                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                 [matChipInputAddOnBlur]="addOnBlur"
-                                 (matChipInputTokenEnd)="add($event, hiringTeam.role)">
-                             </mat-chip-list>
-                             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, hiringTeam.role)">
-                               <mat-option *ngFor="let member of filteredMember | async" [value]="member">
-                                 <ngx-avatar name="{{member?.userEmail}}" size="30">
-                                 </ngx-avatar>
-                                 <span>{{member?.userEmail}}</span>
-                               </mat-option>
-                             </mat-autocomplete>
-                             <mat-error *ngIf="hiringTeam.formCtrl?.errors?.required">عنوان اجباری است</mat-error>
-                           </mat-form-field>
-                         </div>
-                        </div>
-
-                      </div>
-                  </div>
-                </div>
-
-                <div class="text-center button-wrapper">
-                  <button type="button" mat-raised-button matStepperPrevious>قبلی</button>
-                  <button type="button" mat-raised-button color="primary" (click)="submitHiringTeam()">بعدی</button>
-                </div>
-
-              </form>
             </mat-step>
           </mat-horizontal-stepper>
 

@@ -3,21 +3,21 @@ import {CandidateService} from "@app/core/services/candidate.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {
   MAT_DIALOG_DATA,
+  MatAutocomplete,
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
   MatDialog,
   MatDialogRef,
   MatSnackBar,
-  MatTableDataSource,
-  PageEvent,
   MatStepper,
-  MatAutocompleteSelectedEvent,
-  MatChipInputEvent,
-  MatAutocomplete
+  MatTableDataSource,
+  PageEvent
 } from "@angular/material";
 import {SelectionModel} from "@angular/cdk/collections";
 import {CompanyPipelineService} from "@app/core/services/company-pipeline.service";
 import {JobService} from "@app/core/services/job.service";
 import {ContentJob, JobVm} from "@app/shared/model/job-vm.model";
-import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProvinceService} from "@app/core/services/province.service";
 import {Province} from "@app/shared/model/province.model";
 import {JobType} from "@app/shared/model/enumeration/job-type.model";
@@ -28,7 +28,6 @@ import {map, startWith} from 'rxjs/operators';
 import {CompanyMemberService} from "@app/core/services/company-member.service";
 import {CompanyMemberPage} from "@app/shared/model/company-member/company-member-page.model";
 import {CompanyMember} from "@app/shared/model/company-member/company-member.model";
-import {JobHiringTeam} from "@app/shared/model/job-hiring-team/job-hiring-team.model";
 import {JobHireTeamService} from "@app/core/services/job-hire-team.service";
 import {JobHiringTeamPage} from "@app/shared/model/job-hiring-team/job-hiring-team-page.model";
 
@@ -182,6 +181,7 @@ export class JobCreateDialog implements OnInit {
   @ViewChild('coordinator') coordinator: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
+  enableForward = false;
   BasicsJobCreateFormGroup: FormGroup;
   DescJobCreateFormGroup: FormGroup;
   HiringTeamFormGroup: FormGroup;
@@ -287,7 +287,6 @@ export class JobCreateDialog implements OnInit {
         .subscribe(
           (res: HttpResponse<ContentJob>) => {
             this.jobId = res.body.data.id;
-            console.log(res.body.data);
             return (res.status) === 201 ? stepper.next() : '';
           },
           (res: HttpErrorResponse) => this.onError(res.message)
@@ -317,55 +316,8 @@ export class JobCreateDialog implements OnInit {
 
   private onCompanyMemberSuccess(data: CompanyMemberPage){
     this.companyMemberPage = data;
-    this.filteredMember = this.hiringManagersFa.valueChanges.pipe(
-      startWith(null),
-      map((userEmail: string | null) => {
-        return userEmail ? this._filter(userEmail) : this.companyMemberPage.content.map( e => { return e.data });
-      }));
   }
 
-  private _filter(value: string): CompanyMember[] {
-    return this.companyMemberPage.content
-      .filter( e => {
-        return e.data.userEmail.includes(value);
-      })
-      .map(e => {return e.data});
-  }
-
-  selected(event: MatAutocompleteSelectedEvent, role: string): void {
-    const teamMemeber = {
-      role: role,
-      userId: event.option.value.id,
-      email: event.option.value.userEmail
-    };
-    this.JobHiringTeam.push(teamMemeber);
-    for (let item of this.hiringTeamList) {
-      if (item.role === role ) {
-        item.viewId.nativeElement.value = '';
-        item.formCtrl.setValue(null);
-      }
-      break; // closes iterator, triggers return
-    }
-
-  }
-
-  add(event: MatChipInputEvent, role: string): void {
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
-
-    }
-  }
-
-  remove(member): void {
-    const index = this.JobHiringTeam.indexOf(member);
-
-    if (index >= 0) {
-      this.JobHiringTeam.splice(index, 1);
-    }
-  }
 
   submitHiringTeam(){
     if (this.DescJobCreateFormGroup.valid)

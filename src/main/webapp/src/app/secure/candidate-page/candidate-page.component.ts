@@ -15,10 +15,10 @@ import {
   MAT_DIALOG_DATA,
   MatAutocomplete,
   MatAutocompleteSelectedEvent,
-  MatChipInputEvent,
+  MatDatepickerInputEvent,
   MatDialog,
   MatDialogRef,
-  MatSnackBar,
+  MatSnackBar
 } from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
@@ -38,6 +38,7 @@ import {CommentVm} from "@app/shared/model/comment-vm.model";
 import {CommentPage} from "@app/shared/model/comment-page.mode";
 import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
 import * as jalaliMoment from "jalali-moment";
+import {Moment} from "jalali-moment";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -45,7 +46,10 @@ import {CompanyMemberService} from "@app/core/services/company-member.service";
 import {CompanyMemberPage} from "@app/shared/model/company-member/company-member-page.model";
 import {CandidateScheduleMember} from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
 import {CompanyMember} from "@app/shared/model/company-member/company-member.model";
-
+import {CandidateSchedule} from "@app/shared/model/candidate-schedule/candidate-schedule.model";
+import {CandidateScheduleService} from "@app/core/services/candidate-schedule.service";
+import {CandidateScheduleVm} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
+import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
 
 @Component({
   selector: 'anms-candidate-page',
@@ -64,6 +68,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   identityUser: User;
   commentText: string;
   commentList: CommentPage;
+  candidateScheduleList: CandidateSchedulePage;
 
 
   constructor(private differs: KeyValueDiffers,
@@ -72,6 +77,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
               private candidateMessageService: CandidateMessageService,
               private companyPipelineService: CompanyPipelineService,
               private commentService: CommentService,
+              private candidateScheduleService: CandidateScheduleService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) {
@@ -112,6 +118,13 @@ export class CandidatePageComponent implements OnInit, DoCheck {
           .getCandidateComment(this.candidateId)
           .subscribe(
             (res: HttpResponse<CommentPage>) => this.onCandidateGetCommentSuccess(res.body),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          )
+      } else if(this.activeTab.current == 'schedule'){
+        this.candidateScheduleService
+          .byCandidateId(this.candidateId)
+          .subscribe(
+            (res: HttpResponse<CandidateSchedulePage>) => this.onCandidateScheduleSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           )
       }
@@ -191,12 +204,14 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   }
 
   private onCandidateGetCommentSuccess(data: CommentPage){
-    console.log(data);
     this.commentList = data;
   }
 
+  private onCandidateScheduleSuccess(data: CandidateSchedulePage){
+    this.candidateScheduleList = data;
+  }
+
   private onCandidateSendCommentSuccess(data: CommentVm){
-    console.log(data);
     this.commentText = null;
     this.snackBar.open("نظر شما با موفقیت ارسال شد", "بستن", {
       duration: 2500
@@ -275,35 +290,37 @@ export class CandidatePageEmailDialog implements OnInit{
 export class CandidatePageAddScheduleDialog implements OnInit{
 
   @ViewChild('candidateAddScheduleForm') candidateAddScheduleForm: ElementRef;
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('memberInput') memberInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   candidateAddScheduleFormGroup: FormGroup;
-  date = new FormControl(jalaliMoment());
+  today = jalaliMoment();
   visible = true;
   selectable = true;
   removable = true;
-  addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
-
   filteredMember: Observable<CompanyMember[]>;
-  memberSet: CandidateScheduleMember[];
+  memberSet: Set<CandidateScheduleMember> = new Set();
+  memberList: Array<CandidateScheduleMember> = [];
   companyMemberPage: CompanyMemberPage;
-
-  fruits: string[] = ['Lemon'];
+  timeList: Moment[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
               private fb: FormBuilder,
               private dialogRef: MatDialogRef<CandidatePageComponent>,
               private companyMemberService: CompanyMemberService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private candidateScheduleService: CandidateScheduleService) {
 
     this.candidateAddScheduleFormGroup = fb.group({
-      subject: [null,Validators.required],
-      message: [null,Validators.required],
-      candidateId: new FormControl()
+      date: [this.today,Validators.required],
+      startTime: [null,Validators.required],
+      endTime: [null,Validators.required],
+      location: [null,Validators.required],
+      description: [null,Validators.required],
+      memberCtrl: [null,Validators.required]
     });
 
+    this.generateTime();
 
   }
 
@@ -316,58 +333,71 @@ export class CandidatePageAddScheduleDialog implements OnInit{
       )
   }
 
-  add(event: MatChipInputEvent): void {
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
+  remove(member: CandidateScheduleMember): void {
+    this.memberSet.delete(member);
 
-      // Add our fruit
-      if ((value || '').trim()) {
-        this.fruits.push(value.trim());
-      }
-
-      // Reset the input value
-      if (input) {
-        input.value = '';
-      }
-
-      this.fruitCtrl.setValue(null);
-    }
-  }
-
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
+    let index = this.memberList
+      .map(function(e) {
+      return e.userId;
+    }).indexOf(member.userId);
+    if (index > -1) {
+      console.log(member);
+      this.memberList.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+
+    let candidateScheduleMember = new CandidateScheduleMember();
+    candidateScheduleMember.userId = event.option.value.id;
+    candidateScheduleMember.candidateScheduleId = Number(this.data.candidateId);
+    this.memberList.push(candidateScheduleMember);
+    this.memberSet.add(event.option.value);
+    this.memberInput.nativeElement.value = '';
   }
 
+  onDateChange(event: MatDatepickerInputEvent<Date>){
+    this.generateTime();
+  }
 
   addSchedule(){
-    
+    let candidateSchedule: CandidateSchedule = new CandidateSchedule();
+    candidateSchedule.member = this.memberList;
+    candidateSchedule.candidateId = this.data.candidateId;
+    candidateSchedule.description = this.candidateAddScheduleFormGroup.value.description;
+    candidateSchedule.startDate = this.candidateAddScheduleFormGroup.value.startTime;
+    candidateSchedule.endDate = this.candidateAddScheduleFormGroup.value.endTime;
+    candidateSchedule.location = this.candidateAddScheduleFormGroup.value.location;
+    if(this.candidateAddScheduleFormGroup.valid){
+      this.candidateScheduleService
+        .create(candidateSchedule)
+        .subscribe(
+          (res: HttpResponse<CandidateScheduleVm>) => this.onCreateScheduleSuccess(res.body),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
   }
 
   private onCompanyMemberSuccess(data: CompanyMemberPage){
     this.companyMemberPage = data;
-    this.filteredMember = this.fruitCtrl.valueChanges.pipe(
+    this.filteredMember = this.candidateAddScheduleFormGroup.controls['memberCtrl'].valueChanges.pipe(
       startWith(null),
       map((userEmail: string | null) => {
         return userEmail ? this._filter(userEmail) : this.companyMemberPage.content.map( e => { return e.data });
       }));
   }
 
+  private onCreateScheduleSuccess(data: CandidateScheduleVm){
+    this.dialogRef.close();
+    this.snackBar.open("مصاحبه با موفقیت ثبت شد", "بستن", {
+      duration: 2500
+    });
+  }
+
   private onError(errorMessage: string) {
     console.log(errorMessage);
   }
+
 
   private _filter(value: string): CompanyMember[] {
     return this.companyMemberPage.content
@@ -377,5 +407,18 @@ export class CandidatePageAddScheduleDialog implements OnInit{
       .map(e => {return e.data});
   }
 
+
+  private generateTime(){
+   this.timeList = [];
+    let quarterHours = ["00","30"];
+    for(let _i = 0; _i < 24; _i++){
+      for(let _j = 0; _j < 2; _j++){
+        this.timeList.push(
+          jalaliMoment(this.candidateAddScheduleFormGroup.value.date
+            .format("YYYY-MM-DD") +" "+String(_i).padStart(2, '0')+":"+quarterHours[_j])
+        );
+      }
+    }
+  }
 
 }

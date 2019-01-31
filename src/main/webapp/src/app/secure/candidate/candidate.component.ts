@@ -170,20 +170,22 @@ export class CandidateComponent implements OnInit {
   }
 
   openCreateCandidateDialog(){
-    const dialogRef = this.dialog.open(
-      CandidateCreateDialog,
-      {
-        width: '800px',
-        data: {
-          companyPipeline: this.companyPipeline,
-          jobList: this.jobList.content
+    if(this.jobList) {
+      const dialogRef = this.dialog.open(
+        CandidateCreateDialog,
+        {
+          width: '800px',
+          data: {
+            companyPipeline: this.companyPipeline,
+            jobList: this.jobList.content
+          }
         }
-      }
-    );
+      );
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
   }
 
   onChangePipeline(element, $event){
