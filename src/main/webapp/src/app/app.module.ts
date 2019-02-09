@@ -2,43 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Injector } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatBottomSheetModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatStepperModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatTreeModule,
-} from '@angular/material';
 
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
@@ -61,9 +24,6 @@ import {
   DashboardComponent,
   InvoicePreviewComponent,
   PlanComponent,
-  JobComponent,
-  JobCreateDialog,
-  JobPageComponent,
   CalenderComponent
 } from '@app/secure';
 import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
@@ -72,9 +32,6 @@ import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.int
 import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
 import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
 import { CurrencyPipe, CommonModule, registerLocaleData } from '@angular/common';
-import { RiyalCurrencyPipe } from '@app/shared/pipe/riyal-currency.pipe';
-import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
-import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
 import {
   CandidatePageAddScheduleDialog,
   CandidatePageEmailDialog
@@ -95,48 +52,13 @@ registerLocaleData(localeFa);
     BrowserModule,
     CommonModule,
 
-
     NgxWebstorageModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
 
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
+  
     AvatarModule,
     MatProgressButtonsModule,
 
@@ -154,17 +76,12 @@ registerLocaleData(localeFa);
   entryComponents: [
     CandidatePageComponent,
     CandidateCreateDialog,
-    JobCreateDialog,
     CandidatePageComponent,
     CandidatePageEmailDialog,
     CandidatePageAddScheduleDialog,
-    JobPageComponent
   ],
   declarations: [
     AppComponent,
-    RiyalCurrencyPipe,
-    PersianNumberPipePipe,
-    JalaliPipe,
     PublicComponent,
     SecureComponent,
     LoginComponent,
@@ -178,9 +95,6 @@ registerLocaleData(localeFa);
     CandidatePageComponent,
     CandidatePageEmailDialog,
     CandidatePageAddScheduleDialog,
-    JobComponent,
-    JobCreateDialog,
-    JobPageComponent,
     CalenderComponent
   ],
   providers: [

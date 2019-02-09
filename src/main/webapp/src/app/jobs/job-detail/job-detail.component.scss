@@ -1,36 +1,37 @@
 .no-gutter.row,
 .no-gutter.container,
-.no-gutter.container-fluid{
+.no-gutter.container-fluid {
   margin-left: 0;
   margin-right: 0;
   padding-left: 0;
   padding-right: 0;
 }
 
-.no-gutter>[class^="col-"]{
+.no-gutter>[class^="col-"] {
   padding-left: 0;
   padding-right: 0;
 }
 
-.candidate-header{
+.candidate-header {
   height: 177px;
   background: url(/assets/images/header-top-updates.png) no-repeat center;
-  background-size:cover;
+  background-size: cover;
 
-  .mat-tab-links{
+  .mat-tab-links {
     align-items: center;
     justify-content: center;
   }
 
-  .mat-tab-nav-bar{
+  .mat-tab-nav-bar {
     margin: 129px 0 0;
     border: none;
 
-    .mat-tab-link{
+    .mat-tab-link {
       min-width: 100px;
       opacity: 1;
     }
-    .mat-tab-link:hover{
+
+    .mat-tab-link:hover {
       color: #fff;
     }
 
@@ -38,7 +39,7 @@
 
 }
 
-.default-theme .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+.default-theme .mat-tab-nav-bar.mat-primary .mat-ink-bar {
   height: 3px;
   background-color: #2685C9;
 }
@@ -46,28 +47,35 @@
 .default-theme .candidate-page .mat-tab-link {
   color: #94a3f3;
 }
-.default-theme .candidate-page .mat-tab-label-active{
+
+.default-theme .candidate-page .mat-tab-label-active {
   color: #fff;
 }
 
 
-.header-container{
+.header-container {
   margin-bottom: 20px;
 }
-.candidate-info{
+
+.candidate-info {
   color: #fff;
-  .candidate-text{
-    margin:0 30px 0 0;
+
+  .candidate-text {
+    margin: 0 30px 0 0;
   }
-  .mat-icon-button{
+
+  .mat-icon-button {
     margin: 0 16px 0 0;
   }
-  h3{
+
+  h3 {
     font-size: 23px;
   }
-  .candidate-job{
+
+  .candidate-job {
     color: #e6e6e6;
-    .mat-icon{
+
+    .mat-icon {
       color: #fff;
       vertical-align: middle;
       font-size: 20px;
@@ -75,25 +83,30 @@
       height: 20px;
     }
   }
-  .mat-select{
+
+  .mat-select {
     background: #fff;
     padding: 5px;
     border-radius: 10px;
-    .mat-select-value-text span{
+
+    .mat-select-value-text span {
       color: #222222;
     }
   }
-  .mat-form-field-appearance-legacy .mat-form-field-underline{
+
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
     background: none;
   }
 }
 
-.candidate-page-action{
-  display:flex;
-  flex-direction:row-reverse;
-  button{
-    flex-grow:0;
-    .mat-icon{
+.candidate-page-action {
+  display: flex;
+  flex-direction: row-reverse;
+
+  button {
+    flex-grow: 0;
+
+    .mat-icon {
       color: #fff;
     }
   }
@@ -101,52 +114,63 @@
 
 body .default-theme .mat-list .mat-list-item,
 body .default-theme .mat-nav-list .mat-list-item,
-body .default-theme .mat-selection-list .mat-list-item{
+body .default-theme .mat-selection-list .mat-list-item {
   color: #848382;
 }
-.content-tab{
+
+.content-tab {
   font-size: 14px;
   color: #848382;
-  h3, h4{
+
+  h3,
+  h4 {
     color: #5c5a58;
   }
-  .mat-icon{
+
+  .mat-icon {
     font-size: 20px;
     width: 20px;
     height: 20px;
     margin: 0 0 0 10px;
     vertical-align: middle;
   }
-  .mat-list-item-content{
+
+  .mat-list-item-content {
     font-size: 14px;
   }
-  .private-col{
+
+  .private-col {
     margin-top: 40px;
   }
 
-  .activity-tab{
+  .activity-tab {
     .title {
       margin-bottom: 15px;
       overflow: hidden;
+
       h4 {
         ngx-avatar {
           float: right;
           margin: 0 0 0 8px;
         }
-        .info{
-          float:right;
+
+        .info {
+          float: right;
           margin: 5px 0 0;
         }
+
         small {
           display: block;
           margin: 4px 0 0;
         }
       }
     }
-    .mat-card{
+
+    .mat-card {
       margin-bottom: 10px;
     }
-    mat-card-content{
+
+    mat-card-content {
       padding-right: 60px;
     }
   }

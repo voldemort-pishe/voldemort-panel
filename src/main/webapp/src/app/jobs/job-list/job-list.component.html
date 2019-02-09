@@ -11,7 +11,7 @@
           <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'CLOSE'}" (click)="applyFilterByStatus('CLOSE')">
             <h4 mat-line>بسته</h4>
           </a>
-          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'ALL'}"  (click)="loadAll()">
+          <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'ALL'}" (click)="loadAll()">
             <h4 mat-line>همه</h4>
           </a>
 
@@ -34,45 +34,41 @@
             <div class="row no-gutters table-content">
               <div class="col-sm-12">
 
-                <div class="loading" *ngIf="isLoading"
-                     style="display: flex; justify-content: center; align-items: center">
-                  <mat-progress-spinner
-                    color="primary"
-                    mode="indeterminate"
-                    [diameter]="50">
+                <div class="loading" *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+                  <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="50">
                   </mat-progress-spinner>
                 </div>
 
                 <div *ngIf="dataSourceRaw?.totalElements > 0 && !isLoading">
                   <div class="table-filter">
 
-                    <span class="label"><mat-icon>filter_list</mat-icon>‌</span>
-                    <span *ngIf="selection.selected.length > 0" class="selection-count">{{selection.selected.length | persianNumber}} کارجو</span>
+                    <span class="label">
+                      <mat-icon>filter_list</mat-icon>‌
+                    </span>
+                    <span *ngIf="selection.selected.length > 0" class="selection-count">{{selection.selected.length |
+                      persianNumber}} کارجو</span>
 
                     <mat-form-field>
-                      <input matInput
-                             [(ngModel)]="searchKeyword"
-                             (keyup)="applyFilterBySearch($event.target.value)" placeholder="کلمات کلیدی">
+                      <input matInput [(ngModel)]="searchKeyword" (keyup)="applyFilterBySearch($event.target.value)"
+                        placeholder="کلمات کلیدی">
                     </mat-form-field>
 
                     <button *ngIf="showClearFilter" (click)="clearFilter()" mat-raised-button>حذف فیلتر</button>
 
                   </div>
 
-                  <table  mat-table [dataSource]="dataSource">
+                  <table mat-table [dataSource]="dataSource">
 
                     <!-- Checkbox Column -->
                     <ng-container matColumnDef="select">
                       <th mat-header-cell *matHeaderCellDef>
-                        <mat-checkbox (change)="$event ? masterToggle() : null"
-                                      [checked]="selection.hasValue() && isAllSelected()"
-                                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
                         </mat-checkbox>
                       </th>
                       <td mat-cell *matCellDef="let row">
-                        <mat-checkbox (click)="$event.stopPropagation()"
-                                      (change)="$event ? selection.toggle(row) : null"
-                                      [checked]="selection.isSelected(row)">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)">
                         </mat-checkbox>
                       </td>
                     </ng-container>
@@ -104,10 +100,8 @@
                     </tr>
                   </table>
 
-                  <mat-paginator [length]="dataSourceRaw?.totalElements"
-                                 [pageSize]="dataSourceRaw?.size"
-                                 [pageSizeOptions]="[5, 10, 25, 100]"
-                                 (page)="loadAll($event)">
+                  <mat-paginator [length]="dataSourceRaw?.totalElements" [pageSize]="dataSourceRaw?.size"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="loadAll($event)">
                   </mat-paginator>
                 </div>
 

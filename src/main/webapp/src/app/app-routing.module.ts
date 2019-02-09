@@ -12,8 +12,7 @@ import {
   InvoicePreviewComponent,
   PlanComponent,
   CalenderComponent,
-  JobComponent,
-  JobPageComponent} from "@app/secure";
+} from "@app/secure";
 
 const routes: Routes = [
   {
@@ -91,14 +90,8 @@ const routes: Routes = [
       },
       {
         path: 'job',
-        component: JobComponent,
-        data: { title: 'anms.job' }
+        loadChildren: './jobs/jobs.module#JobsModule',
       },
-      {
-        path: 'job/:jobId',
-        component: JobPageComponent,
-        data: { title: 'anms.job' }
-      }
     ]
   },
   {
