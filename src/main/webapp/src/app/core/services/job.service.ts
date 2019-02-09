@@ -1,11 +1,15 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
-import {environment as env} from '@env/environment';
-import {ContentJob, JobVm} from "@app/shared/model/job-vm.model";
-import {Candidate, ICandidate} from "@app/shared/model/candidate.model";
-import {Job} from "@app/shared/model/job.model";
+import { environment as env } from '@env/environment';
+import { ContentJob, JobVm } from "@app/shared/model/job-vm.model";
+import { Candidate, ICandidate } from "@app/shared/model/candidate.model";
+import { Job } from "@app/shared/model/job.model";
+import { ApiService, Response } from './api.service';
+import { JobContentModel } from '@app/shared/model/job-content.model';
+import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { tap } from 'rxjs/operators';
 
 type EntityArrayResponseType = HttpResponse<JobVm>;
 type EntityResponseType = HttpResponse<ContentJob>;
@@ -16,7 +20,10 @@ export class JobService {
 
   private resourceUrl = env.serverApiUrl + 'job';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+  ) { }
 
   create(job: Job): Observable<EntityResponseType> {
     return this.http.post<ContentJob>(`${this.resourceUrl}`, job, { observe: 'response' });
@@ -34,8 +41,34 @@ export class JobService {
     return this.http.get<JobVm>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
   }
 
-  searchByMultiField(status: string,param: string, sort?: string): Observable<EntityArrayResponseType> {
+  searchByMultiField(status: string, param: string, sort?: string): Observable<EntityArrayResponseType> {
     return this.http.get<JobVm>(`${this.resourceUrl}?${status}&${param}&sort=${sort}`, { observe: 'response' });
   }
 
+  private storedObject: JobContentModel;
+
+  store(model: JobContentModel): void {
+    this.storedObject = model;
+  }
+
+  getDetail(id: number): Observable<Response<JobContentModel>> {
+    if (this.storedObject && this.storedObject.data.id === id) {
+      return of({
+        success: true,
+        status: 200,
+        data: this.storedObject,
+      });
+    }
+    else {
+      return this.apiService.get<JobContentModel>(`job/${id}`)
+        .pipe(tap(r => {
+          if (r.success)
+            this.storedObject = r.data;
+        }));
+    }
+  }
+
+  getList(): Observable<Response<PageableGeneric<JobContentModel>>> {
+    return this.apiService.get<PageableGeneric<JobContentModel>>('job');
+  }
 }
