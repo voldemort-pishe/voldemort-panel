@@ -31,8 +31,12 @@
               }
             ],
             "styles": [
-              { "input": "src/styles-app-loading.scss" },
-              { "input": "src/styles.scss" }
+              {
+                "input": "src/styles-app-loading.scss"
+              },
+              {
+                "input": "src/styles.scss"
+              }
             ],
             "scripts": []
           },
@@ -176,5 +180,10 @@
       }
     }
   },
-  "defaultProject": "angular-ngrx-material-starter"
+  "defaultProject": "angular-ngrx-material-starter",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
