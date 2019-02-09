@@ -21,7 +21,6 @@ import {
 import { CustomSerializer } from './router/custom-serializer';
 import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {StateStorageService} from "@app/core/auth/state-storage.service";
-import {SessionStorageService , LocalStorageService} from 'ngx-webstorage';
 import {MatPaginatorIntlPer} from "@app/core/intl/matPaginatorIntlPer";
 import {MatPaginatorIntl} from '@angular/material';
 import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
@@ -53,8 +52,6 @@ import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
   ],
   declarations: [],
   providers: [
-    LocalStorageService,
-    SessionStorageService,
     StateStorageService,
     AuthGuardService,
     AnimationsService,

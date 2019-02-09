@@ -67,7 +67,7 @@ import {
   CalenderComponent
 } from '@app/secure';
 import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
 import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
@@ -96,6 +96,7 @@ registerLocaleData(localeFa);
     CommonModule,
 
 
+    NgxWebstorageModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
