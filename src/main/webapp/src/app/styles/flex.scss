@@ -1,0 +1,105 @@
+.fx-fill {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.fx-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.fx-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.fx-start-center {
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+
+.fx-center-center {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.fx-spacebetween-center {
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.fx-spacebetween-stretch {
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: stretch;
+}
+
+.fx-spacearound-center {
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.fx-end-start {
+  justify-content: flex-end;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.fx-end-center {
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+}
+
+.fx-grow {
+  flex: 1 1 100%;
+}
+
+.fx-initial {
+  flex: 0 1 auto;
+}
+
+// .fx-auto {
+//     flex: 1 1 100%;
+// }
+
+.fx-none {
+  flex: 0 0 auto;
+}
+
+.fx-nogrow {
+  flex: 0 1 auto;
+}
+
+.fx-noshrink {
+  flex: 1 0 auto;
+}
+
+// GAPS
+
+// TODO: use dir=rtl selector for margin-left
+.fx-row.fx-gap-5>*:not(:last-child),
+.horizontal-gap-5>*:not(:last-child) {
+  margin-left: 5px;
+}
+
+.fx-row.fx-gap-10>*:not(:last-child),
+.horizontal-gap-10>*:not(:last-child) {
+  margin-left: 10px;
+}
+
+.fx-column.fx-gap-5>*:not(:last-child),
+.vertical-gap-5>*:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.fx-column.fx-gap-10>*:not(:last-child),
+.vertical-gap-10>*:not(:last-child) {
+  margin-bottom: 10px !important;
+}
