@@ -1,3 +1,46 @@
-<p>
-  job-info works!
-</p>
+<div *ngIf="model">
+  <mat-card>
+    <mat-card-title>
+      جزئیات شغل
+    </mat-card-title>
+
+    <div class="fx-row">
+      <div class="fx-grow">
+        <div class="part">
+          <div class="mat-small">عنوان شغل</div>
+          <div class="mat-body-2">{{model.data.nameFa}}</div>
+        </div>
+        <div class="part">
+          <div class="mat-small">وضعیت</div>
+          <div class="mat-body-2">{{model.data.status}}</div>
+        </div>
+        <div class="part">
+          <div class="mat-small">مکان</div>
+          <div class="mat-body-2">{{model.data.location}}</div>
+        </div>
+        <div class="part">
+          <div class="mat-small">دپارتمان</div>
+          <div class="mat-body-2">{{model.data.department}}</div>
+        </div>
+      </div>
+      <div class="fx-grow">
+        <div class="part">
+          <div class="mat-small">نوع شغل</div>
+          <div class="mat-body-2">{{model.data.type}}</div>
+        </div>
+        <div class="part">
+          <div class="mat-small">توضیحات</div>
+          <div class="mat-body-2">{{model.data.descriptionFa}}</div>
+        </div>
+        <div class="part">
+          <div class="mat-small">تاریخ ایجاد</div>
+          <div class="mat-body-2">{{model.data.createdDate | jalali}}</div>
+        </div>
+        <div class="part">
+          <div class="mat-small">زبان</div>
+          <div class="mat-body-2">{{model.data.language}}</div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

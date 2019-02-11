@@ -34,7 +34,7 @@ export class JobDetailComponent implements OnInit {
   }
 
   fetch(): void {
-    if (this.id == null) return;
+    if (isNaN(this.id)) return;
 
     this.isLoading = true;
     this.jobService.getDetail(this.id).subscribe(r => {

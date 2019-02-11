@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { JobService } from '@app/core';
+import { ActivatedRoute } from '@angular/router';
+import { JobContentModel } from '@app/shared/model/job-content.model';
 
 @Component({
   selector: 'anms-job-info',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobInfoComponent implements OnInit {
 
-  constructor() { }
+  isLoading: boolean = false;
+  id: number;
+  model: JobContentModel;
+
+  constructor(
+    private jobService: JobService,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    this.route.parent.params.subscribe(params => {
+      this.id = parseInt(params['id']);
+      console.log(this.id)
+      this.fetch();
+    });
+  }
+
+  fetch(): void {
+    if (isNaN(this.id)) return;
+
+    this.isLoading = true;
+    this.jobService.getDetail(this.id).subscribe(r => {
+      this.isLoading = false;
+      if (r.success)
+        this.model = r.data;
+    });
   }
 
 }
