@@ -1,8 +1,8 @@
 import {CandidateSchedule} from './candidate-schedule.model';
-import {ICandidate} from './../candidate.model';
+import {CandidateModel} from './../candidate.model';
 
 export class Include {
-  candidate: ICandidate
+  candidate: CandidateModel
 }
 export class CandidateScheduleVm {
   data: CandidateSchedule;

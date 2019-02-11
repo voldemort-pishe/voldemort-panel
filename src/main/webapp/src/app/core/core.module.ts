@@ -23,7 +23,6 @@ import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
 import {StateStorageService} from "@app/core/auth/state-storage.service";
 import {MatPaginatorIntlPer} from "@app/core/intl/matPaginatorIntlPer";
 import {MatPaginatorIntl} from '@angular/material';
-import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
 
 @NgModule({
   imports: [
@@ -57,9 +56,7 @@ import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
     AnimationsService,
     TitleService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPer},
     PersianNumberHelper,
-    JalaliMomentDate
   ],
   exports: [TranslateModule]
 })

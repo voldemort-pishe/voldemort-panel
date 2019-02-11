@@ -36,7 +36,13 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  MatPaginatorIntl,
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
 } from '@angular/material';
+import { PaginatorIntlFa } from './paginator-intl-fa';
+import { PersianDateAdapter, PERSIAN_DATE_FORMATS } from './persian-date-adapter';
 
 @NgModule({
   declarations: [],
@@ -114,6 +120,11 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: PaginatorIntlFa },
+    { provide: DateAdapter, useClass: PersianDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
   ],
 })
 export class MaterialModule { }

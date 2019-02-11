@@ -34,4 +34,5 @@ $typography: mat-typography-config(
   @include custom-components-theme($anms-theme);
 }
 
+@import 'app/styles/classes';
 @import 'app/styles/flex';

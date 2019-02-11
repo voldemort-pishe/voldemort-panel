@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'anms-job-candidates',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobCandidatesComponent implements OnInit {
 
-  constructor() { }
+  jobId: number;
+
+  constructor(
+    // private jobService: JobService,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    this.route.parent.params.subscribe(params => {
+      this.jobId = parseInt(params['id']);
+    });
   }
 
 }

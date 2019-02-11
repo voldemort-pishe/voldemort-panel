@@ -22,21 +22,20 @@ import {
 } from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {CompanyPipelineService, PERSIAN_DATE_FORMATS} from "@app/core";
+import {CompanyPipelineService} from "@app/core";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CandidateService} from "@app/core/services/candidate.service";
 import {CommentService} from "@app/core/services/comment.service";
 import {CandidateMessageService} from "@app/core/services/candidate-message.service";
 import {Principal} from "@app/core/auth/principal.service";
 
-import {ContentCandidate} from "@app/shared/model/candidate.model";
+import {CandidateContentModel} from "@app/shared/model/candidate.model";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
 import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
 import {User} from "@app/shared/model/user.model";
 import {Comment} from "@app/shared/model/comment.model";
 import {CommentVm} from "@app/shared/model/comment-vm.model";
 import {CommentPage} from "@app/shared/model/comment-page.mode";
-import {JalaliMomentDate} from "@app/core/adapter/jalali-moment-date";
 import * as jalaliMoment from "jalali-moment";
 import {Moment} from "jalali-moment";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -63,7 +62,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   companyPipeline;
   activeTab: any = {current:'background'};
   candidateId: number;
-  candidate: ContentCandidate;
+  candidate: CandidateContentModel;
   candidateMessage: PageCandidateMessageVm;
   identityUser: User;
   commentText: string;
@@ -92,7 +91,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
         this.candidateService
           .get(this.candidateId)
           .subscribe(
-            (res: HttpResponse<ContentCandidate>) => this.onCandidateSuccess(res.body),
+            (res: HttpResponse<CandidateContentModel>) => this.onCandidateSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           );
       } );
@@ -136,7 +135,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
     this.candidateService
       .update(candidate.data)
       .subscribe(
-        (res: HttpResponse<ContentCandidate>) => this.onCandidatePipelineSuccess(res.body),
+        (res: HttpResponse<CandidateContentModel>) => this.onCandidatePipelineSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       )
   }
@@ -178,7 +177,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
       );
   }
 
-  private onCandidateSuccess(data: ContentCandidate){
+  private onCandidateSuccess(data: CandidateContentModel){
     this.candidate = data;
     this.companyPipelineService
       .loadAll()
@@ -197,7 +196,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
     this.companyPipeline = data.content;
   }
 
-  private onCandidatePipelineSuccess(data: ContentCandidate){
+  private onCandidatePipelineSuccess(data: CandidateContentModel){
     this.snackBar.open("مرحله‌ی کاندیدای مورد نظر به روز شد", "بستن", {
       duration: 2500
     });
@@ -281,10 +280,10 @@ export class CandidatePageEmailDialog implements OnInit{
   selector: 'candidate-page-add-schedule-dialog',
   templateUrl: './candidate-page-add-schedule.component.html',
   styleUrls: ['./candidate-page-add-schedule.component.scss'],
-  providers: [
-    { provide: DateAdapter, useClass: JalaliMomentDate, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS }
-  ],
+  // providers: [
+  //   { provide: DateAdapter, useClass: JalaliMomentDate, deps: [MAT_DATE_LOCALE] },
+  //   { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS }
+  // ],
   encapsulation: ViewEncapsulation.None
 })
 export class CandidatePageAddScheduleDialog implements OnInit{

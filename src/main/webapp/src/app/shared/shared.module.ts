@@ -6,7 +6,8 @@ import { RiyalCurrencyPipe } from './pipe/riyal-currency.pipe';
 import { PersianNumberPipePipe } from './pipe/persian-number.pipe';
 import { JalaliPipe } from './pipe/jalali.pipe';
 import { MaterialModule } from '@app/material/material.module';
-
+import { CandidateTableComponent } from './components/candidate-table/candidate-table.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -14,11 +15,13 @@ import { MaterialModule } from '@app/material/material.module';
     FormsModule,
     MaterialModule,
     TranslateModule,
+    RouterModule,
   ],
   declarations: [
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    CandidateTableComponent,
   ],
   exports: [
     CommonModule,
@@ -31,6 +34,7 @@ import { MaterialModule } from '@app/material/material.module';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    CandidateTableComponent,
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

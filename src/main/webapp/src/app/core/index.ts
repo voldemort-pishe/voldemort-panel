@@ -8,7 +8,6 @@ export * from './router/router.state';
 export * from './title/title.service';
 export * from './core.state';
 export * from './core.module';
-export * from './adapter/jalali-moment-date';
 export * from './services/accountuser.service';
 export * from './services/candidate-schedule.service';
 export * from './services/plan.service';

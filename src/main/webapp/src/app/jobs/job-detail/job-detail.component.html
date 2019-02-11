@@ -1,32 +1,36 @@
-<div *ngIf="model" class="header vertical-gap-5">
-  <div class="info">
-    <div>
-      <button mat-icon-button routerLink="/job" matTooltip="بازگشت" matTooltipPosition="left">
-        <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
-      </button>
+<div class="fx-fill fx-column">
+  <div *ngIf="model" class="fx-initial header vertical-gap-5">
+    <div class="info">
+      <div>
+        <button mat-icon-button routerLink="/job" matTooltip="بازگشت" matTooltipPosition="left">
+          <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
+        </button>
+      </div>
+      <h2 *ngIf="model.data.nameFa">
+        {{model.data.nameFa}}
+      </h2>
+      <div *ngIf="model.data.location">
+        {{model.data.location}}
+      </div>
+      <div *ngIf="model.data.status">
+        {{model.data.status}}
+      </div>
     </div>
-    <h2 *ngIf="model.data.nameFa">
-      {{model.data.nameFa}}
-    </h2>
-    <div *ngIf="model.data.location">
-      {{model.data.location}}
-    </div>
-    <div *ngIf="model.data.status">
-      {{model.data.status}}
-    </div>
+
+    <nav mat-tab-nav-bar class="fx-center-center" color="accent">
+      <a mat-tab-link routerLink="./info" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
+        اطلاعات
+      </a>
+      <a mat-tab-link routerLink="./candidates" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+        کارجویان
+      </a>
+      <a mat-tab-link routerLink="./hiring-team" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
+        تیم استخدام
+      </a>
+    </nav>
   </div>
 
-  <nav mat-tab-nav-bar class="fx-center-center" color="accent">
-    <a mat-tab-link routerLink="./info" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
-      اطلاعات
-    </a>
-    <a mat-tab-link routerLink="./candidates" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
-      کارجویان
-    </a>
-    <a mat-tab-link routerLink="./hiring-team" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
-      تیم استخدام
-    </a>
-  </nav>
+  <div class="fx-grow">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-
-<router-outlet></router-outlet>

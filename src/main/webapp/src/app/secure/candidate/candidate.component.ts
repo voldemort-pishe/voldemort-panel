@@ -1,7 +1,7 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from "@angular/core";
 import {CandidateService} from "@app/core/services/candidate.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Candidate, ContentCandidate,} from "@app/shared/model/candidate.model";
+import {Candidate, CandidateContentModel,} from "@app/shared/model/candidate.model";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar, MatTableDataSource, PageEvent} from "@angular/material";
 import {SelectionModel} from "@angular/cdk/collections";
 import {CompanyPipelineService} from "@app/core/services/company-pipeline.service";
@@ -29,7 +29,7 @@ export class CandidateComponent implements OnInit {
   displayedColumns: string[] = ['select', 'candidate', 'owner', 'createdDate', 'jobPosition', 'companyPipeline'];
   dataSource;
   dataSourceRaw;
-  selection = new SelectionModel<ContentCandidate>(true, []);
+  selection = new SelectionModel<CandidateContentModel>(true, []);
   companyPipeline;
   selectedFilter: string = 'ALL';
   showClearFilter: boolean = false;
@@ -193,7 +193,7 @@ export class CandidateComponent implements OnInit {
     this.candidateService
       .update(element.data)
       .subscribe(
-        (res: HttpResponse<ContentCandidate>) => this.onCandidatePipelineSuccess(res.body),
+        (res: HttpResponse<CandidateContentModel>) => this.onCandidatePipelineSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       )
   }
@@ -204,7 +204,7 @@ export class CandidateComponent implements OnInit {
     this.loadAll();
   }
 
-  private onCandidatePipelineSuccess(data: ContentCandidate){
+  private onCandidatePipelineSuccess(data: CandidateContentModel){
     this.snackBar.open("مرحله‌ی کاندیدای مورد نظر به روز شد", "بستن", {
       duration: 2500
     });
@@ -212,7 +212,7 @@ export class CandidateComponent implements OnInit {
 
   private onCandidateSuccess(data: Candidate){
     this.dataSourceRaw = data;
-    this.dataSource = new MatTableDataSource<ContentCandidate>(data.content);
+    this.dataSource = new MatTableDataSource<CandidateContentModel>(data.content);
     this.isLoading = false;
   }
   private onJobSuccess(data: JobVm){

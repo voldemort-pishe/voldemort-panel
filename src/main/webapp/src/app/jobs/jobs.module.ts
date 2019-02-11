@@ -8,6 +8,7 @@ import { JobsRoutingModule } from './jobs-routing.module';
 import { JobInfoComponent } from './job-info/job-info.component';
 import { JobHiringTeamComponent } from './job-hiring-team/job-hiring-team.component';
 import { JobCandidatesComponent } from './job-candidates/job-candidates.component';
+import { CandidatesModule } from '@app/candidates/candidates.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { JobCandidatesComponent } from './job-candidates/job-candidates.componen
     CommonModule,
     SharedModule,
     JobsRoutingModule,
+    CandidatesModule,
   ],
   entryComponents: [
     CreateJobComponent,

@@ -1,11 +1,11 @@
-import {CandidateState} from "@app/shared/model/enumeration/candidate-state.model";
-import {CandidateType} from "@app/shared/model/enumeration/candidate-type.model";
-import {Pageable} from "@app/shared/model/pageable.model";
-import {Job} from "@app/shared/model/job.model";
-import {CompanyPipeline} from "@app/shared/model/company-pipeline.model";
-import {File} from "@app/shared/model/file.model";
+import { CandidateState } from "@app/shared/model/enumeration/candidate-state.model";
+import { CandidateType } from "@app/shared/model/enumeration/candidate-type.model";
+import { Pageable } from "@app/shared/model/pageable.model";
+import { Job } from "@app/shared/model/job.model";
+import { CompanyPipeline } from "@app/shared/model/company-pipeline.model";
+import { File } from "@app/shared/model/file.model";
 
-export class ICandidate {
+export interface CandidateModel {
   id: number;
   firstName: string;
   lastName: string;
@@ -16,32 +16,31 @@ export class ICandidate {
   candidatePipeline: number;
   fileId?: number;
   jobId?: number;
-
 }
 
-export class Include {
-  pipeline:CompanyPipeline;
+export interface CandidateIncludeModel {
+  pipeline: CompanyPipeline;
   job: Job;
-  candidate:Candidate;
+  candidate: Candidate;
   file: File;
 }
 
-export class ContentCandidate {
-  data:ICandidate;
-  include:Include;
+export interface CandidateContentModel {
+  data: CandidateModel;
+  include: CandidateIncludeModel;
 }
 
-export class Candidate implements Pageable{
+export class Candidate implements Pageable {
 
-  constructor(public content: ContentCandidate[],
-              public first: boolean,
-              public last: boolean,
-              public number: number,
-              public numberOfElements: number,
-              public size: number,
-              public sort: any,
-              public totalElements: number,
-              public totalPages: number) {
+  constructor(public content: CandidateContentModel[],
+    public first: boolean,
+    public last: boolean,
+    public number: number,
+    public numberOfElements: number,
+    public size: number,
+    public sort: any,
+    public totalElements: number,
+    public totalPages: number) {
     this.content = content;
     this.first = first;
     this.last = last;

@@ -2,7 +2,7 @@ import { Component, DoCheck, KeyValueDiffers, OnInit, ViewEncapsulation } from "
 import { CandidateService } from "@app/core/services/candidate.service";
 import { ActivatedRoute } from "@angular/router";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { ContentCandidate } from "@app/shared/model/candidate.model";
+import { CandidateContentModel } from "@app/shared/model/candidate.model";
 import { CompanyPipelineVm } from "@app/shared/model/company-pipeline-vm.model";
 import { CompanyPipelineService, JobService } from "@app/core";
 import { MatDialog, MatSnackBar } from "@angular/material";

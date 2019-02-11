@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 import { ContentJob, JobVm } from "@app/shared/model/job-vm.model";
-import { Candidate, ICandidate } from "@app/shared/model/candidate.model";
+import { Candidate, CandidateModel } from "@app/shared/model/candidate.model";
 import { Job } from "@app/shared/model/job.model";
 import { ApiService, Response } from './api.service';
 import { JobContentModel } from '@app/shared/model/job-content.model';
@@ -52,6 +52,7 @@ export class JobService {
   }
 
   getDetail(id: number): Observable<Response<JobContentModel>> {
+    // TODO: share one observable, prevent from sending same request multiple times
     if (this.storedObject && this.storedObject.data.id === id) {
       return of({
         success: true,
