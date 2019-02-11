@@ -93,7 +93,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-ngrx-material-starter:build"
+            "browserTarget": "angular-ngrx-material-starter:build",
+            "host": "0.0.0.0",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
