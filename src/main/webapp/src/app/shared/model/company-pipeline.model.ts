@@ -1,4 +1,4 @@
-export class CompanyPipeline {
+export interface CompanyPipelineModel {
   id: number;
   title: string;
   weight: number;

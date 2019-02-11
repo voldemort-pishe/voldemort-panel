@@ -1,4 +1,4 @@
-export class Company {
+export interface CompanyModel {
   nameEn: string;
   nameFa: string;
   descriptionEn: string;

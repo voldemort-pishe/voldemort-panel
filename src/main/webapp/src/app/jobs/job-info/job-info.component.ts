@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '@app/core';
 import { ActivatedRoute } from '@angular/router';
-import { JobContentModel } from '@app/shared/model/job-content.model';
+import { JobContentModel } from '@app/shared/model/job-vm.model';
 
 @Component({
   selector: 'anms-job-info',
@@ -22,7 +22,6 @@ export class JobInfoComponent implements OnInit {
   ngOnInit() {
     this.route.parent.params.subscribe(params => {
       this.id = parseInt(params['id']);
-      console.log(this.id)
       this.fetch();
     });
   }

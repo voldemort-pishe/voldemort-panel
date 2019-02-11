@@ -1,14 +1,7 @@
-import { Component, DoCheck, KeyValueDiffers, OnInit, ViewEncapsulation } from "@angular/core";
-import { CandidateService } from "@app/core/services/candidate.service";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { CandidateContentModel } from "@app/shared/model/candidate.model";
-import { CompanyPipelineVm } from "@app/shared/model/company-pipeline-vm.model";
-import { CompanyPipelineService, JobService } from "@app/core";
-import { MatDialog, MatSnackBar } from "@angular/material";
-import { CandidateMessageService } from "@app/core/services/candidate-message.service";
-import { PageCandidateMessageVm } from "@app/shared/model/page-candidate-message-vm.model";
-import { JobContentModel } from '@app/shared/model/job-content.model';
+import { JobService } from "@app/core";
+import { JobContentModel } from '@app/shared/model/job-vm.model';
 
 @Component({
   selector: 'anms-job-detail',

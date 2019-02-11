@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
-import { CandidateService, CandidateListRequest } from '@app/core';
+import { CandidateService, CandidateListRequest, JobService, CompanyPipelineService } from '@app/core';
 import { PageableGeneric } from '@app/shared/model/pageable.model';
 
 @Component({
@@ -33,6 +33,8 @@ export class CandidateTableComponent implements OnInit {
 
   constructor(
     private candidateService: CandidateService,
+    private jobService: JobService,
+    private companyPipelineService: CompanyPipelineService,
   ) { }
 
   ngOnInit() {

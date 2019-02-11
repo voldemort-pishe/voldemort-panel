@@ -1,5 +1,5 @@
 import {Pageable} from "@app/shared/model/pageable.model";
-import {Company} from "@app/shared/model/company.model";
+import {CompanyModel} from "@app/shared/model/company.model";
 import {File} from "@app/shared/model/file.model";
 import {User} from "@app/shared/model/user.model";
 
@@ -9,7 +9,7 @@ export class Include {
 }
 
 export class ContentCompany {
-  data:Company;
+  data:CompanyModel;
   include:Include;
 }
 

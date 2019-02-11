@@ -1,10 +1,10 @@
 import {User} from "@app/shared/model/user.model";
-import {Job} from "@app/shared/model/job.model";
+import {JobModel} from "@app/shared/model/job.model";
 import {JobHiringTeam} from "@app/shared/model/job-hiring-team/job-hiring-team.model";
 
 export class Include {
   user: User;
-  job: Job;
+  job: JobModel;
 }
 export class JobHiringTeamVm {
   data: JobHiringTeam;

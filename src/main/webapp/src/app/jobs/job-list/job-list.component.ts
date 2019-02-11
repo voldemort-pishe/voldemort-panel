@@ -5,7 +5,7 @@ import { MatDialog, MatTableDataSource, PageEvent } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
 import { CompanyPipelineService } from "@app/core/services/company-pipeline.service";
 import { JobService } from "@app/core/services/job.service";
-import { ContentJob, JobVm } from "@app/shared/model/job-vm.model";
+import { JobContentModel, JobVm } from "@app/shared/model/job-vm.model";
 import { JobStatus } from "@app/shared/model/enumeration/job-status.model";
 import { CreateJobComponent } from '../create-job/create-job.component';
 
@@ -23,7 +23,7 @@ export class JobListComponent implements OnInit {
   dataSource;
   dataSourceRaw;
   jobStatus: typeof JobStatus = JobStatus;
-  selection = new SelectionModel<ContentJob>(true, []);
+  selection = new SelectionModel<JobContentModel>(true, []);
   selectedFilter: string = 'ALL';
   showClearFilter: boolean = false;
   searchKeyword = null;
@@ -121,7 +121,7 @@ export class JobListComponent implements OnInit {
 
   private onJobSuccess(data: JobVm) {
     this.dataSourceRaw = data;
-    this.dataSource = new MatTableDataSource<ContentJob>(data.content);
+    this.dataSource = new MatTableDataSource<JobContentModel>(data.content);
     this.isLoading = false;
   }
 

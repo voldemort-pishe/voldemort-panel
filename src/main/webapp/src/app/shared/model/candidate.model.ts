@@ -1,8 +1,8 @@
 import { CandidateState } from "@app/shared/model/enumeration/candidate-state.model";
 import { CandidateType } from "@app/shared/model/enumeration/candidate-type.model";
 import { Pageable } from "@app/shared/model/pageable.model";
-import { Job } from "@app/shared/model/job.model";
-import { CompanyPipeline } from "@app/shared/model/company-pipeline.model";
+import { JobModel } from "@app/shared/model/job.model";
+import { CompanyPipelineModel } from "@app/shared/model/company-pipeline.model";
 import { File } from "@app/shared/model/file.model";
 
 export interface CandidateModel {
@@ -19,8 +19,8 @@ export interface CandidateModel {
 }
 
 export interface CandidateIncludeModel {
-  pipeline: CompanyPipeline;
-  job: Job;
+  pipeline: CompanyPipelineModel;
+  job: JobModel;
   candidate: Candidate;
   file: File;
 }

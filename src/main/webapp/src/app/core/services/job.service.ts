@@ -3,16 +3,15 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { environment as env } from '@env/environment';
-import { ContentJob, JobVm } from "@app/shared/model/job-vm.model";
+import { JobVm, JobContentModel } from "@app/shared/model/job-vm.model";
 import { Candidate, CandidateModel } from "@app/shared/model/candidate.model";
-import { Job } from "@app/shared/model/job.model";
+import { JobModel } from "@app/shared/model/job.model";
 import { ApiService, Response } from './api.service';
-import { JobContentModel } from '@app/shared/model/job-content.model';
 import { PageableGeneric } from '@app/shared/model/pageable.model';
 import { tap } from 'rxjs/operators';
 
 type EntityArrayResponseType = HttpResponse<JobVm>;
-type EntityResponseType = HttpResponse<ContentJob>;
+type EntityResponseType = HttpResponse<JobContentModel>;
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,8 +24,8 @@ export class JobService {
     private apiService: ApiService,
   ) { }
 
-  create(job: Job): Observable<EntityResponseType> {
-    return this.http.post<ContentJob>(`${this.resourceUrl}`, job, { observe: 'response' });
+  create(job: JobModel): Observable<EntityResponseType> {
+    return this.http.post<JobContentModel>(`${this.resourceUrl}`, job, { observe: 'response' });
   }
 
   loadAll(): Observable<EntityArrayResponseType> {
@@ -43,6 +42,10 @@ export class JobService {
 
   searchByMultiField(status: string, param: string, sort?: string): Observable<EntityArrayResponseType> {
     return this.http.get<JobVm>(`${this.resourceUrl}?${status}&${param}&sort=${sort}`, { observe: 'response' });
+  }
+
+  getList(): Observable<Response<PageableGeneric<JobContentModel>>> {
+    return this.apiService.get<PageableGeneric<JobContentModel>>('job');
   }
 
   private storedObject: JobContentModel;
@@ -67,9 +70,5 @@ export class JobService {
             this.storedObject = r.data;
         }));
     }
-  }
-
-  getList(): Observable<Response<PageableGeneric<JobContentModel>>> {
-    return this.apiService.get<PageableGeneric<JobContentModel>>('job');
   }
 }

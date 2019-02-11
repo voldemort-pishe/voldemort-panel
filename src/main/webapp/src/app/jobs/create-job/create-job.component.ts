@@ -8,7 +8,7 @@ import {
   MatStepper,
 } from "@angular/material";
 import { JobService } from "@app/core/services/job.service";
-import { ContentJob } from "@app/shared/model/job-vm.model";
+import { JobContentModel } from "@app/shared/model/job-vm.model";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ProvinceService } from "@app/core/services/province.service";
 import { Province } from "@app/shared/model/province.model";
@@ -139,7 +139,7 @@ export class CreateJobComponent implements OnInit {
       this.jobService
         .create(basicData)
         .subscribe(
-          (res: HttpResponse<ContentJob>) => {
+          (res: HttpResponse<JobContentModel>) => {
             this.jobId = res.body.data.id;
             return (res.status) === 201 ? stepper.next() : '';
           },
