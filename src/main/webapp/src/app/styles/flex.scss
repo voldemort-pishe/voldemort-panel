@@ -1,3 +1,5 @@
+@import '../../styles-variables';
+
 .fx-fill {
   height: 100%;
   width: 100%;
@@ -6,19 +8,34 @@
 }
 
 .fx-row {
-  display: flex;
+  display: flex !important;
   flex-direction: row;
+  box-sizing: border-box;
+}
+
+.fx-row-wrap {
+  @extend .fx-row;
+  flex-wrap: wrap;
 }
 
 .fx-column {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
+  box-sizing: border-box;
 }
+
+// ALIGN
 
 .fx-start-center {
   justify-content: flex-start;
   align-content: center;
   align-items: center;
+}
+
+.fx-start-stretch {
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
 }
 
 .fx-center-center {
@@ -27,10 +44,22 @@
   align-items: center;
 }
 
+.fx-spacebetween-start {
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
 .fx-spacebetween-center {
   justify-content: space-between;
   align-content: center;
   align-items: center;
+}
+
+.fx-spacebetween-end {
+  justify-content: space-between;
+  align-content: flex-end;
+  align-items: flex-end;
 }
 
 .fx-spacebetween-stretch {
@@ -65,9 +94,9 @@
   flex: 0 1 auto;
 }
 
-// .fx-auto {
-//     flex: 1 1 100%;
-// }
+.fx-auto {
+  flex: 1 1 0%;
+}
 
 .fx-none {
   flex: 0 0 auto;
@@ -79,10 +108,6 @@
 
 .fx-noshrink {
   flex: 1 0 auto;
-}
-
-.fx-60 {
-  flex: 0 1 60%;
 }
 
 // GAPS
@@ -98,6 +123,16 @@
   margin-left: 10px;
 }
 
+.fx-row.fx-gap-15>*:not(:last-child),
+.horizontal-gap-15>*:not(:last-child) {
+  margin-left: 15px;
+}
+
+.fx-row.fx-gap-20>*:not(:last-child),
+.horizontal-gap-20>*:not(:last-child) {
+  margin-left: 20px;
+}
+
 .fx-column.fx-gap-5>*:not(:last-child),
 .vertical-gap-5>*:not(:last-child) {
   margin-bottom: 5px;
@@ -106,4 +141,40 @@
 .fx-column.fx-gap-10>*:not(:last-child),
 .vertical-gap-10>*:not(:last-child) {
   margin-bottom: 10px !important;
+}
+
+.fx-column.fx-gap-15>*:not(:last-child),
+.vertical-gap-15>*:not(:last-child) {
+  margin-bottom: 15px !important;
+}
+
+.fx-column.fx-gap-20>*:not(:last-child),
+.vertical-gap-20>*:not(:last-child) {
+  margin-bottom: 20px !important;
+}
+
+// HIDE
+
+.fx-hide-lt-md {
+  @media(max-width: map-get($grid-breakpoints, md)) {
+    display: none !important;
+  }
+}
+
+.fx-hide-lt-sm {
+  @media(max-width: map-get($grid-breakpoints, sm)) {
+    display: none !important;
+  }
+}
+
+.fx-hide-gt-xs {
+  @media(min-width: map-get($grid-breakpoints, sm)) {
+    display: none !important;
+  }
+}
+
+.fx-hide-gt-sm {
+  @media(min-width: map-get($grid-breakpoints, md)) {
+    display: none !important;
+  }
 }
