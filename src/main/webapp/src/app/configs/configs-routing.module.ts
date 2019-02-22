@@ -12,9 +12,9 @@ const routes: Routes = [
     data: { title: 'تنظیمات' },
     children: [
       { path: '', redirectTo: 'company-info' },
-      { path: 'company-info', component: CompanyInfoComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'transactions', component: TransactionsComponent },
+      { path: 'company-info', component: CompanyInfoComponent, data: { title: 'اطلاعات شرکت' } },
+      { path: 'users', component: UsersComponent, data: { title: 'اعضای شرکت' } },
+      { path: 'transactions', component: TransactionsComponent, data: { title: 'تراکنش‌های مالی' } },
     ],
   },
 ];

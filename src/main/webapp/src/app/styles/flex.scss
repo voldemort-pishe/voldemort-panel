@@ -133,6 +133,11 @@
   margin-left: 20px;
 }
 
+.fx-row.fx-gap-30>*:not(:last-child),
+.horizontal-gap-30>*:not(:last-child) {
+  margin-left: 30px;
+}
+
 .fx-column.fx-gap-5>*:not(:last-child),
 .vertical-gap-5>*:not(:last-child) {
   margin-bottom: 5px;
@@ -151,6 +156,11 @@
 .fx-column.fx-gap-20>*:not(:last-child),
 .vertical-gap-20>*:not(:last-child) {
   margin-bottom: 20px !important;
+}
+
+.fx-column.fx-gap-30>*:not(:last-child),
+.vertical-gap-30>*:not(:last-child) {
+  margin-bottom: 30px !important;
 }
 
 // HIDE
