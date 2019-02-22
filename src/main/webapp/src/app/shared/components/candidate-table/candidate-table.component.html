@@ -37,11 +37,11 @@
     <ng-container matColumnDef="companyPipeline">
       <th mat-header-cell *matHeaderCellDef> مرحله </th>
       <td mat-cell *matCellDef="let element">
-        <!-- <mat-form-field>
-          <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="'' + element.include.pipeline.id">
-            <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
+        <mat-form-field>
+          <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="element.include.pipeline.id">
+            <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}</mat-option>
           </mat-select>
-        </mat-form-field> -->
+        </mat-form-field>
       </td>
     </ng-container>
 

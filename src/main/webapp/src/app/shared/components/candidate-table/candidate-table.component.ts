@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, PageEvent } from '@angular/material';
+import { MatTableDataSource, PageEvent, MatSelectChange } from '@angular/material';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
 import { CandidateService, CandidateListRequest, JobService, CompanyPipelineService } from '@app/core';
 import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline-vm.model';
+import { HelpersService } from '@app/core/services/helpers.service';
 
 @Component({
   selector: 'anms-candidate-table',
@@ -28,10 +30,13 @@ export class CandidateTableComponent implements OnInit {
   selection = new SelectionModel<CandidateContentModel>(true, []);
   rawData: PageableGeneric<CandidateContentModel>;
 
+  pipelines: CompanyPipelineContentModel[];
+
   request: CandidateListRequest = {};
   isLoading: boolean = false;
 
   constructor(
+    private helpersService: HelpersService,
     private candidateService: CandidateService,
     private jobService: JobService,
     private companyPipelineService: CompanyPipelineService,
@@ -39,6 +44,11 @@ export class CandidateTableComponent implements OnInit {
 
   ngOnInit() {
     this.fetch();
+
+    this.companyPipelineService.getList().subscribe(r => {
+      if (r.success)
+        this.pipelines = r.data.content;
+    });
   }
 
   fetch(): void {
@@ -68,5 +78,13 @@ export class CandidateTableComponent implements OnInit {
     this.request.page = pageEvent.pageIndex;
     this.request.size = pageEvent.pageSize;
     this.fetch();
+  }
+
+  onChangePipeline(candidate: CandidateContentModel, selectEvent: MatSelectChange) {
+    candidate.data.candidatePipeline = selectEvent.value;
+    this.candidateService.edit(candidate.data).subscribe(r => {
+      const msg = r.success ? 'مرحله‌ی کاندیدای مورد نظر به روز شد.' : r.niceErrorMessage;
+      this.helpersService.showToast(msg);
+    });
   }
 }
