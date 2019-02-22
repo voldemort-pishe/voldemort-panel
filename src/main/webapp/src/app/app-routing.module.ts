@@ -92,6 +92,10 @@ const routes: Routes = [
         path: 'job',
         loadChildren: './jobs/jobs.module#JobsModule',
       },
+      {
+        path: 'configs',
+        loadChildren: './configs/configs.module#ConfigsModule',
+      },
     ]
   },
   {
