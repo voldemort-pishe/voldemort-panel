@@ -17,7 +17,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { CompanyMemberService } from "@app/core/services/company-member.service";
 import { CompanyMemberPage } from "@app/shared/model/company-member/company-member-page.model";
-import { CompanyMember } from "@app/shared/model/company-member/company-member.model";
+import { CompanyMemberModel } from "@app/shared/model/company-member/company-member.model";
 import { JobHireTeamService } from "@app/core/services/job-hire-team.service";
 import { JobHiringTeamPage } from "@app/shared/model/job-hiring-team/job-hiring-team-page.model";
 
@@ -53,7 +53,7 @@ export class CreateJobComponent implements OnInit {
   recruiterFa = new FormControl();
   coordinatorFa = new FormControl();
 
-  filteredMember: Observable<CompanyMember[]>;
+  filteredMember: Observable<CompanyMemberModel[]>;
   JobHiringTeam = [];
   companyMemberPage: CompanyMemberPage;
 

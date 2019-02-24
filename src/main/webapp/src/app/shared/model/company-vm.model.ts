@@ -1,10 +1,10 @@
 import { CompanyModel } from "@app/shared/model/company.model";
 import { File } from "@app/shared/model/file.model";
-import { User } from "@app/shared/model/user.model";
+import { UserModel } from "@app/shared/model/user.model";
 
 export class CompanyIncludeModel {
   file: File;
-  user: User;
+  user: UserModel;
 }
 
 export class CompanyContentModel {

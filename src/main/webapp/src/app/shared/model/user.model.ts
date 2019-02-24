@@ -1,6 +1,6 @@
-import {UserAuthority} from "@app/shared/model/user-authority.model";
+import { UserAuthority } from "@app/shared/model/user-authority.model";
 
-export class User {
+export class UserModel {
   id: number;
   login: string;
   firstName: string;

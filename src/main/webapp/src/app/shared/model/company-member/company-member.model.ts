@@ -1,4 +1,4 @@
-export class CompanyMember {
+export class CompanyMemberModel {
   id: number;
   department: string;
   userEmail: string;

@@ -1,29 +1,27 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-
-import {environment as env} from '@env/environment';
-import {CompanyMemberPage} from "@app/shared/model/company-member/company-member-page.model";
-
-type EntityArrayResponseType = HttpResponse<CompanyMemberPage>;
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CompanyMemberPage } from "@app/shared/model/company-member/company-member-page.model";
+import { ApiService, Response } from './api.service';
+import { CompanyMemberContentModel } from '@app/shared/model/company-member/company-member-vm.model';
+import { PageableGeneric } from '@app/shared/model/pageable.model';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyMemberService {
 
-  private resourceUrl = env.serverApiUrl + 'company-member';
+  private resourceUrl = 'company-member';
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<CompanyMemberPage>(`${this.resourceUrl}`, { observe: 'response' });
+  getAll(): Observable<Response<PageableGeneric<CompanyMemberContentModel>>> {
+    return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}`);
   }
 
-  getAllActive(): Observable<EntityArrayResponseType> {
-    return this.http.get<CompanyMemberPage>(`${this.resourceUrl}/active`, { observe: 'response' });
+  getAllActive(): Observable<Response<PageableGeneric<CompanyMemberContentModel>>> {
+    return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}/active`);
   }
 
-  searchByEmail(key): Observable<EntityArrayResponseType> {
-    return this.http.get<CompanyMemberPage>(`${this.resourceUrl}?email=${key}`, { observe: 'response' });
+  searchByEmail(email: string): Observable<Response<PageableGeneric<CompanyMemberContentModel>>> {
+    return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}`, { email });
   }
 
 }

@@ -32,7 +32,7 @@ import {Principal} from "@app/core/auth/principal.service";
 import {CandidateContentModel} from "@app/shared/model/candidate.model";
 import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
 import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
-import {User} from "@app/shared/model/user.model";
+import {UserModel} from "@app/shared/model/user.model";
 import {Comment} from "@app/shared/model/comment.model";
 import {CommentVm} from "@app/shared/model/comment-vm.model";
 import {CommentPage} from "@app/shared/model/comment-page.mode";
@@ -44,7 +44,7 @@ import {map, startWith} from 'rxjs/operators';
 import {CompanyMemberService} from "@app/core/services/company-member.service";
 import {CompanyMemberPage} from "@app/shared/model/company-member/company-member-page.model";
 import {CandidateScheduleMember} from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
-import {CompanyMember} from "@app/shared/model/company-member/company-member.model";
+import {CompanyMemberModel} from "@app/shared/model/company-member/company-member.model";
 import {CandidateSchedule} from "@app/shared/model/candidate-schedule/candidate-schedule.model";
 import {CandidateScheduleService} from "@app/core/services/candidate-schedule.service";
 import {CandidateScheduleVm} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
@@ -64,7 +64,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   candidateId: number;
   candidate: CandidateContentModel;
   candidateMessage: PageCandidateMessageVm;
-  identityUser: User;
+  identityUser: UserModel;
   commentText: string;
   commentList: CommentPage;
   candidateScheduleList: CandidateSchedulePage;
@@ -297,7 +297,7 @@ export class CandidatePageAddScheduleDialog implements OnInit{
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredMember: Observable<CompanyMember[]>;
+  filteredMember: Observable<CompanyMemberModel[]>;
   memberSet: Set<CandidateScheduleMember> = new Set();
   memberList: Array<CandidateScheduleMember> = [];
   companyMemberPage: CompanyMemberPage;
@@ -398,7 +398,7 @@ export class CandidatePageAddScheduleDialog implements OnInit{
   }
 
 
-  private _filter(value: string): CompanyMember[] {
+  private _filter(value: string): CompanyMemberModel[] {
     return this.companyMemberPage.content
       .filter( e => {
         return e.data.userEmail.includes(value);

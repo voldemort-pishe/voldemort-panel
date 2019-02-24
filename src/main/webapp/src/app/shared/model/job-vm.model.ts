@@ -1,12 +1,12 @@
 import { Pageable } from "@app/shared/model/pageable.model";
 import { CompanyModel } from "@app/shared/model/company.model";
 import { File } from "@app/shared/model/file.model";
-import { User } from "@app/shared/model/user.model";
+import { UserModel } from "@app/shared/model/user.model";
 import { JobModel } from "@app/shared/model/job.model";
 
 export interface JobIncludeModel {
   hiredManager: File;
-  hiredExpert: User;
+  hiredExpert: UserModel;
   company: CompanyModel;
 }
 

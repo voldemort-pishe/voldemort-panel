@@ -1,12 +1,13 @@
-import {User} from "@app/shared/model/user.model";
-import {CompanyModel} from "@app/shared/model/company.model";
-import {CompanyMember} from "@app/shared/model/company-member/company-member.model";
+import { UserModel } from "@app/shared/model/user.model";
+import { CompanyModel } from "@app/shared/model/company.model";
+import { CompanyMemberModel } from "@app/shared/model/company-member/company-member.model";
 
-export class Include {
-  user: User;
+export class CompanyMemberIncludeModel {
+  user: UserModel;
   company: CompanyModel;
 }
-export class CompanyMemberVm {
-  data: CompanyMember;
-  include: Include;
+
+export class CompanyMemberContentModel {
+  data: CompanyMemberModel;
+  include: CompanyMemberIncludeModel;
 }

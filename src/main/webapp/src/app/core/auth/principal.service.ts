@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AccountService } from './account.service';
-import {User} from "@app/shared/model/user.model";
+import {UserModel} from "@app/shared/model/user.model";
 
 @Injectable({ providedIn: 'root' })
 export class Principal {
@@ -88,7 +88,7 @@ export class Principal {
       });
   }
 
-  identityUser(force?: boolean): Promise<User> {
+  identityUser(force?: boolean): Promise<UserModel> {
     if (force === true) {
       this.userIdentity = undefined;
     }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ConfigsComponent } from './configs/configs.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
-import { UsersComponent } from './users/users.component';
+import { CompanyMemberListComponent } from './company-member-list/company-member-list.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'company-info' },
       { path: 'company-info', component: CompanyInfoComponent, data: { title: 'اطلاعات شرکت' } },
-      { path: 'users', component: UsersComponent, data: { title: 'اعضای شرکت' } },
+      { path: 'company-members', component: CompanyMemberListComponent, data: { title: 'اعضای شرکت' } },
       { path: 'transactions', component: TransactionsComponent, data: { title: 'تراکنش‌های مالی' } },
     ],
   },

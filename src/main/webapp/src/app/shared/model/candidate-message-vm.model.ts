@@ -1,10 +1,10 @@
 import {CandidateModel} from "@app/shared/model/candidate.model";
-import {User} from "@app/shared/model/user.model";
+import {UserModel} from "@app/shared/model/user.model";
 import {CandidateMessage} from "@app/shared/model/candidate-message.model";
 
 export class Include {
-  from: User;
-  to: User ;
+  from: UserModel;
+  to: UserModel ;
   candidate: CandidateModel;
 }
 

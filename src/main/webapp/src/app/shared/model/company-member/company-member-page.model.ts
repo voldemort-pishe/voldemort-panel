@@ -1,8 +1,8 @@
 import {Pageable} from "./../pageable.model";
-import {CompanyMemberVm} from "@app/shared/model/company-member/company-member-vm.model";
+import {CompanyMemberContentModel} from "@app/shared/model/company-member/company-member-vm.model";
 
 export class CompanyMemberPage implements Pageable{
-  constructor(public content: CompanyMemberVm[],
+  constructor(public content: CompanyMemberContentModel[],
               public first: boolean,
               public last: boolean,
               public number: number,
