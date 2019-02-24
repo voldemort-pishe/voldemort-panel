@@ -6,16 +6,16 @@
 
     <mat-card-content class="fx-row-wrap">
       <mat-form-field>
-        <input matInput placeholder="نام شرکت" formControlName="nameFa">
+        <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="نام شرکت">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="توضیحات شرکت" formControlName="descriptionFa">
+        <input matInput type="text" name="descriptionFa" formControlName="descriptionFa" placeholder="توضیحات شرکت">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="زبان" formControlName="language">
+        <input matInput type="text" name="language" formControlName="language" placeholder="زبان">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="زیردامنه" formControlName="subDomain">
+        <input matInput type="text" name="subDomain" formControlName="subDomain" placeholder="زیردامنه">
       </mat-form-field>
     </mat-card-content>
   </mat-card>
@@ -27,20 +27,24 @@
 
     <mat-card-content class="fx-row-wrap">
       <mat-form-field class="ltr-input">
-        <input matInput placeholder="تلفن" type="tel" formControlName="phone">
+        <input matInput type="tel" name="phone" formControlName="phone" placeholder="تلفن">
       </mat-form-field>
       <mat-form-field class="ltr-input">
-        <input matInput placeholder="ایمیل" type="email" formControlName="email">
+        <input matInput type="email" name="email" formControlName="email" placeholder="ایمیل">
       </mat-form-field>
       <mat-form-field class="ltr-input">
-        <input matInput placeholder="عرض جغرافیایی" formControlName="latitude">
+        <input matInput type="number" name="latitude" formControlName="latitude" placeholder="عرض جغرافیایی">
       </mat-form-field>
       <mat-form-field class="ltr-input">
-        <input matInput placeholder="طول جغرافیایی" formControlName="longitude">
+        <input matInput type="number" name="longitude" formControlName="longitude" placeholder="طول جغرافیایی">
       </mat-form-field>
-      <mat-form-field class="ltr-input">
-        <input matInput placeholder="آدرس" formControlName="address">
+      <mat-form-field class="addr">
+        <input matInput type="text" name="address" formControlName="address" placeholder="آدرس">
       </mat-form-field>
     </mat-card-content>
   </mat-card>
+
+  <div class="text-center">
+    <button mat-raised-button color="primary" (click)="save()">ذخیره تغییرات</button>
+  </div>
 </form>

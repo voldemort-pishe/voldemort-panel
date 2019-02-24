@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CompanyService } from '@app/core';
+import { CompanyContentModel } from '@app/shared/model/company-vm.model';
+import { HelpersService } from '@app/core/services/helpers.service';
 
 @Component({
   selector: 'anms-company-info',
@@ -10,20 +12,36 @@ import { CompanyService } from '@app/core';
 export class CompanyInfoComponent implements OnInit {
 
   form: FormGroup;
+  model: CompanyContentModel;
 
-  constructor(private companyService: CompanyService) { }
+  constructor(
+    private companyService: CompanyService,
+    private helpersService: HelpersService,
+  ) { }
 
   ngOnInit() {
     this.generateForm();
+    this.fetch();
   }
 
   private fetch(): void {
+    this.companyService.get().subscribe(r => {
+      if (r.success) {
+        this.model = r.data;
+        this.fillFormFromModel();
+      }
+    });
+  }
 
+  save(): void {
+    this.companyService.update(this.form.value).subscribe(r => {
+      this.helpersService.showToast(r.success ? 'نغییرات با موفقیت ذخیره شد.' : r.niceErrorMessage);
+    });
   }
 
   private fillFormFromModel(): void {
     if (!this.form) return;
-
+    this.form.patchValue(this.model.data);
   }
 
   private generateForm(): void {
