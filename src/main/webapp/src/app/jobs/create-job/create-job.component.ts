@@ -163,9 +163,10 @@ export class CreateJobComponent implements OnInit {
   searchByEmail(ctrl): void {
     this.companyMemberService
       .searchByEmail(ctrl.value)
-      .subscribe(
-        (res: HttpResponse<CompanyMemberPage>) => this.onCompanyMemberSuccess(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe(r => {
+        if (r.success) this.onCompanyMemberSuccess(r.data);
+        else this.onError(r.error.message);
+      });
   }
 
   private onCompanyMemberSuccess(data: CompanyMemberPage) {

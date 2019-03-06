@@ -20,35 +20,35 @@ import {
   MatDialogRef,
   MatSnackBar
 } from "@angular/material";
-import {ActivatedRoute} from "@angular/router";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {CompanyPipelineService} from "@app/core";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {CandidateService} from "@app/core/services/candidate.service";
-import {CommentService} from "@app/core/services/comment.service";
-import {CandidateMessageService} from "@app/core/services/candidate-message.service";
-import {Principal} from "@app/core/auth/principal.service";
+import { ActivatedRoute } from "@angular/router";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { CompanyPipelineService } from "@app/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { CandidateService } from "@app/core/services/candidate.service";
+import { CommentService } from "@app/core/services/comment.service";
+import { CandidateMessageService } from "@app/core/services/candidate-message.service";
+import { Principal } from "@app/core/auth/principal.service";
 
-import {CandidateContentModel} from "@app/shared/model/candidate.model";
-import {CompanyPipelineVm} from "@app/shared/model/company-pipeline-vm.model";
-import {PageCandidateMessageVm} from "@app/shared/model/page-candidate-message-vm.model";
-import {UserModel} from "@app/shared/model/user.model";
-import {Comment} from "@app/shared/model/comment.model";
-import {CommentVm} from "@app/shared/model/comment-vm.model";
-import {CommentPage} from "@app/shared/model/comment-page.mode";
+import { CandidateContentModel } from "@app/shared/model/candidate.model";
+import { CompanyPipelineVm } from "@app/shared/model/company-pipeline-vm.model";
+import { PageCandidateMessageVm } from "@app/shared/model/page-candidate-message-vm.model";
+import { UserModel } from "@app/shared/model/user.model";
+import { Comment } from "@app/shared/model/comment.model";
+import { CommentVm } from "@app/shared/model/comment-vm.model";
+import { CommentPage } from "@app/shared/model/comment-page.mode";
 import * as jalaliMoment from "jalali-moment";
-import {Moment} from "jalali-moment";
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {CompanyMemberService} from "@app/core/services/company-member.service";
-import {CompanyMemberPage} from "@app/shared/model/company-member/company-member-page.model";
-import {CandidateScheduleMember} from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
-import {CompanyMemberModel} from "@app/shared/model/company-member/company-member.model";
-import {CandidateSchedule} from "@app/shared/model/candidate-schedule/candidate-schedule.model";
-import {CandidateScheduleService} from "@app/core/services/candidate-schedule.service";
-import {CandidateScheduleVm} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
-import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
+import { Moment } from "jalali-moment";
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { CompanyMemberService } from "@app/core/services/company-member.service";
+import { CompanyMemberPage } from "@app/shared/model/company-member/company-member-page.model";
+import { CandidateScheduleMember } from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
+import { CompanyMemberModel } from "@app/shared/model/company-member/company-member.model";
+import { CandidateSchedule } from "@app/shared/model/candidate-schedule/candidate-schedule.model";
+import { CandidateScheduleService } from "@app/core/services/candidate-schedule.service";
+import { CandidateScheduleVm } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
+import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
 
 @Component({
   selector: 'anms-candidate-page',
@@ -60,7 +60,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
 
   differ: any;
   companyPipeline;
-  activeTab: any = {current:'background'};
+  activeTab: any = { current: 'background' };
   candidateId: number;
   candidate: CandidateContentModel;
   candidateMessage: PageCandidateMessageVm;
@@ -71,22 +71,22 @@ export class CandidatePageComponent implements OnInit, DoCheck {
 
 
   constructor(private differs: KeyValueDiffers,
-              private principal: Principal,
-              private candidateService: CandidateService,
-              private candidateMessageService: CandidateMessageService,
-              private companyPipelineService: CompanyPipelineService,
-              private commentService: CommentService,
-              private candidateScheduleService: CandidateScheduleService,
-              private route: ActivatedRoute,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+    private principal: Principal,
+    private candidateService: CandidateService,
+    private candidateMessageService: CandidateMessageService,
+    private companyPipelineService: CompanyPipelineService,
+    private commentService: CommentService,
+    private candidateScheduleService: CandidateScheduleService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar) {
     this.differ = differs.find({}).create();
 
   }
 
   ngOnInit() {
     this.route.params
-      .subscribe( params => {
+      .subscribe(params => {
         this.candidateId = params.candidateId;
         this.candidateService
           .get(this.candidateId)
@@ -94,21 +94,21 @@ export class CandidatePageComponent implements OnInit, DoCheck {
             (res: HttpResponse<CandidateContentModel>) => this.onCandidateSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           );
-      } );
+      });
   }
 
   ngDoCheck() {
     let changes = this.differ.diff(this.activeTab);
-    if(changes) {
+    if (changes) {
 
-      if(this.activeTab.current == 'activity'){
+      if (this.activeTab.current == 'activity') {
         this.candidateMessageService
           .getAllCandidateMessage(this.candidateId, 'createdDate,desc')
           .subscribe(
             (res: HttpResponse<PageCandidateMessageVm>) => this.onCandidateMessageSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           );
-      }else if(this.activeTab.current == 'comments'){
+      } else if (this.activeTab.current == 'comments') {
         this.principal.identityUser()
           .then(res => {
             this.identityUser = res;
@@ -119,7 +119,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
             (res: HttpResponse<CommentPage>) => this.onCandidateGetCommentSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           )
-      } else if(this.activeTab.current == 'schedule'){
+      } else if (this.activeTab.current == 'schedule') {
         this.candidateScheduleService
           .byCandidateId(this.candidateId)
           .subscribe(
@@ -130,7 +130,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
     }
   }
 
-  onChangePipeline(candidate, $event){
+  onChangePipeline(candidate, $event) {
     candidate.data.candidatePipeline = $event.value;
     this.candidateService
       .update(candidate.data)
@@ -140,29 +140,29 @@ export class CandidatePageComponent implements OnInit, DoCheck {
       )
   }
 
-  openEmailDialog(){
+  openEmailDialog() {
     const dialogRef = this.dialog.open(
       CandidatePageEmailDialog,
       {
         data: {
-          candidateId:this.candidateId
+          candidateId: this.candidateId
         }
       }
     );
   }
 
-  openAddScheduleDialog(){
+  openAddScheduleDialog() {
     const dialogRef = this.dialog.open(
       CandidatePageAddScheduleDialog,
       {
         data: {
-          candidateId:this.candidateId
+          candidateId: this.candidateId
         }
       }
     );
   }
 
-  sendComment(){
+  sendComment() {
     this.commentService
       .create(
         new Comment(
@@ -177,7 +177,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
       );
   }
 
-  private onCandidateSuccess(data: CandidateContentModel){
+  private onCandidateSuccess(data: CandidateContentModel) {
     this.candidate = data;
     this.companyPipelineService
       .loadAll()
@@ -187,30 +187,30 @@ export class CandidatePageComponent implements OnInit, DoCheck {
       );
   }
 
-  private onCandidateMessageSuccess(data: PageCandidateMessageVm){
+  private onCandidateMessageSuccess(data: PageCandidateMessageVm) {
     console.log(data);
     this.candidateMessage = data;
   }
 
-  private onCompanyPipelineSuccess(data: CompanyPipelineVm){
+  private onCompanyPipelineSuccess(data: CompanyPipelineVm) {
     this.companyPipeline = data.content;
   }
 
-  private onCandidatePipelineSuccess(data: CandidateContentModel){
+  private onCandidatePipelineSuccess(data: CandidateContentModel) {
     this.snackBar.open("مرحله‌ی کاندیدای مورد نظر به روز شد", "بستن", {
       duration: 2500
     });
   }
 
-  private onCandidateGetCommentSuccess(data: CommentPage){
+  private onCandidateGetCommentSuccess(data: CommentPage) {
     this.commentList = data;
   }
 
-  private onCandidateScheduleSuccess(data: CandidateSchedulePage){
+  private onCandidateScheduleSuccess(data: CandidateSchedulePage) {
     this.candidateScheduleList = data;
   }
 
-  private onCandidateSendCommentSuccess(data: CommentVm){
+  private onCandidateSendCommentSuccess(data: CommentVm) {
     this.commentText = null;
     this.snackBar.open("نظر شما با موفقیت ارسال شد", "بستن", {
       duration: 2500
@@ -228,20 +228,20 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   templateUrl: './candidate-page-email.component.html',
   styleUrls: ['./candidate-page-email.component.scss']
 })
-export class CandidatePageEmailDialog implements OnInit{
+export class CandidatePageEmailDialog implements OnInit {
 
   @ViewChild('candidateEmailForm') candidateEmailForm: ElementRef;
   candidateEmailFormGroup: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
-              private fb: FormBuilder,
-              private dialogRef: MatDialogRef<CandidatePageComponent>,
-              private candidateMessageService: CandidateMessageService,
-              private snackBar: MatSnackBar) {
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<CandidatePageComponent>,
+    private candidateMessageService: CandidateMessageService,
+    private snackBar: MatSnackBar) {
 
     this.candidateEmailFormGroup = fb.group({
-      subject: [null,Validators.required],
-      message: [null,Validators.required],
+      subject: [null, Validators.required],
+      message: [null, Validators.required],
       candidateId: new FormControl()
     });
 
@@ -251,9 +251,9 @@ export class CandidatePageEmailDialog implements OnInit{
   ngOnInit(): void {
   }
 
-  sendMessage(){
+  sendMessage() {
     this.candidateEmailFormGroup.patchValue({
-      candidateId:this.data.candidateId
+      candidateId: this.data.candidateId
     });
     this.candidateMessageService
       .create(this.candidateEmailFormGroup.value)
@@ -263,7 +263,7 @@ export class CandidatePageEmailDialog implements OnInit{
       );
   }
 
-  private onCandidateMessageSuccess(){
+  private onCandidateMessageSuccess() {
     this.dialogRef.close();
     this.snackBar.open("پیام شما با موفقیت ارسال شد", "بستن", {
       duration: 2500
@@ -286,7 +286,7 @@ export class CandidatePageEmailDialog implements OnInit{
   // ],
   encapsulation: ViewEncapsulation.None
 })
-export class CandidatePageAddScheduleDialog implements OnInit{
+export class CandidatePageAddScheduleDialog implements OnInit {
 
   @ViewChild('candidateAddScheduleForm') candidateAddScheduleForm: ElementRef;
   @ViewChild('memberInput') memberInput: ElementRef<HTMLInputElement>;
@@ -304,19 +304,19 @@ export class CandidatePageAddScheduleDialog implements OnInit{
   timeList: Moment[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
-              private fb: FormBuilder,
-              private dialogRef: MatDialogRef<CandidatePageComponent>,
-              private companyMemberService: CompanyMemberService,
-              private snackBar: MatSnackBar,
-              private candidateScheduleService: CandidateScheduleService) {
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<CandidatePageComponent>,
+    private companyMemberService: CompanyMemberService,
+    private snackBar: MatSnackBar,
+    private candidateScheduleService: CandidateScheduleService) {
 
     this.candidateAddScheduleFormGroup = fb.group({
-      date: [this.today,Validators.required],
-      startTime: [null,Validators.required],
-      endTime: [null,Validators.required],
-      location: [null,Validators.required],
-      description: [null,Validators.required],
-      memberCtrl: [null,Validators.required]
+      date: [this.today, Validators.required],
+      startTime: [null, Validators.required],
+      endTime: [null, Validators.required],
+      location: [null, Validators.required],
+      description: [null, Validators.required],
+      memberCtrl: [null, Validators.required]
     });
 
     this.generateTime();
@@ -326,19 +326,19 @@ export class CandidatePageAddScheduleDialog implements OnInit{
   ngOnInit(): void {
     this.companyMemberService
       .getAll()
-      .subscribe(
-        (res: HttpResponse<CompanyMemberPage>) => this.onCompanyMemberSuccess(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      )
+      .subscribe(r => {
+        if (r.success) this.onCompanyMemberSuccess(r.data);
+        else this.onError(r.error.message);
+      });
   }
 
   remove(member: CandidateScheduleMember): void {
     this.memberSet.delete(member);
 
     let index = this.memberList
-      .map(function(e) {
-      return e.userId;
-    }).indexOf(member.userId);
+      .map(function (e) {
+        return e.userId;
+      }).indexOf(member.userId);
     if (index > -1) {
       console.log(member);
       this.memberList.splice(index, 1);
@@ -355,11 +355,11 @@ export class CandidatePageAddScheduleDialog implements OnInit{
     this.memberInput.nativeElement.value = '';
   }
 
-  onDateChange(event: MatDatepickerInputEvent<Date>){
+  onDateChange(event: MatDatepickerInputEvent<Date>) {
     this.generateTime();
   }
 
-  addSchedule(){
+  addSchedule() {
     let candidateSchedule: CandidateSchedule = new CandidateSchedule();
     candidateSchedule.member = this.memberList;
     candidateSchedule.candidateId = this.data.candidateId;
@@ -367,7 +367,7 @@ export class CandidatePageAddScheduleDialog implements OnInit{
     candidateSchedule.startDate = this.candidateAddScheduleFormGroup.value.startTime;
     candidateSchedule.endDate = this.candidateAddScheduleFormGroup.value.endTime;
     candidateSchedule.location = this.candidateAddScheduleFormGroup.value.location;
-    if(this.candidateAddScheduleFormGroup.valid){
+    if (this.candidateAddScheduleFormGroup.valid) {
       this.candidateScheduleService
         .create(candidateSchedule)
         .subscribe(
@@ -377,16 +377,16 @@ export class CandidatePageAddScheduleDialog implements OnInit{
     }
   }
 
-  private onCompanyMemberSuccess(data: CompanyMemberPage){
+  private onCompanyMemberSuccess(data: CompanyMemberPage) {
     this.companyMemberPage = data;
     this.filteredMember = this.candidateAddScheduleFormGroup.controls['memberCtrl'].valueChanges.pipe(
       startWith(null),
       map((userEmail: string | null) => {
-        return userEmail ? this._filter(userEmail) : this.companyMemberPage.content.map( e => { return e.data });
+        return userEmail ? this._filter(userEmail) : this.companyMemberPage.content.map(e => { return e.data });
       }));
   }
 
-  private onCreateScheduleSuccess(data: CandidateScheduleVm){
+  private onCreateScheduleSuccess(data: CandidateScheduleVm) {
     this.dialogRef.close();
     this.snackBar.open("مصاحبه با موفقیت ثبت شد", "بستن", {
       duration: 2500
@@ -400,21 +400,21 @@ export class CandidatePageAddScheduleDialog implements OnInit{
 
   private _filter(value: string): CompanyMemberModel[] {
     return this.companyMemberPage.content
-      .filter( e => {
+      .filter(e => {
         return e.data.userEmail.includes(value);
       })
-      .map(e => {return e.data});
+      .map(e => { return e.data });
   }
 
 
-  private generateTime(){
-   this.timeList = [];
-    let quarterHours = ["00","30"];
-    for(let _i = 0; _i < 24; _i++){
-      for(let _j = 0; _j < 2; _j++){
+  private generateTime() {
+    this.timeList = [];
+    let quarterHours = ["00", "30"];
+    for (let _i = 0; _i < 24; _i++) {
+      for (let _j = 0; _j < 2; _j++) {
         this.timeList.push(
           jalaliMoment(this.candidateAddScheduleFormGroup.value.date
-            .format("YYYY-MM-DD") +" "+String(_i).padStart(2, '0')+":"+quarterHours[_j])
+            .format("YYYY-MM-DD") + " " + String(_i).padStart(2, '0') + ":" + quarterHours[_j])
         );
       }
     }
