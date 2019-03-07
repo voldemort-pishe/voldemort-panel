@@ -1,6 +1,6 @@
-import {Moment} from 'moment';
+import { Moment } from 'moment';
 
-export class JobHiringTeam {
+export class JobHireTeamModel {
   createdDate: Moment;
   id: number;
   jobId: number;

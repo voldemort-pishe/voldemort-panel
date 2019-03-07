@@ -1,8 +1,8 @@
 import {Pageable} from "./../pageable.model";
-import {JobHiringTeamVm} from "@app/shared/model/job-hiring-team/job-hiring-team-vm.model";
+import {JobHireTeamContentModel} from "@app/shared/model/job-hiring-team/job-hiring-team-vm.model";
 
 export class JobHiringTeamPage implements Pageable{
-  constructor(public content: JobHiringTeamVm[],
+  constructor(public content: JobHireTeamContentModel[],
               public first: boolean,
               public last: boolean,
               public number: number,
