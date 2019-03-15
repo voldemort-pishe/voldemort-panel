@@ -49,6 +49,7 @@ import { CandidateSchedule } from "@app/shared/model/candidate-schedule/candidat
 import { CandidateScheduleService } from "@app/core/services/candidate-schedule.service";
 import { CandidateScheduleVm } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
 import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'anms-candidate-page',
@@ -69,6 +70,11 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   commentList: CommentPage;
   candidateScheduleList: CandidateSchedulePage;
 
+  public get fileUrl(): string {
+    if (this.candidate && this.candidate.data.fileId != null)
+      return `${environment.serverApiUrl}/file/load/${this.candidate.data.fileId}`;
+    else return null;
+  }
 
   constructor(private differs: KeyValueDiffers,
     private principal: Principal,
