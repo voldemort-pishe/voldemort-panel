@@ -16,16 +16,12 @@
     "prod": "npm run clean && npm run build:prod && npm run server",
     "ci": "npm run clean && npm run prettier:ci && ng lint && ng test --configuration=test --browsers ChromeTravisCi && ng e2e && npm run cy:ci && npm run accessibility && npm run build:prod -- --deploy-url /angular-ngrx-material-starter/ --base-href /angular-ngrx-material-starter",
     "release": "standard-version && git push --follow-tags origin master",
-    "prettier": "prettier {src,e2e,cypress}/**/*.{ts,json,md,scss} --write",
-    "prettier:ci": "prettier {src,e2e,cypress}/**/*.{ts,json,md,scss} --list-different",
+    "prettier": "prettier {src,e2e}/**/*.{ts,json,md,scss} --write",
+    "prettier:ci": "prettier {src,e2e}/**/*.{ts,json,md,scss} --list-different",
     "analyze": "npm run clean && npm run build:prod -- --stats-json && webpack-bundle-analyzer ./dist/stats.json",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate && node .all-contributors-html.js",
     "contributors:check": "all-contributors check",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "precy:ci": "npm run build:prod -- --deploy-url \"/angular-ngrx-material-starter/\" --base-href \"/angular-ngrx-material-starter\"",
-    "cy:ci": "npm-run-all --parallel --race server \"cy:run -- --config=baseUrl=http://localhost:4000\"",
     "preaccessibility": "npm run build:prod -- --deploy-url \"/angular-ngrx-material-starter/\" --base-href \"/angular-ngrx-material-starter\"",
     "accessibility": "npm-run-all --parallel --race server accessibility:run",
     "accessibility:run": "pa11y-ci --threshold 250"
@@ -36,7 +32,7 @@
     }
   },
   "lint-staged": {
-    "{src,e2e,cypress}/**/*.{ts,json,md,scss}": [
+    "{src,e2e}/**/*.{ts,json,md,scss}": [
       "prettier --write",
       "git add"
     ]
@@ -86,12 +82,10 @@
     "@angular/cli": "~7.3.1",
     "@angular/compiler-cli": "^7.2.9",
     "@angular/language-service": "^7.2.4",
-    "@bahmutov/add-typescript-to-cypress": "^2.0.0",
     "@types/jasmine": "~3.3.8",
     "@types/node": "~10.12.24",
     "all-contributors-cli": "^6.1.1",
     "codelyzer": "~4.5.0",
-    "cypress": "^3.1.0",
     "express": "^4.16.3",
     "husky": "^1.0.0-rc.13",
     "jasmine-core": "~3.3.0",
