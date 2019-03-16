@@ -72,7 +72,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
 
   public get fileUrl(): string {
     if (this.candidate && this.candidate.data.fileId != null)
-      return `${environment.serverApiUrl}/file/load/${this.candidate.data.fileId}`;
+      return `${environment.serverApiUrl}file/load/${this.candidate.data.fileId}`;
     else return null;
   }
 
