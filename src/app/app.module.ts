@@ -27,11 +27,19 @@ import {
   CalenderComponent
 } from '@app/secure';
 import { AuthInterceptor } from '@app/blocks/interceptor/auth.interceptor';
-import { LocalStorageService, SessionStorageService, NgxWebstorageModule } from 'ngx-webstorage';
+import {
+  LocalStorageService,
+  SessionStorageService,
+  NgxWebstorageModule
+} from 'ngx-webstorage';
 import { AuthExpiredInterceptor } from '@app/blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from '@app/blocks/interceptor/errorhandler.interceptor';
 import { SubscriptionExpiredInterceptor } from '@app/blocks/interceptor/subscription-expired.interceptor';
-import { CurrencyPipe, CommonModule, registerLocaleData } from '@angular/common';
+import {
+  CurrencyPipe,
+  CommonModule,
+  registerLocaleData
+} from '@angular/common';
 import {
   CandidatePageAddScheduleDialog,
   CandidatePageEmailDialog
@@ -42,9 +50,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AvatarModule } from 'ngx-avatar';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import localeFa from '@angular/common/locales/fa';
-import {MatProgressButtonsModule} from "mat-progress-buttons";
+import { MatProgressButtonsModule } from 'mat-progress-buttons';
+import { SubmitFeedbackComponent } from './secure/submit-feedback/submit-feedback.component';
 registerLocaleData(localeFa);
-
 
 @NgModule({
   imports: [
@@ -59,11 +67,10 @@ registerLocaleData(localeFa);
       useFactory: adapterFactory
     }),
 
-  
     AvatarModule,
     MatProgressButtonsModule,
     PdfViewerModule,
-    
+
     // core & shared
     CoreModule,
     SharedModule,
@@ -81,6 +88,7 @@ registerLocaleData(localeFa);
     CandidatePageComponent,
     CandidatePageEmailDialog,
     CandidatePageAddScheduleDialog,
+    SubmitFeedbackComponent
   ],
   declarations: [
     AppComponent,
@@ -97,7 +105,8 @@ registerLocaleData(localeFa);
     CandidatePageComponent,
     CandidatePageEmailDialog,
     CandidatePageAddScheduleDialog,
-    CalenderComponent
+    CalenderComponent,
+    SubmitFeedbackComponent
   ],
   providers: [
     {

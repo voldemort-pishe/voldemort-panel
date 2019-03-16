@@ -50,6 +50,8 @@ import { CandidateScheduleService } from "@app/core/services/candidate-schedule.
 import { CandidateScheduleVm } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
 import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
 import { environment } from '@env/environment';
+import { ApiService } from '@app/core/services/api.service';
+import { SubmitFeedbackComponent } from '../submit-feedback/submit-feedback.component';
 
 @Component({
   selector: 'anms-candidate-page',
@@ -69,6 +71,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   commentText: string;
   commentList: CommentPage;
   candidateScheduleList: CandidateSchedulePage;
+  feedbacks: any[];
 
   public get fileUrl(): string {
     if (this.candidate && this.candidate.data.fileId != null)
@@ -83,6 +86,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
     private companyPipelineService: CompanyPipelineService,
     private commentService: CommentService,
     private candidateScheduleService: CandidateScheduleService,
+    private apiService: ApiService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar) {
@@ -101,6 +105,14 @@ export class CandidatePageComponent implements OnInit, DoCheck {
             (res: HttpErrorResponse) => this.onError(res.message)
           );
       });
+
+    this.apiService.get<any>(`feedback/candidate/${this.candidateId}`).subscribe(r => {
+      this.feedbacks = r.data.content;
+    });
+  }
+
+  newFeedback(): void {
+    this.dialog.open(SubmitFeedbackComponent, { data: { candidateId: this.candidateId } });
   }
 
   ngDoCheck() {
