@@ -13,7 +13,9 @@
                 </button>
                 <div class="candidate-text">
                   <h3>{{candidate?.data.firstName}} {{candidate?.data.lastName}}</h3>
-                  <div class="candidate-job"><mat-icon>work</mat-icon> {{candidate?.include.job.nameFa}}</div>
+                  <div class="candidate-job">
+                    <mat-icon>work</mat-icon> {{candidate?.include.job.nameFa}}
+                  </div>
                   <mat-form-field>
                     <mat-select (selectionChange)="onChangePipeline(candidate, $event)" [(value)]="'' + candidate?.include.pipeline.id">
                       <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}</mat-option>
@@ -28,7 +30,8 @@
                 <a mat-tab-link (click)="activeTab.current = 'background'" [active]="activeTab.current == 'background'">پیشینه</a>
                 <a mat-tab-link (click)="activeTab.current = 'activity'" [active]="activeTab.current == 'activity'">فعالیت‌ها</a>
                 <a mat-tab-link (click)="activeTab.current = 'comments'" [active]="activeTab.current == 'comments'">نظرات</a>
-                <a mat-tab-link (click)="activeTab.current = 'schedule'" [active]="activeTab.current == 'schedule'">جدول زمانی</a>
+                <a mat-tab-link (click)="activeTab.current = 'schedule'" [active]="activeTab.current == 'schedule'">جدول
+                  زمانی</a>
                 <a mat-tab-link (click)="activeTab.current = 'feedback'" [active]="activeTab.current == 'feedback'">بازخورد</a>
                 <a mat-tab-link (click)="activeTab.current = 'documents'" [active]="activeTab.current == 'documents'">مستندات</a>
               </nav>
@@ -36,7 +39,8 @@
 
             <div class="col-sm-2">
               <div class="candidate-page-action">
-                <button (click)="openEmailDialog()" mat-icon-button matTooltip="ارسال پست الکترونیکی" matTooltipPosition="right">
+                <button (click)="openEmailDialog()" mat-icon-button matTooltip="ارسال پست الکترونیکی"
+                  matTooltipPosition="right">
                   <mat-icon aria-label="ارسال پست الکترونیکی">email</mat-icon>
                 </button>
               </div>
@@ -59,10 +63,18 @@
             <h3>خلاصه اطلاعات</h3>
             <mat-card-content>
               <mat-list>
-                <mat-list-item><mat-icon>work</mat-icon> موقعیت شغلی جاری</mat-list-item>
-                <mat-list-item><mat-icon>place</mat-icon> آدرس محل کار جاری</mat-list-item>
-                <mat-list-item><mat-icon>home</mat-icon> آدرس محل زندگی</mat-list-item>
-                <mat-list-item><mat-icon>build</mat-icon> Java, Linux, Docker, Typescript</mat-list-item>
+                <mat-list-item>
+                  <mat-icon>work</mat-icon> موقعیت شغلی جاری
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon>place</mat-icon> آدرس محل کار جاری
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon>home</mat-icon> آدرس محل زندگی
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon>build</mat-icon> Java, Linux, Docker, Typescript
+                </mat-list-item>
               </mat-list>
             </mat-card-content>
           </mat-card>
@@ -77,8 +89,7 @@
           <mat-card *ngFor="let message of candidateMessage?.content">
             <div class="title">
               <h4>
-                <ngx-avatar name="{{message.include.from.firstName}}"
-                            gravatarId="{{message.include.from.email}}">
+                <ngx-avatar name="{{message.include.from.firstName}}" gravatarId="{{message.include.from.email}}">
                 </ngx-avatar>
                 <span class="info">
                   <span>{{message.include.from.firstName}} {{message.include.from.lastName}}</span>
@@ -98,8 +109,7 @@
         <div *ngIf="activeTab.current == 'comments'" class="comments">
           <mat-card>
             <div class="comment-form">
-              <ngx-avatar name="{{identityUser?.firstName}}"
-                          gravatarId="{{identityUser?.email}}">
+              <ngx-avatar name="{{identityUser?.firstName}}" gravatarId="{{identityUser?.email}}">
               </ngx-avatar>
 
               <mat-form-field class="comment-input">
@@ -112,10 +122,9 @@
             </div>
           </mat-card>
 
-          <mat-card class="comments-item" *ngFor="let comments of commentList?.content" >
+          <mat-card class="comments-item" *ngFor="let comments of commentList?.content">
             <div class="display-comment">
-              <ngx-avatar name="{{comments.include.owner.firstName}}"
-                          gravatarId="{{comments.include.owner.email}}">
+              <ngx-avatar name="{{comments.include.owner.firstName}}" gravatarId="{{comments.include.owner.email}}">
               </ngx-avatar>
               <h3>{{comments.include.owner.firstName}} {{comments.include.owner.lastName}}</h3>
             </div>
@@ -134,8 +143,7 @@
             <mat-card-content>
 
 
-              <div *ngFor="let schedule of candidateScheduleList?.content"
-                   class="candidate-schedule-list">
+              <div *ngFor="let schedule of candidateScheduleList?.content" class="candidate-schedule-list">
                 <h4>تاریخ مصاحبه {{schedule.data.startDate | jalali}}</h4>
                 <mat-divider></mat-divider>
                 <mat-list>
@@ -163,6 +171,18 @@
 
         <div *ngIf="activeTab.current == 'feedback'">
           <button mat-raised-button color="primary" (click)="newFeedback()">ثبت بازخورد</button>
+          <div class="vertical-gap-10">
+            <mat-card class="comments-item" *ngFor="let feedback of feedbacks">
+              <div class="display-comment">
+                <ngx-avatar name="{{feedback.include.owner.firstName}}" gravatarId="{{feedback.include.owner.email}}">
+                </ngx-avatar>
+                <h3>{{feedback.include.owner.firstName}} {{feedback.include.owner.lastName}}</h3>
+              </div>
+              <div class="comment-text">
+                <p>{{feedback.data.feedbackText}}</p>
+              </div>
+            </mat-card>
+          </div>
         </div>
 
         <div *ngIf="activeTab.current == 'documents'">
@@ -178,10 +198,18 @@
             <div class="contact">
               <h3>اطلاعات تماس</h3>
               <mat-list>
-                <mat-list-item><mat-icon>email</mat-icon> {{candidate?.data.email}}</mat-list-item>
-                <mat-list-item><mat-icon>phone</mat-icon> {{candidate?.data.cellphone | persianNumber}}</mat-list-item>
-                <mat-list-item><mat-icon>link</mat-icon> اضافه کردن وب‌سایت</mat-list-item>
-                <mat-list-item *ngIf="!candidate?.include.file"><mat-icon>description</mat-icon>  اضافه کردن رزومه</mat-list-item>
+                <mat-list-item>
+                  <mat-icon>email</mat-icon> {{candidate?.data.email}}
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon>phone</mat-icon> {{candidate?.data.cellphone | persianNumber}}
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon>link</mat-icon> اضافه کردن وب‌سایت
+                </mat-list-item>
+                <mat-list-item *ngIf="!candidate?.include.file">
+                  <mat-icon>description</mat-icon> اضافه کردن رزومه
+                </mat-list-item>
               </mat-list>
             </div>
           </div>

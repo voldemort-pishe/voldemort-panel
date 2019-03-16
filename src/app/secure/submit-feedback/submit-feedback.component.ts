@@ -32,7 +32,7 @@ export class SubmitFeedbackComponent implements OnInit {
 
   submit(): void {
     this.apiService.post<any>('feedback', this.form.value).subscribe(r => {
-      const msg = r.success ? r.data.message : r.niceErrorMessage;
+      const msg = r.success ? 'بازخورد شما با موفقیت ثبت شد.' : r.niceErrorMessage;
       this.snackBar.open(msg, null, { duration: 3000 });
       this.dialogRef.close();
     });
