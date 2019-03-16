@@ -169,9 +169,16 @@
           </div>
         </div>
 
-        <div *ngIf="activeTab.current == 'feedback'">
+        <div *ngIf="activeTab.current == 'feedback'" class="vertical-gap-10">
           <button mat-raised-button color="primary" (click)="newFeedback()">ثبت بازخورد</button>
           <div class="vertical-gap-10">
+            <mat-card>
+              <h3>تعداد آرا</h3>
+              <div *ngFor="let gp of feedbackGroups" class="fx-row fx-gap-10">
+                <div>{{ FeedbackRating[gp.rating] }}:</div>
+                <div>{{gp.n}} رای</div>
+              </div>
+            </mat-card>
             <mat-card class="comments-item" *ngFor="let feedback of feedbacks">
               <div class="display-comment">
                 <ngx-avatar name="{{feedback.include.owner.firstName}}" gravatarId="{{feedback.include.owner.email}}">
@@ -179,7 +186,8 @@
                 <h3>{{feedback.include.owner.firstName}} {{feedback.include.owner.lastName}}</h3>
               </div>
               <div class="comment-text">
-                <p>{{feedback.data.feedbackText}}</p>
+                <p>امتیاز: {{ FeedbackRating[feedback.data.rating] }}</p>
+                <p>توضیح: {{feedback.data.feedbackText}}</p>
               </div>
             </mat-card>
           </div>

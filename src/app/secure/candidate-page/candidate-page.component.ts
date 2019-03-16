@@ -52,6 +52,9 @@ import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/cand
 import { environment } from '@env/environment';
 import { ApiService } from '@app/core/services/api.service';
 import { SubmitFeedbackComponent } from '../submit-feedback/submit-feedback.component';
+import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { FeedbackContentModel } from '@app/shared/model/feedback.model';
+import { FeedbackRating } from '@app/shared/model/enumeration/feedback-rating';
 
 @Component({
   selector: 'anms-candidate-page',
@@ -60,6 +63,8 @@ import { SubmitFeedbackComponent } from '../submit-feedback/submit-feedback.comp
   encapsulation: ViewEncapsulation.None
 })
 export class CandidatePageComponent implements OnInit, DoCheck {
+
+  FeedbackRating: typeof FeedbackRating = FeedbackRating;
 
   differ: any;
   companyPipeline;
@@ -71,7 +76,9 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   commentText: string;
   commentList: CommentPage;
   candidateScheduleList: CandidateSchedulePage;
-  feedbacks: any[];
+
+  feedbacks: FeedbackContentModel[];
+  feedbackGroups: any[];
 
   public get fileUrl(): string {
     if (this.candidate && this.candidate.data.fileId != null)
@@ -106,9 +113,31 @@ export class CandidatePageComponent implements OnInit, DoCheck {
           );
       });
 
-    this.apiService.get<any>(`feedback/candidate/${this.candidateId}`).subscribe(r => {
+    this.apiService.get<PageableGeneric<FeedbackContentModel>>(`feedback/candidate/${this.candidateId}`).subscribe(r => {
       this.feedbacks = r.data.content;
+      const gs = [];
+      this.groupBy(this.feedbacks, f => f.data.rating).forEach((items, key) => {
+        gs.push({
+          rating: key,
+          n: items.length,
+        });
+      });
+      this.feedbackGroups = gs;
     });
+  }
+
+  // https://stackoverflow.com/a/38327540
+  groupBy<T>(collection: T[], keyGetter: ((value: T) => any)): Map<any, T[]> {
+    const map = new Map();
+    collection.forEach((item) => {
+      const key = keyGetter(item);
+      const collection = map.get(key);
+      if (!collection)
+        map.set(key, [item]);
+      else
+        collection.push(item);
+    });
+    return map;
   }
 
   newFeedback(): void {
