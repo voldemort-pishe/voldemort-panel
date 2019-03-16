@@ -1,43 +1,15 @@
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# compiled output
+/dist
+/tmp
+/out-tsc
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# dependencies
+/node_modules
+yarn.lock
 
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-
-### compiled output ###
-/src/main/webapp/dist
-/src/main/webapp/tmp
-/src/main/webapp/out-tsc
-
-### dependencies ###
-/src/main/webapp/node_modules
-/src/main/webapp/node
-/src/main/webapp/yarn.lock
-/src/main/webapp/yarn-error.log
-
-
-### IDEs and editors ###
+# IDEs and editors
 /.idea
 .project
 .classpath
@@ -46,14 +18,14 @@
 .settings/
 *.sublime-workspace
 
-### IDE - VSCode ###
+# IDE - VSCode
 .vscode/*
 # !.vscode/settings.json
 # !.vscode/tasks.json
 # !.vscode/launch.json
 # !.vscode/extensions.json
 
-### misc ###
+# misc
 /.sass-cache
 /connect.lock
 /coverage
@@ -62,10 +34,10 @@ npm-debug.log
 testem.log
 /typings
 
-### e2e ###
-/src/main/webapp/e2e/src/*.js
-/src/main/webapp/e2e/src/*.map
-/src/main/webapp/cypress/screenshots
+# e2e
+/e2e/src/*.js
+/e2e/src/*.map
+/cypress/screenshots
 
 # System Files
 .DS_Store

@@ -1,0 +1,13 @@
+stages:
+  - package
+
+docker-build:
+  stage: package
+  image: docker:latest
+  services:
+  - docker:dind
+  script:
+  - docker login -u $PISHE_USER -p $PISHE_PASS $CI_REGISTRY
+  - docker build --pull -t $IMAGE_URL:$TAG .
+  - docker push $IMAGE_URL:$TAG
+
