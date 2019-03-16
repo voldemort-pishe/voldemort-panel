@@ -40,6 +40,7 @@ import {
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AvatarModule } from 'ngx-avatar';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import localeFa from '@angular/common/locales/fa';
 import {MatProgressButtonsModule} from "mat-progress-buttons";
 registerLocaleData(localeFa);
@@ -61,7 +62,8 @@ registerLocaleData(localeFa);
   
     AvatarModule,
     MatProgressButtonsModule,
-
+    PdfViewerModule,
+    
     // core & shared
     CoreModule,
     SharedModule,
