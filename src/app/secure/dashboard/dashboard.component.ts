@@ -6,10 +6,10 @@ import {Principal} from '@app/core/auth/principal.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {CandidateScheduleService} from "@app/core";
 import {DateRange} from "@app/shared/model/date-range.model";
-import {IEvent} from "@app/shared/model/event.model";
+import {EventContentModel} from "@app/shared/model/event.model";
 import {EventService} from "@app/core/services/event.service";
 import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
-import {CandidateScheduleVm} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
+import {CandidateScheduleContentModel} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
 
 
 @Component({
@@ -23,11 +23,11 @@ export class DashboardComponent implements OnInit {
   todayDateDay: string;
   todayDateMonth: string;
   displayedColumns: string[] = ['action','title', 'description',];
-  contentSchedule: CandidateScheduleVm[];
+  contentSchedule: CandidateScheduleContentModel[];
   jCountOfTodaySchedule: string;
   countOfTodaySchedule: number;
   userFirstName: string;
-  eventResult: IEvent[];
+  eventResult: EventContentModel[];
 
   constructor(private persianNumberHelper: PersianNumberHelper,
               private principal: Principal,
@@ -64,9 +64,9 @@ export class DashboardComponent implements OnInit {
       );
 
     this.eventService
-      .loadAllByOwner()
+      .getList()
       .subscribe(
-        (res: HttpResponse<IEvent[]>) => this.onSuccessEvent(res.body),
+        (res) => this.onSuccessEvent(res.data),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
 
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
     this.jCountOfTodaySchedule = this.persianNumberHelper.toPersianNumber(data.totalElements);
   }
 
-  private onSuccessEvent(data: IEvent[]){
+  private onSuccessEvent(data: EventContentModel[]){
     this.eventResult = data;
   }
 

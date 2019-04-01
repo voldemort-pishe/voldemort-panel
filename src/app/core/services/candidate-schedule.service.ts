@@ -4,24 +4,27 @@ import { Observable } from 'rxjs';
 import * as jmoment from 'jalali-moment';
 
 import { environment as env } from '@env/environment';
-import {map} from 'rxjs/operators';
-import {DateRange} from "@app/shared/model/date-range.model";
-import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
-import {CandidateScheduleVm} from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
-import {CandidateSchedule} from "@app/shared/model/candidate-schedule/candidate-schedule.model";
+import { map } from 'rxjs/operators';
+import { DateRange } from "@app/shared/model/date-range.model";
+import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
+import { CandidateScheduleContentModel } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
+import { CandidateScheduleModel } from "@app/shared/model/candidate-schedule/candidate-schedule.model";
+import { ApiService, ApiResponse } from './api.service';
+import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { Moment } from 'jalali-moment';
 
 type EntityArrayResponseType = HttpResponse<CandidateSchedulePage>;
-type EntityResponseType = HttpResponse<CandidateScheduleVm>;
+type EntityResponseType = HttpResponse<CandidateScheduleContentModel>;
 
 @Injectable({ providedIn: 'root' })
 export class CandidateScheduleService {
 
   private resourceUrl = env.serverApiUrl + 'candidate-schedule';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiService: ApiService) { }
 
-  create(candidateSchedule: CandidateSchedule): Observable<EntityResponseType> {
-    return this.http.post<CandidateScheduleVm>(`${this.resourceUrl}`, candidateSchedule,{ observe: 'response' });
+  create(candidateSchedule: CandidateScheduleModel): Observable<EntityResponseType> {
+    return this.http.post<CandidateScheduleContentModel>(`${this.resourceUrl}`, candidateSchedule, { observe: 'response' });
   }
 
   byOwner(): Observable<EntityArrayResponseType> {
@@ -39,9 +42,9 @@ export class CandidateScheduleService {
   }
 
   private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    res.body.content.forEach((candidateSchedule: CandidateScheduleVm) => {
-      candidateSchedule.data.startDate = candidateSchedule.data.startDate  != null ? jmoment(candidateSchedule.data.startDate ) : null;
-      candidateSchedule.data.endDate = candidateSchedule.data.endDate  != null ? jmoment(candidateSchedule.data.endDate ) : null;
+    res.body.content.forEach((candidateSchedule: CandidateScheduleContentModel) => {
+     (candidateSchedule.data as any).startDate = candidateSchedule.data.startDate != null ? jmoment(candidateSchedule.data.startDate) : null;
+     (candidateSchedule.data as any).endDate = candidateSchedule.data.endDate != null ? jmoment(candidateSchedule.data.endDate) : null;
     });
     return res;
   }
@@ -54,4 +57,19 @@ export class CandidateScheduleService {
     return copy;
   }
 
+  getList(): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
+    return this.apiService.get<PageableGeneric<CandidateScheduleContentModel>>('candidate-schedule');
+  }
+
+  getListByDate(startDate: Moment, endDate: Moment): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
+    const req = {
+      startDate: this.moment2JsonDate(startDate),
+      endDate: this.moment2JsonDate(endDate),
+    };
+    return this.apiService.post<PageableGeneric<CandidateScheduleContentModel>>('candidate-schedule/time', req);
+  }
+
+  private moment2JsonDate(date: Moment): string {
+    return date != null && date.isValid() ? date.toJSON() : null;
+  }
 }

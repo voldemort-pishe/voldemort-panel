@@ -2,11 +2,10 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } 
 import { Injectable } from '@angular/core';
 import { Observable, of, TimeoutError } from 'rxjs';
 import { catchError, map, timeout } from 'rxjs/operators';
-import { Response } from '../classes/response';
 import { environment } from '@env/environment';
 import { LoginService } from '../login/login.service';
 
-export interface Response<T> {
+export interface ApiResponse<T> {
     success: boolean;
     status: number;
     data?: T;
@@ -27,7 +26,7 @@ export class ApiService {
         private loginService: LoginService,
     ) { }
 
-    public get<T>(url: string, data: { [param: string]: string | string[] } = null): Observable<Response<T>> {
+    public get<T>(url: string, data: { [param: string]: string | string[] } = null): Observable<ApiResponse<T>> {
         return this.http.get<T>(this.getUrl(url), this.getHttpOptions(data))
             .pipe(
                 map(this.handleSuccess),
@@ -36,7 +35,7 @@ export class ApiService {
             );
     }
 
-    public post<T>(url: string, data: any = null): Observable<Response<T>> {
+    public post<T>(url: string, data: any = null): Observable<ApiResponse<T>> {
         return this.http.post<T>(this.getUrl(url), data, this.getHttpOptions())
             .pipe(
                 map(this.handleSuccess),
@@ -45,7 +44,7 @@ export class ApiService {
             );
     }
 
-    public put<T>(url: string, data: any = null): Observable<Response<T>> {
+    public put<T>(url: string, data: any = null): Observable<ApiResponse<T>> {
         return this.http.put<T>(this.getUrl(url), data, this.getHttpOptions())
             .pipe(
                 map(this.handleSuccess),
@@ -54,7 +53,7 @@ export class ApiService {
             );
     }
 
-    public delete<T>(url: string): Observable<Response<T>> {
+    public delete<T>(url: string): Observable<ApiResponse<T>> {
         return this.http.delete<T>(this.getUrl(url), this.getHttpOptions())
             .pipe(
                 map(this.handleSuccess),
@@ -72,7 +71,7 @@ export class ApiService {
         // window.location.href = '/';
     }
 
-    private handleSuccess<T>(response: HttpResponse<T>): Response<T> {
+    private handleSuccess<T>(response: HttpResponse<T>): ApiResponse<T> {
         return {
             success: true,
             status: response.status,
@@ -80,7 +79,7 @@ export class ApiService {
         };
     }
 
-    private handleError(error: any, url: string): Observable<Response<any>> {
+    private handleError(error: any, url: string): Observable<ApiResponse<any>> {
         let errorData: any;
         let niceErrorMsg: string;
 

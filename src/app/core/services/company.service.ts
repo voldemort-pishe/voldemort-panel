@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiService, Response } from './api.service';
+import { ApiService, ApiResponse } from './api.service';
 import { CompanyContentModel } from '@app/shared/model/company-vm.model';
 import { Observable } from 'rxjs';
 import { CompanyModel } from '@app/shared/model/company.model';
@@ -9,11 +9,11 @@ export class CompanyService {
 
   constructor(private apiService: ApiService) { }
 
-  get(): Observable<Response<CompanyContentModel>> {
+  get(): Observable<ApiResponse<CompanyContentModel>> {
     return this.apiService.get<CompanyContentModel>('company');
   }
 
-  update(data: CompanyModel): Observable<Response<CompanyContentModel>> {
+  update(data: CompanyModel): Observable<ApiResponse<CompanyContentModel>> {
     return this.apiService.put<CompanyContentModel>('company', data);
   }
 }

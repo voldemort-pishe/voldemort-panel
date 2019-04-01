@@ -1,8 +1,8 @@
-import {EventType} from "@app/shared/model/enumeration/event-type.model";
-import {EventStatus} from "@app/shared/model/enumeration/event-status.model";
-import {UserEvent} from "./user-event.model";
+import { EventType } from "@app/shared/model/enumeration/event-type.model";
+import { EventStatus } from "@app/shared/model/enumeration/event-status.model";
+import { UserModel } from './user.model';
 
-export class Event {
+export class EventModel {
   id: number;
   title: string;
   description: string;
@@ -10,10 +10,13 @@ export class Event {
   extra: string;
   status: EventStatus;
   ownerId: number;
-  createdDate: Date;
+  createdDate: string;
+  flag: boolean;
 }
 
-export class IEvent {
-  data: Event;
-  include:UserEvent;
+export class EventContentModel {
+  data: EventModel;
+  include: {
+    user: UserModel;
+  };
 }

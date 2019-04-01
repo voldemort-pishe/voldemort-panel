@@ -1,14 +1,13 @@
-import {CandidateScheduleMember} from './candidate-schedule-member.model';
-import {Moment} from 'jalali-moment';
-import {ScheduleStatus} from "@app/shared/model/enumeration/schedule-status.model";
+import { CandidateScheduleMemberModel } from './candidate-schedule-member.model';
+import { ScheduleStatus } from "@app/shared/model/enumeration/schedule-status.model";
 
-export class CandidateSchedule {
+export class CandidateScheduleModel {
+  id: number;
   candidateId: number;
   description: string;
-  endDate: Moment;
-  id: number;
-  location: string;
-  member: Array<CandidateScheduleMember>;
-  startDate: Moment;
   status: ScheduleStatus;
+  location: string;
+  startDate: string;
+  endDate: string;
+  member: CandidateScheduleMemberModel[];
 }

@@ -1,10 +1,9 @@
-import {CandidateSchedule} from './candidate-schedule.model';
-import {CandidateModel} from './../candidate.model';
+import { CandidateScheduleModel } from './candidate-schedule.model';
+import { CandidateModel } from './../candidate.model';
 
-export class Include {
-  candidate: CandidateModel
-}
-export class CandidateScheduleVm {
-  data: CandidateSchedule;
-  include: Include;
+export class CandidateScheduleContentModel {
+  data: CandidateScheduleModel;
+  include: {
+    candidate: CandidateModel
+  };
 }

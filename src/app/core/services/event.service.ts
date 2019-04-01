@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { environment as env } from '@env/environment';
-import {IEvent} from "@app/shared/model/event.model";
-
-
-type EntityArrayResponseType = HttpResponse<IEvent[]>;
+import { EventContentModel } from "@app/shared/model/event.model";
+import { ApiService, ApiResponse } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
 
-  private resourceUrl = env.serverApiUrl + 'event';
+  constructor(private apiService: ApiService) { }
 
-  constructor(private http: HttpClient) {}
-
-  loadAllByOwner(): Observable<EntityArrayResponseType> {
-    return this.http.get<IEvent[]>(`${this.resourceUrl}`, { observe: 'response' });
+  getList(filters?: { [filter: string]: string }): Observable<ApiResponse<EventContentModel[]>> {
+    return this.apiService.get<EventContentModel[]>('event', filters);
   }
-
-
 }

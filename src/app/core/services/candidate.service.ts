@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 import { Candidate, CandidateContentModel, CandidateModel } from "@app/shared/model/candidate.model";
-import { ApiService, Response } from './api.service';
+import { ApiService, ApiResponse } from './api.service';
 import { PageableGeneric } from '@app/shared/model/pageable.model';
 import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
 import { CandidateType } from '@app/shared/model/enumeration/candidate-type.model';
@@ -52,11 +52,11 @@ export class CandidateService {
     return this.http.get<Candidate>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
   }
 
-  getList(params?: CandidateListRequest): Observable<Response<PageableGeneric<CandidateContentModel>>> {
+  getList(params?: CandidateListRequest): Observable<ApiResponse<PageableGeneric<CandidateContentModel>>> {
     return this.apiService.get<PageableGeneric<CandidateContentModel>>('candidate', params as any);
   }
 
-  edit(candidate: CandidateModel): Observable<Response<CandidateContentModel>> {
+  edit(candidate: CandidateModel): Observable<ApiResponse<CandidateContentModel>> {
     return this.apiService.put<CandidateContentModel>('candidate', candidate);
   }
 }

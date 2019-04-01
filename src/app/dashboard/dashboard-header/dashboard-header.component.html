@@ -1,0 +1,48 @@
+<div *appLoading="isLoading" class="wrapper padding-20">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+
+  <ng-container *ngIf="!isErrorOccured">
+    <div class="fx-row">
+      <div class="fx-initial welcome">
+        <div>{{greeting}}</div>
+        <div>{{userFirstName}}</div>
+        <div class="today horizontal-gap-5">
+          <span class="day">{{now | jalali: 'jD'}}</span>
+          <span class="month">{{now | jalali: 'jMMMM'}}</span>
+        </div>
+      </div>
+
+      <div class="fx-auto vertical-gap-20 events-wrapper">
+        <div *ngIf="candidateSchedules.length === 0">
+          <h2>شما هنوز مصاحبه‌ای تنظیم نکرده‌اید</h2>
+          <p>هر زمان برای کاندیدای ثبت نام شده تاریخ مصاحبه تنظیم کنید، آخرین و نزدیک ترین آن مصاحبه را در این قسمت
+            مشاهده خواهید کرد.</p>
+        </div>
+
+        <div *ngIf="candidateSchedules.length > 0" class="fx-row-wrap fx-gap-15 events">
+          <a *ngFor="let event of candidateSchedules" class="event"
+            [routerLink]="['/', 'candidate', event.include.candidate.id]">
+            <div class="horizontal-gap-10">
+              <mat-icon [inline]="true">access_time</mat-icon>
+              <span>{{event.data.startDate | jalali: 'short-time'}}</span>
+            </div>
+            <div class="horizontal-gap-10">
+              <mat-icon [inline]="true">calendar_today</mat-icon>
+              <span>{{event.data.startDate | jalali: 'short-date'}}</span>
+            </div>
+            <div class="horizontal-gap-10">
+              <mat-icon [inline]="true">person</mat-icon>
+              <small>{{event.include.candidate.firstName}} {{event.include.candidate.lastName}}</small>
+            </div>
+          </a>
+        </div>
+
+        <div class="event-description">
+          <span *ngIf="numTodaySchedules > 0">امروز {{numTodaySchedules | persianNumber}} مصاحبه زمانبندی شده
+            دارید</span>
+          <span *ngIf="numTodaySchedules === 0">برای امروز مصاحبه‌ای ندارید</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

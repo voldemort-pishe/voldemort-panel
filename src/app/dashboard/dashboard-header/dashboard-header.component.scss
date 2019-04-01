@@ -1,0 +1,48 @@
+$event-height: 93px;
+
+.wrapper {
+  background: url(/assets/images/header-top-updates.png) no-repeat center;
+  background-size: cover;
+  color: white;
+}
+
+.welcome {
+  margin-left: 80px;
+}
+
+.today {
+  margin-top: 20px;
+
+  .day {
+    font-size: 44px;
+  }
+
+  .month {
+    font-size: 22px;
+  }
+}
+
+.events-wrapper,
+.events {
+  overflow: hidden;
+}
+
+.events {
+  height: $event-height;
+}
+
+.event {
+  height: $event-height;
+  padding: 10px;
+  flex: 0 0 200px;
+  background: rgba(47, 142, 189, 0.5);
+  color: white;
+
+  &:hover {
+    background: rgba(51, 179, 230, 0.5);
+  }
+
+  .mat-icon {
+    vertical-align: middle;
+  }
+}

@@ -6,7 +6,7 @@ import { environment as env } from '@env/environment';
 import { CompanyPipelineVm, CompanyPipelineContentModel } from "@app/shared/model/company-pipeline-vm.model";
 import { JobContentModel } from '@app/shared/model/job-content.model';
 import { PageableGeneric } from '@app/shared/model/pageable.model';
-import { ApiService, Response } from './api.service';
+import { ApiService, ApiResponse } from './api.service';
 
 type EntityArrayResponseType = HttpResponse<CompanyPipelineVm>;
 
@@ -21,7 +21,7 @@ export class CompanyPipelineService {
     return this.http.get<CompanyPipelineVm>(`${this.resourceUrl}`, { observe: 'response' });
   }
 
-  getList(): Observable<Response<PageableGeneric<CompanyPipelineContentModel>>> {
+  getList(): Observable<ApiResponse<PageableGeneric<CompanyPipelineContentModel>>> {
     return this.apiService.get<PageableGeneric<CompanyPipelineContentModel>>('company-pipeline');
   }
 }

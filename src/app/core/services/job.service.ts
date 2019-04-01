@@ -6,7 +6,7 @@ import { environment as env } from '@env/environment';
 import { JobVm, JobContentModel } from "@app/shared/model/job-vm.model";
 import { Candidate, CandidateModel } from "@app/shared/model/candidate.model";
 import { JobModel } from "@app/shared/model/job.model";
-import { ApiService, Response } from './api.service';
+import { ApiService, ApiResponse } from './api.service';
 import { PageableGeneric } from '@app/shared/model/pageable.model';
 import { tap } from 'rxjs/operators';
 
@@ -44,7 +44,7 @@ export class JobService {
     return this.http.get<JobVm>(`${this.resourceUrl}?${status}&${param}&sort=${sort}`, { observe: 'response' });
   }
 
-  getList(): Observable<Response<PageableGeneric<JobContentModel>>> {
+  getList(): Observable<ApiResponse<PageableGeneric<JobContentModel>>> {
     return this.apiService.get<PageableGeneric<JobContentModel>>('job');
   }
 
@@ -54,7 +54,7 @@ export class JobService {
     this.storedObject = model;
   }
 
-  getDetail(id: number): Observable<Response<JobContentModel>> {
+  getDetail(id: number): Observable<ApiResponse<JobContentModel>> {
     // TODO: share one observable, prevent from sending same request multiple times
     if (this.storedObject && this.storedObject.data.id === id) {
       return of({

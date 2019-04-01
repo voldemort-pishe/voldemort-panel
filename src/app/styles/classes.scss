@@ -11,6 +11,23 @@
   direction: ltr;
 }
 
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.scrollable-list {
+  overflow-y: auto;
+}
+
+.text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 // MARGIN and PADDING
 
 .margin-5 {

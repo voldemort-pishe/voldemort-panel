@@ -43,11 +43,11 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CompanyMemberService } from "@app/core/services/company-member.service";
 import { CompanyMemberPage } from "@app/shared/model/company-member/company-member-page.model";
-import { CandidateScheduleMember } from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
+import { CandidateScheduleMemberModel } from "@app/shared/model/candidate-schedule/candidate-schedule-member.model";
 import { CompanyMemberModel } from "@app/shared/model/company-member/company-member.model";
-import { CandidateSchedule } from "@app/shared/model/candidate-schedule/candidate-schedule.model";
+import { CandidateScheduleModel } from "@app/shared/model/candidate-schedule/candidate-schedule.model";
 import { CandidateScheduleService } from "@app/core/services/candidate-schedule.service";
-import { CandidateScheduleVm } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
+import { CandidateScheduleContentModel } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
 import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
 import { environment } from '@env/environment';
 import { ApiService } from '@app/core/services/api.service';
@@ -345,8 +345,8 @@ export class CandidatePageAddScheduleDialog implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredMember: Observable<CompanyMemberModel[]>;
-  memberSet: Set<CandidateScheduleMember> = new Set();
-  memberList: Array<CandidateScheduleMember> = [];
+  memberSet: Set<CandidateScheduleMemberModel> = new Set();
+  memberList: Array<CandidateScheduleMemberModel> = [];
   companyMemberPage: CompanyMemberPage;
   timeList: Moment[] = [];
 
@@ -379,7 +379,7 @@ export class CandidatePageAddScheduleDialog implements OnInit {
       });
   }
 
-  remove(member: CandidateScheduleMember): void {
+  remove(member: CandidateScheduleMemberModel): void {
     this.memberSet.delete(member);
 
     let index = this.memberList
@@ -394,7 +394,7 @@ export class CandidatePageAddScheduleDialog implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
 
-    let candidateScheduleMember = new CandidateScheduleMember();
+    let candidateScheduleMember = new CandidateScheduleMemberModel();
     candidateScheduleMember.userId = event.option.value.id;
     candidateScheduleMember.candidateScheduleId = Number(this.data.candidateId);
     this.memberList.push(candidateScheduleMember);
@@ -407,7 +407,7 @@ export class CandidatePageAddScheduleDialog implements OnInit {
   }
 
   addSchedule() {
-    let candidateSchedule: CandidateSchedule = new CandidateSchedule();
+    let candidateSchedule: CandidateScheduleModel = new CandidateScheduleModel();
     candidateSchedule.member = this.memberList;
     candidateSchedule.candidateId = this.data.candidateId;
     candidateSchedule.description = this.candidateAddScheduleFormGroup.value.description;
@@ -418,7 +418,7 @@ export class CandidatePageAddScheduleDialog implements OnInit {
       this.candidateScheduleService
         .create(candidateSchedule)
         .subscribe(
-          (res: HttpResponse<CandidateScheduleVm>) => this.onCreateScheduleSuccess(res.body),
+          (res: HttpResponse<CandidateScheduleContentModel>) => this.onCreateScheduleSuccess(res.body),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
@@ -433,7 +433,7 @@ export class CandidatePageAddScheduleDialog implements OnInit {
       }));
   }
 
-  private onCreateScheduleSuccess(data: CandidateScheduleVm) {
+  private onCreateScheduleSuccess(data: CandidateScheduleContentModel) {
     this.dialogRef.close();
     this.snackBar.open("مصاحبه با موفقیت ثبت شد", "بستن", {
       duration: 2500

@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SettingsContainerComponent } from './settings';
-import {LoginComponent, RegisterComponent, VerificationComponent} from '@app/public';
-import {PublicComponent, SecureComponent} from '@app/layouts';
-import {DashboardComponent} from '@app/secure/dashboard';
-import {UserRouteAccessService} from "@app/core/auth/user-route-access-service";
+import { LoginComponent, RegisterComponent, VerificationComponent } from '@app/public';
+import { PublicComponent, SecureComponent } from '@app/layouts';
+import { DashboardComponent } from '@app/secure/dashboard';
+import { UserRouteAccessService } from "@app/core/auth/user-route-access-service";
 import {
   CandidateComponent,
   CandidatePageComponent,
@@ -60,8 +60,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent,
-        data: { title: 'anms.dashboard' }
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
       },
       {
         path: 'plan',
@@ -108,9 +107,9 @@ const routes: Routes = [
   // useHash supports github.io demo page, remove in your app
   imports: [
     RouterModule.forRoot(routes, {
-       scrollPositionRestoration: 'enabled'
+      scrollPositionRestoration: 'enabled'
     })
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
