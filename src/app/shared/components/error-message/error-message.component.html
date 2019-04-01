@@ -1,0 +1,9 @@
+<div class="full-height vertical-gap-20">
+  <div class="vertical-center">
+    <div class="mat-subheading-2">{{message || 'خطای نامشخص'}}</div>
+    <button mat-raised-button color="accent" (click)="retry.emit()">
+      <mat-icon>refresh</mat-icon>
+      <span>&nbsp;تلاش مجدد</span>
+    </button>
+  </div>
+</div>

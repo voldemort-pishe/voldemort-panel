@@ -8,6 +8,9 @@ import { JalaliPipe } from './pipe/jalali.pipe';
 import { MaterialModule } from '@app/material/material.module';
 import { CandidateTableComponent } from './components/candidate-table/candidate-table.component';
 import { RouterModule } from '@angular/router';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner.component';
+import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({
   imports: [
@@ -21,7 +24,13 @@ import { RouterModule } from '@angular/router';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    LoadingSpinnerComponent,
+    LoadingDirective,
     CandidateTableComponent,
+    ErrorMessageComponent,
+  ],
+  entryComponents: [
+    LoadingSpinnerComponent,
   ],
   exports: [
     CommonModule,
@@ -34,7 +43,9 @@ import { RouterModule } from '@angular/router';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    LoadingDirective,
     CandidateTableComponent,
+    ErrorMessageComponent,
   ]
 })
 export class SharedModule { }

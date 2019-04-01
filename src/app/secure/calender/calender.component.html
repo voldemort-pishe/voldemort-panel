@@ -10,7 +10,7 @@
                (viewDateChange)="activeDayIsOpen = false">
             <
           </div>
-          <h3 class="main-title">{{ viewDate | jalali : {'format' : 'DD MMMM'} }}</h3>
+          <h3 class="main-title">{{ viewDate | jalali: 'DD MMMM' }}</h3>
           <div class="arrow"
                mwlCalendarNextView
                [view]="view"
@@ -25,7 +25,7 @@
   <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div class="cal-cell-top">
       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal | persianNumber  }}</span>
-      <span class="cal-day-number">{{ day.date | jalali : {'format' : 'DD'} | persianNumber  }}</span>
+      <span class="cal-day-number">{{ day.date | jalali : 'DD' }}</span>
     </div>
   </ng-template>
 
