@@ -19,7 +19,7 @@
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
         <a mat-list-item matTooltip="تازه‌ها" routerLink="/dashboard" routerLinkActive="active">
-          <mat-icon matBadge="۱۵" matBadgeColor="warn">inbox</mat-icon>
+          <mat-icon matBadge="{{countUnread | persianNumber}}" matBadgeColor="warn">inbox</mat-icon>
         </a>
       </mat-nav-list>
       <mat-nav-list>

@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { LoginService } from "@app/core/login/login.service";
+import { EventService } from '@app/core/services/event.service';
+import { EventStatus } from '@app/shared/model/enumeration/event-status.model';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class SecureComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
   pageTitle;
+  countUnread: number;
 
   private readonly _mobileQueryListener: () => void;
 
@@ -29,6 +32,7 @@ export class SecureComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
+    private eventService: EventService,
     private loginService: LoginService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -41,7 +45,11 @@ export class SecureComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.eventService.getListCount(EventStatus.UNREAD).subscribe(r => {
+      if (r.success) this.countUnread = r.data.count;
+    })
+  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
