@@ -37,6 +37,7 @@ export class DashboardHeaderComponent implements OnInit {
 
   fetch() {
     this.isLoading = true;
+    this.isErrorOccured = false;
     this.candidateScheduleService.getList().subscribe(r => {
       this.isLoading = false;
       if (r.success) {

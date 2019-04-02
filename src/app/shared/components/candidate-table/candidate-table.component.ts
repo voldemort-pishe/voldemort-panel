@@ -28,6 +28,8 @@ export class CandidateTableComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 20;
   isLoading: boolean = false;
+  isErrorOccured: boolean = false;
+  error: string;
 
   constructor(
     private helpersService: HelpersService,
@@ -47,6 +49,7 @@ export class CandidateTableComponent implements OnInit {
 
   fetch(): void {
     this.isLoading = true;
+    this.isErrorOccured = false;
 
     const params: CandidateListRequest = {
       page: this.pageIndex,
@@ -60,6 +63,10 @@ export class CandidateTableComponent implements OnInit {
       if (r.success) {
         this.rawData = r.data;
         this.dataSource = new MatTableDataSource<CandidateContentModel>(r.data.content);
+      }
+      else {
+        this.isErrorOccured = true;
+        this.error = r.niceErrorMessage;
       }
     });
   }
