@@ -72,6 +72,10 @@ const routes: Routes = [
         data: { title: 'anms.invoice' }
       },
       {
+        path: 'candidates',
+        loadChildren: './candidates/candidates.module#CandidatesModule',
+      },
+      {
         path: 'candidate',
         component: CandidateComponent,
         data: { title: 'anms.candidate' }
