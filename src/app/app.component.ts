@@ -159,9 +159,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private subscribeToRouterEvents() {
     this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe(event => {
-      if (event instanceof ActivationEnd) {
-        this.titleService.setTitle(event.snapshot);
-      }
+      // if (event instanceof ActivationEnd) {
+      //   this.titleService.setTitle(event.snapshot);
+      // }
 
       if (event instanceof NavigationEnd) {
         AppComponent.trackPageView(event);
