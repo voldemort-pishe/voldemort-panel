@@ -33,6 +33,7 @@ export class DashboardEventsComponent implements OnInit {
   fetch(): void {
     this.isLoading = true;
     this.eventService.getList(this.status, this.type, this.flag, this.ownerId).subscribe(r => {
+      this.isLoading = false;
       if (r.success) {
         this.events = r.data;
       }
