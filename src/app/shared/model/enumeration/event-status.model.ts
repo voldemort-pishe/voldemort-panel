@@ -1,4 +1,5 @@
 export enum EventStatus {
-  READ = 'خوانده شده',
-  UNREAD = 'خوانده نشده'
+  READ = 'READ',
+  UNREAD = 'UNREAD',
+  DONE = 'DONE',
 }

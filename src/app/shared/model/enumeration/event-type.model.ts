@@ -1,7 +1,7 @@
 export enum EventType {
-  EMAIL = 'پست الکترونیکی',
-  SCHEDULE = 'زمانبندی شده',
-  REMINDER = 'یادآوری',
-  FEEDBACK = 'بازخورد',
-  COMMENT = 'نظر'
+  EMAIL = 'EMAIL',
+  SCHEDULE = 'SCHEDULE',
+  ALARM = 'ALARM',
+  FEEDBACK = 'FEEDBACK',
+  COMMENT = 'COMMENT',
 }

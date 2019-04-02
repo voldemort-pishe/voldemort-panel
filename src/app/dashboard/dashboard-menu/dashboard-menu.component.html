@@ -1,3 +1,11 @@
-<p>
-  dashboard-menu works!
-</p>
+<mat-nav-list>
+  <ng-container *ngFor="let item of menuItems">
+    <a *ngIf="item" mat-list-item [routerLink]="item.url" routerLinkActive="active-item">
+      <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+      <h4 mat-line>{{item.title}}</h4>
+      <span>{{item.count() | persianNumber}}</span>
+    </a>
+
+    <mat-divider *ngIf="!item"></mat-divider>
+  </ng-container>
+</mat-nav-list>
