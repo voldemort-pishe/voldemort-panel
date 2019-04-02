@@ -89,17 +89,17 @@ export class DashboardMenuComponent implements OnInit {
   fetchCount(): void {
     this.eventService.getListCount(EventStatus.UNREAD).subscribe(r => {
       if (r.success) {
-        this.countUnread = r.data.count;
+        if (r.data.count !== 0) this.countUnread = r.data.count;
         r.data.items.forEach(i => this.countUnreadItems[i.type] = i.count);
       }
     });
 
-    this.eventService.getListCount(EventStatus.DONE).subscribe(r => {
-      if (r.success) this.countDone = r.data.count;
-    });
+    // this.eventService.getListCount(EventStatus.DONE).subscribe(r => {
+    //   if (r.success && r.data.count !== 0) this.countDone = r.data.count;
+    // });
 
-    this.eventService.getListCount(EventStatus.READ).subscribe(r => {
-      if (r.success) this.countRead = r.data.count;
-    });
+    // this.eventService.getListCount(EventStatus.READ).subscribe(r => {
+    //   if (r.success && r.data.count !== 0) this.countRead = r.data.count;
+    // });
   }
 }

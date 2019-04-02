@@ -12,8 +12,13 @@ export class EventService {
 
   constructor(private apiService: ApiService) { }
 
-  getList(filters?: { status?: EventStatus; type?: EventType; flag?: string; ownerId?: string; }): Observable<ApiResponse<EventContentModel[]>> {
-    return this.apiService.get<EventContentModel[]>('event', filters);
+  getList(status?: EventStatus, type?: EventType, flag?: boolean, ownerId?: number): Observable<ApiResponse<EventContentModel[]>> {
+    const req = {};
+    if (status != null) req['status'] = status;
+    if (type != null) req['type'] = type;
+    if (flag != null) req['flag'] = String(flag);
+    if (ownerId != null) req['ownerId'] = ownerId.toString();
+    return this.apiService.get<EventContentModel[]>('event', req);
   }
 
   getListCount(status: EventStatus): Observable<ApiResponse<EventCountModel>> {

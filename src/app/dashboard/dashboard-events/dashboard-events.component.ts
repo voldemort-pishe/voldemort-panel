@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EventStatus } from '@app/shared/model/enumeration/event-status.model';
 import { EventType } from '@app/shared/model/enumeration/event-type.model';
+import { EventService } from '@app/core/services/event.service';
+import { EventContentModel } from '@app/shared/model/event.model';
 
 @Component({
   selector: 'anms-dashboard-events',
@@ -14,9 +16,30 @@ export class DashboardEventsComponent implements OnInit {
   @Input() flag: boolean;
   @Input() ownerId: number;
 
-  constructor() { }
+  isLoading: boolean = false;
+  isErrorOccured: boolean = false;
+  error: string;
+  events: EventContentModel[];
+  displayedColumns: string[] = ['action', 'title', 'description'];
+
+  constructor(
+    private eventService: EventService,
+  ) { }
 
   ngOnInit() {
+    this.fetch();
   }
 
+  fetch(): void {
+    this.isLoading = true;
+    this.eventService.getList(this.status, this.type, this.flag, this.ownerId).subscribe(r => {
+      if (r.success) {
+        this.events = r.data;
+      }
+      else {
+        this.isErrorOccured = true;
+        this.error = r.niceErrorMessage;
+      }
+    });
+  }
 }
