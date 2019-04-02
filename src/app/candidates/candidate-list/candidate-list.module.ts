@@ -10,11 +10,22 @@ import { CandidateListAcceptedComponent } from './candidate-list-accepted/candid
 import { CandidateListPendingComponent } from './candidate-list-pending/candidate-list-pending.component';
 import { CandidateListInprocessComponent } from './candidate-list-inprocess/candidate-list-inprocess.component';
 import { CandidateListAllComponent } from './candidate-list-all/candidate-list-all.component';
+import { SharedModule } from '@app/shared';
 
 @NgModule({
-  declarations: [CandidateListCoordinatorComponent, CandidateListMenuComponent, CreateCandidateDialogComponent, CandidateListRejectedComponent, CandidateListAcceptedComponent, CandidateListPendingComponent, CandidateListInprocessComponent, CandidateListAllComponent],
+  declarations: [
+    CandidateListCoordinatorComponent,
+    CandidateListMenuComponent,
+    CreateCandidateDialogComponent,
+    CandidateListRejectedComponent,
+    CandidateListAcceptedComponent,
+    CandidateListPendingComponent,
+    CandidateListInprocessComponent,
+    CandidateListAllComponent,
+  ],
   imports: [
     CommonModule,
+    SharedModule,
     CandidateListRoutingModule
   ]
 })

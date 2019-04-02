@@ -1,3 +1,12 @@
-<p>
-  candidate-list-menu works!
-</p>
+<mat-nav-list>
+  <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.url" routerLinkActive="active-item">
+    <h4 mat-line>{{item.title}}</h4>
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <a mat-list-item (click)="createCandidate()">
+    <mat-icon mat-list-icon>add</mat-icon>
+    <h4 mat-line>افزودن کارجو</h4>
+  </a>
+</mat-nav-list>

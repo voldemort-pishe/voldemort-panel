@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, PageEvent, MatSelectChange } from '@angular/material';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
@@ -6,6 +6,7 @@ import { CandidateService, CandidateListRequest, JobService, CompanyPipelineServ
 import { PageableGeneric } from '@app/shared/model/pageable.model';
 import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline-vm.model';
 import { HelpersService } from '@app/core/services/helpers.service';
+import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
 
 @Component({
   selector: 'anms-candidate-table',
@@ -14,16 +15,8 @@ import { HelpersService } from '@app/core/services/helpers.service';
 })
 export class CandidateTableComponent implements OnInit {
 
-  private _jobId: number;
-  @Input()
-  public get jobId(): number {
-    return this._jobId;
-  }
-  public set jobId(v: number) {
-    this._jobId = v;
-    this.request.job = v;
-    this.fetch();
-  }
+  @Input() jobId: number;
+  @Input() state: CandidateState;
 
   displayedColumns: string[] = ['select', 'candidate', 'owner', 'createdDate', 'jobPosition', 'companyPipeline'];
   dataSource: MatTableDataSource<CandidateContentModel>;
@@ -32,7 +25,8 @@ export class CandidateTableComponent implements OnInit {
 
   pipelines: CompanyPipelineContentModel[];
 
-  request: CandidateListRequest = {};
+  pageIndex: number = 0;
+  pageSize: number = 20;
   isLoading: boolean = false;
 
   constructor(
@@ -53,7 +47,15 @@ export class CandidateTableComponent implements OnInit {
 
   fetch(): void {
     this.isLoading = true;
-    this.candidateService.getList(this.request).subscribe(r => {
+
+    const params: CandidateListRequest = {
+      page: this.pageIndex,
+      size: this.pageSize,
+    };
+    if (this.jobId != null) params.job = this.jobId;
+    if (this.state != null) params.state = this.state;
+
+    this.candidateService.getList(params).subscribe(r => {
       this.isLoading = false;
       if (r.success) {
         this.rawData = r.data;
@@ -75,8 +77,8 @@ export class CandidateTableComponent implements OnInit {
   }
 
   onPageChanged(pageEvent: PageEvent): void {
-    this.request.page = pageEvent.pageIndex;
-    this.request.size = pageEvent.pageSize;
+    this.pageIndex = pageEvent.pageIndex;
+    this.pageSize = pageEvent.pageSize;
     this.fetch();
   }
 
