@@ -21,7 +21,6 @@ import {
   CandidateComponent,
   CandidatePageComponent,
   CandidateCreateDialog,
-  DashboardComponent,
   InvoicePreviewComponent,
   PlanComponent,
   CalenderComponent
@@ -97,7 +96,6 @@ registerLocaleData(localeFa);
     LoginComponent,
     RegisterComponent,
     VerificationComponent,
-    DashboardComponent,
     PlanComponent,
     InvoicePreviewComponent,
     CandidateComponent,

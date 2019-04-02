@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '@app/core/services/event.service';
 import { EventStatus } from '@app/shared/model/enumeration/event-status.model';
-import { EventCountModel } from '@app/shared/model/event-count.model';
 import { EventType } from '@app/shared/model/enumeration/event-type.model';
 
 @Component({

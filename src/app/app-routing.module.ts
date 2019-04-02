@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { SettingsContainerComponent } from './settings';
 import { LoginComponent, RegisterComponent, VerificationComponent } from '@app/public';
 import { PublicComponent, SecureComponent } from '@app/layouts';
-import { DashboardComponent } from '@app/secure/dashboard';
 import { UserRouteAccessService } from "@app/core/auth/user-route-access-service";
 import {
   CandidateComponent,
