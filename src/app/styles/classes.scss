@@ -28,6 +28,40 @@
   text-overflow: ellipsis;
 }
 
+.header-background {
+  background: url('/assets/images/header-top-updates.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+}
+
+.header-tabs {
+  .mat-tab-links {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mat-tab-link {
+    min-width: 100px;
+    opacity: 1;
+    color: #94a3f3;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .mat-ink-bar {
+    height: 3px;
+    background-color: #2685C9;
+  }
+
+  .mat-tab-label-active {
+    color: white;
+  }
+}
+
 // MARGIN and PADDING
 
 .margin-5 {

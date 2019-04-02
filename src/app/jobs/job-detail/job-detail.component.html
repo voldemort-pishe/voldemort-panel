@@ -1,5 +1,5 @@
 <div class="fx-fill fx-column">
-  <div *ngIf="model" class="fx-initial header vertical-gap-5">
+  <div *ngIf="model" class="fx-initial header-background vertical-gap-5">
     <div class="info">
       <div>
         <button mat-icon-button routerLink="/job" matTooltip="بازگشت" matTooltipPosition="left">
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <nav mat-tab-nav-bar class="fx-center-center" color="accent">
+    <nav mat-tab-nav-bar class="header-tabs" color="accent">
       <a mat-tab-link routerLink="./info" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
         اطلاعات
       </a>

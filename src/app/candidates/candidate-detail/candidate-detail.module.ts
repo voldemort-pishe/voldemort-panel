@@ -11,17 +11,20 @@ import { CandidateDetailCommentsComponent } from './candidate-detail-comments/ca
 import { CandidateDetailScheduleComponent } from './candidate-detail-schedule/candidate-detail-schedule.component';
 import { CandidateDetailFeedbackComponent } from './candidate-detail-feedback/candidate-detail-feedback.component';
 import { CandidateDetailDocumentsComponent } from './candidate-detail-documents/candidate-detail-documents.component';
+import { SendEmailDialogComponent } from './send-email-dialog/send-email-dialog.component';
 
 @NgModule({
   declarations: [
-  CandidateDetailCoordinatorComponent,
-  CandidateDetailHeaderComponent,
-  CandidateDetailBackgroundComponent,
-  CandidateDetailActivityComponent,
-  CandidateDetailCommentsComponent,
-  CandidateDetailScheduleComponent,
-  CandidateDetailFeedbackComponent,
-  CandidateDetailDocumentsComponent],
+    CandidateDetailCoordinatorComponent,
+    CandidateDetailHeaderComponent,
+    CandidateDetailBackgroundComponent,
+    CandidateDetailActivityComponent,
+    CandidateDetailCommentsComponent,
+    CandidateDetailScheduleComponent,
+    CandidateDetailFeedbackComponent,
+    CandidateDetailDocumentsComponent,
+    SendEmailDialogComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

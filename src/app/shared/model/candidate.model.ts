@@ -18,16 +18,14 @@ export interface CandidateModel {
   jobId?: number;
 }
 
-export interface CandidateIncludeModel {
-  pipeline: CompanyPipelineModel;
-  job: JobModel;
-  candidate: Candidate;
-  file: File;
-}
-
 export interface CandidateContentModel {
   data: CandidateModel;
-  include: CandidateIncludeModel;
+  include: {
+    pipeline: CompanyPipelineModel;
+    job: JobModel;
+    candidate: Candidate;
+    file: File;
+  };
 }
 
 export class Candidate implements Pageable {

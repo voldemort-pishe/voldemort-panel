@@ -177,23 +177,6 @@ body .default-theme .mat-selection-list .mat-list-item {
 
 }
 
-
-.header {
-  color: white;
-  background: url('/assets/images/header-top-updates.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-
-  .info {
-    padding: 18px 30px 0;
-  }
-
-  /deep/ .mat-tab-links {
-    justify-content: center;
-
-    a {
-      color: white !important;
-    }
-  }
+.header-background {
+  padding: 18px 30px 0;
 }

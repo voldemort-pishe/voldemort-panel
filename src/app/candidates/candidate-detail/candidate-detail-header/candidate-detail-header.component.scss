@@ -1,0 +1,15 @@
+.header-background {
+  padding: 18px 30px 0;
+}
+
+.pipeline-select {
+  .mat-select {
+    background: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+  }
+
+  /deep/ .mat-form-field-underline {
+    background: none;
+  }
+}

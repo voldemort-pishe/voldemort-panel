@@ -56,6 +56,10 @@ export class CandidateService {
     return this.apiService.get<PageableGeneric<CandidateContentModel>>('candidate', params as any);
   }
 
+  getDetail(candidateId: number): Observable<ApiResponse<CandidateContentModel>> {
+    return this.apiService.get<CandidateContentModel>(`candidate/${candidateId}`);
+  }
+
   edit(candidate: CandidateModel): Observable<ApiResponse<CandidateContentModel>> {
     return this.apiService.put<CandidateContentModel>('candidate', candidate);
   }

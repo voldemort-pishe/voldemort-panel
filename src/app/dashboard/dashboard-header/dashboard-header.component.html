@@ -1,4 +1,4 @@
-<div *appLoading="isLoading" class="wrapper padding-20">
+<div *appLoading="isLoading" class="header-background padding-20">
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <ng-container *ngIf="!isErrorOccured">
