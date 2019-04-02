@@ -7,7 +7,7 @@ export class EventModel {
   title: string;
   description: string;
   type: EventType;
-  extra: string;
+  extra: string; // candidate id
   status: EventStatus;
   ownerId: number;
   createdDate: string;
