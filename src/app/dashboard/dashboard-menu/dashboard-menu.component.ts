@@ -35,7 +35,7 @@ export class DashboardMenuComponent implements OnInit {
     null,
     {
       title: 'زمان‌بندی',
-      icon: 'calendar_today',
+      icon: 'schedule',
       url: 'schedule',
       count: () => this.countUnreadItems[EventType.SCHEDULE],
     },
@@ -59,7 +59,7 @@ export class DashboardMenuComponent implements OnInit {
     },
     {
       title: 'هشدار',
-      icon: 'notifications',
+      icon: 'alarm',
       url: 'alarm',
       count: () => this.countUnreadItems[EventType.ALARM],
     },

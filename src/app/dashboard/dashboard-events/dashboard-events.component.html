@@ -1,4 +1,4 @@
-<div *appLoading="isLoading" class="wrapper padding-20">
+<div *appLoading="isLoading" class="padding-20">
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <ng-container *ngIf="!isErrorOccured">
@@ -13,22 +13,22 @@
 
       <ng-container matColumnDef="title">
         <td mat-cell *matCellDef="let element">
-          <div class="name">{{element.data.title}}</div>
-          <small>{{element.data.createdDate | jalali}}</small>
+          <div class="mat-body-2">{{element.data.title}}</div>
+          <div class="mat-small">{{element.data.createdDate | jalali}}</div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <td mat-cell *matCellDef="let element">
-          <div class="description with-icon">
-            <mat-icon>{{element.data.type | lowercase}}</mat-icon>
-            {{(element.data.description.length>40)? (element.data.description | slice:0:40)+'..':(element.data.description)}}
+          <div class="horizontal-gap-5 mat-body-2">
+            <mat-icon [inline]="true">{{element.data.type | lowercase}}</mat-icon>
+            <span class="text-truncate">{{element.data.description}}</span>
           </div>
-          <span class="position">{{element.include.user.firstName}} {{element.include.user.lastName}}</span>
+          <div class="mat-small">{{element.include.user.firstName}} {{element.include.user.lastName}}</div>
         </td>
       </ng-container>
 
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetail()"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </ng-container>
 </div>
