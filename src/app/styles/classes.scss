@@ -28,6 +28,11 @@
   text-overflow: ellipsis;
 }
 
+.date {
+  direction: ltr;
+  text-align: right;
+}
+
 .header-background {
   background: url('/assets/images/header-top-updates.png');
   background-repeat: no-repeat;

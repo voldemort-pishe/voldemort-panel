@@ -46,7 +46,7 @@ export class SendEmailDialogComponent implements OnInit {
   }
 
   private onCandidateMessageSuccess() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     this.snackBar.open("پیام شما با موفقیت ارسال شد", "بستن", {
       duration: 2500
     });

@@ -120,7 +120,7 @@ export class SubmitScheduleDialogComponent implements OnInit {
   }
 
   private onCreateScheduleSuccess(data: CandidateScheduleContentModel) {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     this.snackBar.open("مصاحبه با موفقیت ثبت شد", "بستن", {
       duration: 2500
     });

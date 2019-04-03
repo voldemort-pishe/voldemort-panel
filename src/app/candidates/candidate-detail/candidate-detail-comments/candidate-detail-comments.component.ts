@@ -61,6 +61,8 @@ export class CandidateDetailCommentsComponent implements OnInit {
   }
 
   submitComment(): void {
+    if (!this.newCommentText) return;
+
     const newComment: CommentModel = {
       commentText: this.newCommentText,
       userId: this.identityUser.id,
@@ -69,7 +71,10 @@ export class CandidateDetailCommentsComponent implements OnInit {
     this.commentsService.create(newComment).subscribe(r => {
       const msg = r.success ? 'نظر شما با موفقیت ثبت شد.' : r.niceErrorMessage;
       this.helpersService.showToast(msg);
-      if (r.success) this.fetch();
+      if (r.success) {
+        this.newCommentText = null;
+        this.fetch();
+      }
     });
   }
 }

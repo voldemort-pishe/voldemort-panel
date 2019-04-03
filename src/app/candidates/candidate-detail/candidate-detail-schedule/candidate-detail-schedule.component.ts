@@ -53,6 +53,9 @@ export class CandidateDetailScheduleComponent implements OnInit {
   }
 
   newSchedule(): void {
-    this.dialog.open(SubmitScheduleDialogComponent, { data: { candidateId: this.candidateId } });
+    this.dialog.open(SubmitScheduleDialogComponent, { data: { candidateId: this.candidateId } })
+      .afterClosed().subscribe(r => {
+        if (r) this.fetch();
+      });
   }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CandidateMessageService } from '@app/core';
 import { ActivatedRoute } from '@angular/router';
 import { CandidateMessageContentModel } from '@app/shared/model/candidate-message-vm.model';
+import { SendEmailDialogComponent } from '../send-email-dialog/send-email-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'anms-candidate-detail-activity',
@@ -20,6 +22,7 @@ export class CandidateDetailActivityComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private candidateMessageService: CandidateMessageService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -47,5 +50,12 @@ export class CandidateDetailActivityComponent implements OnInit {
         this.error = r.niceErrorMessage;
       }
     });
+  }
+
+  newMessage(): void {
+    this.dialog.open(SendEmailDialogComponent, { data: { candidateId: this.candidateId } })
+      .afterClosed().subscribe(r => {
+        if (r) this.fetch();
+      });
   }
 }

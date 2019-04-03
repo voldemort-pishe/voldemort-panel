@@ -2,27 +2,30 @@
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <ng-container *ngIf="!isErrorOccured">
-    <div *ngIf="messages.length === 0" class="no-content">
+    <div *ngIf="messages.length === 0" class="text-center vertical-gap-10">
+      <img src="/assets/images/no_results.png" class="no-results-image" />
       <p>در حال حاضر فعالیتی از کاندیدا وجود ندارد</p>
+      <button mat-raised-button type="button" color="accent" (click)="newMessage()">ارسال ایمیل</button>
     </div>
 
-    <mat-card *ngFor="let message of messages">
-      <div class="title">
-        <h4>
-          <ngx-avatar name="{{message.include.from.firstName}}" gravatarId="{{message.include.from.email}}">
+    <div *ngIf="messages.length > 0" class="vertical-gap-20">
+      <button mat-raised-button type="button" color="accent" (click)="newMessage()">ارسال ایمیل</button>
+
+      <mat-card *ngFor="let message of messages" class="vertical-gap-10">
+        <div class="fx-row fx-start-center fx-gap-10">
+          <ngx-avatar [name]="message.include.from.firstName" [gravatarId]="message.include.from.email">
           </ngx-avatar>
-          <span class="info">
-            <span>{{message.include.from.firstName}} {{message.include.from.lastName}}</span>
-            <small>{{message.data.createdDate | jalali}}</small>
-          </span>
-        </h4>
-      </div>
-      <mat-card-content>
-        <h3>{{message.data.subject}}</h3>
-        <p>
-          {{message.data.message}}
-        </p>
-      </mat-card-content>
-    </mat-card>
+          <div>
+            <div class="mat-body-2">{{message.include.from.firstName}} {{message.include.from.lastName}}</div>
+            <div class="mat-small date">{{message.data.createdDate | jalali: 'short-datetime'}}</div>
+          </div>
+        </div>
+
+        <div>
+          <h3>{{message.data.subject}}</h3>
+          <p>{{message.data.message}}</p>
+        </div>
+      </mat-card>
+    </div>
   </ng-container>
 </div>

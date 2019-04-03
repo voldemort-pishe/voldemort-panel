@@ -16,18 +16,18 @@
   }
 }
 
-span.mat-option-text {
+/deep/ span.mat-option-text {
   text-align: left !important;
   direction: ltr;
   display: flex;
   align-items: center;
 }
 
-ngx-avatar {
+/deep/ ngx-avatar {
   margin: 0 4px 0 0;
 }
 
-.avatar-content {
+/deep/ .avatar-content {
   font: normal 16px/29px Vazir !important;
 }
 

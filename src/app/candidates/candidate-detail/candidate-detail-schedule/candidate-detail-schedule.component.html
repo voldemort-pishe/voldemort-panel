@@ -2,6 +2,12 @@
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <ng-container *ngIf="!isErrorOccured">
+    <div *ngIf="schedules.length === 0" class="text-center vertical-gap-10">
+      <img src="/assets/images/no_interviews.jpg" />
+      <p>مصاحبه تنظیم نشده است</p>
+      <button mat-raised-button type="button" color="accent" (click)="newSchedule()">تنظیم مصاحبه</button>
+    </div>
+
     <mat-card *ngIf="schedules.length > 0">
       <h3>لیست مصاحبه‌ها</h3>
       <mat-card-content>
@@ -22,12 +28,5 @@
 
       </mat-card-content>
     </mat-card>
-
-    <div *ngIf="schedules.length === 0" class="interview-empty">
-      <div class="no-interviews">
-        <p>مصاحبه تنظیم نشده است</p>
-      </div>
-      <button (click)="newSchedule()" mat-raised-button color="primary">تنظیم مصاحبه</button>
-    </div>
   </ng-container>
 </div>

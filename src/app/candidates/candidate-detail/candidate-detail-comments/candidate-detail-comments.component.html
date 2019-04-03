@@ -1,31 +1,32 @@
 <div *appLoading="isLoading">
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
-  <ng-container *ngIf="!isErrorOccured">
+  <div *ngIf="!isErrorOccured" class="vertical-gap-20">
     <mat-card>
-      <div class="comment-form">
-        <ngx-avatar name="{{identityUser?.firstName}}" gravatarId="{{identityUser?.email}}">
+      <h3>ثبت نظر جدید</h3>
+      <div class="fx-row fx-start-center fx-gap-10">
+        <ngx-avatar [name]="identityUser?.firstName" [gravatarId]="identityUser?.email">
         </ngx-avatar>
 
-        <mat-form-field class="comment-input">
+        <mat-form-field class="fx-auto">
           <input [(ngModel)]="newCommentText" matInput placeholder="نظر" autocomplete="off">
         </mat-form-field>
-      </div>
 
-      <div class="comments-action">
-        <button (click)="submitComment()" mat-button color="primary">ارسال</button>
+        <button mat-button type="button" color="primary" (click)="submitComment()"
+          [disabled]="!newCommentText">ارسال</button>
       </div>
     </mat-card>
 
-    <mat-card class="comments-item" *ngFor="let comment of comments">
-      <div class="display-comment">
-        <ngx-avatar name="{{comment.include.owner.firstName}}" gravatarId="{{comment.include.owner.email}}">
+    <mat-card *ngFor="let comment of comments" class="vertical-gap-10">
+      <div class="fx-row fx-start-center fx-gap-10">
+        <ngx-avatar [name]="comment.include.owner.firstName" [gravatarId]="comment.include.owner.email">
         </ngx-avatar>
-        <h3>{{comment.include.owner.firstName}} {{comment.include.owner.lastName}}</h3>
+        <div>
+          <div class="mat-body-2">{{comment.include.owner.firstName}} {{comment.include.owner.lastName}}</div>
+          <div class="mat-small date">{{comment.data.createdDate | jalali: 'short-datetime'}}</div>
+        </div>
       </div>
-      <div class="comment-text">
-        <p>{{comment.data.commentText}}</p>
-      </div>
+      <p>{{comment.data.commentText}}</p>
     </mat-card>
-  </ng-container>
+  </div>
 </div>
