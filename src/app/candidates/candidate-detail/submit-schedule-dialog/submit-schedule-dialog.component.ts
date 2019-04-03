@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { CompanyMemberModel } from '@app/shared/model/company-member/company-member.model';
 import { CandidateScheduleMemberModel } from '@app/shared/model/candidate-schedule/candidate-schedule-member.model';
 import { CompanyMemberPage } from '@app/shared/model/company-member/company-member-page.model';
-import { CandidatePageComponent } from '@app/secure';
 import { CompanyMemberService, CandidateScheduleService } from '@app/core';
 import { CandidateScheduleModel } from '@app/shared/model/candidate-schedule/candidate-schedule.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -38,7 +37,7 @@ export class SubmitScheduleDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<CandidatePageComponent>,
+    private dialogRef: MatDialogRef<SubmitScheduleDialogComponent>,
     private companyMemberService: CompanyMemberService,
     private snackBar: MatSnackBar,
     private candidateScheduleService: CandidateScheduleService) {

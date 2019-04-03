@@ -18,9 +18,6 @@ import {
 } from '@app/public';
 import { PublicComponent, SecureComponent } from '@app/layouts';
 import {
-  CandidateComponent,
-  CandidatePageComponent,
-  CandidateCreateDialog,
   InvoicePreviewComponent,
   PlanComponent,
   CalenderComponent
@@ -39,16 +36,11 @@ import {
   CommonModule,
   registerLocaleData
 } from '@angular/common';
-import {
-  CandidatePageAddScheduleDialog,
-  CandidatePageEmailDialog
-} from '@app/secure/candidate-page/candidate-page.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeFa from '@angular/common/locales/fa';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
-import { SubmitFeedbackComponent } from './secure/submit-feedback/submit-feedback.component';
 registerLocaleData(localeFa);
 
 @NgModule({
@@ -77,14 +69,6 @@ registerLocaleData(localeFa);
     // app
     AppRoutingModule
   ],
-  entryComponents: [
-    CandidatePageComponent,
-    CandidateCreateDialog,
-    CandidatePageComponent,
-    CandidatePageEmailDialog,
-    CandidatePageAddScheduleDialog,
-    SubmitFeedbackComponent
-  ],
   declarations: [
     AppComponent,
     PublicComponent,
@@ -94,13 +78,7 @@ registerLocaleData(localeFa);
     VerificationComponent,
     PlanComponent,
     InvoicePreviewComponent,
-    CandidateComponent,
-    CandidateCreateDialog,
-    CandidatePageComponent,
-    CandidatePageEmailDialog,
-    CandidatePageAddScheduleDialog,
     CalenderComponent,
-    SubmitFeedbackComponent
   ],
   providers: [
     {

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { CandidateCreateDialog } from '@app/secure';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { UploadService, CandidateService, CompanyPipelineService, JobService } from '@app/core';
 import { CandidateType } from '@app/shared/model/enumeration/candidate-type.model';
 import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
@@ -33,7 +32,7 @@ export class CreateCandidateDialogComponent implements OnInit {
   jobList: JobContentModel[];
 
   constructor(
-    private dialogRef: MatDialogRef<CandidateCreateDialog>,
+    private dialogRef: MatDialogRef<CreateCandidateDialogComponent>,
     private fb: FormBuilder,
     private uploadService: UploadService,
     private candidateService: CandidateService,

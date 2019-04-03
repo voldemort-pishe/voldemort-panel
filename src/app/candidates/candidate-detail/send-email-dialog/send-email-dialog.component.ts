@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { CandidatePageComponent } from '@app/secure';
 import { CandidateMessageService } from '@app/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -17,7 +16,7 @@ export class SendEmailDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<CandidatePageComponent>,
+    private dialogRef: MatDialogRef<SendEmailDialogComponent>,
     private candidateMessageService: CandidateMessageService,
     private snackBar: MatSnackBar) {
 

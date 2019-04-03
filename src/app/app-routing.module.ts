@@ -6,8 +6,6 @@ import { LoginComponent, RegisterComponent, VerificationComponent } from '@app/p
 import { PublicComponent, SecureComponent } from '@app/layouts';
 import { UserRouteAccessService } from "@app/core/auth/user-route-access-service";
 import {
-  CandidateComponent,
-  CandidatePageComponent,
   InvoicePreviewComponent,
   PlanComponent,
   CalenderComponent,
@@ -74,16 +72,6 @@ const routes: Routes = [
       {
         path: 'candidates',
         loadChildren: './candidates/candidates.module#CandidatesModule',
-      },
-      {
-        path: 'candidate',
-        component: CandidateComponent,
-        data: { title: 'anms.candidate' }
-      },
-      {
-        path: 'candidate/:candidateId',
-        component: CandidatePageComponent,
-        data: { title: 'anms.candidate' }
       },
       {
         path: 'calendar',
