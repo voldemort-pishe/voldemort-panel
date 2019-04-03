@@ -1,13 +1,47 @@
-<div *appLoading="isLoading" class="full-height padding-20 wrapper">
+<div *appLoading="isLoading" class="full-height padding-20">
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <ng-container *ngIf="!isErrorOccured">
     <div *ngIf="rawData?.totalElements === 0" class="vertical-center vertical-gap-10">
-      <img src="/assets/images/candidate_page_empty_white.jpg" />
+      <img src="/assets/images/no_results.png" class="no-results-image" />
       <p>کاندیدایی با این مشخصات وجود ندارد</p>
     </div>
 
     <div *ngIf="rawData?.totalElements > 0">
+      <!-- <div class="table-filter">
+        <span class="label">
+          <mat-icon>filter_list</mat-icon>‌
+        </span>
+        <span *ngIf="selection.selected.length > 0" class="selection-count">
+          {{selection.selected.length | persianNumber}} کارجو
+        </span>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="searchKeyword" (keyup)="applyFilterBySearch($event.target.value)"
+            placeholder="کلمات کلیدی">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="موقعیت شغلی" [(ngModel)]="searchJobPosition"
+            (selectionChange)="applyFilterByJobPosition($event.value)">
+            <mat-option value="ALL">انتخاب کنید</mat-option>
+            <mat-option *ngFor="let items of jobList?.content" value="{{items.data.id}}">{{items.data.nameFa}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="مرحله" [(ngModel)]="searchPipeline"
+            (selectionChange)="applyFilterByPipeline($event.value)">
+            <mat-option value="ALL">انتخاب کنید</mat-option>
+            <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">{{pipeline.data.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button *ngIf="showClearFilter" (click)="clearFilter()" mat-raised-button>حذف فیلتر</button>
+      </div> -->
+
       <table mat-table [dataSource]="dataSource" class="full-width">
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
