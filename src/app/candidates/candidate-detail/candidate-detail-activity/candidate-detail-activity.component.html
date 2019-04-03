@@ -1,3 +1,28 @@
-<p>
-  candidate-detail-activity works!
-</p>
+<div *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+
+  <ng-container *ngIf="!isErrorOccured">
+    <div *ngIf="messages.length === 0" class="no-content">
+      <p>در حال حاضر فعالیتی از کاندیدا وجود ندارد</p>
+    </div>
+
+    <mat-card *ngFor="let message of messages">
+      <div class="title">
+        <h4>
+          <ngx-avatar name="{{message.include.from.firstName}}" gravatarId="{{message.include.from.email}}">
+          </ngx-avatar>
+          <span class="info">
+            <span>{{message.include.from.firstName}} {{message.include.from.lastName}}</span>
+            <small>{{message.data.createdDate | jalali}}</small>
+          </span>
+        </h4>
+      </div>
+      <mat-card-content>
+        <h3>{{message.data.subject}}</h3>
+        <p>
+          {{message.data.message}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>

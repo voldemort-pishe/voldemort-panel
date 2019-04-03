@@ -1,16 +1,8 @@
-export class Comment {
-  id: number;
+export class CommentModel {
+  id?: number;
   commentText: string;
-  status: boolean;
+  status?: boolean;
   userId: number;
   candidateId: number;
-
-
-  constructor(commentText: string,
-              userId: number,
-              candidateId: number) {
-    this.commentText = commentText;
-    this.userId = userId;
-    this.candidateId = candidateId;
-  }
+  createdDate?: string;
 }

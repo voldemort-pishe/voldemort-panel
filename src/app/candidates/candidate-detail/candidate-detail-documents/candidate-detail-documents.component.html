@@ -1,3 +1,8 @@
-<p>
-  candidate-detail-documents works!
-</p>
+<div *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+
+  <ng-container *ngIf="!isErrorOccured">
+    <pdf-viewer [src]="fileUrl" [render-text]="true" style="display: block;">
+    </pdf-viewer>
+  </ng-container>
+</div>

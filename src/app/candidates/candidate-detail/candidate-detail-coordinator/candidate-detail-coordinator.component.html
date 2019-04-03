@@ -1,2 +1,41 @@
-<anms-candidate-detail-header></anms-candidate-detail-header>
-<router-outlet></router-outlet>
+<div *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+
+  <ng-container *ngIf="!isErrorOccured">
+    <anms-candidate-detail-header></anms-candidate-detail-header>
+    <div class="fx-row fx-gap-20 padding-20">
+      <div class="fx-auto ">
+        <router-outlet></router-outlet>
+      </div>
+
+      <div class="fx-initial">
+        <div>
+          <h3>اطلاعات تماس</h3>
+          <mat-list dense>
+            <mat-list-item>
+              <mat-icon mat-list-icon>email</mat-icon>
+              <p mat-line>{{model.data.email}}</p>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon mat-list-icon>phone</mat-icon>
+              <p mat-line>{{model.data.cellphone | persianNumber}}</p>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon mat-list-icon>link</mat-icon>
+              <p mat-line>اضافه کردن وب‌سایت</p>
+            </mat-list-item>
+            <mat-list-item *ngIf="!candidate?.include.file">
+              <mat-icon mat-list-icon>description</mat-icon>
+              <p mat-line>اضافه کردن رزومه</p>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+        <div>
+          <h3>یاداشت مخفی</h3>
+          <p>می‌توانید یاداشتی مخفی از کاندیدا در این قسمت اضافه کنید</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

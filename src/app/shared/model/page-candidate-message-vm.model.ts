@@ -1,9 +1,9 @@
 import {Pageable} from "@app/shared/model/pageable.model";
-import {CandidateMessageVm} from "@app/shared/model/candidate-message-vm.model";
+import {CandidateMessageContentModel} from "@app/shared/model/candidate-message-vm.model";
 
 export class PageCandidateMessageVm implements Pageable {
 
-  constructor(public content: CandidateMessageVm[],
+  constructor(public content: CandidateMessageContentModel[],
               public first: boolean,
               public last: boolean,
               public number: number,

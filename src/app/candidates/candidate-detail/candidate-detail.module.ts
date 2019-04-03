@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { CandidateDetailRoutingModule } from './candidate-detail-routing.module';
 import { SharedModule } from '@app/shared';
@@ -12,6 +13,8 @@ import { CandidateDetailScheduleComponent } from './candidate-detail-schedule/ca
 import { CandidateDetailFeedbackComponent } from './candidate-detail-feedback/candidate-detail-feedback.component';
 import { CandidateDetailDocumentsComponent } from './candidate-detail-documents/candidate-detail-documents.component';
 import { SendEmailDialogComponent } from './send-email-dialog/send-email-dialog.component';
+import { SubmitFeedbackDialogComponent } from './submit-feedback-dialog/submit-feedback-dialog.component';
+import { SubmitScheduleDialogComponent } from './submit-schedule-dialog/submit-schedule-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,11 +27,19 @@ import { SendEmailDialogComponent } from './send-email-dialog/send-email-dialog.
     CandidateDetailFeedbackComponent,
     CandidateDetailDocumentsComponent,
     SendEmailDialogComponent,
+    SubmitFeedbackDialogComponent,
+    SubmitScheduleDialogComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    CandidateDetailRoutingModule
+    PdfViewerModule,
+    CandidateDetailRoutingModule,
+  ],
+  entryComponents: [
+    SendEmailDialogComponent,
+    SubmitFeedbackDialogComponent,
+    SubmitScheduleDialogComponent,
   ]
 })
 export class CandidateDetailModule { }

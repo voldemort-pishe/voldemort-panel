@@ -1,0 +1,91 @@
+<h2 mat-dialog-title>
+  <mat-icon>schedule</mat-icon> تنظیم مصاحبه
+</h2>
+<mat-dialog-content>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="add-schedule-container">
+
+        <div class="add-schedule-candidate-form">
+          <form [formGroup]="candidateAddScheduleFormGroup" #candidateAddScheduleFormG="ngForm" id="ngForm"
+            (ngSubmit)="addSchedule()">
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <input placeholder="تاریخ" matInput [matDatepicker]="dp" formControlName="date" [min]="today"
+                    (dateChange)="onDateChange($event)" autocomplete="off">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <mat-select formControlName="startTime" placeholder="ساعت شروع">
+                    <mat-option *ngFor="let time of timeList" [value]="time">
+                      {{time.format("HH:mm")}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-form-field>
+                  <mat-select formControlName="endTime" placeholder="ساعت پایان">
+                    <mat-option *ngFor="let time of timeList" [value]="time">
+                      {{time.format("HH:mm")}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="row ">
+              <div class="col-sm-12">
+                <mat-form-field>
+                  <input placeholder="محل" formControlName="location" matInput type="text" autocomplete="off">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <textarea matInput formControlName="description" placeholder="توضیحات"></textarea>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let member of memberSet" [selectable]="selectable" [removable]="removable"
+                      (removed)="remove(member)">
+                      {{member.userEmail}}
+                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="اعضای حاضر در جلسه" #memberInput formControlName="memberCtrl"
+                      [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                  </mat-chip-list>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let member of filteredMember | async" [value]="member">
+                      <ngx-avatar name="{{member?.userEmail}}" size="30">
+                      </ngx-avatar>
+                      <span>{{member?.userEmail}}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>انصراف</button>
+  <button mat-raised-button cdkFocusInitial color="primary" form="ngForm">
+    ثبت
+    <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+  </button>
+</mat-dialog-actions>

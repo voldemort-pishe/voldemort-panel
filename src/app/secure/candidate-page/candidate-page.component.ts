@@ -33,8 +33,8 @@ import { CandidateContentModel } from "@app/shared/model/candidate.model";
 import { CompanyPipelineVm } from "@app/shared/model/company-pipeline-vm.model";
 import { PageCandidateMessageVm } from "@app/shared/model/page-candidate-message-vm.model";
 import { UserModel } from "@app/shared/model/user.model";
-import { Comment } from "@app/shared/model/comment.model";
-import { CommentVm } from "@app/shared/model/comment-vm.model";
+import { CommentModel } from "@app/shared/model/comment.model";
+import { CommentContentModel } from "@app/shared/model/comment-vm.model";
 import { CommentPage } from "@app/shared/model/comment-page.mode";
 import * as jalaliMoment from "jalali-moment";
 import { Moment } from "jalali-moment";
@@ -210,18 +210,18 @@ export class CandidatePageComponent implements OnInit, DoCheck {
   }
 
   sendComment() {
-    this.commentService
-      .create(
-        new Comment(
-          this.commentText,
-          this.identityUser.id,
-          this.candidateId
-        )
-      )
-      .subscribe(
-        (res: HttpResponse<CommentVm>) => this.onCandidateSendCommentSuccess(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    // this.commentService
+    //   .create1(
+    //     new CommentModel(
+    //       this.commentText,
+    //       this.identityUser.id,
+    //       this.candidateId
+    //     )
+    //   )
+    //   .subscribe(
+    //     (res: HttpResponse<CommentContentModel>) => this.onCandidateSendCommentSuccess(res.body),
+    //     (res: HttpErrorResponse) => this.onError(res.message)
+    //   );
   }
 
   private onCandidateSuccess(data: CandidateContentModel) {
@@ -257,7 +257,7 @@ export class CandidatePageComponent implements OnInit, DoCheck {
     this.candidateScheduleList = data;
   }
 
-  private onCandidateSendCommentSuccess(data: CommentVm) {
+  private onCandidateSendCommentSuccess(data: CommentContentModel) {
     this.commentText = null;
     this.snackBar.open("نظر شما با موفقیت ارسال شد", "بستن", {
       duration: 2500

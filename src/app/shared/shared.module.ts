@@ -6,6 +6,7 @@ import { RiyalCurrencyPipe } from './pipe/riyal-currency.pipe';
 import { PersianNumberPipePipe } from './pipe/persian-number.pipe';
 import { JalaliPipe } from './pipe/jalali.pipe';
 import { MaterialModule } from '@app/material/material.module';
+import { AvatarModule } from 'ngx-avatar';
 import { CandidateTableComponent } from './components/candidate-table/candidate-table.component';
 import { RouterModule } from '@angular/router';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
@@ -17,6 +18,7 @@ import { LoadingDirective } from './directives/loading.directive';
     CommonModule,
     FormsModule,
     MaterialModule,
+    AvatarModule,
     TranslateModule,
     RouterModule,
   ],
@@ -38,6 +40,7 @@ import { LoadingDirective } from './directives/loading.directive';
     ReactiveFormsModule,
 
     MaterialModule,
+    AvatarModule,
     TranslateModule,
 
     RiyalCurrencyPipe,

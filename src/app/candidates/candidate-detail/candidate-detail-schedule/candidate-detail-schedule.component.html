@@ -1,3 +1,33 @@
-<p>
-  candidate-detail-schedule works!
-</p>
+<div *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+
+  <ng-container *ngIf="!isErrorOccured">
+    <mat-card *ngIf="schedules.length > 0">
+      <h3>لیست مصاحبه‌ها</h3>
+      <mat-card-content>
+        <div *ngFor="let schedule of schedules" class="candidate-schedule-list">
+          <h4>تاریخ مصاحبه {{schedule.data.startDate | jalali}}</h4>
+          <mat-divider></mat-divider>
+          <mat-list>
+            <div class="row">
+              <div class="col-sm-3">
+                10am
+              </div>
+              <div class="col-sm-3">member</div>
+              <div class="col-sm-3">place</div>
+              <div class="col-sm-3">dev</div>
+            </div>
+          </mat-list>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <div *ngIf="schedules.length === 0" class="interview-empty">
+      <div class="no-interviews">
+        <p>مصاحبه تنظیم نشده است</p>
+      </div>
+      <button (click)="newSchedule()" mat-raised-button color="primary">تنظیم مصاحبه</button>
+    </div>
+  </ng-container>
+</div>

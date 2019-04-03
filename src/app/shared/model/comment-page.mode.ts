@@ -1,9 +1,9 @@
 import {Pageable} from "@app/shared/model/pageable.model";
-import {CommentVm} from "@app/shared/model/comment-vm.model";
+import {CommentContentModel} from "@app/shared/model/comment-vm.model";
 
 export class CommentPage implements Pageable {
 
-  constructor(public content: CommentVm[],
+  constructor(public content: CommentContentModel[],
               public first: boolean,
               public last: boolean,
               public number: number,

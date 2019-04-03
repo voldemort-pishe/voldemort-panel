@@ -1,3 +1,25 @@
-<p>
-  candidate-detail-background works!
-</p>
+<div *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+
+  <ng-container *ngIf="!isErrorOccured">
+    <mat-card>
+      <h3>خلاصه اطلاعات</h3>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon>work</mat-icon> موقعیت شغلی جاری
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon>place</mat-icon> آدرس محل کار جاری
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon>home</mat-icon> آدرس محل زندگی
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon>build</mat-icon> Java, Linux, Docker, Typescript
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>

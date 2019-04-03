@@ -43,8 +43,8 @@ export class CandidateScheduleService {
 
   private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     res.body.content.forEach((candidateSchedule: CandidateScheduleContentModel) => {
-     (candidateSchedule.data as any).startDate = candidateSchedule.data.startDate != null ? jmoment(candidateSchedule.data.startDate) : null;
-     (candidateSchedule.data as any).endDate = candidateSchedule.data.endDate != null ? jmoment(candidateSchedule.data.endDate) : null;
+      (candidateSchedule.data as any).startDate = candidateSchedule.data.startDate != null ? jmoment(candidateSchedule.data.startDate) : null;
+      (candidateSchedule.data as any).endDate = candidateSchedule.data.endDate != null ? jmoment(candidateSchedule.data.endDate) : null;
     });
     return res;
   }
@@ -59,6 +59,10 @@ export class CandidateScheduleService {
 
   getList(): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
     return this.apiService.get<PageableGeneric<CandidateScheduleContentModel>>('candidate-schedule');
+  }
+
+  getListByCandidate(candidateId: number): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
+    return this.apiService.get<PageableGeneric<CandidateScheduleContentModel>>(`candidate-schedule/candidate/${candidateId}`);
   }
 
   getListByDate(startDate: Moment, endDate: Moment): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
