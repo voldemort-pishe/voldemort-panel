@@ -1,0 +1,26 @@
+.mat-dialog-title .mat-icon {
+  vertical-align: middle;
+}
+
+.candidate-form-container {
+
+  display: flex;
+  flex-direction: column;
+
+  .create-candidate-form form .row [class*="col-"]>* {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    margin: 0 0 5px 0;
+  }
+}
+
+.upload-successful {
+  font-size: 14px;
+
+  .mat-icon {
+    vertical-align: middle;
+    color: #283593;
+  }
+}

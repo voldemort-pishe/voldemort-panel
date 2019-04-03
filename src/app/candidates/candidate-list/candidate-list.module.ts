@@ -26,7 +26,10 @@ import { SharedModule } from '@app/shared';
   imports: [
     CommonModule,
     SharedModule,
-    CandidateListRoutingModule
+    CandidateListRoutingModule,
+  ],
+  entryComponents: [
+    CreateCandidateDialogComponent,
   ]
 })
 export class CandidateListModule { }

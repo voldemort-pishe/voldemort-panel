@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CreateCandidateDialogComponent } from '../create-candidate-dialog/create-candidate-dialog.component';
 
 @Component({
   selector: 'anms-candidate-list-menu',
@@ -30,9 +32,14 @@ export class CandidateListMenuComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
   }
 
+  newCandidate(): void {
+    this.dialog.open(CreateCandidateDialogComponent);
+  }
 }
