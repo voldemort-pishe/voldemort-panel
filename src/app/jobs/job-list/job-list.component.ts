@@ -5,9 +5,10 @@ import { MatDialog, MatTableDataSource, PageEvent } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
 import { CompanyPipelineService } from "@app/core/services/company-pipeline.service";
 import { JobService } from "@app/core/services/job.service";
-import { JobContentModel, JobVm } from "@app/shared/model/job-vm.model";
 import { JobStatus } from "@app/shared/model/enumeration/job-status.model";
 import { CreateJobComponent } from '../create-job/create-job.component';
+import { JobContentModel } from '@app/shared/model/job.model';
+import { Pageable } from '@app/shared/model/pageable.model';
 
 @Component({
   selector: 'anms-job-list',
@@ -73,7 +74,7 @@ export class JobListComponent implements OnInit {
         pageSize
       )
       .subscribe(
-        (res: HttpResponse<JobVm>) => this.onJobSuccess(res.body),
+        (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       )
   }
@@ -85,7 +86,7 @@ export class JobListComponent implements OnInit {
     this.jobService
       .search('status=' + status, "createdDate,desc")
       .subscribe(
-        (res: HttpResponse<JobVm>) => this.onJobSuccess(res.body),
+        (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       )
   }
@@ -99,14 +100,14 @@ export class JobListComponent implements OnInit {
         this.jobService
           .searchByMultiField('status=' + this.selectedFilter, 'search=' + search, "createdDate,desc")
           .subscribe(
-            (res: HttpResponse<JobVm>) => this.onJobSuccess(res.body),
+            (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           );
       } else {
         this.jobService
           .search('search=' + search, "createdDate,desc")
           .subscribe(
-            (res: HttpResponse<JobVm>) => this.onJobSuccess(res.body),
+            (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           );
       }
@@ -119,7 +120,7 @@ export class JobListComponent implements OnInit {
     this.loadAll();
   }
 
-  private onJobSuccess(data: JobVm) {
+  private onJobSuccess(data: Pageable<JobContentModel>) {
     this.dataSourceRaw = data;
     this.dataSource = new MatTableDataSource<JobContentModel>(data.content);
     this.isLoading = false;

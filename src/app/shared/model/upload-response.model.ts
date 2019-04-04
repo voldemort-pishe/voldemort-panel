@@ -1,6 +1,6 @@
-import {File} from "@app/shared/model/file.model";
+import { FileModel } from "@app/shared/model/file.model";
 
-export class UploadResponse {
+export interface UploadResponse {
   progrress: number;
-  body: File;
+  body: FileModel;
 }

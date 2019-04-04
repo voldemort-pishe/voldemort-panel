@@ -1,3 +1,3 @@
-export class Payment {
+export interface PaymentModel {
   paymentUrl: string;
 }

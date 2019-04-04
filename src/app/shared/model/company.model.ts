@@ -1,3 +1,5 @@
+import { UserModel } from './user.model';
+
 export interface CompanyModel {
   nameEn: string;
   nameFa: string;
@@ -6,4 +8,12 @@ export interface CompanyModel {
   language: string;
   subDomain: string;
   fileId: number;
+}
+
+export interface CompanyContentModel {
+  data: CompanyModel;
+  include: {
+    file: File;
+    user: UserModel;
+  };
 }

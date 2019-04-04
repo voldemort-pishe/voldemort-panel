@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CompanyService } from '@app/core';
-import { CompanyContentModel } from '@app/shared/model/company-vm.model';
 import { HelpersService } from '@app/core/services/helpers.service';
+import { CompanyContentModel } from '@app/shared/model/company.model';
 
 @Component({
   selector: 'anms-company-info',

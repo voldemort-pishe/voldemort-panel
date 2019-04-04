@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserPlanService} from "@app/core/services/user-plan.service";
-import {Invoice} from "@app/shared/model/invoice.model";
+import {InvoiceModel} from "@app/shared/model/invoice.model";
 import {HttpResponse, HttpErrorResponse} from "@angular/common/http";
 import {InvoiceStatusList} from "@app/shared/model/enumeration/invoice-status.model";
 import {PaymentService} from "@app/core/services/payment.service";
-import {Payment} from "@app/shared/model/payment.model";
+import {PaymentModel} from "@app/shared/model/payment.model";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class InvoicePreviewComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'title', 'price', 'total'];
   invoiceDisplayedColumns: string[] = ['amount', 'discount', 'tax', 'total'];
-  invoiceDetails: Invoice;
+  invoiceDetails: InvoiceModel;
   invoice: any;
   invoiceId: number;
 
@@ -37,7 +37,7 @@ export class InvoicePreviewComponent implements OnInit {
         this.userPlanService
           .getUserPlan(this.invoiceId)
           .subscribe(
-            (res: HttpResponse<Invoice>) => this.onUserPlanSuccess(res.body),
+            (res: HttpResponse<InvoiceModel>) => this.onUserPlanSuccess(res.body),
             (res: HttpErrorResponse) => this.onError(res.message)
           )
       } );
@@ -53,7 +53,7 @@ export class InvoicePreviewComponent implements OnInit {
     this.paymentService
       .createPaymentUrl(this.invoiceId)
       .subscribe(
-        (res: HttpResponse<Payment>) => this.onCreatePaymentSuccess(res.body),
+        (res: HttpResponse<PaymentModel>) => this.onCreatePaymentSuccess(res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       )
   }
@@ -62,14 +62,14 @@ export class InvoicePreviewComponent implements OnInit {
     this.router.navigate(['/plan']);
   }
 
-  private onUserPlanSuccess(data: Invoice){
+  private onUserPlanSuccess(data: InvoiceModel){
     this.invoiceDetails = data;
     this.invoice = [
       data
     ];
   }
 
-  private onCreatePaymentSuccess(data: Payment){
+  private onCreatePaymentSuccess(data: PaymentModel){
     window.location.href = data.paymentUrl;
   }
 

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentService } from '@app/core';
-import { CommentContentModel } from '@app/shared/model/comment-vm.model';
 import { ActivatedRoute } from '@angular/router';
 import { Principal } from '@app/core/auth/principal.service';
 import { UserModel } from '@app/shared/model/user.model';
-import { CommentModel } from '@app/shared/model/comment.model';
+import { CommentModel, CommentContentModel } from '@app/shared/model/comment.model';
 import { HelpersService } from '@app/core/services/helpers.service';
 
 @Component({

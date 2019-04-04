@@ -3,13 +3,13 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
-import { Candidate, CandidateContentModel, CandidateModel } from "@app/shared/model/candidate.model";
+import { CandidateModel, CandidateContentModel } from "@app/shared/model/candidate.model";
 import { ApiService, ApiResponse } from './api.service';
-import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { Pageable } from '@app/shared/model/pageable.model';
 import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
 import { CandidateType } from '@app/shared/model/enumeration/candidate-type.model';
 
-type EntityArrayResponseType = HttpResponse<Candidate>;
+type EntityArrayResponseType = HttpResponse<Pageable<CandidateContentModel>>;
 type EntityResponseType = HttpResponse<CandidateContentModel>;
 
 export interface CandidateListRequest {
@@ -32,8 +32,8 @@ export class CandidateService {
 
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
-  create(candidate: CandidateModel): Observable<EntityArrayResponseType> {
-    return this.http.post<Candidate>(`${this.resourceUrl}`, candidate, { observe: 'response' });
+  create(candidate: CandidateModel): Observable<EntityResponseType> {
+    return this.http.post<CandidateContentModel>(`${this.resourceUrl}`, candidate, { observe: 'response' });
   }
 
   get(candidateId: number): Observable<EntityResponseType> {
@@ -45,15 +45,15 @@ export class CandidateService {
   }
 
   loadAll(sort?: string, page?: number, size?: number): Observable<EntityArrayResponseType> {
-    return this.http.get<Candidate>(`${this.resourceUrl}?sort=${sort}&page=${page}&size=${size}`, { observe: 'response' });
+    return this.http.get<Pageable<CandidateContentModel>>(`${this.resourceUrl}?sort=${sort}&page=${page}&size=${size}`, { observe: 'response' });
   }
 
   search(param: string, sort?: string): Observable<EntityArrayResponseType> {
-    return this.http.get<Candidate>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
+    return this.http.get<Pageable<CandidateContentModel>>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
   }
 
-  getList(params?: CandidateListRequest): Observable<ApiResponse<PageableGeneric<CandidateContentModel>>> {
-    return this.apiService.get<PageableGeneric<CandidateContentModel>>('candidate', params as any);
+  getList(params?: CandidateListRequest): Observable<ApiResponse<Pageable<CandidateContentModel>>> {
+    return this.apiService.get<Pageable<CandidateContentModel>>('candidate', params as any);
   }
 
   getDetail(candidateId: number): Observable<ApiResponse<CandidateContentModel>> {

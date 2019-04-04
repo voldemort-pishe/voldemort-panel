@@ -2,7 +2,7 @@ import { EventType } from "@app/shared/model/enumeration/event-type.model";
 import { EventStatus } from "@app/shared/model/enumeration/event-status.model";
 import { UserModel } from './user.model';
 
-export class EventModel {
+export interface EventModel {
   id: number;
   title: string;
   description: string;
@@ -14,7 +14,7 @@ export class EventModel {
   flag: boolean;
 }
 
-export class EventContentModel {
+export interface EventContentModel {
   data: EventModel;
   include: {
     user: UserModel;

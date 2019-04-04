@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyMemberService } from '@app/core';
 import { MatTableDataSource } from '@angular/material';
-import { CompanyMemberContentModel } from '@app/shared/model/company-member/company-member-vm.model';
-import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { Pageable } from '@app/shared/model/pageable.model';
+import { CompanyMemberContentModel } from '@app/shared/model/company-member.model';
 
 @Component({
   selector: 'anms-company-member-list',
@@ -13,7 +13,7 @@ export class CompanyMemberListComponent implements OnInit {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'cellphone', 'department', 'position'];
   dataSource: MatTableDataSource<CompanyMemberContentModel>;
-  rawData: PageableGeneric<CompanyMemberContentModel>;
+  rawData: Pageable<CompanyMemberContentModel>;
   isLoading: boolean = false;
 
   constructor(private companyMemberService: CompanyMemberService) { }

@@ -6,9 +6,10 @@ import { CandidateType } from '@app/shared/model/enumeration/candidate-type.mode
 import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
 import { forkJoin } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Candidate } from '@app/shared/model/candidate.model';
-import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline-vm.model';
-import { JobContentModel } from '@app/shared/model/job-vm.model';
+import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.model';
+import { JobContentModel } from '@app/shared/model/job.model';
+import { Pageable } from '@app/shared/model/pageable.model';
+import { CandidateContentModel } from '@app/shared/model/candidate.model';
 
 @Component({
   selector: 'anms-create-candidate-dialog',
@@ -112,13 +113,13 @@ export class CreateCandidateDialogComponent implements OnInit {
       this.candidateService
         .create(this.candidateCreateFormGroup.value)
         .subscribe(
-          (res: HttpResponse<Candidate>) => this.onCreateCandidateSuccess(res.body),
+          (res: HttpResponse<CandidateContentModel>) => this.onCreateCandidateSuccess(res.body),
           (res: HttpErrorResponse) => this.onError(res)
         );
     }
   }
 
-  private onCreateCandidateSuccess(data: Candidate) {
+  private onCreateCandidateSuccess(data: CandidateContentModel) {
     this.dialogRef.close();
     this.snackBar.open("کاندیدای مورد نظر با موفقیت ثبت شد", "بستن", {
       duration: 2500

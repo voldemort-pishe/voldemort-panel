@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { startWith, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { CompanyMemberService } from '@app/core';
-import { CompanyMemberContentModel } from '@app/shared/model/company-member/company-member-vm.model';
+import { CompanyMemberContentModel } from '@app/shared/model/company-member.model';
 
 @Component({
   selector: 'anms-company-member-select',

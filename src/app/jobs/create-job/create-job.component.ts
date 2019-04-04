@@ -8,12 +8,12 @@ import { ProvinceService } from "@app/core/services/province.service";
 import { JobType } from "@app/shared/model/enumeration/job-type.model";
 import { CompanyMemberService } from "@app/core/services/company-member.service";
 import { JobHireTeamService } from "@app/core/services/job-hire-team.service";
-import { CompanyMemberContentModel } from '@app/shared/model/company-member/company-member-vm.model';
 import { JobHireTeamRole } from '@app/shared/model/enumeration/job-hire-team-role';
 import { HelpersService } from '@app/core/services/helpers.service';
 import { JobModel } from '@app/shared/model/job.model';
 import { Router } from '@angular/router';
-import { JobHireTeamModel } from '@app/shared/model/job-hiring-team/job-hiring-team.model';
+import { CompanyMemberContentModel } from '@app/shared/model/company-member.model';
+import { JobHireTeamModel } from '@app/shared/model/job-hiring-team.model';
 
 @Component({
   selector: 'anms-create-job',

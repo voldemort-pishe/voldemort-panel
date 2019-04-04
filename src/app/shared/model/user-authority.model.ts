@@ -1,4 +1,4 @@
-export class UserAuthority{
+export interface UserAuthorityModel {
   id: number;
   authorityName: string;
   permissions: [];

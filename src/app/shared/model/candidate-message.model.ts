@@ -1,4 +1,7 @@
-export class CandidateMessageModel {
+import { UserModel } from './user.model';
+import { CandidateModel } from './candidate.model';
+
+export interface CandidateMessageModel {
   id: number;
   messageId: string;
   candidateId: number;
@@ -9,4 +12,13 @@ export class CandidateMessageModel {
   owner: string;
   parentId: number;
   subject: string;
+}
+
+export interface CandidateMessageContentModel {
+  data: CandidateMessageModel;
+  include: {
+    from: UserModel;
+    to: UserModel;
+    candidate: CandidateModel;
+  };
 }

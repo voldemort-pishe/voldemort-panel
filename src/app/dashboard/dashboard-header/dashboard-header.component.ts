@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateScheduleService } from '@app/core';
-import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule/candidate-schedule-vm.model';
 import * as moment from 'jalali-moment';
 import { Principal } from '@app/core/auth/principal.service';
+import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';
 
 @Component({
   selector: 'anms-dashboard-header',

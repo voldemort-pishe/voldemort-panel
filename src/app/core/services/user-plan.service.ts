@@ -3,9 +3,9 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
-import {Invoice} from "@app/shared/model/invoice.model";
+import {InvoiceModel} from "@app/shared/model/invoice.model";
 
-type EntityArrayResponseType = HttpResponse<Invoice>;
+type EntityArrayResponseType = HttpResponse<InvoiceModel>;
 
 @Injectable({ providedIn: 'root' })
 export class UserPlanService {
@@ -15,11 +15,11 @@ export class UserPlanService {
   constructor(private http: HttpClient) {}
 
   saveUserPlan(planId: number): Observable<EntityArrayResponseType> {
-    return this.http.post<Invoice>(`${this.resourceUrl}/${planId}`,null, { observe: 'response' });
+    return this.http.post<InvoiceModel>(`${this.resourceUrl}/${planId}`,null, { observe: 'response' });
   }
 
   getUserPlan(planId: number): Observable<EntityArrayResponseType> {
-    return this.http.get<Invoice>(`${this.resourceUrl}/${planId}`, { observe: 'response' });
+    return this.http.get<InvoiceModel>(`${this.resourceUrl}/${planId}`, { observe: 'response' });
   }
 
 }

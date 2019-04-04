@@ -1,14 +1,15 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
-import {isSameDay, isSameMonth} from 'date-fns';
-import {CalendarEvent, CalendarView, DAYS_OF_WEEK} from 'angular-calendar';
-import {JalaliPipe} from '@app/shared/pipe/jalali.pipe';
-import {PersianNumberPipePipe} from '@app/shared/pipe/persian-number.pipe';
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {CandidateSchedulePage} from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
-import {CalendarService} from '@app/core/services/calendar.service';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { isSameDay, isSameMonth } from 'date-fns';
+import { CalendarEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
+import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { CalendarService } from '@app/core/services/calendar.service';
 import * as moment from 'moment';
-import {CandidateScheduleGetTime} from "@app/shared/model/candidate-schedule/candidate-schedule-get-time.model";
 import { Subject } from 'rxjs';
+import { Pageable } from '@app/shared/model/pageable.model';
+import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';
+import { CandidateScheduleGetTime } from '@app/shared/model/candidate-schedule-get-time.model';
 
 
 const colors: any = {
@@ -30,13 +31,13 @@ const colors: any = {
   selector: 'anms-calender',
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss'],
-  providers: [ JalaliPipe, PersianNumberPipePipe ]
+  providers: [JalaliPipe, PersianNumberPipePipe]
 })
 
-export class CalenderComponent  implements OnInit{
+export class CalenderComponent implements OnInit {
   constructor(private jalaliPipe: JalaliPipe,
-              private persianNumber : PersianNumberPipePipe,
-              private calendarService: CalendarService) {
+    private persianNumber: PersianNumberPipePipe,
+    private calendarService: CalendarService) {
   }
 
   @ViewChild('modalContent')
@@ -50,7 +51,7 @@ export class CalenderComponent  implements OnInit{
   events: CalendarEvent[];
   refresh: Subject<any> = new Subject();
 
-  ngOnInit () {
+  ngOnInit() {
     this.GetTimes();
   }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -69,16 +70,16 @@ export class CalenderComponent  implements OnInit{
   GetTimes() {
     let date = new CandidateScheduleGetTime(moment().startOf('month'), moment().endOf('month'));
     return this.calendarService.getByTime(date).subscribe(
-      (res: HttpResponse<CandidateSchedulePage>) => {
-         this.InitCalendarView (res.body.content);
+      (res: HttpResponse<Pageable<CandidateScheduleContentModel>>) => {
+        this.InitCalendarView(res.body.content);
       },
       (res: HttpErrorResponse) => console.log(res)
     );
   }
-  InitCalendarView (data) {
+  InitCalendarView(data) {
     let list: Array<any> = [];
 
-    data.forEach(function(item){
+    data.forEach(function (item) {
       list.push(
         {
           start: new Date(item.data.startDate),
@@ -93,4 +94,4 @@ export class CalenderComponent  implements OnInit{
     this.refresh.next();
   }
 
-  }
+}

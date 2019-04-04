@@ -1,6 +1,6 @@
-import {Moment} from 'moment';
+import { Moment } from 'moment';
 
-export class CandidateScheduleGetTime{
+export class CandidateScheduleGetTime {
   endDate: Moment;
   startDate: Moment;
 

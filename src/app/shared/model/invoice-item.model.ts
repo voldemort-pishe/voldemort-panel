@@ -1,4 +1,4 @@
-export class InvoiceItem {
+export interface InvoiceItemModel {
   id: number;
   title: string;
   count: number;

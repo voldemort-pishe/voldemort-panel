@@ -6,14 +6,12 @@ import * as jmoment from 'jalali-moment';
 import { environment as env } from '@env/environment';
 import { map } from 'rxjs/operators';
 import { DateRange } from "@app/shared/model/date-range.model";
-import { CandidateSchedulePage } from "@app/shared/model/candidate-schedule/candidate-schedule-page.model";
-import { CandidateScheduleContentModel } from "@app/shared/model/candidate-schedule/candidate-schedule-vm.model";
-import { CandidateScheduleModel } from "@app/shared/model/candidate-schedule/candidate-schedule.model";
 import { ApiService, ApiResponse } from './api.service';
-import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { Pageable } from '@app/shared/model/pageable.model';
 import { Moment } from 'jalali-moment';
+import { CandidateScheduleModel, CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';
 
-type EntityArrayResponseType = HttpResponse<CandidateSchedulePage>;
+type EntityArrayResponseType = HttpResponse<Pageable<CandidateScheduleContentModel>>;
 type EntityResponseType = HttpResponse<CandidateScheduleContentModel>;
 
 @Injectable({ providedIn: 'root' })
@@ -28,17 +26,17 @@ export class CandidateScheduleService {
   }
 
   byOwner(): Observable<EntityArrayResponseType> {
-    return this.http.get<CandidateSchedulePage>(`${this.resourceUrl}`, { observe: 'response' })
+    return this.http.get<Pageable<CandidateScheduleContentModel>>(`${this.resourceUrl}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
   byOwnerAndDate(dateRange: DateRange): Observable<EntityArrayResponseType> {
     const copy = this.convertDateFromClient(dateRange);
-    return this.http.post<CandidateSchedulePage>(`${this.resourceUrl}/time`, copy, { observe: 'response' })
+    return this.http.post<Pageable<CandidateScheduleContentModel>>(`${this.resourceUrl}/time`, copy, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   byCandidateId(id: number): Observable<EntityArrayResponseType> {
-    return this.http.get<CandidateSchedulePage>(`${this.resourceUrl}/candidate/${id}`, { observe: 'response' })
+    return this.http.get<Pageable<CandidateScheduleContentModel>>(`${this.resourceUrl}/candidate/${id}`, { observe: 'response' })
   }
 
   private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
@@ -57,20 +55,20 @@ export class CandidateScheduleService {
     return copy;
   }
 
-  getList(): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
-    return this.apiService.get<PageableGeneric<CandidateScheduleContentModel>>('candidate-schedule');
+  getList(): Observable<ApiResponse<Pageable<CandidateScheduleContentModel>>> {
+    return this.apiService.get<Pageable<CandidateScheduleContentModel>>('candidate-schedule');
   }
 
-  getListByCandidate(candidateId: number): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
-    return this.apiService.get<PageableGeneric<CandidateScheduleContentModel>>(`candidate-schedule/candidate/${candidateId}`);
+  getListByCandidate(candidateId: number): Observable<ApiResponse<Pageable<CandidateScheduleContentModel>>> {
+    return this.apiService.get<Pageable<CandidateScheduleContentModel>>(`candidate-schedule/candidate/${candidateId}`);
   }
 
-  getListByDate(startDate: Moment, endDate: Moment): Observable<ApiResponse<PageableGeneric<CandidateScheduleContentModel>>> {
+  getListByDate(startDate: Moment, endDate: Moment): Observable<ApiResponse<Pageable<CandidateScheduleContentModel>>> {
     const req = {
       startDate: this.moment2JsonDate(startDate),
       endDate: this.moment2JsonDate(endDate),
     };
-    return this.apiService.post<PageableGeneric<CandidateScheduleContentModel>>('candidate-schedule/time', req);
+    return this.apiService.post<Pageable<CandidateScheduleContentModel>>('candidate-schedule/time', req);
   }
 
   private moment2JsonDate(date: Moment): string {

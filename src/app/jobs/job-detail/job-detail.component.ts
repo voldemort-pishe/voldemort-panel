@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { JobService } from "@app/core";
-import { JobContentModel } from '@app/shared/model/job-vm.model';
+import { JobContentModel } from '@app/shared/model/job.model';
 
 @Component({
   selector: 'anms-job-detail',

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService, ApiResponse } from './api.service';
-import { JobHireTeamContentModel } from '@app/shared/model/job-hiring-team/job-hiring-team-vm.model';
-import { JobHireTeamModel } from '@app/shared/model/job-hiring-team/job-hiring-team.model';
+import { JobHireTeamModel, JobHireTeamContentModel } from '@app/shared/model/job-hiring-team.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobHireTeamService {

@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatAutocomplete, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CandidateScheduleMemberModel } from '@app/shared/model/candidate-schedule/candidate-schedule-member.model';
 import { CandidateScheduleService } from '@app/core';
-import { CandidateScheduleModel } from '@app/shared/model/candidate-schedule/candidate-schedule.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule/candidate-schedule-vm.model';
 import * as jalaliMoment from "jalali-moment";
-import { CompanyMemberContentModel } from '@app/shared/model/company-member/company-member-vm.model';
+import { CandidateScheduleMemberModel } from '@app/shared/model/candidate-schedule-member.model';
+import { CompanyMemberContentModel } from '@app/shared/model/company-member.model';
+import { CandidateScheduleContentModel, CandidateScheduleModel } from '@app/shared/model/candidate-schedule.model';
 
 @Component({
   selector: 'anms-submit-schedule-dialog',
@@ -59,7 +58,7 @@ export class SubmitScheduleDialogComponent implements OnInit {
   }
 
   addSchedule() {
-    let candidateSchedule: CandidateScheduleModel = new CandidateScheduleModel();
+    let candidateSchedule: CandidateScheduleModel = {};
     candidateSchedule.member = this.memberList;
     candidateSchedule.candidateId = this.data.candidateId;
     candidateSchedule.description = this.candidateAddScheduleFormGroup.value.description;

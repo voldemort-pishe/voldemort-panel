@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateMessageService } from '@app/core';
 import { ActivatedRoute } from '@angular/router';
-import { CandidateMessageContentModel } from '@app/shared/model/candidate-message-vm.model';
 import { SendEmailDialogComponent } from '../send-email-dialog/send-email-dialog.component';
 import { MatDialog } from '@angular/material';
+import { CandidateMessageContentModel } from '@app/shared/model/candidate-message.model';
 
 @Component({
   selector: 'anms-candidate-detail-activity',

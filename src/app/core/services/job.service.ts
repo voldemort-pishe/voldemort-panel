@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-
 import { environment as env } from '@env/environment';
-import { JobVm, JobContentModel } from "@app/shared/model/job-vm.model";
-import { Candidate, CandidateModel } from "@app/shared/model/candidate.model";
-import { JobModel } from "@app/shared/model/job.model";
+import { JobModel, JobContentModel } from "@app/shared/model/job.model";
 import { ApiService, ApiResponse } from './api.service';
-import { PageableGeneric } from '@app/shared/model/pageable.model';
+import { Pageable } from '@app/shared/model/pageable.model';
 import { tap } from 'rxjs/operators';
 
-type EntityArrayResponseType = HttpResponse<JobVm>;
-type EntityResponseType = HttpResponse<JobContentModel>;
+type EntityArrayResponseType = HttpResponse<Pageable<JobContentModel>>;
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,23 +21,23 @@ export class JobService {
   ) { }
 
   loadAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<JobVm>(`${this.resourceUrl}`, { observe: 'response' });
+    return this.http.get<Pageable<JobContentModel>>(`${this.resourceUrl}`, { observe: 'response' });
   }
 
   loadAllPageable(sort?: string, page?: number, size?: number): Observable<EntityArrayResponseType> {
-    return this.http.get<JobVm>(`${this.resourceUrl}?sort=${sort}&page=${page}&size=${size}`, { observe: 'response' });
+    return this.http.get<Pageable<JobContentModel>>(`${this.resourceUrl}?sort=${sort}&page=${page}&size=${size}`, { observe: 'response' });
   }
 
   search(param: string, sort?: string): Observable<EntityArrayResponseType> {
-    return this.http.get<JobVm>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
+    return this.http.get<Pageable<JobContentModel>>(`${this.resourceUrl}?${param}&sort=${sort}`, { observe: 'response' });
   }
 
   searchByMultiField(status: string, param: string, sort?: string): Observable<EntityArrayResponseType> {
-    return this.http.get<JobVm>(`${this.resourceUrl}?${status}&${param}&sort=${sort}`, { observe: 'response' });
+    return this.http.get<Pageable<JobContentModel>>(`${this.resourceUrl}?${status}&${param}&sort=${sort}`, { observe: 'response' });
   }
 
-  getList(): Observable<ApiResponse<PageableGeneric<JobContentModel>>> {
-    return this.apiService.get<PageableGeneric<JobContentModel>>('job');
+  getList(): Observable<ApiResponse<Pageable<JobContentModel>>> {
+    return this.apiService.get<Pageable<JobContentModel>>('job');
   }
 
   create(model: JobModel): Observable<ApiResponse<JobContentModel>> {

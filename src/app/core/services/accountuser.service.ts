@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Message } from "@app/shared/model/message.model";
+import { MessageModel } from "@app/shared/model/message.model";
 import { UserRegister } from "@app/shared/model/register.model";
 
 import { environment as env } from '@env/environment';
@@ -13,8 +13,8 @@ export class AccountUserService {
 
   constructor(private http: HttpClient) {}
 
-  register(user: UserRegister): Observable<HttpResponse<Message>> {
-    return this.http.post<Message>(this.resourceUrl + "/register", user, { observe: 'response' });
+  register(user: UserRegister): Observable<HttpResponse<MessageModel>> {
+    return this.http.post<MessageModel>(this.resourceUrl + "/register", user, { observe: 'response' });
   }
 
   active(key): Observable<HttpResponse<any>> {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { JobHireTeamService } from '@app/core';
 import { ActivatedRoute } from '@angular/router';
-import { JobHireTeamContentModel } from '@app/shared/model/job-hiring-team/job-hiring-team-vm.model';
 import { MatTableDataSource } from '@angular/material';
 import { JobHireTeamRole } from '@app/shared/model/enumeration/job-hire-team-role';
+import { JobHireTeamContentModel } from '@app/shared/model/job-hiring-team.model';
 
 @Component({
   selector: 'anms-job-hiring-team',
