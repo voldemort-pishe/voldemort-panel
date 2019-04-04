@@ -13,6 +13,7 @@ import { JobHireTeamRole } from '@app/shared/model/enumeration/job-hire-team-rol
 import { HelpersService } from '@app/core/services/helpers.service';
 import { JobModel } from '@app/shared/model/job.model';
 import { Router } from '@angular/router';
+import { JobHireTeamModel } from '@app/shared/model/job-hiring-team/job-hiring-team.model';
 
 @Component({
   selector: 'anms-create-job',
@@ -29,12 +30,15 @@ export class CreateJobComponent implements OnInit {
 
   jobInfoFormGroup: FormGroup;
   jobDescriptionFormGroup: FormGroup;
-  hireTeamFormArray: FormArray;
+
+  selectedHiringManagers: CompanyMemberContentModel[] = [];
+  selectedRecruiters: CompanyMemberContentModel[] = [];
+  selectedCoordinators: CompanyMemberContentModel[] = [];
 
   isSubmitting: boolean = false;
 
   public get areAllFormsValid(): boolean {
-    return this.jobInfoFormGroup.valid && this.jobDescriptionFormGroup.valid && this.hireTeamFormArray.valid;
+    return this.jobInfoFormGroup.valid && this.jobDescriptionFormGroup.valid;
   }
 
   constructor(
@@ -69,7 +73,7 @@ export class CreateJobComponent implements OnInit {
       mergeMap(jobResult => {
         if (jobResult.success) {
           const jobId = jobResult.data.data.id;
-          return this.jobHireTeamService.create(jobId, this.hireTeamFormArray.value)
+          return this.jobHireTeamService.create(jobId, this.getHireTeamModels())
             .pipe(map(r => { return { result: r, jobId: jobId }; }));
         }
         else
@@ -84,24 +88,18 @@ export class CreateJobComponent implements OnInit {
       });
   }
 
-  addHireTeamMember(): void {
-    this.hireTeamFormArray.push(this.fb.group({
-      userId: [null, Validators.required],
-      role: [null, Validators.required],
-    }));
-  }
-
-  removeHireTeamMember(i: number): void {
-    this.hireTeamFormArray.removeAt(i);
-  }
-
-  getCompanyMemberDisplay(companyMember: CompanyMemberContentModel): string {
-    return companyMember ? `${companyMember.include.user.firstName} ${companyMember.include.user.lastName}` : null;
-  }
-
-  onCompanyMemberSelected(event: MatAutocompleteSelectedEvent, index: number): void {
-    const val: CompanyMemberContentModel = event.option.value;
-    this.hireTeamFormArray.controls[index].get('userId').setValue(val.include.user.id);
+  getHireTeamModels(): JobHireTeamModel[] {
+    const result: JobHireTeamModel[] = [];
+    this.selectedHiringManagers.forEach(m =>
+      result.push({ userId: m.include.user.id, role: JobHireTeamRole.HiringManager })
+    );
+    this.selectedRecruiters.forEach(m =>
+      result.push({ userId: m.include.user.id, role: JobHireTeamRole.Recruiter })
+    );
+    this.selectedCoordinators.forEach(m =>
+      result.push({ userId: m.include.user.id, role: JobHireTeamRole.Coordinator })
+    );
+    return result;
   }
 
   private generateForms(): void {
@@ -115,7 +113,5 @@ export class CreateJobComponent implements OnInit {
     this.jobDescriptionFormGroup = this.fb.group({
       descriptionFa: [null, Validators.required],
     });
-
-    this.hireTeamFormArray = this.fb.array([], Validators.required);
   }
 }

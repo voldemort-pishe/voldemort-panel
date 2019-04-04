@@ -55,46 +55,23 @@
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="hireTeamFormArray">
-      <form [formGroup]="hireTeamFormArray" class="vertical-gap-20">
-        <ng-template matStepLabel>تیم استخدام</ng-template>
+    <mat-step>
+      <ng-template matStepLabel>تیم استخدام</ng-template>
+      <div class="vertical-gap-20">
 
-        <button mat-flat-button type="button" color="accent" (click)="addHireTeamMember()">عضو جدید</button>
+        <anms-company-member-select label="مدیران استخدام" (selectedMembersChange)="selectedHiringManagers = $event">
+        </anms-company-member-select>
 
-        <div *ngFor="let item of hireTeamFormArray.controls; index as i" [formGroupName]="i"
-          class="fx-row fx-start-center fx-gap-20">
+        <anms-company-member-select label="کارشناسان استخدام" (selectedMembersChange)="selectedRecruiters = $event">
+        </anms-company-member-select>
 
-          <mat-form-field class="fx-auto">
-            <input matInput type="text" name="user" [matAutocomplete]="auto" placeholder="کاربر" required>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="getCompanyMemberDisplay"
-              (optionSelected)="onCompanyMemberSelected($event, i)">
-              <mat-option *ngFor="let companyMember of companyMembers" [value]="companyMember">
-                <ngx-avatar [name]="companyMember.include.user.firstName" [gravatarId]="companyMember.data.userEmail"
-                  size="30">
-                </ngx-avatar>
-                <span>{{companyMember.include.user | fullName}} | </span>
-                <small>{{companyMember.data.userEmail}}</small>
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-
-          <mat-form-field class="fx-auto">
-            <mat-select placeholder="نقش" formControlName="role" required>
-              <mat-option *ngFor="let jobHireTeamRole of JobHireTeamRoles" [value]="jobHireTeamRole">
-                {{jobHireTeamRole | jobHireTeamRole}}</mat-option>
-            </mat-select>
-            <mat-error>نقش اجباری است</mat-error>
-          </mat-form-field>
-
-          <button mat-icon-button color="warn" (click)="removeHireTeamMember(i)" matTooltip="حذف">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
+        <anms-company-member-select label="مسئولان هماهنگی" (selectedMembersChange)="selectedCoordinators = $event">
+        </anms-company-member-select>
 
         <div class="fx-row fx-center-center fx-gap-10">
           <button mat-button type="button" color="accent" matStepperPrevious>قبلی</button>
         </div>
-      </form>
+      </div>
     </mat-step>
 
   </mat-horizontal-stepper>
