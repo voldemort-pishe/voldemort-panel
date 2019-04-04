@@ -1,5 +1,5 @@
-export enum JobType{
-  FULL_TIME = 'تمام وقت',
-  PART_TIME = 'پاره وقت',
-  REMOTE = 'دورکاری'
+export enum JobType {
+  FullTime = 'FULL_TIME',
+  PartTime = 'PART_TIME',
+  Remote = 'REMOTE',
 }

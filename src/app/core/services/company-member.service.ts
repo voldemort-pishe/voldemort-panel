@@ -12,11 +12,11 @@ export class CompanyMemberService {
 
   constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
+  getList(): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
     return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}`);
   }
 
-  getAllActive(): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
+  getListActive(): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
     return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}/active`);
   }
 

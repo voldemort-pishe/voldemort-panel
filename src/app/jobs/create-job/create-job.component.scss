@@ -1,45 +1,9 @@
-.mat-dialog-title .mat-icon {
-  vertical-align: middle;
+.job-info-container>* {
+  width: calc(50% - 20px);
+  margin: 10px;
 }
 
-.job-form-container {
-
-  display: flex;
-  flex-direction: column;
-  margin-top: 30px;
-
-  .create-job-form form .row [class*="col-"]>* {
-    width: 100%;
-  }
-
-  .mat-form-field {
-    display: block;
-    margin: 0 0 10px 0;
-  }
-}
-
-.button-wrapper button {
-  margin: 0 10px;
-}
-
-::ng-deep .mat-step-label {
-  font-family: Vazir, Tahoma, serif;
-}
-
-::ng-deep .mat-option-text {
-  display: flex;
-
-  span {
-    padding-right: 5px;
-  }
-
-  ngx-avatar {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
-
-  .avatar-content {
-    font: 10px/30px Helvetica, Arial, sans-serif !important;
-  }
+ngx-avatar {
+  display: inline-block;
+  margin-left: 10px;
 }

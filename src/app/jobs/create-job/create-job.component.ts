@@ -1,25 +1,18 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import {
-  MAT_DIALOG_DATA,
-  MatAutocomplete,
-  MatDialogRef,
-  MatSnackBar,
-  MatStepper,
-} from "@angular/material";
+import { Component, OnInit } from "@angular/core";
+import { MatDialogRef, MatAutocompleteSelectedEvent, } from "@angular/material";
+import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
+import { of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { JobService } from "@app/core/services/job.service";
-import { JobContentModel } from "@app/shared/model/job-vm.model";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ProvinceService } from "@app/core/services/province.service";
-import { Province } from "@app/shared/model/province.model";
 import { JobType } from "@app/shared/model/enumeration/job-type.model";
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
 import { CompanyMemberService } from "@app/core/services/company-member.service";
-import { CompanyMemberPage } from "@app/shared/model/company-member/company-member-page.model";
-import { CompanyMemberModel } from "@app/shared/model/company-member/company-member.model";
 import { JobHireTeamService } from "@app/core/services/job-hire-team.service";
-import { JobHiringTeamPage } from "@app/shared/model/job-hiring-team/job-hiring-team-page.model";
+import { CompanyMemberContentModel } from '@app/shared/model/company-member/company-member-vm.model';
+import { JobHireTeamRole } from '@app/shared/model/enumeration/job-hire-team-role';
+import { HelpersService } from '@app/core/services/helpers.service';
+import { JobModel } from '@app/shared/model/job.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'anms-create-job',
@@ -28,165 +21,101 @@ import { JobHiringTeamPage } from "@app/shared/model/job-hiring-team/job-hiring-
 })
 export class CreateJobComponent implements OnInit {
 
-  @ViewChild('jobCreateForm') jobCreateForm: ElementRef;
-  @ViewChild('stepper') private myStepper: MatStepper;
-  @ViewChild('hiringManagers') hiringManagers: ElementRef<HTMLInputElement>;
-  @ViewChild('recruiter') recruiter: ElementRef<HTMLInputElement>;
-  @ViewChild('coordinator') coordinator: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  JobTypes: JobType[] = Object.values(JobType);
+  JobHireTeamRoles: JobHireTeamRole[] = Object.values(JobHireTeamRole);
 
-  enableForward = false;
-  BasicsJobCreateFormGroup: FormGroup;
-  DescJobCreateFormGroup: FormGroup;
-  HiringTeamFormGroup: FormGroup;
-  StagesJobCreateFormGroup: FormGroup;
-  jobType: object;
-  jobLocation;
+  provinceNames: string[] = [];
+  companyMembers: CompanyMemberContentModel[] = [];
 
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  jobId: number;
+  jobInfoFormGroup: FormGroup;
+  jobDescriptionFormGroup: FormGroup;
+  hireTeamFormArray: FormArray;
 
-  hiringManagersFa = new FormControl();
-  recruiterFa = new FormControl();
-  coordinatorFa = new FormControl();
+  isSubmitting: boolean = false;
 
-  filteredMember: Observable<CompanyMemberModel[]>;
-  JobHiringTeam = [];
-  companyMemberPage: CompanyMemberPage;
+  public get areAllFormsValid(): boolean {
+    return this.jobInfoFormGroup.valid && this.jobDescriptionFormGroup.valid && this.hireTeamFormArray.valid;
+  }
 
-  hiringTeamList = [
-    {
-      role: 'ROLE_HIRING_MANAGER',
-      formCtrl: this.hiringManagersFa,
-      placeholder: 'مدیران استخدام',
-      viewId: this.hiringManagers
-    },
-    {
-      role: 'ROLE_RECRUITER',
-      formCtrl: this.recruiterFa,
-      placeholder: 'استخدام کننده ها',
-      viewId: this.recruiter
-    },
-    {
-      role: 'ROLE_COORDINATOR',
-      formCtrl: this.coordinatorFa,
-      placeholder: 'هماهنگ کننده ها',
-      viewId: this.coordinator
-    },
-  ];
-
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<CreateJobComponent>,
+  constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    private router: Router,
+    private dialogRef: MatDialogRef<CreateJobComponent>,
+    private helpersService: HelpersService,
     private provinceService: ProvinceService,
     private jobService: JobService,
     private companyMemberService: CompanyMemberService,
     private jobHireTeamService: JobHireTeamService,
-  ) {
-
-    this.BasicsJobCreateFormGroup = fb.group({
-      nameFa: [null, Validators.required],
-      type: ['', Validators.required],
-      department: [null, Validators.required],
-      location: ['', Validators.required],
-    });
-
-    this.DescJobCreateFormGroup = fb.group({
-      descriptionFa: [null, Validators.required],
-    });
-
-    this.HiringTeamFormGroup = fb.group({
-      hiringManagersFa: [null, Validators.required],
-      recruiterFa: [null, Validators.required],
-      cordinatorFa: [null, Validators.required]
-    });
-
-    this.StagesJobCreateFormGroup = fb.group({
-      hiringProcessFa: [null, Validators.required],
-    });
-  }
+  ) { }
 
   ngOnInit(): void {
+    this.generateForms();
 
-    // province list init
-    this.provinceService
-      .loadAll()
-      .subscribe(
-        (res: HttpResponse<Province[]>) => this.onProvinceFind(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message));
+    this.provinceService.getList().subscribe(r => {
+      if (r.success) this.provinceNames = r.data.map(p => p.name);
+    });
 
-    // job type list init
-    this.jobType = Object.keys(JobType)
-      .map(c => ({
-        key: c,
-        value: JobType[c]
-      }));
-
-  }
-
-  private onProvinceFind(data: Province[]) {
-    this.jobLocation = data;
-  }
-
-  BasicInfos(stepper) {
-    const basicData = Object.assign(this.BasicsJobCreateFormGroup.value, this.DescJobCreateFormGroup.value);
-    if (this.DescJobCreateFormGroup.valid) {
-      this.jobService
-        .create(basicData)
-        .subscribe(
-          (res: HttpResponse<JobContentModel>) => {
-            this.jobId = res.body.data.id;
-            return (res.status) === 201 ? stepper.next() : '';
-          },
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
-  }
-
-  private onCreateJobSuccess() {
-    this.dialogRef.close();
-    this.snackBar.open("شغل مورد نظر با موفقیت ثبت شد", "بستن", {
-      duration: 2500
+    this.companyMemberService.getList().subscribe(r => {
+      if (r.success) this.companyMembers = r.data.content;
     });
   }
 
+  submit(): void {
+    if (this.isSubmitting || !this.areAllFormsValid) return;
+    this.isSubmitting = true;
 
-  private onError(errorMessage: string) {
-    console.log(errorMessage);
-  }
-
-  searchByEmail(ctrl): void {
-    this.companyMemberService
-      .searchByEmail(ctrl.value)
-      .subscribe(r => {
-        if (r.success) this.onCompanyMemberSuccess(r.data);
-        else this.onError(r.error.message);
+    const jobModel: JobModel = { ...this.jobInfoFormGroup.value, ...this.jobDescriptionFormGroup.value };
+    this.jobService.create(jobModel).pipe(
+      mergeMap(jobResult => {
+        if (jobResult.success) {
+          const jobId = jobResult.data.data.id;
+          return this.jobHireTeamService.create(jobId, this.hireTeamFormArray.value)
+            .pipe(map(r => { return { result: r, jobId: jobId }; }));
+        }
+        else
+          return of(jobResult).pipe(map(r => { return { result: r, jobId: null }; }));
+      })).subscribe(r => {
+        const msg = r.result.success ? 'شغل مورد نظر با موفقیت ثبت شد.' : r.result.niceErrorMessage;
+        this.helpersService.showToast(msg);
+        this.isSubmitting = false;
+        if (r.result.success)
+          this.router.navigate(['job', r.jobId]);
+        this.dialogRef.close();
       });
   }
 
-  private onCompanyMemberSuccess(data: CompanyMemberPage) {
-    this.companyMemberPage = data;
+  addHireTeamMember(): void {
+    this.hireTeamFormArray.push(this.fb.group({
+      userId: [null, Validators.required],
+      role: [null, Validators.required],
+    }));
   }
 
+  removeHireTeamMember(i: number): void {
+    this.hireTeamFormArray.removeAt(i);
+  }
 
-  submitHiringTeam() {
-    if (this.DescJobCreateFormGroup.valid)
-      this.jobHireTeamService
-        .create({
-          jobId: this.jobId,
-          teams: this.JobHiringTeam.map(job => ({
-            userId: job.userId,
-            role: job.role
-          }))
-        })
-        .subscribe(
-          (res: HttpResponse<JobHiringTeamPage>) => this.onCreateJobSuccess(),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
+  getCompanyMemberDisplay(companyMember: CompanyMemberContentModel): string {
+    return companyMember ? `${companyMember.include.user.firstName} ${companyMember.include.user.lastName}` : null;
+  }
+
+  onCompanyMemberSelected(event: MatAutocompleteSelectedEvent, index: number): void {
+    const val: CompanyMemberContentModel = event.option.value;
+    this.hireTeamFormArray.controls[index].get('userId').setValue(val.include.user.id);
+  }
+
+  private generateForms(): void {
+    this.jobInfoFormGroup = this.fb.group({
+      nameFa: [null, Validators.required],
+      type: [null, Validators.required],
+      department: [null, Validators.required],
+      location: [null, Validators.required],
+    });
+
+    this.jobDescriptionFormGroup = this.fb.group({
+      descriptionFa: [null, Validators.required],
+    });
+
+    this.hireTeamFormArray = this.fb.array([], Validators.required);
   }
 }

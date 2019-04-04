@@ -1,9 +1,9 @@
 import { Moment } from 'moment';
 
 export class JobHireTeamModel {
-  createdDate: Moment;
-  id: number;
-  jobId: number;
-  role: string;
-  userId: number;
+  id?: number;
+  jobId?: number;
+  role?: string;
+  userId?: number;
+  createdDate?: Moment;
 }

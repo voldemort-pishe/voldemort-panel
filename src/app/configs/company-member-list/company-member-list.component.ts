@@ -24,7 +24,7 @@ export class CompanyMemberListComponent implements OnInit {
 
   fetch(): void {
     this.isLoading = true;
-    this.companyMemberService.getAll().subscribe(r => {
+    this.companyMemberService.getList().subscribe(r => {
       this.isLoading = false;
       if (r.success) {
         this.rawData = r.data;

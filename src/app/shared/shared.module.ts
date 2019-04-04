@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner.component';
 import { LoadingDirective } from './directives/loading.directive';
+import { JobTypePipe } from './pipe/job-type.pipe';
+import { JobHireTeamRolePipe } from './pipe/job-hire-team-role.pipe';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { LoadingDirective } from './directives/loading.directive';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    JobTypePipe,
+    JobHireTeamRolePipe,
     LoadingSpinnerComponent,
     LoadingDirective,
     CandidateTableComponent,
@@ -46,6 +50,8 @@ import { LoadingDirective } from './directives/loading.directive';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    JobTypePipe,
+    JobHireTeamRolePipe,
     LoadingDirective,
     CandidateTableComponent,
     ErrorMessageComponent,

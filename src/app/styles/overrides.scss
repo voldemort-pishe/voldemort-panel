@@ -1,3 +1,11 @@
 .mat-icon {
   vertical-align: middle;
 }
+
+.mat-dialog-actions .mat-button+.mat-button,
+.mat-dialog-actions .mat-button+.mat-raised-button,
+.mat-dialog-actions .mat-raised-button+.mat-button,
+.mat-dialog-actions .mat-raised-button+.mat-raised-button {
+  margin-right: 8px !important;
+  margin-left: 0 !important;
+}

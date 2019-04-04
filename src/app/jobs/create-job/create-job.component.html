@@ -1,109 +1,108 @@
+<h2 mat-dialog-title>افزودن شغل</h2>
+
 <mat-dialog-content>
+  <mat-horizontal-stepper linear>
 
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="stepper-wrapper">
+    <mat-step [stepControl]="jobInfoFormGroup">
+      <form [formGroup]="jobInfoFormGroup" class="vertical-gap-20">
+        <ng-template matStepLabel>اطلاعات اولیه</ng-template>
 
-        <h2 mat-dialog-title class="text-center">
-          افزودن شغل
-        </h2>
+        <div class="fx-row-wrap job-info-container">
+          <mat-form-field>
+            <input matInput type="text" name="jobName" formControlName="nameFa" placeholder="عنوان" required>
+            <mat-error>عنوان اجباری است</mat-error>
+          </mat-form-field>
 
-        <div class="col-sm-12">
+          <mat-form-field>
+            <input matInput type="text" name="department" formControlName="department" placeholder="دپارتمان" required>
+            <mat-error>دپارتمان اجباری است</mat-error>
+          </mat-form-field>
 
-          <mat-horizontal-stepper linear #stepper>
+          <mat-form-field>
+            <mat-select placeholder="نوع" formControlName="type" required>
+              <mat-option *ngFor="let jobType of JobTypes" [value]="jobType">{{jobType | jobType}}</mat-option>
+            </mat-select>
+            <mat-error>نوع اجباری است</mat-error>
+          </mat-form-field>
 
-            <mat-step [stepControl]="BasicsJobCreateFormGroup">
-
-              <ng-template matStepLabel>اطلاعات اولیه</ng-template>
-
-              <form [formGroup]="BasicsJobCreateFormGroup">
-
-                <div class="job-form-container">
-                  <div class="create-job-form">
-                    <div class="row justify-content-md-center">
-
-                      <div class="col-sm-6">
-                        <mat-form-field>
-                          <input matInput type="text" placeholder="عنوان" formControlName="nameFa" autocomplete="off">
-                          <mat-error *ngIf="BasicsJobCreateFormGroup.get('nameFa')?.errors?.required">عنوان اجباری است</mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                          <mat-select placeholder="نوع" formControlName="type">
-                            <mat-option value="">انتخاب کنید</mat-option>
-                            <mat-option *ngFor="let state of jobType" value="{{state.key}}">{{state.value}}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="BasicsJobCreateFormGroup.get('type')?.errors?.required">نوع اجباری است</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-sm-6">
-                        <mat-form-field>
-                          <input matInput type="text" placeholder="دپارتمان" formControlName="department" autocomplete="off">
-                          <mat-error *ngIf="BasicsJobCreateFormGroup.get('department')?.errors?.required">دپارتمان
-                            اجباری است
-                          </mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                          <mat-select placeholder="مکان" formControlName="location">
-                            <mat-option value="">انتخاب کنید</mat-option>
-                            <mat-option *ngFor="let location of jobLocation" value="{{location.name}}">{{location.name}}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="BasicsJobCreateFormGroup.get('location')?.errors?.required">مکان اجباری است</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-center button-wrapper">
-                  <button type="button" mat-raised-button matStepperNext color="primary">بعدی</button>
-                </div>
-              </form>
-
-            </mat-step>
-
-            <mat-step [stepControl]="DescJobCreateFormGroup" [editable]="enableForward">
-
-              <ng-template matStepLabel>توضیحات</ng-template>
-              <form [formGroup]="DescJobCreateFormGroup">
-
-                <div class="job-form-container">
-                  <div class="create-job-form">
-                    <div class="row">
-
-                      <div class="col-sm-12">
-                        <mat-form-field>
-                          <textarea matInput rows="6" placeholder="توضیحات" formControlName="descriptionFa" required></textarea>
-                          <mat-error *ngIf="DescJobCreateFormGroup.get('descriptionFa')?.errors?.required">توضیحات
-                            اجباری است
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-center button-wrapper">
-                  <button type="button" mat-raised-button matStepperPrevious>قبلی</button>
-                  <button type="button" mat-raised-button color="primary" (click)="BasicInfos(stepper)">بعدی</button>
-                </div>
-
-              </form>
-
-            </mat-step>
-
-
-            <mat-step [stepControl]="HiringTeamFormGroup">
-
-              <ng-template matStepLabel>تیم استخدام</ng-template>
-
-            </mat-step>
-          </mat-horizontal-stepper>
-
+          <mat-form-field>
+            <mat-select placeholder="مکان" formControlName="location" required>
+              <mat-option *ngFor="let province of provinceNames" [value]="province">{{province}}</mat-option>
+            </mat-select>
+            <mat-error>مکان اجباری است</mat-error>
+          </mat-form-field>
         </div>
-      </div>
-    </div>
-  </div>
+
+        <div class="fx-row fx-center-center">
+          <button mat-button type="button" color="accent" matStepperNext>بعدی</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="jobDescriptionFormGroup">
+      <form [formGroup]="jobDescriptionFormGroup" class="vertical-gap-20">
+        <ng-template matStepLabel>توضیحات</ng-template>
+
+        <mat-form-field class="full-width">
+          <textarea matInput rows="6" placeholder="توضیحات" formControlName="descriptionFa" required></textarea>
+          <mat-error>توضیحات اجباری است</mat-error>
+        </mat-form-field>
+
+        <div class="fx-row fx-center-center fx-gap-10">
+          <button mat-button type="button" color="accent" matStepperPrevious>قبلی</button>
+          <button mat-button type="button" color="accent" matStepperNext>بعدی</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="hireTeamFormArray">
+      <form [formGroup]="hireTeamFormArray" class="vertical-gap-20">
+        <ng-template matStepLabel>تیم استخدام</ng-template>
+
+        <button mat-flat-button type="button" color="accent" (click)="addHireTeamMember()">عضو جدید</button>
+
+        <div *ngFor="let item of hireTeamFormArray.controls; index as i" [formGroupName]="i"
+          class="fx-row fx-start-center fx-gap-20">
+
+          <mat-form-field class="fx-auto">
+            <input matInput type="text" name="user" [matAutocomplete]="auto" placeholder="کاربر" required>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="getCompanyMemberDisplay"
+              (optionSelected)="onCompanyMemberSelected($event, i)">
+              <mat-option *ngFor="let companyMember of companyMembers" [value]="companyMember">
+                <ngx-avatar [name]="companyMember.include.user.firstName" [gravatarId]="companyMember.data.userEmail"
+                  size="30">
+                </ngx-avatar>
+                <span>{{companyMember.include.user.firstName}} {{companyMember.include.user.lastName}} | </span>
+                <small>{{companyMember.data.userEmail}}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field class="fx-auto">
+            <mat-select placeholder="نقش" formControlName="role" required>
+              <mat-option *ngFor="let jobHireTeamRole of JobHireTeamRoles" [value]="jobHireTeamRole">
+                {{jobHireTeamRole | jobHireTeamRole}}</mat-option>
+            </mat-select>
+            <mat-error>نقش اجباری است</mat-error>
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" (click)="removeHireTeamMember(i)" matTooltip="حذف">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <div class="fx-row fx-center-center fx-gap-10">
+          <button mat-button type="button" color="accent" matStepperPrevious>قبلی</button>
+        </div>
+      </form>
+    </mat-step>
+
+  </mat-horizontal-stepper>
 </mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button type="button" mat-dialog-close>بستن</button>
+  <button mat-raised-button type="submit" color="primary" (click)="submit()" [disabled]="!areAllFormsValid">
+    <span *appLoading="isSubmitting; button: true; color: 'accent';">ثبت</span>
+  </button>
+</mat-dialog-actions>

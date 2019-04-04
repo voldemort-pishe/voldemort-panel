@@ -1,5 +1,5 @@
 export enum JobHireTeamRole {
-    ROLE_HIRING_MANAGER = 'مدیر استخدام',
-    ROLE_RECRUITER = 'استخدام کننده',
-    ROLE_COORDINATOR = 'هماهنگ کننده',
+    HiringManager = 'ROLE_HIRING_MANAGER',
+    Recruiter = 'ROLE_RECRUITER',
+    Coordinator = 'ROLE_COORDINATOR',
 }

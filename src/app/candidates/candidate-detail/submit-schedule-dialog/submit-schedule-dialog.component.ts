@@ -57,7 +57,7 @@ export class SubmitScheduleDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.companyMemberService
-      .getAll()
+      .getList()
       .subscribe(r => {
         if (r.success) this.onCompanyMemberSuccess(r.data);
         else this.onError(r.error.message);

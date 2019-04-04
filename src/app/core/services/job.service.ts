@@ -24,10 +24,6 @@ export class JobService {
     private apiService: ApiService,
   ) { }
 
-  create(job: JobModel): Observable<EntityResponseType> {
-    return this.http.post<JobContentModel>(`${this.resourceUrl}`, job, { observe: 'response' });
-  }
-
   loadAll(): Observable<EntityArrayResponseType> {
     return this.http.get<JobVm>(`${this.resourceUrl}`, { observe: 'response' });
   }
@@ -46,6 +42,10 @@ export class JobService {
 
   getList(): Observable<ApiResponse<PageableGeneric<JobContentModel>>> {
     return this.apiService.get<PageableGeneric<JobContentModel>>('job');
+  }
+
+  create(model: JobModel): Observable<ApiResponse<JobContentModel>> {
+    return this.apiService.post<JobContentModel>('job', model);
   }
 
   private storedObject: JobContentModel;
