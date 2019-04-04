@@ -15,22 +15,3 @@
     margin: 0 0 5px 0;
   }
 }
-
-/deep/ span.mat-option-text {
-  text-align: left !important;
-  direction: ltr;
-  display: flex;
-  align-items: center;
-}
-
-/deep/ ngx-avatar {
-  margin: 0 4px 0 0;
-}
-
-/deep/ .avatar-content {
-  font: normal 16px/29px Vazir !important;
-}
-
-.mat-select-value {
-  overflow: visible;
-}

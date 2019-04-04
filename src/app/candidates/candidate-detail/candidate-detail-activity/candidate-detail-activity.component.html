@@ -16,7 +16,7 @@
           <ngx-avatar [name]="message.include.from.firstName" [gravatarId]="message.include.from.email">
           </ngx-avatar>
           <div>
-            <div class="mat-body-2">{{message.include.from.firstName}} {{message.include.from.lastName}}</div>
+            <div class="mat-body-2">{{message.include.from | fullName}}</div>
             <div class="mat-small date">{{message.data.createdDate | jalali: 'short-datetime'}}</div>
           </div>
         </div>

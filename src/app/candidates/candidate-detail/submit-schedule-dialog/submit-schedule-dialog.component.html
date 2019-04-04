@@ -52,25 +52,9 @@
                   <textarea matInput formControlName="description" placeholder="توضیحات"></textarea>
                 </mat-form-field>
 
-                <mat-form-field>
-                  <mat-chip-list #chipList>
-                    <mat-chip *ngFor="let member of memberSet" [selectable]="selectable" [removable]="removable"
-                      (removed)="remove(member)">
-                      {{member.userEmail}}
-                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="اعضای حاضر در جلسه" #memberInput formControlName="memberCtrl"
-                      [matAutocomplete]="auto" [matChipInputFor]="chipList"
-                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-                  </mat-chip-list>
-                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                    <mat-option *ngFor="let member of filteredMember | async" [value]="member">
-                      <ngx-avatar name="{{member?.userEmail}}" size="30">
-                      </ngx-avatar>
-                      <span>{{member?.userEmail}}</span>
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
+                <anms-company-member-select label="اعضای حاضر در جلسه"
+                  (selectedMembersChange)="onSelectedMembersChange($event)">
+                </anms-company-member-select>
               </div>
             </div>
           </form>

@@ -72,7 +72,7 @@
                 <ngx-avatar [name]="companyMember.include.user.firstName" [gravatarId]="companyMember.data.userEmail"
                   size="30">
                 </ngx-avatar>
-                <span>{{companyMember.include.user.firstName}} {{companyMember.include.user.lastName}} | </span>
+                <span>{{companyMember.include.user | fullName}} | </span>
                 <small>{{companyMember.data.userEmail}}</small>
               </mat-option>
             </mat-autocomplete>

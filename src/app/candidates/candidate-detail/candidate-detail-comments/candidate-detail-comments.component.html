@@ -22,7 +22,7 @@
         <ngx-avatar [name]="comment.include.owner.firstName" [gravatarId]="comment.include.owner.email">
         </ngx-avatar>
         <div>
-          <div class="mat-body-2">{{comment.include.owner.firstName}} {{comment.include.owner.lastName}}</div>
+          <div class="mat-body-2">{{comment.include.owner | fullName}}</div>
           <div class="mat-small date">{{comment.data.createdDate | jalali: 'short-datetime'}}</div>
         </div>
       </div>

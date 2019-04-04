@@ -32,7 +32,7 @@
             </div>
             <div class="horizontal-gap-10">
               <mat-icon [inline]="true">person</mat-icon>
-              <small>{{event.include.candidate.firstName}} {{event.include.candidate.lastName}}</small>
+              <small>{{event.include.candidate | fullName}}</small>
             </div>
           </a>
         </div>

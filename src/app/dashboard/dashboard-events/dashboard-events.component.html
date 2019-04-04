@@ -24,7 +24,7 @@
             <mat-icon [inline]="true">{{element.data.type | lowercase}}</mat-icon>
             <span class="text-truncate">{{element.data.description}}</span>
           </div>
-          <div class="mat-small">{{element.include.user.firstName}} {{element.include.user.lastName}}</div>
+          <div class="mat-small">{{element.include.user | fullName}}</div>
         </td>
       </ng-container>
 

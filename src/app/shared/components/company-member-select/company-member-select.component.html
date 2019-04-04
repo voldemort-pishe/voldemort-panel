@@ -1,0 +1,20 @@
+<mat-form-field class="full-width">
+  <mat-label>{{label}}</mat-label>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let member of selectedMembers" [selectable]="true" [removable]="true" (removed)="removeMember(member)">
+      {{member.include.user | fullName}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="جستجو بر اساس ایمیل" #searchInput [formControl]="memberCtrl" [matAutocomplete]="auto"
+      [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+  </mat-chip-list>
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onMemberSelected($event)">
+    <mat-option *ngFor="let member of matchedMembers$ | async" [value]="member">
+      <ngx-avatar [name]="member.include.user.firstName" [gravatarId]="member.data.userEmail" size="30">
+      </ngx-avatar>
+      <span>{{member.include.user | fullName}} | </span>
+      <small>{{member.data.userEmail}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

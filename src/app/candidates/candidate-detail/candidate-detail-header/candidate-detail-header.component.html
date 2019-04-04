@@ -11,7 +11,7 @@
           </button>
         </div>
         <h2>
-          {{model.data.firstName}} {{model.data.lastName}}
+          {{model.data | fullName}}
         </h2>
         <div *ngIf="model.include.job" class="horizontal-gap-10">
           <mat-icon [inline]="true">work</mat-icon>

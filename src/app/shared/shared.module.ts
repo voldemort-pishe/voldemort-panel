@@ -14,11 +14,14 @@ import { LoadingSpinnerComponent } from './components/loading-spinner.component'
 import { LoadingDirective } from './directives/loading.directive';
 import { JobTypePipe } from './pipe/job-type.pipe';
 import { JobHireTeamRolePipe } from './pipe/job-hire-team-role.pipe';
+import { CompanyMemberSelectComponent } from './components/company-member-select/company-member-select.component';
+import { FullNamePipe } from './pipe/full-name.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     AvatarModule,
     TranslateModule,
@@ -28,12 +31,15 @@ import { JobHireTeamRolePipe } from './pipe/job-hire-team-role.pipe';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    FullNamePipe,
     JobTypePipe,
     JobHireTeamRolePipe,
+    
     LoadingSpinnerComponent,
     LoadingDirective,
     CandidateTableComponent,
     ErrorMessageComponent,
+    CompanyMemberSelectComponent,
   ],
   entryComponents: [
     LoadingSpinnerComponent,
@@ -50,11 +56,14 @@ import { JobHireTeamRolePipe } from './pipe/job-hire-team-role.pipe';
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
     JalaliPipe,
+    FullNamePipe,
     JobTypePipe,
     JobHireTeamRolePipe,
+
     LoadingDirective,
     CandidateTableComponent,
     ErrorMessageComponent,
+    CompanyMemberSelectComponent,
   ]
 })
 export class SharedModule { }

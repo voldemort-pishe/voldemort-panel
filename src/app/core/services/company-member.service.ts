@@ -8,20 +8,15 @@ import { PageableGeneric } from '@app/shared/model/pageable.model';
 @Injectable({ providedIn: 'root' })
 export class CompanyMemberService {
 
-  private resourceUrl = 'company-member';
-
   constructor(private apiService: ApiService) { }
 
-  getList(): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
-    return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}`);
+  getList(email?: string): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
+    const req = {};
+    if (email) req['email'] = email;
+    return this.apiService.get<CompanyMemberPage>('company-member', req);
   }
 
   getListActive(): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
-    return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}/active`);
+    return this.apiService.get<CompanyMemberPage>('company-member/active');
   }
-
-  searchByEmail(email: string): Observable<ApiResponse<PageableGeneric<CompanyMemberContentModel>>> {
-    return this.apiService.get<CompanyMemberPage>(`${this.resourceUrl}`, { email });
-  }
-
 }

@@ -24,7 +24,7 @@
           <ngx-avatar [name]="feedback.include.owner.firstName" [gravatarId]="feedback.include.owner.email">
           </ngx-avatar>
           <div>
-            <div class="mat-body-2">{{feedback.include.owner.firstName}} {{feedback.include.owner.lastName}}</div>
+            <div class="mat-body-2">{{feedback.include.owner | fullName}}</div>
             <!-- <div class="mat-small date">{{feedback.data.createdDate | jalali: 'short-datetime'}}</div> -->
           </div>
         </div>

@@ -59,7 +59,7 @@
         <ng-container matColumnDef="candidate">
           <th mat-header-cell *matHeaderCellDef> کارجو </th>
           <td mat-cell *matCellDef="let element">
-            <a routerLink="/candidates/{{element.data.id}}">{{element.data.firstName}} {{element.data.lastName}}</a>
+            <a routerLink="/candidates/{{element.data.id}}">{{element.data | fullName}}</a>
           </td>
         </ng-container>
 
