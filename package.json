@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "local": "ng serve --proxyConfig proxy-local.conf.json",
     "build": "ng build",
     "test": "npm run lint && ng test --configuration=test",
     "lint": "ng lint",
