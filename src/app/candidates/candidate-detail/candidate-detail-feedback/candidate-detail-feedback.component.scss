@@ -1,3 +1,15 @@
 .no-results-image {
   width: 300px;
 }
+
+.feedback-rating-header {
+  width: 50px;
+
+  &.green {
+    color: green;
+  }
+
+  &.red {
+    color: red;
+  }
+}

@@ -7,6 +7,7 @@ import { FeedbackRating } from '@app/shared/model/enumeration/feedback-rating';
 import { MatDialog } from '@angular/material';
 import { SubmitFeedbackDialogComponent } from '../submit-feedback-dialog/submit-feedback-dialog.component';
 import { Principal } from '@app/core/auth/principal.service';
+import { UserModel } from '@app/shared/model/user.model';
 
 @Component({
   selector: 'anms-candidate-detail-feedback',
@@ -16,6 +17,7 @@ import { Principal } from '@app/core/auth/principal.service';
 export class CandidateDetailFeedbackComponent implements OnInit {
 
   FeedbackRating: typeof FeedbackRating = FeedbackRating;
+  FeedbackRatings: string[] = Object.keys(FeedbackRating);
 
   candidateId: number;
 
@@ -24,7 +26,7 @@ export class CandidateDetailFeedbackComponent implements OnInit {
   error: string;
 
   feedbacks: FeedbackContentModel[];
-  feedbackGroups: { rating: FeedbackRating, n: number }[];
+  feedbackGroups: { [key: string]: UserModel[] };
   isUserAlreadySubmittedFeedback: boolean = false;
 
   constructor(
@@ -72,12 +74,10 @@ export class CandidateDetailFeedbackComponent implements OnInit {
   }
 
   private generateGroups(): void {
-    const gs = [];
+    const gs = {};
+    Object.keys(FeedbackRating).forEach(fr => gs[fr] = []);
     this.helpersService.groupBy(this.feedbacks, f => f.data.rating).forEach((items, key) => {
-      gs.push({
-        rating: key,
-        n: items.length,
-      });
+      gs[key] = items.map(i => i.include.owner);
     });
     this.feedbackGroups = gs;
   }

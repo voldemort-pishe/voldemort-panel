@@ -1,6 +1,6 @@
 export enum FeedbackRating {
-    STRONG_NEGATIVE = 'بد',
-    NEGATIVE = 'متوسط',
-    POSITIVE = 'خوب',
-    STRONG_POSITIVE = 'عالی',
+    STRONG_NEGATIVE = 'STRONG_NEGATIVE',
+    NEGATIVE = 'NEGATIVE',
+    POSITIVE = 'POSITIVE',
+    STRONG_POSITIVE = 'STRONG_POSITIVE',
 }

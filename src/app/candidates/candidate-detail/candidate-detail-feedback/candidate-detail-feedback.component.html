@@ -9,13 +9,20 @@
     </div>
 
     <div *ngIf="feedbacks.length > 0" class="vertical-gap-20">
-      <button *ngIf="!isUserAlreadySubmittedFeedback" mat-raised-button type="button" color="accent" (click)="newFeedback()">ثبت بازخورد</button>
+      <button *ngIf="!isUserAlreadySubmittedFeedback" mat-raised-button type="button" color="accent"
+        (click)="newFeedback()">ثبت بازخورد</button>
 
-      <mat-card>
+      <mat-card class="vertical-gap-10">
         <h3>تعداد آرا</h3>
-        <div *ngFor="let gp of feedbackGroups" class="fx-row fx-gap-10">
-          <div>{{ FeedbackRating[gp.rating] }}:</div>
-          <div>{{gp.n}} رای</div>
+        <div *ngFor="let fr of FeedbackRatings" class="fx-row fx-start-center fx-gap-5">
+          <div class="feedback-rating-header"
+            [ngClass]="{'green': fr === FeedbackRating.STRONG_POSITIVE || fr === FeedbackRating.POSITIVE, 'red': fr === FeedbackRating.STRONG_NEGATIVE || fr === FeedbackRating.NEGATIVE}">
+            {{ fr | feedbackRating }}
+          </div>
+          <div>({{ feedbackGroups[fr].length | persianNumber }} رای)</div>
+          <ngx-avatar *ngFor="let user of feedbackGroups[fr]" [gravatarId]="user.email" [name]="user.firstName"
+            matTooltip="{{user | fullName}}" [size]="30">
+          </ngx-avatar>
         </div>
       </mat-card>
 
@@ -30,7 +37,7 @@
         </div>
 
         <div>
-          <h4>امتیاز: {{ FeedbackRating[feedback.data.rating] }}</h4>
+          <h4>امتیاز: {{ feedback.data.rating | feedbackRating }}</h4>
           <p *ngIf="feedback.data.feedbackText">توضیح: {{feedback.data.feedbackText}}</p>
         </div>
       </mat-card>
