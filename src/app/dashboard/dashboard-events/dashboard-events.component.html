@@ -2,7 +2,11 @@
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <ng-container *ngIf="!isErrorOccured">
-    <table mat-table [dataSource]="events" class="full-width mat-elevation-z5">
+    <div *ngIf="!events.length" class="text-center">
+      هیچ رویدادی موجود نیست.
+    </div>
+
+    <table *ngIf="events.length" mat-table [dataSource]="events" class="full-width mat-elevation-z5">
       <ng-container matColumnDef="action">
         <td mat-cell *matCellDef="let element">
           <button mat-button mat-icon-button>
