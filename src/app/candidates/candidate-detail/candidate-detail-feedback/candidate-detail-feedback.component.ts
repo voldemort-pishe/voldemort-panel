@@ -6,6 +6,7 @@ import { HelpersService } from '@app/core/services/helpers.service';
 import { FeedbackRating } from '@app/shared/model/enumeration/feedback-rating';
 import { MatDialog } from '@angular/material';
 import { SubmitFeedbackDialogComponent } from '../submit-feedback-dialog/submit-feedback-dialog.component';
+import { Principal } from '@app/core/auth/principal.service';
 
 @Component({
   selector: 'anms-candidate-detail-feedback',
@@ -24,12 +25,14 @@ export class CandidateDetailFeedbackComponent implements OnInit {
 
   feedbacks: FeedbackContentModel[];
   feedbackGroups: { rating: FeedbackRating, n: number }[];
+  isUserAlreadySubmittedFeedback: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private feedbackService: FeedbackService,
     private helpersService: HelpersService,
+    private principal: Principal,
   ) { }
 
   ngOnInit() {
@@ -51,6 +54,9 @@ export class CandidateDetailFeedbackComponent implements OnInit {
       this.isLoading = false;
       if (r.success) {
         this.feedbacks = r.data.content;
+        this.principal.identityUser().then(user =>
+          this.isUserAlreadySubmittedFeedback = r.data.content.some(f => f.data.userId === user.id)
+        );
         this.generateGroups();
       }
       else {
@@ -61,7 +67,8 @@ export class CandidateDetailFeedbackComponent implements OnInit {
   }
 
   newFeedback(): void {
-    this.dialog.open(SubmitFeedbackDialogComponent, { data: { candidateId: this.candidateId } });
+    this.dialog.open(SubmitFeedbackDialogComponent, { data: { candidateId: this.candidateId } })
+      .afterClosed().subscribe(r => { if (r) this.fetch(); });
   }
 
   private generateGroups(): void {

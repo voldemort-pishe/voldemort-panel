@@ -35,7 +35,7 @@ export class SubmitFeedbackDialogComponent implements OnInit {
     this.feedbackService.create(this.form.value).subscribe(r => {
       const msg = r.success ? 'بازخورد شما با موفقیت ثبت شد.' : r.niceErrorMessage;
       this.helpersService.showToast(msg);
-      this.dialogRef.close();
+      this.dialogRef.close(r.success);
     });
   }
 }

@@ -9,7 +9,7 @@
     </div>
 
     <div *ngIf="feedbacks.length > 0" class="vertical-gap-20">
-      <button mat-raised-button type="button" color="accent" (click)="newFeedback()">ثبت بازخورد</button>
+      <button *ngIf="!isUserAlreadySubmittedFeedback" mat-raised-button type="button" color="accent" (click)="newFeedback()">ثبت بازخورد</button>
 
       <mat-card>
         <h3>تعداد آرا</h3>
@@ -31,7 +31,7 @@
 
         <div>
           <h4>امتیاز: {{ FeedbackRating[feedback.data.rating] }}</h4>
-          <p>توضیح: {{feedback.data.feedbackText}}</p>
+          <p *ngIf="feedback.data.feedbackText">توضیح: {{feedback.data.feedbackText}}</p>
         </div>
       </mat-card>
     </div>
