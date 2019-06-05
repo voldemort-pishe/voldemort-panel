@@ -1,13 +1,10 @@
-<nav mat-tab-nav-bar class="fx-center-center">
-  <a mat-tab-link routerLink="./company-info" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
-    اطلاعات شرکت
-  </a>
-  <a mat-tab-link routerLink="./company-members" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
-    مدیریت اعضا
-  </a>
-  <a mat-tab-link routerLink="./transactions" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
-    تراکنش‌های مالی
-  </a>
-</nav>
-
-<router-outlet></router-outlet>
+<div class="fx-row fx-gap-20">
+  <mat-nav-list>
+    <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.url" routerLinkActive="active-item">
+      <h4 mat-line>{{item.title}}</h4>
+    </a>
+  </mat-nav-list>
+  <div class="fx-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>
