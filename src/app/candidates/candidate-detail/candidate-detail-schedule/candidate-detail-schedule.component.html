@@ -8,25 +8,54 @@
       <button mat-raised-button type="button" color="accent" (click)="newSchedule()">تنظیم مصاحبه</button>
     </div>
 
-    <mat-card *ngIf="schedules.length > 0">
-      <h3>لیست مصاحبه‌ها</h3>
-      <mat-card-content>
-        <div *ngFor="let schedule of schedules" class="candidate-schedule-list">
-          <h4>تاریخ مصاحبه {{schedule.data.startDate | jalali}}</h4>
-          <mat-divider></mat-divider>
-          <mat-list>
-            <div class="row">
-              <div class="col-sm-3">
-                10am
-              </div>
-              <div class="col-sm-3">member</div>
-              <div class="col-sm-3">place</div>
-              <div class="col-sm-3">dev</div>
-            </div>
-          </mat-list>
-        </div>
+    <div *ngIf="schedules.length > 0" class="vertical-gap-20">
+      <div class="fx-row fx-spacebetween-center">
+        <h3>لیست مصاحبه‌ها</h3>
+        <button mat-raised-button type="button" color="accent" (click)="newSchedule()">تنظیم مصاحبه</button>
+      </div>
 
-      </mat-card-content>
-    </mat-card>
+      <mat-card *ngFor="let schedule of schedules">
+        <mat-card-title>
+          {{schedule.data.startDate | jalali: 'dddd، D MMMM YYYY'}}
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          <span>از ساعت&nbsp;</span>
+          <span>{{schedule.data.startDate | jalali: 'H:m'}}</span>
+          <span>&nbsp;تا&nbsp;</span>
+          <span>{{schedule.data.endDate | jalali: 'H:m'}}</span>
+        </mat-card-subtitle>
+
+        <mat-card-content class="vertical-gap-20">
+          <div class="vertical-gap-5">
+            <div>
+              <span class="mat-body-1">وضعیت:&nbsp;</span>
+              <span class="mat-body-2">{{schedule.data.status | scheduleStatus}}</span>
+            </div>
+            <div>
+              <span class="mat-body-1">مکان:&nbsp;</span>
+              <span class="mat-body-2">{{schedule.data.location}}</span>
+            </div>
+            <div>
+              <span class="mat-body-1">توضیحات:&nbsp;</span>
+              <span class="mat-body-2">{{schedule.data.description}}</span>
+            </div>
+          </div>
+
+          <div class="vertical-gap-5">
+            <h4>اعضای حاضر در جلسه</h4>
+            <div *ngFor="let member of schedule.data.member; let i = index" class="fx-row fx-start-center fx-gap-10">
+              <ngx-avatar [name]="schedule.include.memberUsers[i].firstName"
+                [gravatarId]="schedule.include.memberUsers[i].email">
+              </ngx-avatar>
+              <div>
+                <div class="mat-body-2">{{schedule.include.memberUsers[i] | fullName}}</div>
+                <div class="mat-small">{{member.status | candidateScheduleMemberStatus}}</div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </ng-container>
 </div>

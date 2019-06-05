@@ -1,3 +1,5 @@
 export enum CandidateScheduleMemberStatus {
-  ACCEPTED, REJECTED, MAYBE
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+  MAYBE = 'MAYBE',
 }

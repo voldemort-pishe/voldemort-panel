@@ -16,6 +16,8 @@ import { JobTypePipe } from './pipe/job-type.pipe';
 import { JobHireTeamRolePipe } from './pipe/job-hire-team-role.pipe';
 import { CompanyMemberSelectComponent } from './components/company-member-select/company-member-select.component';
 import { FullNamePipe } from './pipe/full-name.pipe';
+import { CandidateScheduleMemberStatusPipe } from './pipe/candidate-schedule-member-status.pipe';
+import { ScheduleStatusPipe } from './pipe/schedule-status.pipe';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { FullNamePipe } from './pipe/full-name.pipe';
     FullNamePipe,
     JobTypePipe,
     JobHireTeamRolePipe,
-    
+    ScheduleStatusPipe,
+    CandidateScheduleMemberStatusPipe,
+
     LoadingSpinnerComponent,
     LoadingDirective,
     CandidateTableComponent,
@@ -59,6 +63,8 @@ import { FullNamePipe } from './pipe/full-name.pipe';
     FullNamePipe,
     JobTypePipe,
     JobHireTeamRolePipe,
+    ScheduleStatusPipe,
+    CandidateScheduleMemberStatusPipe,
 
     LoadingDirective,
     CandidateTableComponent,

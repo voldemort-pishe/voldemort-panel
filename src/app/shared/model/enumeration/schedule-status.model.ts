@@ -1,5 +1,5 @@
 export enum ScheduleStatus {
-  SCHEDULED = 'زمانبندی شده',
-  OVERSTATED = 'برگزار شده',
-  CANCELED = 'لغو شده'
+  SCHEDULED = 'SCHEDULED',
+  OVERSTATED = 'OVERSTATED',
+  CANCELED = 'CANCELED',
 }

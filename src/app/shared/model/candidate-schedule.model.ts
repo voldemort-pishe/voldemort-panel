@@ -1,6 +1,7 @@
 import { CandidateScheduleMemberModel } from './candidate-schedule-member.model';
 import { ScheduleStatus } from "@app/shared/model/enumeration/schedule-status.model";
 import { CandidateModel } from './candidate.model';
+import { UserModel } from './user.model';
 
 export interface CandidateScheduleModel {
   id?: number;
@@ -17,5 +18,6 @@ export interface CandidateScheduleContentModel {
   data: CandidateScheduleModel;
   include: {
     candidate: CandidateModel;
+    memberUsers: UserModel[];
   };
 }
