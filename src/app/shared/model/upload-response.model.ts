@@ -1,4 +1,4 @@
-import { FileModel } from "@app/shared/model/file.model";
+import { FileModel } from './file.model';
 
 export interface UploadResponse {
   progrress: number;

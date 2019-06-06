@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+$app-primary:  mat-palette($mat-indigo, 800, 300, 900);
+$app-accent:   mat-palette($mat-light-blue);
+$app-warn:     mat-palette($mat-pink, 600);
+
+$primary-color: mat-color($app-primary);
+$accent-color:  mat-color($app-accent);
+$warn-color:    mat-color($app-warn);
+
+$toolbar-color: #383579;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);

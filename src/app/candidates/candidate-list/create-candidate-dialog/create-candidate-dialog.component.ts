@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { UploadService, CandidateService, CompanyPipelineService, JobService } from '@app/core';
-import { CandidateType } from '@app/shared/model/enumeration/candidate-type.model';
-import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
+import { UploadService } from '@app/shared/services/data/upload.service';
+import { CandidateService } from '@app/shared/services/data/candidate.service';
+import { CompanyPipelineService } from '@app/shared/services/data/company-pipeline.service';
+import { JobService } from '@app/shared/services/data/job.service';
+import { CandidateType } from '@app/shared/model/enumeration/candidate-type';
+import { CandidateState } from '@app/shared/model/enumeration/candidate-state';
 import { forkJoin } from 'rxjs';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.model';
 import { JobContentModel } from '@app/shared/model/job.model';
-import { Pageable } from '@app/shared/model/pageable.model';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
 
 @Component({
@@ -110,12 +111,12 @@ export class CreateCandidateDialogComponent implements OnInit {
 
   save() {
     if (this.candidateCreateFormGroup.valid) {
-      this.candidateService
-        .create(this.candidateCreateFormGroup.value)
-        .subscribe(
-          (res: HttpResponse<CandidateContentModel>) => this.onCreateCandidateSuccess(res.body),
-          (res: HttpErrorResponse) => this.onError(res)
-        );
+      this.candidateService.create(this.candidateCreateFormGroup.value).subscribe(r => {
+        if (r.success)
+          this.onCreateCandidateSuccess(r.data);
+        else
+          this.onError(r.error);
+      });
     }
   }
 
@@ -127,11 +128,9 @@ export class CreateCandidateDialogComponent implements OnInit {
   }
 
 
-  private onError(httpResponse: HttpErrorResponse) {
-
-    if (httpResponse.error.message == "error.validation") {
-
-      httpResponse.error.fieldErrors.forEach((key: any, val: any) => {
+  private onError(error: any) {
+    if (error.message == "error.validation") {
+      error.fieldErrors.forEach((key: any, val: any) => {
         if (key.message == "NotNull" && key.field == 'fileId') {
           this.snackBar.open("روزمه اجباری است", "بستن", {
             duration: 2500

@@ -2,10 +2,12 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, PageEvent, MatSelectChange } from '@angular/material';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
-import { CandidateService, CandidateListRequest, JobService, CompanyPipelineService } from '@app/core';
+import { CandidateService, CandidateListRequest } from '@app/shared/services/data/candidate.service';
+import { JobService } from '@app/shared/services/data/job.service';
+import { CompanyPipelineService } from '@app/shared/services/data/company-pipeline.service';
 import { Pageable } from '@app/shared/model/pageable.model';
-import { HelpersService } from '@app/core/services/helpers.service';
-import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
+import { HelpersService } from '@app/shared/services/helpers.service';
+import { CandidateState } from '@app/shared/model/enumeration/candidate-state';
 import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.model';
 
 @Component({

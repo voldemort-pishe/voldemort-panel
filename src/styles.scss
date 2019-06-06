@@ -1,39 +1,7 @@
-@import 'styles-variables';
-
-@import '../node_modules/bootstrap/scss/bootstrap-reboot';
-@import '../node_modules/bootstrap/scss/bootstrap-grid';
-@import '../node_modules/bootstrap/scss/utilities';
-@import 'styles-reset';
-
-@import '../node_modules/@angular/material/theming';
-
-$typography: mat-typography-config(
-    $font-family:   'Vazir, Roboto, "Helvetica Neue", sans-serif',
-);
-
-@include mat-core($typography);
-
-@import 'themes/default-theme.scss';
-
-@import 'styles-reset.scss-theme';
-@import "styles-fonts";
-@import 'app/app.component.scss-theme';
-@import 'app/static/about/about.component.scss-theme';
-
-@import "./../node_modules/angular-calendar/css/angular-calendar.css";
-@import "./assets/style/custom-calender.scss";
-
-@mixin custom-components-theme($theme) {
-  @include anms-styles-reset-theme($theme);
-  @include anms-app-component-theme($theme);
-  @include anms-about-component-theme($theme);
-}
-
-.default-theme {
-  @include angular-material-theme($anms-theme);
-  @include custom-components-theme($anms-theme);
-}
-
-@import 'app/styles/classes';
+@import 'app/styles/theme';
 @import 'app/styles/overrides';
+@import 'app/styles/classes';
 @import 'app/styles/flex';
+
+@import '../node_modules/angular-calendar/css/angular-calendar';
+@import 'app/styles/custom-calender';

@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PersianNumberHelper } from "@app/core/helper/PersianNumberHelper";
 import * as moment from 'jalali-moment';
+import { HelpersService } from '../services/helpers.service';
 
 @Pipe({ name: 'jalali' })
 export class JalaliPipe implements PipeTransform {
 
-  constructor(private persianNumberHelper: PersianNumberHelper) { }
+  constructor(private helpersService: HelpersService) { }
 
   transform(value: string, style?: string): string {
     if (!value) return '';
@@ -24,6 +24,6 @@ export class JalaliPipe implements PipeTransform {
       case 'long-datetime': format = 'jYYYY/jMM/jDD - HH:mm'; break;
       default: format = style; break;
     }
-    return this.persianNumberHelper.toPersianNumber(d.locale('fa').format(format));
+    return this.helpersService.toPersianNumber(d.locale('fa').format(format));
   }
 }

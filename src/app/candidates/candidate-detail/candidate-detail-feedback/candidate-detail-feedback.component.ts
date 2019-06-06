@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedbackContentModel } from '@app/shared/model/feedback.model';
 import { ActivatedRoute } from '@angular/router';
-import { FeedbackService } from '@app/core/services/feedback.service';
-import { HelpersService } from '@app/core/services/helpers.service';
+import { AccountService } from '@app/shared/services/data/account.service';
+import { FeedbackService } from '@app/shared/services/data/feedback.service';
+import { HelpersService } from '@app/shared/services/helpers.service';
 import { FeedbackRating } from '@app/shared/model/enumeration/feedback-rating';
 import { MatDialog } from '@angular/material';
 import { SubmitFeedbackDialogComponent } from '../submit-feedback-dialog/submit-feedback-dialog.component';
-import { Principal } from '@app/core/auth/principal.service';
 import { UserModel } from '@app/shared/model/user.model';
 
 @Component({
@@ -32,9 +32,9 @@ export class CandidateDetailFeedbackComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private accountService: AccountService,
     private feedbackService: FeedbackService,
     private helpersService: HelpersService,
-    private principal: Principal,
   ) { }
 
   ngOnInit() {
@@ -56,9 +56,10 @@ export class CandidateDetailFeedbackComponent implements OnInit {
       this.isLoading = false;
       if (r.success) {
         this.feedbacks = r.data.content;
-        this.principal.identityUser().then(user =>
-          this.isUserAlreadySubmittedFeedback = r.data.content.some(f => f.data.userId === user.id)
-        );
+        this.accountService.get().subscribe(account => {
+          if (account.success)
+            this.isUserAlreadySubmittedFeedback = this.feedbacks.some(f => f.data.userId === account.data.id)
+        });
         this.generateGroups();
       }
       else {

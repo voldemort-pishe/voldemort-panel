@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatAutocomplete, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CandidateScheduleService } from '@app/core';
+import { CandidateScheduleService } from '@app/shared/services/data/candidate-schedule.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import * as jalaliMoment from "jalali-moment";
 import { CandidateScheduleMemberModel } from '@app/shared/model/candidate-schedule-member.model';
@@ -66,12 +66,10 @@ export class SubmitScheduleDialogComponent implements OnInit {
     candidateSchedule.endDate = this.candidateAddScheduleFormGroup.value.endTime;
     candidateSchedule.location = this.candidateAddScheduleFormGroup.value.location;
     if (this.candidateAddScheduleFormGroup.valid) {
-      this.candidateScheduleService
-        .create(candidateSchedule)
-        .subscribe(
-          (res: HttpResponse<CandidateScheduleContentModel>) => this.onCreateScheduleSuccess(),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
+      this.candidateScheduleService.create(candidateSchedule).subscribe(r => {
+        if (r.success)
+          this.onCreateScheduleSuccess();
+      });
     }
   }
 
@@ -80,10 +78,6 @@ export class SubmitScheduleDialogComponent implements OnInit {
     this.snackBar.open("مصاحبه با موفقیت ثبت شد", "بستن", {
       duration: 2500
     });
-  }
-
-  private onError(errorMessage: string) {
-    console.log(errorMessage);
   }
 
   private generateTime() {

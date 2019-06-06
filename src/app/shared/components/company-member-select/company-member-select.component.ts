@@ -4,7 +4,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { startWith, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
-import { CompanyMemberService } from '@app/core';
+import { CompanyMemberService } from '@app/shared/services/data/company-member.service';
 import { CompanyMemberContentModel } from '@app/shared/model/company-member.model';
 
 @Component({

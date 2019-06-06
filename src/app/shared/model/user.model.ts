@@ -1,12 +1,11 @@
-// import { UserAuthority } from "@app/shared/model/user-authority.model";
+import { AuthorityModel } from './authority.model';
 
-export class UserModel {
+export interface UserModel {
   id: number;
-  // login: string;
   firstName: string;
   lastName: string;
   email: string;
   cellphone: string;
   fileId: number;
-  // userAuthorities: Set<UserAuthority>;
+  authorities?: AuthorityModel[];
 }

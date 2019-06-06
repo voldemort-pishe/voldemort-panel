@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidateMessageService } from '@app/core';
+import { CandidateMessageService } from '@app/shared/services/data/candidate-message.service';
 import { ActivatedRoute } from '@angular/router';
 import { SendEmailDialogComponent } from '../send-email-dialog/send-email-dialog.component';
 import { MatDialog } from '@angular/material';

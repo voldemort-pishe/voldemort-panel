@@ -1,18 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
+import { HelpersService } from '../services/helpers.service';
 
-
-@Pipe({name: 'persianNumber'})
+@Pipe({ name: 'persianNumber' })
 export class PersianNumberPipePipe implements PipeTransform {
 
+  constructor(private helpersService: HelpersService) { }
 
-  constructor(private persianNumberHelper: PersianNumberHelper) {
-  }
-
-  transform(value: String): String {
-    if(value == null)
-      return null;
-
-    return this.persianNumberHelper.toPersianNumber(value.toString());
+  transform(value: string): String {
+    return this.helpersService.toPersianNumber(value);
   }
 }

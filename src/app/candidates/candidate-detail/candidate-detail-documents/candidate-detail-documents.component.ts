@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CandidateService } from '@app/core';
+import { CandidateService } from '@app/shared/services/data/candidate.service';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
 import { environment } from '@env/environment';
 

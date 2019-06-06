@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyMemberService } from '@app/core';
+import { CompanyMemberService } from '@app/shared/services/data/company-member.service';
 import { MatTableDataSource } from '@angular/material';
 import { Pageable } from '@app/shared/model/pageable.model';
 import { CompanyMemberContentModel } from '@app/shared/model/company-member.model';

@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+@import 'vazir-font';
+@import 'variables';
+
+$typography: mat-typography-config(
+    $font-family:   'Vazir, Roboto, "Helvetica Neue", sans-serif'
+);
+
+@include mat-core($typography);
+
+@include angular-material-typography($typography);
+
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);

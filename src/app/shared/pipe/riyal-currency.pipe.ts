@@ -1,26 +1,25 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {PersianNumberHelper} from "@app/core/helper/PersianNumberHelper";
-import {CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
+import { HelpersService } from '../services/helpers.service';
 
-
-@Pipe({name: 'riyalCurrency'})
+@Pipe({ name: 'riyalCurrency' })
 export class RiyalCurrencyPipe implements PipeTransform {
 
+  constructor(
+    private helpersService: HelpersService,
+    private currencyPipe: CurrencyPipe,
+  ) { }
 
-  constructor(private persianNumberHelper: PersianNumberHelper,
-              private currencyPipe: CurrencyPipe) {
-  }
-
-  transform(value: String): String {
-    if(value == null)
+  transform(value: string): string {
+    if (value == null)
       return null;
 
     let valueToString = value.toString();
-    if(valueToString.length == 0)
+    if (valueToString.length == 0)
       return null;
 
-    let converted = this.persianNumberHelper.toPersianNumber(
-      this.currencyPipe.transform(valueToString," "," ","0.0-0")
+    let converted = this.helpersService.toPersianNumber(
+      this.currencyPipe.transform(valueToString, " ", " ", "0.0-0")
     );
     return converted + ' ریال';
   }

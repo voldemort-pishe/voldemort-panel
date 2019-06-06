@@ -6,7 +6,7 @@ import { DashboardCoordinatorComponent } from './dashboard-coordinator/dashboard
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { DashboardMenuComponent } from './dashboard-menu/dashboard-menu.component';
 import { DashboardEventsComponent } from './dashboard-events/dashboard-events.component';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 import { DashboardUnreadComponent } from './dashboard-unread/dashboard-unread.component';
 import { DashboardImportantComponent } from './dashboard-important/dashboard-important.component';
 import { DashboardScheduleComponent } from './dashboard-schedule/dashboard-schedule.component';

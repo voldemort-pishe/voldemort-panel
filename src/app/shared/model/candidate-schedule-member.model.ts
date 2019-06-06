@@ -1,4 +1,4 @@
-import { CandidateScheduleMemberStatus } from './enumeration/candidate-schedule-member-status.model';
+import { CandidateScheduleMemberStatus } from './enumeration/candidate-schedule-member-status';
 
 export interface CandidateScheduleMemberModel {
     id?: number;

@@ -1,11 +1,13 @@
 import { MatPaginatorIntl } from "@angular/material";
 import { Injectable } from "@angular/core";
-import { PersianNumberHelper } from "@app/core/helper/PersianNumberHelper";
+import { HelpersService } from '@app/shared/services/helpers.service';
 
 @Injectable()
 export class PaginatorIntlFa extends MatPaginatorIntl {
 
-    constructor(private pn: PersianNumberHelper) { super(); }
+    constructor(private helpersService: HelpersService) {
+        super();
+    }
 
     nextPageLabel: string = 'صفحه بعد';
     previousPageLabel: string = 'صفحه قبل';
@@ -14,8 +16,13 @@ export class PaginatorIntlFa extends MatPaginatorIntl {
     itemsPerPageLabel: string = 'تعداد آیتم در هر صفحه:';
 
     getRangeLabel = (page: number, pageSize: number, length: number) => {
-        let from = page * pageSize + 1;
-        let to = Math.min((page + 1) * pageSize, length);
-        return `${this.pn.toPersianNumber(from)} - ${this.pn.toPersianNumber(to)} از ${this.pn.toPersianNumber(length)}`;
+        const from = page * pageSize + 1;
+        const to = Math.min((page + 1) * pageSize, length);
+
+        const fromFa = this.helpersService.toPersianNumber(from.toString());
+        const toFa = this.helpersService.toPersianNumber(to.toString());
+        const lengthFa = this.helpersService.toPersianNumber(length.toString());
+
+        return `${fromFa} - ${toFa} از ${lengthFa}`;
     };
 }

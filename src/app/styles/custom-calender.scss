@@ -1,0 +1,75 @@
+.cal-month-view {
+  .cal-header {
+    .cal-cell {
+      background-color: #3b3790e3;
+      color: #fff;
+      font-weight: normal;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #3b3790e3;
+      }
+    }
+  }
+
+  .cal-cell-top {
+    min-height: 137px;
+    text-align: left;
+  }
+
+  .cal-day-badge {
+    background-color: #3b3790e3;
+  }
+
+  .cal-day-cell.cal-weekend .cal-day-number {
+    color: #3b3790e3;
+  }
+
+  .cal-day-cell.cal-today {
+    background-color: #f1f2f9;
+  }
+
+  .cal-open-day-events {
+    background-color: #9E9E9E;
+  }
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 0;
+  font-weight: normal;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #f9f9f9;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 2px;
+  font-weight: normal;
+  border-right-width: 0;
+  border-left-width: 0;
+  border-top-width: 0;
+}
+
+.table th,
+.table td {
+  border: none;
+}
+
+.cal-month-view .cal-open-day-events {
+  text-align: right;
+}
+
+.cal-month-view .cal-open-day-events .cal-event {
+  position: relative;
+  top: 5px;
+  float: right;
+  right: -5px;
+}
+
+.cal-month-view .cal-day-cell:not(:first-child) {
+  border-right: 1px solid #e1e1e1;
+}

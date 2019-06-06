@@ -1,0 +1,42 @@
+@import '../../styles/variables';
+
+$navbar-height: 64px;
+
+.mat-toolbar {
+  background-color: $toolbar-color;
+  height: $navbar-height;
+  position: relative;
+  z-index: 1000;
+
+  h1 {
+    font-size: 26px;
+  }
+}
+
+.mat-sidenav {
+  padding-top: 10px;
+
+  .mat-list-item.active {
+    background: #fff;
+    color: $accent-color;
+
+    &:hover {
+      background-color: white !important;
+    }
+  }
+
+  .mat-icon {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.mat-sidenav-container {
+  height: calc(100% - #{$navbar-height});
+  overflow: auto;
+}
+
+.mat-sidenav-content {
+  position: relative;
+}

@@ -1,5 +1,11 @@
-.container-fluid {
-  padding-left: 0;
+.mat-nav-list {
+  width: 250px;
+  padding: 20px;
+}
+
+.mat-list-item-focus {
+  background: white;
+  color: #00A6EA !important;
 }
 
 .page {

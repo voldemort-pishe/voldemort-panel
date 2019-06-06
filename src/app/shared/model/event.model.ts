@@ -1,6 +1,6 @@
-import { EventType } from "@app/shared/model/enumeration/event-type.model";
-import { EventStatus } from "@app/shared/model/enumeration/event-status.model";
 import { UserModel } from './user.model';
+import { EventType } from './enumeration/event-type';
+import { EventStatus } from './enumeration/event-status';
 
 export interface EventModel {
   id: number;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JobHireTeamService } from '@app/core';
+import { JobHireTeamService } from '@app/shared/services/data/job-hire-team.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
 import { JobHireTeamRole } from '@app/shared/model/enumeration/job-hire-team-role';

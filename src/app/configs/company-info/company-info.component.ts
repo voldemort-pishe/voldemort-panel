@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CompanyService } from '@app/core';
-import { HelpersService } from '@app/core/services/helpers.service';
+import { CompanyService } from '@app/shared/services/data/company.service';
+import { HelpersService } from '@app/shared/services/helpers.service';
 import { CompanyContentModel } from '@app/shared/model/company.model';
 
 @Component({

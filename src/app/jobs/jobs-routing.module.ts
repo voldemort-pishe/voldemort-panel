@@ -10,12 +10,12 @@ const routes: Routes = [
     {
         path: '',
         component: JobListComponent,
-        data: { title: 'anms.job' },
+        data: { title: 'مشاغل' },
     },
     {
         path: ':id',
         component: JobDetailComponent,
-        data: { title: 'anms.job' },
+        data: { title: 'جزئیات شغل' },
         children: [
             { path: '', redirectTo: 'info' },
             { path: 'info', component: JobInfoComponent },

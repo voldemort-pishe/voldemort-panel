@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import { SharedModule } from '@app/shared/shared.module';
 import { CandidateDetailRoutingModule } from './candidate-detail-routing.module';
-import { SharedModule } from '@app/shared';
 import { CandidateDetailCoordinatorComponent } from './candidate-detail-coordinator/candidate-detail-coordinator.component';
 import { CandidateDetailHeaderComponent } from './candidate-detail-header/candidate-detail-header.component';
 import { CandidateDetailBackgroundComponent } from './candidate-detail-background/candidate-detail-background.component';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CandidateScheduleService } from '@app/core';
+import { CandidateScheduleService } from '@app/shared/services/data/candidate-schedule.service';
 import { MatDialog } from '@angular/material';
 import { SubmitScheduleDialogComponent } from '../submit-schedule-dialog/submit-schedule-dialog.component';
 import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';

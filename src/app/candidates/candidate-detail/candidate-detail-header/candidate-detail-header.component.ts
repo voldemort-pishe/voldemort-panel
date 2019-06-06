@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidateService, CompanyPipelineService } from '@app/core';
+import { CandidateService } from '@app/shared/services/data/candidate.service';
+import { CompanyPipelineService } from '@app/shared/services/data/company-pipeline.service';
 import { ActivatedRoute } from '@angular/router';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
-import { HelpersService } from '@app/core/services/helpers.service';
+import { HelpersService } from '@app/shared/services/helpers.service';
 import { MatSelectChange } from '@angular/material';
 import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.model';
 

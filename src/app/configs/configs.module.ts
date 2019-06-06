@@ -6,7 +6,7 @@ import { ConfigsComponent } from './configs/configs.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { CompanyMemberListComponent } from './company-member-list/company-member-list.component';
 import { TransactionsComponent } from './transactions/transactions.component';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [

@@ -1,9 +1,9 @@
-import { LanguageType } from "@app/shared/model/enumeration/language-type.model";
-import { JobType } from "@app/shared/model/enumeration/job-type.model";
-import { JobStatus } from "@app/shared/model/enumeration/job-status.model";
 import { FileModel } from './file.model';
 import { UserModel } from './user.model';
 import { CompanyModel } from './company.model';
+import { LanguageType } from './enumeration/language-type';
+import { JobType } from './enumeration/job-type';
+import { JobStatus } from './enumeration/job-status';
 
 export interface JobModel {
   id?: number;

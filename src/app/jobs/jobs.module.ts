@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JobListComponent } from './job-list/job-list.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { CreateJobComponent } from './create-job/create-job.component';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JobInfoComponent } from './job-info/job-info.component';
 import { JobHiringTeamComponent } from './job-hiring-team/job-hiring-team.component';

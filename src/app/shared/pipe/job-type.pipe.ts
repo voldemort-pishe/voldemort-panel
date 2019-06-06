@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { JobType } from '../model/enumeration/job-type.model';
+import { JobType } from '../model/enumeration/job-type';
 
 @Pipe({ name: 'jobType' })
 export class JobTypePipe implements PipeTransform {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventStatus } from '@app/shared/model/enumeration/event-status.model';
+import { EventStatus } from '@app/shared/model/enumeration/event-status';
 
 @Component({
   selector: 'anms-dashboard-important',

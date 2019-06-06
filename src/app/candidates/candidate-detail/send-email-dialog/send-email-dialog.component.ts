@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { CandidateMessageService } from '@app/core';
+import { CandidateMessageService } from '@app/shared/services/data/candidate-message.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -36,12 +36,10 @@ export class SendEmailDialogComponent implements OnInit {
     this.candidateEmailFormGroup.patchValue({
       candidateId: this.data.candidateId
     });
-    this.candidateMessageService
-      .create(this.candidateEmailFormGroup.value)
-      .subscribe(
-        (res: HttpResponse<any>) => this.onCandidateMessageSuccess(),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    this.candidateMessageService.create(this.candidateEmailFormGroup.value).subscribe(r => {
+      if (r.success)
+        this.onCandidateMessageSuccess();
+    });
   }
 
   private onCandidateMessageSuccess() {
@@ -49,9 +47,5 @@ export class SendEmailDialogComponent implements OnInit {
     this.snackBar.open("پیام شما با موفقیت ارسال شد", "بستن", {
       duration: 2500
     });
-  }
-
-  private onError(errorMessage: string) {
-    console.log(errorMessage);
   }
 }

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CandidateScheduleMemberStatus } from '../model/enumeration/candidate-schedule-member-status.model';
+import { CandidateScheduleMemberStatus } from '../model/enumeration/candidate-schedule-member-status';
 
 @Pipe({ name: 'candidateScheduleMemberStatus' })
 export class CandidateScheduleMemberStatusPipe implements PipeTransform {

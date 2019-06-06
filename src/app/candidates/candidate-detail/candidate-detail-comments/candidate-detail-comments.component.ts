@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommentService } from '@app/core';
+import { CommentService } from '@app/shared/services/data/comment.service';
 import { ActivatedRoute } from '@angular/router';
-import { Principal } from '@app/core/auth/principal.service';
 import { UserModel } from '@app/shared/model/user.model';
 import { CommentModel, CommentContentModel } from '@app/shared/model/comment.model';
-import { HelpersService } from '@app/core/services/helpers.service';
+import { HelpersService } from '@app/shared/services/helpers.service';
+import { AccountService } from '@app/shared/services/data/account.service';
 
 @Component({
   selector: 'anms-candidate-detail-comments',
@@ -25,9 +25,9 @@ export class CandidateDetailCommentsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private accountService: AccountService,
     private commentsService: CommentService,
     private helpersService: HelpersService,
-    private principal: Principal,
   ) { }
 
   ngOnInit() {
@@ -39,7 +39,9 @@ export class CandidateDetailCommentsComponent implements OnInit {
       }
     });
 
-    this.principal.identityUser().then(r => this.identityUser = r);
+    this.accountService.get().subscribe(r => {
+      this.identityUser = r.data;
+    });
   }
 
   fetch() {

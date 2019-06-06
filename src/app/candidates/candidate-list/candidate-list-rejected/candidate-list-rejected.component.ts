@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidateState } from '@app/shared/model/enumeration/candidate-state.model';
+import { CandidateState } from '@app/shared/model/enumeration/candidate-state';
 
 @Component({
   selector: 'anms-candidate-list-rejected',

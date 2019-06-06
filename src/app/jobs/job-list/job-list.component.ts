@@ -1,11 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { CandidateService } from "@app/core/services/candidate.service";
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { MatDialog, MatTableDataSource, PageEvent } from "@angular/material";
-import { SelectionModel } from "@angular/cdk/collections";
-import { CompanyPipelineService } from "@app/core/services/company-pipeline.service";
-import { JobService } from "@app/core/services/job.service";
-import { JobStatus } from "@app/shared/model/enumeration/job-status.model";
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { JobService } from '@app/shared/services/data/job.service';
+import { JobStatus } from '@app/shared/model/enumeration/job-status';
 import { CreateJobComponent } from '../create-job/create-job.component';
 import { JobContentModel } from '@app/shared/model/job.model';
 import { Pageable } from '@app/shared/model/pageable.model';
@@ -29,11 +26,10 @@ export class JobListComponent implements OnInit {
   showClearFilter: boolean = false;
   searchKeyword = null;
 
-  constructor(private candidateService: CandidateService,
-    private companyPipelineService: CompanyPipelineService,
+  constructor(
     private jobService: JobService,
-    private dialog: MatDialog) {
-  }
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     this.loadAll()
@@ -67,50 +63,37 @@ export class JobListComponent implements OnInit {
     }
 
     this.selectedFilter = 'ALL';
-    this.jobService
-      .loadAllPageable(
-        "createdDate,desc",
-        pageIndex,
-        pageSize
-      )
-      .subscribe(
-        (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      )
+    this.jobService.getList({ page: pageIndex, size: pageSize, sort: 'createdDate,desc' }).subscribe(r => {
+      if (r.success)
+        this.onJobSuccess(r.data);
+    });
   }
 
-
-  applyFilterByStatus(status: string) {
+  applyFilterByStatus(status: JobStatus) {
     this.isLoading = true;
     this.selectedFilter = status;
-    this.jobService
-      .search('status=' + status, "createdDate,desc")
-      .subscribe(
-        (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      )
+    this.jobService.getList({ status: status, sort: 'createdDate,desc' }).subscribe(r => {
+      if (r.success)
+        this.onJobSuccess(r.data);
+    });
   }
-
 
   applyFilterBySearch(search: string) {
     this.showClearFilter = true;
     if (search.length >= 3) {
       this.isLoading = true;
-      if (this.selectedFilter != 'ALL') {
-        this.jobService
-          .searchByMultiField('status=' + this.selectedFilter, 'search=' + search, "createdDate,desc")
-          .subscribe(
-            (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
-            (res: HttpErrorResponse) => this.onError(res.message)
-          );
-      } else {
-        this.jobService
-          .search('search=' + search, "createdDate,desc")
-          .subscribe(
-            (res: HttpResponse<Pageable<JobContentModel>>) => this.onJobSuccess(res.body),
-            (res: HttpErrorResponse) => this.onError(res.message)
-          );
-      }
+
+      const params = {
+        search: search,
+        sort: 'createdDate,desc',
+      };
+      if (this.selectedFilter != 'ALL')
+        params['status'] = this.selectedFilter;
+
+      this.jobService.getList(params).subscribe(r => {
+        if (r.success)
+          this.onJobSuccess(r.data);
+      });
     }
   }
 
@@ -124,11 +107,6 @@ export class JobListComponent implements OnInit {
     this.dataSourceRaw = data;
     this.dataSource = new MatTableDataSource<JobContentModel>(data.content);
     this.isLoading = false;
-  }
-
-
-  private onError(errorMessage: string) {
-    console.log(errorMessage);
   }
 
   openCreateJobDialog() {

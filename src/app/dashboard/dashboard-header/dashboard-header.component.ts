@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidateScheduleService } from '@app/core';
+import { AccountService } from '@app/shared/services/data/account.service';
+import { CandidateScheduleService } from '@app/shared/services/data/candidate-schedule.service';
 import * as moment from 'jalali-moment';
-import { Principal } from '@app/core/auth/principal.service';
 import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';
 
 @Component({
@@ -22,7 +22,7 @@ export class DashboardHeaderComponent implements OnInit {
   userFirstName: string;
 
   constructor(
-    private principal: Principal,
+    private accountService: AccountService,
     private candidateScheduleService: CandidateScheduleService,
   ) { }
 
@@ -30,9 +30,10 @@ export class DashboardHeaderComponent implements OnInit {
     this.fetch();
     this.generateGreeting();
 
-    this.principal.identity()
-      .then(r => this.userFirstName = r.firstName);
-
+    this.accountService.get().subscribe(r => {
+      if (r.success)
+        this.userFirstName = r.data.firstName;
+    });
   }
 
   fetch() {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { JobService } from "@app/core";
+import { JobService } from '@app/shared/services/data/job.service';
 import { JobContentModel } from '@app/shared/model/job.model';
 
 @Component({

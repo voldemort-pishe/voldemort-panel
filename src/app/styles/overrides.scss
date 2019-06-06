@@ -1,3 +1,28 @@
+@import 'variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+  // border-bottom: 1px dotted $accent-color !important;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
+
 .mat-icon {
   vertical-align: middle;
 }
@@ -8,4 +33,10 @@
 .mat-dialog-actions .mat-raised-button+.mat-raised-button {
   margin-right: 8px !important;
   margin-left: 0 !important;
+}
+
+.mat-list .mat-list-item,
+.mat-nav-list .mat-list-item,
+.mat-selection-list .mat-list-item {
+  color: #B3B3B3;
 }
