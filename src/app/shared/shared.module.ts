@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { RiyalCurrencyPipe } from './pipe/riyal-currency.pipe';
 import { PersianNumberPipePipe } from './pipe/persian-number.pipe';
 import { JalaliPipe } from './pipe/jalali.pipe';
@@ -27,7 +26,6 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     ReactiveFormsModule,
     MaterialModule,
     AvatarModule,
-    TranslateModule,
     RouterModule,
   ],
   declarations: [
@@ -57,7 +55,6 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
 
     MaterialModule,
     AvatarModule,
-    TranslateModule,
 
     RiyalCurrencyPipe,
     PersianNumberPipePipe,
