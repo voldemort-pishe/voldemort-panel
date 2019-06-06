@@ -21,7 +21,7 @@
 
         <div *ngIf="candidateSchedules.length > 0" class="fx-row-wrap fx-gap-15 events">
           <a *ngFor="let event of candidateSchedules" class="event"
-            [routerLink]="['/', 'candidate', event.include.candidate.id]">
+            [routerLink]="['/', 'candidates', event.include.candidate.id]">
             <div class="horizontal-gap-10">
               <mat-icon [inline]="true">access_time</mat-icon>
               <span>{{event.data.startDate | jalali: 'short-time'}}</span>
