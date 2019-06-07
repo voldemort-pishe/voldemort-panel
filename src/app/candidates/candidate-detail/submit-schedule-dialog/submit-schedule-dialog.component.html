@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <h2 mat-dialog-title>تنظیم مصاحبه</h2>
 
-  <mat-dialog-content>
+  <mat-dialog-content class="vertical-gap-10">
     <div class="fx-row fx-start-center fx-gap-20">
       <mat-form-field class="fx-auto date-picker">
         <input matInput [matDatepicker]="picker" (focus)="picker.open()" placeholder="تاریخ" [(ngModel)]="selectedDate"
