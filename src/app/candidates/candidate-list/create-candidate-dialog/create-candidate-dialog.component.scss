@@ -1,3 +1,10 @@
+.fields {
+  .mat-form-field {
+    width: calc(33% - 16px);
+    margin: 8px;
+  }
+}
+
 .mat-dialog-title .mat-icon {
   vertical-align: middle;
 }
@@ -9,10 +16,6 @@
 
   .create-candidate-form form .row [class*="col-"]>* {
     width: 100%;
-  }
-
-  .mat-form-field {
-    margin: 0 0 5px 0;
   }
 }
 

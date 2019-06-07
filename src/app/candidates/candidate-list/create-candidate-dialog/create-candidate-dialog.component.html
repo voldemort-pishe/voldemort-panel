@@ -1,124 +1,101 @@
 <h2 mat-dialog-title>
   <mat-icon>person</mat-icon> افزودن کارجو
 </h2>
+
 <mat-dialog-content>
+  <form [formGroup]="candidateCreateFormGroup" #candidateCreateForm="ngForm" id="ngForm" (ngSubmit)="save()">
+    <div class="fx-row-wrap fields">
+      <mat-form-field>
+        <input matInput type="text" placeholder="نام" formControlName="firstName">
+        <mat-error *ngIf="candidateCreateFormGroup.get('firstName')?.errors?.required">نام اجباری است
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="نام خانوادگی" formControlName="lastName">
+        <mat-error *ngIf="candidateCreateFormGroup.get('lastName')?.errors?.required">نام خانوادگی اجباری است
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="وضعیت" formControlName="state">
+          <mat-option value="">انتخاب کنید</mat-option>
+          <mat-option *ngFor="let state of candidateState" value="{{state.key}}">{{state.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="candidateCreateFormGroup.get('state')?.errors?.required">وضعیت اجباری است
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput class="ltr" type="text" placeholder="تلفن همراه" formControlName="cellphone">
+        <mat-error *ngIf="candidateCreateFormGroup.get('cellphone')?.errors?.required">تلفن همراه اجیاری است
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput class="ltr" type="email" placeholder="پست الکترونیکی" formControlName="email">
+        <mat-error *ngIf="candidateCreateFormGroup.get('email')?.errors?.required">پست الکترونیکی اجباری است
+        </mat-error>
+        <mat-error *ngIf="candidateCreateFormGroup.get('email')?.errors?.email">پست الکترونیکی صحیح نیست
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="نوع کارجو" formControlName="type">
+          <mat-option value="">انتخاب کنید</mat-option>
+          <mat-option *ngFor="let type of candidateType" value="{{type.key}}">{{type.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="candidateCreateFormGroup.get('type')?.errors?.required">نوع کارجو اجباری است
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="مرحله" formControlName="candidatePipeline">
+          <mat-option value="">انتخاب کنید</mat-option>
+          <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">
+            {{pipeline.data.title}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="candidateCreateFormGroup.get('candidatePipeline')?.errors?.required">مرحله اجباری
+          است</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="کارفرما" formControlName="employer">
+        <mat-error *ngIf="candidateCreateFormGroup.get('employer')?.errors?.required">کارفرما اجباری است
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="jobId" placeholder="موقعیت شغلی">
+          <mat-option value="">انتخاب کنید</mat-option>
+          <mat-option *ngFor="let items of jobList" value="{{items.data.id}}">{{items.data.nameFa}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="candidateCreateFormGroup.get('jobId')?.errors?.required">موقعیت شغلی اجباری است
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-  <div class="row">
-    <div class="col-sm-12">
-
-      <div class="candidate-form-container">
-
-        <div class="create-candidate-form">
-          <form [formGroup]="candidateCreateFormGroup" #candidateCreateForm="ngForm" id="ngForm" (ngSubmit)="save()">
-            <div class="row">
-              <div class="col-sm-4">
-                <mat-form-field>
-                  <input matInput type="text" placeholder="نام" formControlName="firstName">
-                  <mat-error *ngIf="candidateCreateFormGroup.get('firstName')?.errors?.required">نام اجباری است
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput type="text" placeholder="نام خانوادگی" formControlName="lastName">
-                  <mat-error *ngIf="candidateCreateFormGroup.get('lastName')?.errors?.required">نام خانوادگی اجباری است
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="وضعیت" formControlName="state">
-                    <mat-option value="">انتخاب کنید</mat-option>
-                    <mat-option *ngFor="let state of candidateState" value="{{state.key}}">{{state.value}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="candidateCreateFormGroup.get('state')?.errors?.required">وضعیت اجباری است
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-sm-4">
-                <mat-form-field>
-                  <input matInput class="ltr" type="text" placeholder="تلفن همراه" formControlName="cellphone">
-                  <mat-error *ngIf="candidateCreateFormGroup.get('cellphone')?.errors?.required">تلفن همراه اجیاری است
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput class="ltr" type="email" placeholder="پست الکترونیکی" formControlName="email">
-                  <mat-error *ngIf="candidateCreateFormGroup.get('email')?.errors?.required">پست الکترونیکی اجباری است
-                  </mat-error>
-                  <mat-error *ngIf="candidateCreateFormGroup.get('email')?.errors?.email">پست الکترونیکی صحیح نیست
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="نوع کارجو" formControlName="type">
-                    <mat-option value="">انتخاب کنید</mat-option>
-                    <mat-option *ngFor="let type of candidateType" value="{{type.key}}">{{type.value}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="candidateCreateFormGroup.get('type')?.errors?.required">نوع کارجو اجباری است
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-sm-4">
-                <mat-form-field>
-                  <mat-select placeholder="مرحله" formControlName="candidatePipeline">
-                    <mat-option value="">انتخاب کنید</mat-option>
-                    <mat-option *ngFor="let pipeline of companyPipeline" value="{{pipeline.data.id}}">
-                      {{pipeline.data.title}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="candidateCreateFormGroup.get('candidatePipeline')?.errors?.required">مرحله اجباری
-                    است</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput type="text" placeholder="کارفرما" formControlName="employer">
-                  <mat-error *ngIf="candidateCreateFormGroup.get('employer')?.errors?.required">کارفرما اجباری است
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select formControlName="jobId" placeholder="موقعیت شغلی">
-                    <mat-option value="">انتخاب کنید</mat-option>
-                    <mat-option *ngFor="let items of jobList" value="{{items.data.id}}">{{items.data.nameFa}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="candidateCreateFormGroup.get('jobId')?.errors?.required">موقعیت شغلی اجباری است
-                  </mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <div *ngIf="!uploadSuccessful" class="container">
-                  <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
-                  <div>
-                    <button *ngIf="!uploading" mat-raised-button color="primary" class="add-files-btn"
-                      (click)="addFiles()">
-                      افزودن روزمه
-                    </button>
-                  </div>
-
-                  <mat-list>
-                    <mat-list-item *ngFor="let file of files">
-                      <h4 mat-line>{{file.name}}</h4>
-                      <mat-progress-bar *ngIf="progress" mode="determinate"
-                        [value]="progress[file.name].progress | async"></mat-progress-bar>
-                    </mat-list-item>
-                  </mat-list>
-                </div>
-
-                <div *ngIf="uploadSuccessful">
-                  <p class="upload-successful">
-                    <mat-icon>done</mat-icon> رزومه با موفقیت بارگزاری شد
-                  </p>
-                </div>
-
-              </div>
-            </div>
-          </form>
+    <div>
+      <div *ngIf="!uploadSuccessful" class="container">
+        <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+        <div>
+          <button *ngIf="!uploading" mat-raised-button color="primary" class="add-files-btn" (click)="addFiles()">
+            افزودن روزمه
+          </button>
         </div>
 
+        <mat-list>
+          <mat-list-item *ngFor="let file of files">
+            <h4 mat-line>{{file.name}}</h4>
+            <mat-progress-bar *ngIf="progress" mode="determinate" [value]="progress[file.name].progress | async">
+            </mat-progress-bar>
+          </mat-list-item>
+        </mat-list>
       </div>
 
+      <div *ngIf="uploadSuccessful">
+        <p class="upload-successful">
+          <mat-icon>done</mat-icon> رزومه با موفقیت بارگزاری شد
+        </p>
+      </div>
     </div>
-  </div>
-
+  </form>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+
+<mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>انصراف</button>
   <button mat-raised-button cdkFocusInitial color="primary" form="ngForm">
     <mat-icon>save</mat-icon>
