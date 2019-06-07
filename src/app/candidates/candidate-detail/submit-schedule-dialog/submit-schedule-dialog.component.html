@@ -1,75 +1,48 @@
-<h2 mat-dialog-title>
-  <mat-icon>schedule</mat-icon> تنظیم مصاحبه
-</h2>
-<mat-dialog-content>
+<form [formGroup]="form">
+  <h2 mat-dialog-title>تنظیم مصاحبه</h2>
 
-  <div class="row">
-    <div class="col-sm-12">
+  <mat-dialog-content>
+    <div class="fx-row fx-start-center fx-gap-20">
+      <mat-form-field class="fx-auto date-picker">
+        <input matInput [matDatepicker]="picker" (focus)="picker.open()" placeholder="تاریخ" [(ngModel)]="selectedDate"
+          [ngModelOptions]="{standalone: true}" readonly required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-      <div class="add-schedule-container">
+      <mat-form-field class="fx-auto">
+        <mat-select [(ngModel)]="startTime" [ngModelOptions]="{standalone: true}" placeholder="ساعت شروع" required>
+          <mat-option *ngFor="let time of timesteps" [value]="time">
+            {{time | jalali: 'HH:mm'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <div class="add-schedule-candidate-form">
-          <form [formGroup]="candidateAddScheduleFormGroup" #candidateAddScheduleFormG="ngForm" id="ngForm"
-            (ngSubmit)="addSchedule()">
-            <div class="row">
-              <div class="col-sm-4">
-                <mat-form-field>
-                  <input placeholder="تاریخ" matInput [matDatepicker]="dp" formControlName="date" [min]="today"
-                    (dateChange)="onDateChange($event)" autocomplete="off">
-                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                  <mat-datepicker #dp></mat-datepicker>
-                </mat-form-field>
-              </div>
-
-              <div class="col-sm-4">
-                <mat-form-field>
-                  <mat-select formControlName="startTime" placeholder="ساعت شروع">
-                    <mat-option *ngFor="let time of timeList" [value]="time">
-                      {{time.format("HH:mm")}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-
-              <div class="col-sm-4">
-                <mat-form-field>
-                  <mat-select formControlName="endTime" placeholder="ساعت پایان">
-                    <mat-option *ngFor="let time of timeList" [value]="time">
-                      {{time.format("HH:mm")}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-
-            </div>
-            <div class="row ">
-              <div class="col-sm-12">
-                <mat-form-field>
-                  <input placeholder="محل" formControlName="location" matInput type="text" autocomplete="off">
-                </mat-form-field>
-
-                <mat-form-field>
-                  <textarea matInput formControlName="description" placeholder="توضیحات"></textarea>
-                </mat-form-field>
-
-                <anms-company-member-select label="اعضای حاضر در جلسه"
-                  (selectedMembersChange)="onSelectedMembersChange($event)">
-                </anms-company-member-select>
-              </div>
-            </div>
-          </form>
-        </div>
-
-      </div>
-
+      <mat-form-field class="fx-auto">
+        <mat-select [(ngModel)]="endTime" [ngModelOptions]="{standalone: true}" placeholder="ساعت پایان" required>
+          <mat-option *ngFor="let time of timesteps" [value]="time">
+            {{time | jalali: 'HH:mm'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  </div>
 
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close>انصراف</button>
-  <button mat-raised-button cdkFocusInitial color="primary" form="ngForm">
-    ثبت
-    <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
-  </button>
-</mat-dialog-actions>
+    <mat-form-field class="full-width">
+      <input matInput type="text" formControlName="location" placeholder="محل" autocomplete="off" required>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <textarea matInput type="text" formControlName="description" placeholder="توضیحات" required></textarea>
+    </mat-form-field>
+
+    <anms-company-member-select label="اعضای حاضر در جلسه" (selectedMembersChange)="onSelectedMembersChange($event)">
+    </anms-company-member-select>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close cdkFocusInitial>لغو</button>
+    <button mat-button type="submit" color="primary" (click)="submit()" [disabled]="form.invalid">
+      <span *appLoading="isLoading; button:true;">ثبت</span>
+    </button>
+  </mat-dialog-actions>
+</form>

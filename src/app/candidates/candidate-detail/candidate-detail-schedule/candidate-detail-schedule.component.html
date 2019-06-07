@@ -21,9 +21,9 @@
 
         <mat-card-subtitle>
           <span>از ساعت&nbsp;</span>
-          <span>{{schedule.data.startDate | jalali: 'H:m'}}</span>
+          <span>{{schedule.data.startDate | jalali: 'HH:mm'}}</span>
           <span>&nbsp;تا&nbsp;</span>
-          <span>{{schedule.data.endDate | jalali: 'H:m'}}</span>
+          <span>{{schedule.data.endDate | jalali: 'HH:mm'}}</span>
         </mat-card-subtitle>
 
         <mat-card-content class="vertical-gap-20">
@@ -50,7 +50,7 @@
               </ngx-avatar>
               <div>
                 <div class="mat-body-2">{{schedule.include.memberUsers[i] | fullName}}</div>
-                <div class="mat-small">{{member.status | candidateScheduleMemberStatus}}</div>
+                <div *ngIf="member.status" class="mat-small">{{member.status | candidateScheduleMemberStatus}}</div>
               </div>
             </div>
           </div>

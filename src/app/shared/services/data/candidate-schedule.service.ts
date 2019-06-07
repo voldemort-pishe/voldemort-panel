@@ -5,15 +5,15 @@ import * as jmoment from 'jalali-moment';
 import { Moment } from 'jalali-moment';
 import { ApiService, ApiResponse } from '../api.service';
 import { Pageable } from '@app/shared/model/pageable.model';
-import { CandidateScheduleModel, CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';
+import { CandidateScheduleContentModel } from '@app/shared/model/candidate-schedule.model';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateScheduleService {
 
   constructor(private api: ApiService) { }
 
-  create(candidateSchedule: CandidateScheduleModel): Observable<ApiResponse<CandidateScheduleContentModel>> {
-    return this.api.post<CandidateScheduleContentModel>('candidate-schedule', candidateSchedule);
+  create(data: any): Observable<ApiResponse<CandidateScheduleContentModel>> {
+    return this.api.post<CandidateScheduleContentModel>('candidate-schedule', data);
   }
 
   // duplicate of getList
