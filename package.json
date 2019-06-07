@@ -7,6 +7,7 @@
     "start": "ng serve",
     "local": "ng serve --proxyConfig proxy-local.conf.json",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "npm run lint && ng test --configuration=test",
     "lint": "ng lint",
     "e2e": "ng e2e",
