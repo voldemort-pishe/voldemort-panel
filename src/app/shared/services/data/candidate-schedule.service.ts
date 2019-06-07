@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as jmoment from 'jalali-moment';
 import { Moment } from 'jalali-moment';
 import { ApiService, ApiResponse } from '../api.service';
 import { Pageable } from '@app/shared/model/pageable.model';
@@ -34,13 +32,13 @@ export class CandidateScheduleService {
   //   return this.api.get<Pageable<CandidateScheduleContentModel>>(`candidate-schedule/candidate/${id}`)
   // }
 
-  private convertDateArrayFromServer(res: HttpResponse<Pageable<CandidateScheduleContentModel>>): HttpResponse<Pageable<CandidateScheduleContentModel>> {
-    res.body.content.forEach((candidateSchedule: CandidateScheduleContentModel) => {
-      (candidateSchedule.data as any).startDate = candidateSchedule.data.startDate != null ? jmoment(candidateSchedule.data.startDate) : null;
-      (candidateSchedule.data as any).endDate = candidateSchedule.data.endDate != null ? jmoment(candidateSchedule.data.endDate) : null;
-    });
-    return res;
-  }
+  // private convertDateArrayFromServer(res: HttpResponse<Pageable<CandidateScheduleContentModel>>): HttpResponse<Pageable<CandidateScheduleContentModel>> {
+  //   res.body.content.forEach((candidateSchedule: CandidateScheduleContentModel) => {
+  //     (candidateSchedule.data as any).startDate = candidateSchedule.data.startDate != null ? jmoment(candidateSchedule.data.startDate) : null;
+  //     (candidateSchedule.data as any).endDate = candidateSchedule.data.endDate != null ? jmoment(candidateSchedule.data.endDate) : null;
+  //   });
+  //   return res;
+  // }
 
   // TODO ?
   // private convertDateFromClient(dateRange: DateRange): DateRange {

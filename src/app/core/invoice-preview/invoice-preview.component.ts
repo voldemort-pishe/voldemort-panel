@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { InvoiceModel } from "@app/shared/model/invoice.model";
-import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
 import { PaymentModel } from "@app/shared/model/payment.model";
 import { UserPlanService } from '@app/shared/services/data/user-plan.service';
 import { PaymentService } from '@app/shared/services/data/payment.service';

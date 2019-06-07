@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { CandidateMessageService } from '@app/shared/services/data/candidate-message.service';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'anms-send-email-dialog',

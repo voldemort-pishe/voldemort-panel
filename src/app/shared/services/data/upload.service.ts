@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpEventType, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 
-import {environment as env} from '@env/environment';
-import {UploadResponse} from "@app/shared/model/upload-response.model";
+import { environment as env } from '@env/environment';
+import { UploadResponse } from "@app/shared/model/upload-response.model";
+import { AuthService } from '../auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
@@ -11,9 +12,10 @@ export class UploadService {
   response: UploadResponse;
   private resourceUrl = env.serverApiUrl + 'file';
 
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService,
+    private http: HttpClient) { }
 
-  public upload(files: Set<File>): {[key:string]:Observable<number>}  {
+  public upload(files: Set<File>): { [key: string]: Observable<number> } {
     const result = {};
 
     files.forEach(file => {
@@ -22,7 +24,10 @@ export class UploadService {
       formData.append('file', file, file.name);
 
       const req = new HttpRequest('POST', `${this.resourceUrl}/upload`, formData, {
-        reportProgress: true
+        reportProgress: true,
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.authService.authToken}`
+        }),
       });
 
       const progress = new Subject<number>();
@@ -35,7 +40,7 @@ export class UploadService {
 
         } else if (event instanceof HttpResponse) {
           result['response'] = {
-            body : event.body
+            body: event.body
           };
           progress.complete();
         }
