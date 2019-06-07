@@ -13,3 +13,15 @@ $typography: mat-typography-config(
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 @include angular-material-theme($app-theme);
+
+.primary-color {
+    color: $primary-color !important;
+}
+
+.accent-color {
+    color: $accent-color !important;
+}
+
+.warn-color {
+    color: $warn-color !important;
+}

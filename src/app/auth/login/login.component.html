@@ -1,21 +1,29 @@
-<div class="full-height container">
-  <mat-card class="vertical-center">
-    <mat-card-header class="text-center">
-      <mat-card-title>ورود</mat-card-title>
-      <mat-card-subtitle>لطفا نام کاربری یا پست الکترونیک خود را وارد نمایید.</mat-card-subtitle>
-    </mat-card-header>
+<div class="fx-row fx-center-center full-height scrollable-list container">
+  <mat-card class="vertical-gap-10">
+    <div class="text-center title">
+      <mat-icon color="primary" svgIcon="logo"></mat-icon>
+      <h3>سامانه مدیریت کارجویان</h3>
+      <h1>پیشه</h1>
+    </div>
 
     <mat-card-content>
       <form [formGroup]="form" class="vertical-gap-20">
         <mat-form-field class="full-width ltr-input">
           <input matInput type="email" name="email" placeholder="ایمیل" formControlName="email" required>
-          <mat-error *ngIf="emailCtrl.invalid">{{emailCtrlError}}</mat-error>
+          <mat-error *ngIf="form.hasError('required', 'email')">لطفاً ایمیل خود را وارد کنید</mat-error>
+          <mat-error *ngIf="form.hasError('email', 'email')">ایمیل نامعتبر است</mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width ltr-input">
           <input matInput type="password" name="password" placeholder="کلمه عبور" formControlName="password" required>
-          <mat-error>کلمه عبور اجباری است</mat-error>
+          <mat-error>لطفاً کلمه عبور خود را وارد نمایید</mat-error>
         </mat-form-field>
+
+        <div>
+          <mat-checkbox formControlName="rememberMe">مرا به خاطر بسپار</mat-checkbox>
+        </div>
+
+        <div *ngIf="error" class="warn-color">{{error}}</div>
 
         <button mat-raised-button color="primary" type="submit" class="full-width" (click)="login()"
           [disabled]="form.invalid">
@@ -24,10 +32,8 @@
       </form>
     </mat-card-content>
 
-    <mat-card-actions>
-      <div class="register-link">
-        <a routerLink="register">ثبت نام</a>
-      </div>
+    <mat-card-actions class="text-center">
+      <a routerLink="../register">ثبت نام</a>
     </mat-card-actions>
   </mat-card>
 </div>

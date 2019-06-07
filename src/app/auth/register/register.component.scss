@@ -1,0 +1,14 @@
+.container {
+  background-image: url('../../../assets/bg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 40px;
+}
+
+.mat-card {
+  max-width: 100%;
+  width: 400px;
+  margin: auto;
+  padding: 30px;
+}

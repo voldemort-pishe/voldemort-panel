@@ -3,22 +3,23 @@ import { Observable } from 'rxjs';
 import { ApiService, ApiResponse } from '../api.service';
 import { UserModel } from '@app/shared/model/user.model';
 import { MessageModel } from '@app/shared/model/message.model';
+import { CredentialModel } from '@app/shared/model/credential.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
 
     constructor(private api: ApiService) { }
 
-    login(data: any): Observable<ApiResponse<{ token: string }>> {
-        return this.api.post<{ token: string }>('account/authenticate', data);
+    login(data: any): Observable<ApiResponse<CredentialModel>> {
+        return this.api.post<CredentialModel>('account/authenticate', data);
     }
 
     register(data: any): Observable<ApiResponse<MessageModel>> {
         return this.api.post<MessageModel>('account/register', data);
     }
 
-    active(key: string): Observable<ApiResponse<any>> {
-        return this.api.get<any>(`account/activate/${key}`);
+    activate(otp: string): Observable<ApiResponse<CredentialModel>> {
+        return this.api.get<CredentialModel>(`account/activate/${otp}`);
     }
 
     get(): Observable<ApiResponse<UserModel>> {
