@@ -1,12 +1,12 @@
 <div class="fx-row fx-gap-10">
   <div class="inner-menu">
     <mat-nav-list>
-      <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'OPEN'}"
-        (click)="applyFilterByStatus('OPEN')">
+      <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == jobStatus.Open}"
+        (click)="applyFilterByStatus(jobStatus.Open)">
         <h4 mat-line>باز</h4>
       </a>
-      <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'CLOSE'}"
-        (click)="applyFilterByStatus('CLOSE')">
+      <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == jobStatus.Close}"
+        (click)="applyFilterByStatus(jobStatus.Close)">
         <h4 mat-line>بسته</h4>
       </a>
       <a mat-list-item [ngClass]="{'mat-list-item-focus': selectedFilter == 'ALL'}" (click)="loadAll()">

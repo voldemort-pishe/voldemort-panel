@@ -1,4 +1,4 @@
 export enum JobStatus {
-  OPEN = 'باز',
-  CLOSE = 'بسته'
+  Open = 'OPEN',
+  Close = 'CLOSE',
 }
