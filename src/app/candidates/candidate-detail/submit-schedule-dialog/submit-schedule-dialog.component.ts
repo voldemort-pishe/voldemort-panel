@@ -22,7 +22,7 @@ export class SubmitScheduleDialogComponent implements OnInit {
     return this._selectedDate;
   }
   public set selectedDate(v: moment.Moment) {
-    this._selectedDate = v.utc(true);
+    this._selectedDate = v;
     this.updateStartDate();
     this.updateEndDate();
   }
@@ -54,6 +54,18 @@ export class SubmitScheduleDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(moment().toString())
+    console.log(moment().utc(true).toString())
+    console.log(moment().utc(false).toString())
+    console.log(moment().utc(true).locale('fa').toString())
+    console.log(moment().utc(false).locale('fa').toString())
+    console.log(moment().locale('fa').toString())
+    console.log(moment().toJSON())
+    console.log(moment().utc(true).toJSON())
+    console.log(moment().utc(false).toJSON())
+    console.log(moment().utc(true).locale('fa').toJSON())
+    console.log(moment().utc(false).locale('fa').toJSON())
+    console.log(moment().locale('fa').toJSON())
     this.form = new FormGroup({
       candidateId: new FormControl(this.data.candidateId, Validators.required),
       startDate: new FormControl(null, Validators.required),
@@ -64,7 +76,7 @@ export class SubmitScheduleDialogComponent implements OnInit {
     });
 
     this.generateTimesteps();
-    this._selectedDate = moment().utc(true).hour(0).minute(0).second(0).millisecond(0);
+    this._selectedDate = moment().hour(0).minute(0).second(0).millisecond(0);
     this.startTime = this.timesteps[0];
     this.endTime = this.timesteps[0];
   }
