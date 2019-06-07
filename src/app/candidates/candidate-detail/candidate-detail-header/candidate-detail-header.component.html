@@ -1,36 +1,38 @@
-<div *appLoading="isLoading" class="header-background">
-  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
+<div class="header-background">
+  <ng-container *appLoading="isLoading; margin: 10;">
+    <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
-  <ng-container *ngIf="!isErrorOccured">
+    <ng-container *ngIf="!isErrorOccured">
 
-    <div class="vertical-gap-5">
-      <div class="info">
-        <div>
-          <button mat-icon-button routerLink="/candidates" matTooltip="بازگشت" matTooltipPosition="left">
-            <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
-          </button>
+      <div class="vertical-gap-5">
+        <div class="info">
+          <div>
+            <button mat-icon-button routerLink="/candidates" matTooltip="بازگشت" matTooltipPosition="left">
+              <mat-icon aria-label="بازگشت">arrow_forward</mat-icon>
+            </button>
+          </div>
+          <h2>
+            {{model.data | fullName}}
+          </h2>
+          <div *ngIf="model.include.job" class="horizontal-gap-10">
+            <mat-icon [inline]="true">work</mat-icon>
+            <span>{{model.include.job.nameFa}}</span>
+          </div>
+          <mat-form-field class="pipeline-select">
+            <mat-select (selectionChange)="onChangePipeline($event)" [(value)]="model.include.pipeline.id">
+              <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <h2>
-          {{model.data | fullName}}
-        </h2>
-        <div *ngIf="model.include.job" class="horizontal-gap-10">
-          <mat-icon [inline]="true">work</mat-icon>
-          <span>{{model.include.job.nameFa}}</span>
-        </div>
-        <mat-form-field class="pipeline-select">
-          <mat-select (selectionChange)="onChangePipeline($event)" [(value)]="model.include.pipeline.id">
-            <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+
+        <nav mat-tab-nav-bar class="header-tabs" color="accent">
+          <a *ngFor="let tab of tabs" mat-tab-link [routerLink]="tab.url" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">
+            {{tab.title}}
+          </a>
+        </nav>
       </div>
-
-      <nav mat-tab-nav-bar class="header-tabs" color="accent">
-        <a *ngFor="let tab of tabs" mat-tab-link [routerLink]="tab.url" routerLinkActive #rla="routerLinkActive"
-          [active]="rla.isActive">
-          {{tab.title}}
-        </a>
-      </nav>
-    </div>
+    </ng-container>
   </ng-container>
 </div>
