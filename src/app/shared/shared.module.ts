@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RiyalCurrencyPipe } from './pipe/riyal-currency.pipe';
-import { PersianNumberPipePipe } from './pipe/persian-number.pipe';
+import { PersianNumberPipe } from './pipe/persian-number.pipe';
 import { JalaliPipe } from './pipe/jalali.pipe';
 import { MaterialModule } from '@app/material/material.module';
 import { AvatarModule } from 'ngx-avatar';
@@ -30,7 +30,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
   ],
   declarations: [
     RiyalCurrencyPipe,
-    PersianNumberPipePipe,
+    PersianNumberPipe,
     JalaliPipe,
     FullNamePipe,
     JobTypePipe,
@@ -38,7 +38,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     ScheduleStatusPipe,
     CandidateScheduleMemberStatusPipe,
     FeedbackRatingPipe,
-    
+
     LoadingSpinnerComponent,
     LoadingDirective,
     CandidateTableComponent,
@@ -57,7 +57,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     AvatarModule,
 
     RiyalCurrencyPipe,
-    PersianNumberPipePipe,
+    PersianNumberPipe,
     JalaliPipe,
     FullNamePipe,
     JobTypePipe,
@@ -70,6 +70,9 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     CandidateTableComponent,
     ErrorMessageComponent,
     CompanyMemberSelectComponent,
+  ],
+  providers: [
+    CurrencyPipe,
   ]
 })
 export class SharedModule { }

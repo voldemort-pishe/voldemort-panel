@@ -4,6 +4,7 @@ import { Observable, of, TimeoutError } from 'rxjs';
 import { catchError, map, timeout } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 export interface ApiResponse<T> {
     success: boolean;
@@ -21,6 +22,7 @@ export class ApiService {
 
     constructor(
         private http: HttpClient,
+        private router: Router,
         private authService: AuthService,
     ) { }
 
@@ -95,8 +97,8 @@ export class ApiService {
 
                 if (error.status === 401) // provided credentials is incorrect
                     this.authService.logout();
-                else if (error.status === 402)
-                    console.error('Plan subscription expired.'); // TODO: handle
+                else if (error.status === 402) // subscription expired
+                    this.router.navigate(['subscription']);
 
                 console.error(`Backend returned code ${error.status}, body was: ${JSON.stringify(errorData)}`);
             }

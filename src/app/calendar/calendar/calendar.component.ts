@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { CalendarEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
 import { JalaliPipe } from '@app/shared/pipe/jalali.pipe';
-import { PersianNumberPipePipe } from '@app/shared/pipe/persian-number.pipe';
+import { PersianNumberPipe } from '@app/shared/pipe/persian-number.pipe';
 import { CalendarService } from '@app/shared/services/data/calendar.service';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
@@ -27,12 +27,12 @@ const colors: any = {
   selector: 'anms-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
-  providers: [JalaliPipe, PersianNumberPipePipe]
+  providers: [JalaliPipe, PersianNumberPipe]
 })
 
 export class CalendarComponent implements OnInit {
   constructor(private jalaliPipe: JalaliPipe,
-    private persianNumber: PersianNumberPipePipe,
+    private persianNumber: PersianNumberPipe,
     private calendarService: CalendarService) {
   }
 

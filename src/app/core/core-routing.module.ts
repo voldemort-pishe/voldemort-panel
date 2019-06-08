@@ -6,6 +6,7 @@ import { MainComponent } from './main/main.component';
 import { PlanComponent } from './plan/plan.component';
 import { InvoicePreviewComponent } from './invoice-preview/invoice-preview.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SubscriptionGuardService } from './guards/subscription-guard.service';
 
 const routes: Routes = [
     {
@@ -19,21 +20,15 @@ const routes: Routes = [
         loadChildren: '../auth/auth.module#AuthModule',
     },
     {
+        path: 'subscription',
+        loadChildren: '../subscription/subscription.module#SubscriptionModule',
+        canActivate: [SubscriptionGuardService],
+    },
+    {
         path: '',
         component: MainComponent,
         canActivate: [AuthGuardService],
-        // canActivate: [UserRouteAccessService],
         children: [
-            {
-                path: 'plan',
-                component: PlanComponent,
-                data: { title: 'پلن' }
-            },
-            {
-                path: 'invoice/:invoiceId',
-                component: InvoicePreviewComponent,
-                data: { title: 'فاکتور' }
-            },
             {
                 path: 'dashboard',
                 loadChildren: '../dashboard/dashboard.module#DashboardModule',

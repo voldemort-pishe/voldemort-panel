@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreRoutingModule } from './core-routing.module';
 import { MainComponent } from './main/main.component';
-import { PlanComponent } from './plan/plan.component';
-import { InvoicePreviewComponent } from './invoice-preview/invoice-preview.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
@@ -17,8 +15,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   declarations: [
     MainComponent,
-    PlanComponent,
-    InvoicePreviewComponent,
     NotFoundComponent
   ],
   providers: [
