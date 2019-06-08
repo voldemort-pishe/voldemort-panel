@@ -4,7 +4,6 @@ import { ApiService, ApiResponse } from '../api.service';
 import { UserModel } from '@app/shared/model/user.model';
 import { MessageModel } from '@app/shared/model/message.model';
 import { CredentialModel } from '@app/shared/model/credential.model';
-import { SubscriptionModel } from '@app/shared/model/subscription.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -29,9 +28,5 @@ export class AccountService {
 
     save(account: any): Observable<ApiResponse<void>> {
         return this.api.post<void>('account', account);
-    }
-
-    getSubscriptionCheck(): Observable<ApiResponse<SubscriptionModel>> {
-        return this.api.get<SubscriptionModel>('subscription/check');
     }
 }
