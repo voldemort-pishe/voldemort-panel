@@ -7,6 +7,7 @@ import { HelpersService } from '@app/shared/services/helpers.service';
 import { JobType } from '@app/shared/model/enumeration/job-type';
 import { ProvinceService } from '@app/shared/services/data/province.service';
 import { JobStatus } from '@app/shared/model/enumeration/job-status';
+import { LanguageType } from '@app/shared/model/enumeration/language-type';
 
 @Component({
   selector: 'anms-job-info',
@@ -17,6 +18,7 @@ export class JobInfoComponent implements OnInit {
 
   JobTypes: JobType[] = Object.values(JobType);
   JobStatuses: JobStatus[] = Object.values(JobStatus);
+  LanguageTypes: LanguageType[] = Object.values(LanguageType);
 
   id: number;
   form: FormGroup;

@@ -1,5 +1,5 @@
-export enum LanguageType{
-  EN = 'انگلیسی',
-  FA = 'فارسی',
-  BOTH = 'هردو'
+export enum LanguageType {
+  En = 'EN',
+  Fa = 'FA',
+  Both = 'BOTH',
 }

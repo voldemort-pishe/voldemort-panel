@@ -19,6 +19,7 @@ import { FullNamePipe } from './pipe/full-name.pipe';
 import { CandidateScheduleMemberStatusPipe } from './pipe/candidate-schedule-member-status.pipe';
 import { ScheduleStatusPipe } from './pipe/schedule-status.pipe';
 import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
+import { LanguageTypePipe } from './pipe/language-type.pipe';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     ScheduleStatusPipe,
     CandidateScheduleMemberStatusPipe,
     FeedbackRatingPipe,
+    LanguageTypePipe,
 
     LoadingSpinnerComponent,
     LoadingDirective,
@@ -68,6 +70,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     ScheduleStatusPipe,
     CandidateScheduleMemberStatusPipe,
     FeedbackRatingPipe,
+    LanguageTypePipe,
 
     LoadingDirective,
     CandidateTableComponent,
