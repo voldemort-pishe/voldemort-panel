@@ -20,6 +20,7 @@ export interface JobModel {
   hiredExpertId?: number;
   companyId?: number;
   status?: JobStatus;
+  createdDate?: string;
 }
 
 export interface JobContentModel {

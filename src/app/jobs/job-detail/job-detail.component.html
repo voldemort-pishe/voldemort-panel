@@ -13,7 +13,7 @@
         {{model.data.location}}
       </div>
       <div *ngIf="model.data.status">
-        {{model.data.status}}
+        {{model.data.status | jobStatus}}
       </div>
     </div>
 

@@ -51,6 +51,10 @@ export class JobService {
     }
   }
 
+  update(data: JobModel): Observable<ApiResponse<JobContentModel>> {
+    return this.api.put<JobContentModel>('job', data);
+  }
+
   store(model: JobContentModel): void {
     this.storedObject = model;
   }

@@ -11,7 +11,7 @@
 
   <ng-container matColumnDef="role">
     <th mat-header-cell *matHeaderCellDef> نقش </th>
-    <td mat-cell *matCellDef="let element"> {{JobHireTeamRole[element.data.role]}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.data.role | jobHireTeamRole}} </td>
   </ng-container>
 
   <!-- <ng-container matColumnDef="companyPipeline">

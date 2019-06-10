@@ -9,6 +9,7 @@ import { JobInfoComponent } from './job-info/job-info.component';
 import { JobHiringTeamComponent } from './job-hiring-team/job-hiring-team.component';
 import { JobCandidatesComponent } from './job-candidates/job-candidates.component';
 import { CandidatesModule } from '@app/candidates/candidates.module';
+import { QuillModule } from 'ngx-quill'
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CandidatesModule } from '@app/candidates/candidates.module';
     SharedModule,
     JobsRoutingModule,
     CandidatesModule,
+    QuillModule,
   ],
   entryComponents: [
     CreateJobComponent,

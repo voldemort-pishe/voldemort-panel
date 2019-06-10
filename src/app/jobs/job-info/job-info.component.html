@@ -1,46 +1,62 @@
-<div *ngIf="model">
-  <mat-card>
-    <mat-card-title>
-      جزئیات شغل
-    </mat-card-title>
+<div *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
-    <div class="fx-row">
-      <div class="fx-grow">
-        <div class="part">
-          <div class="mat-small">عنوان شغل</div>
-          <div class="mat-body-2">{{model.data.nameFa}}</div>
+  <form [formGroup]="form" class="margin-30 vertical-gap-30">
+    <mat-card class="vertical-gap-20">
+      <mat-card-title>
+        جزئیات شغل
+      </mat-card-title>
+
+      <mat-card-content class="fx-row-wrap fx-start-center">
+        <mat-form-field>
+          <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="عنوان">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" name="department" formControlName="department" placeholder="دپارتمان">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="مکان" formControlName="location">
+            <mat-option *ngFor="let province of provinceNames" [value]="province">{{province}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" name="language" formControlName="language" placeholder="زبان">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="نوع" formControlName="type">
+            <mat-option *ngFor="let jobType of JobTypes" [value]="jobType">{{jobType | jobType}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="وضعیت" formControlName="status">
+            <mat-option *ngFor="let jobStatus of JobStatuses" [value]="jobStatus">{{jobStatus | jobStatus}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div>
+          <span class="mat-small">تاریخ ایجاد: </span>
+          <span class="mat-body-2">{{model.data.createdDate | jalali}}</span>
         </div>
-        <div class="part">
-          <div class="mat-small">وضعیت</div>
-          <div class="mat-body-2">{{model.data.status}}</div>
-        </div>
-        <div class="part">
-          <div class="mat-small">مکان</div>
-          <div class="mat-body-2">{{model.data.location}}</div>
-        </div>
-        <div class="part">
-          <div class="mat-small">دپارتمان</div>
-          <div class="mat-body-2">{{model.data.department}}</div>
-        </div>
-      </div>
-      <div class="fx-grow">
-        <div class="part">
-          <div class="mat-small">نوع شغل</div>
-          <div class="mat-body-2">{{model.data.type}}</div>
-        </div>
-        <div class="part">
-          <div class="mat-small">توضیحات</div>
-          <div class="mat-body-2">{{model.data.descriptionFa}}</div>
-        </div>
-        <div class="part">
-          <div class="mat-small">تاریخ ایجاد</div>
-          <div class="mat-body-2">{{model.data.createdDate | jalali}}</div>
-        </div>
-        <div class="part">
-          <div class="mat-small">زبان</div>
-          <div class="mat-body-2">{{model.data.language}}</div>
-        </div>
-      </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="vertical-gap-20">
+      <mat-card-title>
+        شرح موقعیت شغلی
+      </mat-card-title>
+
+      <quill-editor dir="ltr" [modules]="editorModules" formControlName="descriptionFa"></quill-editor>
+    </mat-card>
+
+    <div class="text-center">
+      <button mat-raised-button type="button" color="accent" (click)="save()">
+        ذخیره تغییرات
+      </button>
     </div>
-  </mat-card>
+  </form>
 </div>

@@ -12,6 +12,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 import { LoadingSpinnerComponent } from './components/loading-spinner.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { JobTypePipe } from './pipe/job-type.pipe';
+import { JobStatusPipe } from './pipe/job-status.pipe';
 import { JobHireTeamRolePipe } from './pipe/job-hire-team-role.pipe';
 import { CompanyMemberSelectComponent } from './components/company-member-select/company-member-select.component';
 import { FullNamePipe } from './pipe/full-name.pipe';
@@ -34,6 +35,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     JalaliPipe,
     FullNamePipe,
     JobTypePipe,
+    JobStatusPipe,
     JobHireTeamRolePipe,
     ScheduleStatusPipe,
     CandidateScheduleMemberStatusPipe,
@@ -61,6 +63,7 @@ import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
     JalaliPipe,
     FullNamePipe,
     JobTypePipe,
+    JobStatusPipe,
     JobHireTeamRolePipe,
     ScheduleStatusPipe,
     CandidateScheduleMemberStatusPipe,
