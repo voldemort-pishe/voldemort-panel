@@ -18,7 +18,7 @@ export class SubscriptionService {
             map(r => {
                 // Considering a valid subscription in case of server internal error or request timeout
                 // Server will check later and drop out user by sending 402 status if subscription is expired
-                return !r.status || !(r.status >= 400 || r.status < 500);
+                return !r.status || !(r.status >= 400 && r.status < 500);
             }),
             timeoutWith(5000, of(true)), // timeout request after 5 seconds and send true
         );
