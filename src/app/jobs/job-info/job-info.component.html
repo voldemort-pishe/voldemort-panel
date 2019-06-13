@@ -3,8 +3,13 @@
 
   <form [formGroup]="form" class="margin-30 vertical-gap-30">
     <mat-card class="vertical-gap-20">
-      <mat-card-title>
-        جزئیات شغل
+      <mat-card-title class="fx-row fx-spacebetween-center">
+        <h1>جزئیات شغل</h1>
+
+        <button mat-raised-button type="button" (click)="toggleStatus()" [color]="status === JobStatus.Open ? 'warn' : 'primary'" >
+          <span *ngIf="status === JobStatus.Close">انتشار موقعیت شغلی</span>
+          <span *ngIf="status === JobStatus.Open">پنهان کردن موقعیت شغلی</span>
+        </button>
       </mat-card-title>
 
       <mat-card-content>

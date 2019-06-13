@@ -1,4 +1,14 @@
 <div [formGroup]="form" class="fx-row-wrap fx-start-center">
+  <div *ngIf="form.get('status')">
+    <span class="mat-small">وضعیت: </span>
+    <span class="mat-body-2">{{form.get('status').value | jobStatus}}</span>
+  </div>
+
+  <div *ngIf="form.get('createdDate')">
+    <span class="mat-small">تاریخ ایجاد: </span>
+    <span class="mat-body-2">{{form.get('createdDate').value | jalali}}</span>
+  </div>
+
   <mat-form-field>
     <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="عنوان" required>
   </mat-form-field>
@@ -30,17 +40,4 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-  <mat-form-field>
-    <mat-select placeholder="وضعیت" formControlName="status" required>
-      <mat-option *ngFor="let jobStatus of JobStatuses" [value]="jobStatus">
-        {{jobStatus | jobStatus}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <div *ngIf="form.getRawValue().createdDate">
-    <span class="mat-small">تاریخ ایجاد: </span>
-    <span class="mat-body-2">{{form.getRawValue().createdDate | jalali}}</span>
-  </div>
 </div>

@@ -110,7 +110,6 @@ export class CreateJobComponent implements OnInit {
       location: new FormControl(null, Validators.required),
       language: new FormControl(null, Validators.required),
       type: new FormControl(null, Validators.required),
-      status: new FormControl(null, Validators.required),
     });
 
     this.jobDescriptionFormGroup = this.fb.group({

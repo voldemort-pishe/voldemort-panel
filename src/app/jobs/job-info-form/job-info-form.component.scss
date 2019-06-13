@@ -1,4 +1,9 @@
 .fx-row-wrap>* {
-  width: calc(50% - 40px);
-  margin: 0 20px;
+  width: calc(50% - 20px);
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &:nth-child(2n+1) {
+    margin-left: 20px;
+  }
 }

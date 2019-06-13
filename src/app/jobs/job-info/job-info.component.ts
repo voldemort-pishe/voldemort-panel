@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { JobContentModel } from '@app/shared/model/job.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HelpersService } from '@app/shared/services/helpers.service';
+import { JobStatus } from '@app/shared/model/enumeration/job-status';
 
 @Component({
   selector: 'anms-job-info',
@@ -12,12 +13,17 @@ import { HelpersService } from '@app/shared/services/helpers.service';
 })
 export class JobInfoComponent implements OnInit {
 
+  JobStatus: typeof JobStatus = JobStatus;
+
   id: number;
   form: FormGroup;
-  model: JobContentModel;
   isLoading: boolean = false;
   isErrorOccured: boolean = false;
   error: string;
+
+  public get status(): JobStatus {
+    return this.form.get('status').value;
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +49,7 @@ export class JobInfoComponent implements OnInit {
     this.jobService.getDetail(this.id).subscribe(r => {
       this.isLoading = false;
       if (r.success) {
-        this.model = r.data;
-        this.form.patchValue(this.model.data);
+        this.form.patchValue(r.data.data);
       }
       else {
         this.isErrorOccured = true;
@@ -56,6 +61,15 @@ export class JobInfoComponent implements OnInit {
   save(): void {
     this.jobService.update(this.form.value).subscribe(r => {
       this.helpersService.showToast(r.success ? 'نغییرات با موفقیت ذخیره شد.' : r.niceErrorMessage);
+    });
+  }
+
+  toggleStatus(): void {
+    const status = this.status === JobStatus.Close ? JobStatus.Open : JobStatus.Close;
+    this.jobService.updateStatus(this.form.get('id').value, status).subscribe(r => {
+      this.helpersService.showToast(r.success ? 'نغییرات با موفقیت ذخیره شد.' : r.niceErrorMessage);
+      if (r.success)
+        this.form.patchValue({ status: status });
     });
   }
 
@@ -76,6 +90,7 @@ export class JobInfoComponent implements OnInit {
       descriptionEn: new FormControl(null),
     });
 
+    this.form.get('status').disable();
     this.form.get('createdDate').disable();
   }
 }
