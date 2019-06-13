@@ -1,14 +1,14 @@
 <div [formGroup]="form" class="fx-row-wrap fx-start-center">
   <mat-form-field>
-    <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="عنوان">
+    <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="عنوان" required>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="text" name="department" formControlName="department" placeholder="دپارتمان">
+    <input matInput type="text" name="department" formControlName="department" placeholder="دپارتمان" required>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="مکان" formControlName="location">
+    <mat-select placeholder="مکان" formControlName="location" required>
       <mat-option *ngFor="let province of provinceNames" [value]="province">
         {{province}}
       </mat-option>
@@ -16,7 +16,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="زبان" formControlName="language">
+    <mat-select placeholder="زبان" formControlName="language" required>
       <mat-option *ngFor="let languageType of LanguageTypes" [value]="languageType">
         {{languageType | languageType}}
       </mat-option>
@@ -24,7 +24,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="نوع" formControlName="type">
+    <mat-select placeholder="نوع" formControlName="type" required>
       <mat-option *ngFor="let jobType of JobTypes" [value]="jobType">
         {{jobType | jobType}}
       </mat-option>
@@ -32,15 +32,15 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="وضعیت" formControlName="status">
+    <mat-select placeholder="وضعیت" formControlName="status" required>
       <mat-option *ngFor="let jobStatus of JobStatuses" [value]="jobStatus">
         {{jobStatus | jobStatus}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <div *ngIf="form.value.createdDate">
+  <div *ngIf="form.getRawValue().createdDate">
     <span class="mat-small">تاریخ ایجاد: </span>
-    <span class="mat-body-2">{{form.value.createdDate | jalali}}</span>
+    <span class="mat-body-2">{{form.getRawValue().createdDate | jalali}}</span>
   </div>
 </div>

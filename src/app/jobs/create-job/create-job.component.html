@@ -7,31 +7,7 @@
       <form [formGroup]="jobInfoFormGroup" class="vertical-gap-20">
         <ng-template matStepLabel>اطلاعات اولیه</ng-template>
 
-        <div class="fx-row-wrap job-info-container">
-          <mat-form-field>
-            <input matInput type="text" name="jobName" formControlName="nameFa" placeholder="عنوان" required>
-            <mat-error>عنوان اجباری است</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput type="text" name="department" formControlName="department" placeholder="دپارتمان" required>
-            <mat-error>دپارتمان اجباری است</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-select placeholder="نوع" formControlName="type" required>
-              <mat-option *ngFor="let jobType of JobTypes" [value]="jobType">{{jobType | jobType}}</mat-option>
-            </mat-select>
-            <mat-error>نوع اجباری است</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-select placeholder="مکان" formControlName="location" required>
-              <mat-option *ngFor="let province of provinceNames" [value]="province">{{province}}</mat-option>
-            </mat-select>
-            <mat-error>مکان اجباری است</mat-error>
-          </mat-form-field>
-        </div>
+        <anms-job-info-form [form]="jobInfoFormGroup"></anms-job-info-form>
 
         <div class="fx-row fx-center-center">
           <button mat-button type="button" color="accent" matStepperNext>بعدی</button>
@@ -43,10 +19,7 @@
       <form [formGroup]="jobDescriptionFormGroup" class="vertical-gap-20">
         <ng-template matStepLabel>توضیحات</ng-template>
 
-        <mat-form-field class="full-width">
-          <textarea matInput rows="6" placeholder="توضیحات" formControlName="descriptionFa" required></textarea>
-          <mat-error>توضیحات اجباری است</mat-error>
-        </mat-form-field>
+        <anms-job-description-form [form]="jobInfoFormGroup"></anms-job-description-form>
 
         <div class="fx-row fx-center-center fx-gap-10">
           <button mat-button type="button" color="accent" matStepperPrevious>قبلی</button>

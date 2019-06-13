@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material";
-import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from "@angular/forms";
 import { of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { JobService } from "@app/shared/services/data/job.service";
@@ -103,11 +103,14 @@ export class CreateJobComponent implements OnInit {
   }
 
   private generateForms(): void {
-    this.jobInfoFormGroup = this.fb.group({
-      nameFa: [null, Validators.required],
-      type: [null, Validators.required],
-      department: [null, Validators.required],
-      location: [null, Validators.required],
+    this.jobInfoFormGroup  = new FormGroup({
+      nameFa: new FormControl(null, Validators.required),
+      nameEn: new FormControl(null),
+      department: new FormControl(null, Validators.required),
+      location: new FormControl(null, Validators.required),
+      language: new FormControl(null, Validators.required),
+      type: new FormControl(null, Validators.required),
+      status: new FormControl(null, Validators.required),
     });
 
     this.jobDescriptionFormGroup = this.fb.group({

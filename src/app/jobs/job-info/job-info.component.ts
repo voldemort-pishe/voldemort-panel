@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JobService } from '@app/shared/services/data/job.service';
 import { ActivatedRoute } from '@angular/router';
 import { JobContentModel } from '@app/shared/model/job.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HelpersService } from '@app/shared/services/helpers.service';
 
 @Component({
@@ -61,20 +61,19 @@ export class JobInfoComponent implements OnInit {
 
   private generateForm(): void {
     this.form = new FormGroup({
-      companyId: new FormControl(null),
-      // createdDate: new FormControl(null),
-      department: new FormControl(null),
-      descriptionEn: new FormControl(null),
-      descriptionFa: new FormControl(null),
-      id: new FormControl(null),
-      language: new FormControl(null),
-      location: new FormControl(null),
+      id: new FormControl(null, Validators.required),
+      uniqueId: new FormControl(null, Validators.required),
+      companyId: new FormControl(null, Validators.required),
+      nameFa: new FormControl(null, Validators.required),
       nameEn: new FormControl(null),
-      nameFa: new FormControl(null),
-      status: new FormControl(null),
-      type: new FormControl(null),
-      uniqueId: new FormControl(null),
+      department: new FormControl(null, Validators.required),
+      location: new FormControl(null, Validators.required),
+      language: new FormControl(null, Validators.required),
+      type: new FormControl(null, Validators.required),
+      status: new FormControl(null, Validators.required),
       createdDate: new FormControl(null),
+      descriptionFa: new FormControl(null, Validators.required),
+      descriptionEn: new FormControl(null),
     });
 
     this.form.get('createdDate').disable();
