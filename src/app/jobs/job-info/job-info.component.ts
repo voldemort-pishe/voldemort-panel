@@ -4,10 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { JobContentModel } from '@app/shared/model/job.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HelpersService } from '@app/shared/services/helpers.service';
-import { JobType } from '@app/shared/model/enumeration/job-type';
-import { ProvinceService } from '@app/shared/services/data/province.service';
-import { JobStatus } from '@app/shared/model/enumeration/job-status';
-import { LanguageType } from '@app/shared/model/enumeration/language-type';
 
 @Component({
   selector: 'anms-job-info',
@@ -16,57 +12,22 @@ import { LanguageType } from '@app/shared/model/enumeration/language-type';
 })
 export class JobInfoComponent implements OnInit {
 
-  JobTypes: JobType[] = Object.values(JobType);
-  JobStatuses: JobStatus[] = Object.values(JobStatus);
-  LanguageTypes: LanguageType[] = Object.values(LanguageType);
-
   id: number;
   form: FormGroup;
   model: JobContentModel;
-  provinceNames: string[];
   isLoading: boolean = false;
   isErrorOccured: boolean = false;
   error: string;
-
-  editorModules = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-      // ['blockquote', 'code-block'],
-
-      // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-      [{ 'direction': 'rtl' }],                         // text direction
-
-      // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-      // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-      // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-      // [{ 'font': [] }],
-      // [{ 'align': [] }],
-
-      ['clean'],                                         // remove formatting button
-
-      // ['link', 'image', 'video']                         // link and image, video
-    ]
-  };
 
   constructor(
     private route: ActivatedRoute,
     private jobService: JobService,
     private helpersService: HelpersService,
-    private provinceService: ProvinceService,
 
   ) { }
 
   ngOnInit() {
     this.generateForm();
-
-    this.provinceService.getList().subscribe(r => {
-      if (r.success) this.provinceNames = r.data.map(p => p.name);
-    });
-
 
     this.route.parent.params.subscribe(params => {
       this.id = parseInt(params['id']);
@@ -113,6 +74,9 @@ export class JobInfoComponent implements OnInit {
       status: new FormControl(null),
       type: new FormControl(null),
       uniqueId: new FormControl(null),
+      createdDate: new FormControl(null),
     });
+
+    this.form.get('createdDate').disable();
   }
 }

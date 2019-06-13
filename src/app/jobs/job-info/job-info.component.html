@@ -7,51 +7,8 @@
         جزئیات شغل
       </mat-card-title>
 
-      <mat-card-content class="fx-row-wrap fx-start-center">
-        <mat-form-field>
-          <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="عنوان">
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput type="text" name="department" formControlName="department" placeholder="دپارتمان">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-select placeholder="مکان" formControlName="location">
-            <mat-option *ngFor="let province of provinceNames" [value]="province">
-              {{province}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-select placeholder="زبان" formControlName="language">
-            <mat-option *ngFor="let languageType of LanguageTypes" [value]="languageType">
-              {{languageType | languageType}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-select placeholder="نوع" formControlName="type">
-            <mat-option *ngFor="let jobType of JobTypes" [value]="jobType">
-              {{jobType | jobType}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-select placeholder="وضعیت" formControlName="status">
-            <mat-option *ngFor="let jobStatus of JobStatuses" [value]="jobStatus">
-              {{jobStatus | jobStatus}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <div>
-          <span class="mat-small">تاریخ ایجاد: </span>
-          <span class="mat-body-2">{{model.data.createdDate | jalali}}</span>
-        </div>
+      <mat-card-content>
+        <anms-job-info-form [form]="form"></anms-job-info-form>
       </mat-card-content>
     </mat-card>
 
@@ -60,7 +17,9 @@
         شرح موقعیت شغلی
       </mat-card-title>
 
-      <quill-editor dir="ltr" [modules]="editorModules" formControlName="descriptionFa"></quill-editor>
+      <mat-card-content>
+        <anms-job-description-form [form]="form"></anms-job-description-form>
+      </mat-card-content>
     </mat-card>
 
     <div class="text-center">

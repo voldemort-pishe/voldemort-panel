@@ -9,7 +9,9 @@ import { JobInfoComponent } from './job-info/job-info.component';
 import { JobHiringTeamComponent } from './job-hiring-team/job-hiring-team.component';
 import { JobCandidatesComponent } from './job-candidates/job-candidates.component';
 import { CandidatesModule } from '@app/candidates/candidates.module';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import { JobInfoFormComponent } from './job-info-form/job-info-form.component';
+import { JobDescriptionFormComponent } from './job-description-form/job-description-form.component'
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { QuillModule } from 'ngx-quill'
     JobInfoComponent,
     JobHiringTeamComponent,
     JobCandidatesComponent,
+    JobInfoFormComponent,
+    JobDescriptionFormComponent,
   ],
   imports: [
     CommonModule,
