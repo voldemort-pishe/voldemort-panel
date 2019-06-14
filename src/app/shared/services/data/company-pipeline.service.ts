@@ -27,7 +27,7 @@ export class CompanyPipelineService {
       .pipe(tap(r => this.invalidateCache(r)));
   }
 
-  edit(data: CompanyPipelineModel): Observable<ApiResponse<CompanyPipelineContentModel>> {
+  update(data: CompanyPipelineModel): Observable<ApiResponse<CompanyPipelineContentModel>> {
     return this.api.put<CompanyPipelineContentModel>('company-pipeline', data)
       .pipe(tap(r => this.invalidateCache(r)));
   }

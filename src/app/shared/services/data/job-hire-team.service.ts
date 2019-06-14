@@ -17,6 +17,10 @@ export class JobHireTeamService {
     return this.api.post<JobHireTeamContentModel[]>('job-hire-team', data);
   }
 
+  update(data: JobHireTeamModel): Observable<ApiResponse<JobHireTeamContentModel>> {
+    return this.api.put<JobHireTeamContentModel>('job-hire-team', data);
+  }
+
   delete(id: number): Observable<ApiResponse<void>> {
     return this.api.delete<void>(`job-hire-team/${id}`);
   }

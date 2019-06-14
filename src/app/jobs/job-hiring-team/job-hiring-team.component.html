@@ -19,8 +19,8 @@
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>نقش</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="element.data.id != null">{{element.data.role | jobHireTeamRole}}</span>
-        <mat-form-field *ngIf="element.data.id == null" floatLabel="never">
+        <!-- <span *ngIf="element.data.id != null">{{element.data.role | jobHireTeamRole}}</span> -->
+        <mat-form-field floatLabel="never">
           <mat-select placeholder="نقش" [(ngModel)]="element.data.role">
             <mat-option *ngFor="let jobHireTeamRole of JobHireTeamRoles" [value]="jobHireTeamRole">
               {{jobHireTeamRole | jobHireTeamRole}}
@@ -44,7 +44,7 @@
         </button>
       </th>
       <td mat-cell *matCellDef="let item">
-        <button *ngIf="item.data.id == null" mat-icon-button color="accent" matTooltip="ذخیره" matTooltipPosition="left"
+        <button mat-icon-button color="accent" matTooltip="ذخیره" matTooltipPosition="left"
           (click)="saveItem(item)">
           <mat-icon>save</mat-icon>
         </button>

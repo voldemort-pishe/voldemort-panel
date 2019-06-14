@@ -55,7 +55,7 @@ export class CompanyPipelineComponent implements OnInit {
       });
     }
     else {
-      this.companyPipelineService.edit(item).subscribe(r => {
+      this.companyPipelineService.update(item).subscribe(r => {
         const msg = r.success ? 'فیلد با موفقیت ذخیره شد.' : r.niceErrorMessage;
         this.helpersService.showToast(msg);
       });

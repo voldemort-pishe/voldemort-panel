@@ -80,11 +80,10 @@ export class JobHiringTeamComponent implements OnInit {
       });
     }
     else {
-      // TODO
-      // this.jobHireTeamService.edit(item).subscribe(r => {
-      //   const msg = r.success ? 'فیلد با موفقیت ذخیره شد.' : r.niceErrorMessage;
-      //   this.helpersService.showToast(msg);
-      // });
+      this.jobHireTeamService.update(item.data).subscribe(r => {
+        const msg = r.success ? 'عضو با موفقیت ذخیره شد.' : r.niceErrorMessage;
+        this.helpersService.showToast(msg);
+      });
     }
   }
 
