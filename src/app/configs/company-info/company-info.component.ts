@@ -13,6 +13,9 @@ export class CompanyInfoComponent implements OnInit {
 
   form: FormGroup;
   model: CompanyContentModel;
+  isLoading: boolean = false;
+  isErrorOccured: boolean = false;
+  error: string;
 
   constructor(
     private companyService: CompanyService,
@@ -24,11 +27,19 @@ export class CompanyInfoComponent implements OnInit {
     this.fetch();
   }
 
-  private fetch(): void {
+  fetch(): void {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+    this.isErrorOccured = false;
     this.companyService.get().subscribe(r => {
+      this.isLoading = false;
       if (r.success) {
         this.model = r.data;
         this.fillFormFromModel();
+      }
+      else {
+        this.error = r.niceErrorMessage;
       }
     });
   }

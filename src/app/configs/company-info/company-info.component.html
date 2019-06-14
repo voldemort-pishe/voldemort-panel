@@ -1,50 +1,54 @@
-<form [formGroup]="form" class="margin-30 vertical-gap-30">
-  <mat-card>
-    <mat-card-title>
-      مشخصات شرکت
-    </mat-card-title>
+<ng-container *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
-    <mat-card-content class="fx-row-wrap">
-      <mat-form-field>
-        <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="نام شرکت">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" name="descriptionFa" formControlName="descriptionFa" placeholder="توضیحات شرکت">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" name="language" formControlName="language" placeholder="زبان">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" name="subDomain" formControlName="subDomain" placeholder="زیردامنه">
-      </mat-form-field>
-    </mat-card-content>
-  </mat-card>
+  <form [formGroup]="form" class="margin-30 vertical-gap-30">
+    <mat-card>
+      <mat-card-title>
+        مشخصات شرکت
+      </mat-card-title>
 
-  <mat-card formGroupName="contact">
-    <mat-card-title>
-      اطلاعات تماس و موقعیت
-    </mat-card-title>
+      <mat-card-content class="fx-row-wrap">
+        <mat-form-field>
+          <input matInput type="text" name="nameFa" formControlName="nameFa" placeholder="نام شرکت">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" name="descriptionFa" formControlName="descriptionFa" placeholder="توضیحات شرکت">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" name="language" formControlName="language" placeholder="زبان">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" name="subDomain" formControlName="subDomain" placeholder="زیردامنه">
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
 
-    <mat-card-content class="fx-row-wrap">
-      <mat-form-field class="ltr-input">
-        <input matInput type="tel" name="phone" formControlName="phone" placeholder="تلفن">
-      </mat-form-field>
-      <mat-form-field class="ltr-input">
-        <input matInput type="email" name="email" formControlName="email" placeholder="ایمیل">
-      </mat-form-field>
-      <mat-form-field class="ltr-input">
-        <input matInput type="number" name="latitude" formControlName="latitude" placeholder="عرض جغرافیایی">
-      </mat-form-field>
-      <mat-form-field class="ltr-input">
-        <input matInput type="number" name="longitude" formControlName="longitude" placeholder="طول جغرافیایی">
-      </mat-form-field>
-      <mat-form-field class="addr">
-        <input matInput type="text" name="address" formControlName="address" placeholder="آدرس">
-      </mat-form-field>
-    </mat-card-content>
-  </mat-card>
+    <mat-card formGroupName="contact">
+      <mat-card-title>
+        اطلاعات تماس و موقعیت
+      </mat-card-title>
 
-  <div class="text-center">
-    <button mat-raised-button color="primary" (click)="save()">ذخیره تغییرات</button>
-  </div>
-</form>
+      <mat-card-content class="fx-row-wrap">
+        <mat-form-field class="ltr-input">
+          <input matInput type="tel" name="phone" formControlName="phone" placeholder="تلفن">
+        </mat-form-field>
+        <mat-form-field class="ltr-input">
+          <input matInput type="email" name="email" formControlName="email" placeholder="ایمیل">
+        </mat-form-field>
+        <mat-form-field class="ltr-input">
+          <input matInput type="number" name="latitude" formControlName="latitude" placeholder="عرض جغرافیایی">
+        </mat-form-field>
+        <mat-form-field class="ltr-input">
+          <input matInput type="number" name="longitude" formControlName="longitude" placeholder="طول جغرافیایی">
+        </mat-form-field>
+        <mat-form-field class="addr">
+          <input matInput type="text" name="address" formControlName="address" placeholder="آدرس">
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="text-center">
+      <button mat-raised-button color="primary" (click)="save()">ذخیره تغییرات</button>
+    </div>
+  </form>
+</ng-container>
