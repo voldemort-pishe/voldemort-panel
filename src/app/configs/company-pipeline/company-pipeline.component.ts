@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyPipelineService } from '@app/shared/services/data/company-pipeline.service';
 import { CompanyPipelineModel } from '@app/shared/model/company-pipeline.model';
 import { HelpersService } from '@app/shared/services/helpers.service';
+import { SubscriptionService } from '@app/shared/services/data/subscription.service';
 
 @Component({
   selector: 'anms-company-pipeline',
@@ -11,11 +12,13 @@ import { HelpersService } from '@app/shared/services/helpers.service';
 export class CompanyPipelineComponent implements OnInit {
 
   isLoading: boolean = false;
+  companyId: number;
   items: CompanyPipelineModel[];
   displayedColumns: string[] = ['title', 'weight', 'operations'];
 
   constructor(
     private companyPipelineService: CompanyPipelineService,
+    private subscriptionService: SubscriptionService,
     private helpersService: HelpersService,
   ) { }
 
@@ -26,10 +29,17 @@ export class CompanyPipelineComponent implements OnInit {
       if (r.success)
         this.items = r.data.content.map(v => v.data);
     });
+    this.subscriptionService.get().subscribe(r => {
+      if (r.success)
+        this.companyId = r.data.companyId;
+    });
   }
 
   addItem(): void {
+    if (this.companyId == null) return;
+
     this.items = this.items.concat({
+      companyId: this.companyId,
       title: '',
       weight: 1,
     });

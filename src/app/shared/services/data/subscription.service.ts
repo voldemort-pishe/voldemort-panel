@@ -3,14 +3,15 @@ import { Observable, of } from "rxjs";
 import { ApiResponse, ApiService } from '../api.service';
 import { SubscriptionModel } from '@app/shared/model/subscription.model';
 import { map, timeoutWith } from 'rxjs/operators';
+import { CacheService } from '../cache.service';
 
 @Injectable({ providedIn: 'root' })
 export class SubscriptionService {
 
-    constructor(private api: ApiService) { }
+    constructor(private cache: CacheService) { }
 
     get(): Observable<ApiResponse<SubscriptionModel>> {
-        return this.api.get<SubscriptionModel>('subscription/check');
+        return this.cache.getDataOnce<SubscriptionModel>('subscription/check');
     }
 
     isValid(): Observable<boolean> {
