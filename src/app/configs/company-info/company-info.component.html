@@ -2,7 +2,7 @@
   <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
   <form [formGroup]="form" class="margin-30 vertical-gap-30">
-    <mat-card>
+    <mat-card class="vertical-gap-20">
       <mat-card-title>
         مشخصات شرکت
       </mat-card-title>
@@ -15,15 +15,19 @@
           <input matInput type="text" name="descriptionFa" formControlName="descriptionFa" placeholder="توضیحات شرکت">
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" name="language" formControlName="language" placeholder="زبان">
+          <mat-select placeholder="زبان" formControlName="language">
+            <mat-option *ngFor="let languageType of LanguageTypes" [value]="languageType">
+              {{languageType | languageType}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="ltr-input">
           <input matInput type="text" name="subDomain" formControlName="subDomain" placeholder="زیردامنه">
         </mat-form-field>
       </mat-card-content>
     </mat-card>
 
-    <mat-card formGroupName="contact">
+    <mat-card formGroupName="contact" class="vertical-gap-20">
       <mat-card-title>
         اطلاعات تماس و موقعیت
       </mat-card-title>

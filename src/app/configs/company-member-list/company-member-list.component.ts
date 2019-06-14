@@ -40,6 +40,7 @@ export class CompanyMemberListComponent implements OnInit {
         this.dataSource = new MatTableDataSource<CompanyMemberContentModel>(r.data.content);
       }
       else {
+        this.isErrorOccured = true;
         this.error = r.niceErrorMessage;
       }
     });

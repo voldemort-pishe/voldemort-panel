@@ -13,6 +13,6 @@ export class CompanyService {
   }
 
   update(data: CompanyModel): Observable<ApiResponse<CompanyContentModel>> {
-    return this.api.put<CompanyContentModel>('company', data);
+    return this.api.put<CompanyContentModel>(`company/${data.id}`, data);
   }
 }

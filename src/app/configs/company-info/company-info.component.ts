@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CompanyService } from '@app/shared/services/data/company.service';
 import { HelpersService } from '@app/shared/services/helpers.service';
 import { CompanyContentModel } from '@app/shared/model/company.model';
+import { LanguageType } from '@app/shared/model/enumeration/language-type';
 
 @Component({
   selector: 'anms-company-info',
@@ -10,6 +11,8 @@ import { CompanyContentModel } from '@app/shared/model/company.model';
   styleUrls: ['./company-info.component.scss']
 })
 export class CompanyInfoComponent implements OnInit {
+
+  LanguageTypes: LanguageType[] = Object.values(LanguageType);
 
   form: FormGroup;
   model: CompanyContentModel;
@@ -39,6 +42,7 @@ export class CompanyInfoComponent implements OnInit {
         this.fillFormFromModel();
       }
       else {
+        this.isErrorOccured = true;
         this.error = r.niceErrorMessage;
       }
     });
