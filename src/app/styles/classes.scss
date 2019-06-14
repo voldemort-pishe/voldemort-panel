@@ -78,6 +78,21 @@
   text-align: center;
 }
 
+
+.fab-button-bottom-left {
+  position: absolute !important;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.fab-button-bottom-right {
+  position: absolute !important;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
 // MARGIN and PADDING
 
 .margin-5 {

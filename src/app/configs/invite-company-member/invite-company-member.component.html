@@ -1,0 +1,57 @@
+<div class="full-height fx-column">
+  <h2 mat-dialog-title>افزودن اعضای شرکت</h2>
+
+  <mat-dialog-content class="fx-auto">
+    <table mat-table [dataSource]="items" class="full-width">
+      <ng-container matColumnDef="userEmail">
+        <th mat-header-cell *matHeaderCellDef>ایمیل</th>
+        <td mat-cell *matCellDef="let item">
+          <mat-form-field floatLabel="never" class="ltr-input">
+            <input matInput type="email" name="email" [(ngModel)]="item.userEmail" placeholder="ایمیل">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef>دپارتمان</th>
+        <td mat-cell *matCellDef="let item">
+          <mat-form-field floatLabel="never">
+            <input matInput type="text" name="department" [(ngModel)]="item.department" placeholder="دپارتمان">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>سمت</th>
+        <td mat-cell *matCellDef="let item">
+          <mat-form-field floatLabel="never">
+            <input matInput type="text" name="position" [(ngModel)]="item.position" placeholder="سمت">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="operations">
+        <th mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" matTooltip="اضافه" matTooltipPosition="left" (click)="addItem()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-icon-button color="warn" matTooltip="حذف" matTooltipPosition="left" (click)="deleteItem(item)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button type="button" mat-dialog-close>بستن</button>
+    <button mat-button type="submit" color="primary" (click)="submit()">
+      <span *appLoading="isSubmitting; button: true;">ثبت</span>
+    </button>
+  </mat-dialog-actions>
+</div>

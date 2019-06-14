@@ -8,6 +8,7 @@ import { CompanyMemberListComponent } from './company-member-list/company-member
 import { TransactionsComponent } from './transactions/transactions.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { CompanyPipelineComponent } from './company-pipeline/company-pipeline.component';
+import { InviteCompanyMemberComponent } from './invite-company-member/invite-company-member.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,15 @@ import { CompanyPipelineComponent } from './company-pipeline/company-pipeline.co
     CompanyMemberListComponent,
     TransactionsComponent,
     CompanyPipelineComponent,
+    InviteCompanyMemberComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     ConfigsRoutingModule,
+  ],
+  entryComponents: [
+    InviteCompanyMemberComponent,
   ]
 })
 export class ConfigsModule { }

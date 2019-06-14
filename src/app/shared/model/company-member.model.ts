@@ -2,11 +2,11 @@ import { UserModel } from './user.model';
 import { CompanyModel } from './company.model';
 
 export interface CompanyMemberModel {
-  id: number;
-  department: string;
-  userEmail: string;
-  position: string;
-  companyId: number;
+  id?: number;
+  companyId?: number;
+  userEmail?: string;
+  department?: string;
+  position?: string;
 }
 
 export interface CompanyMemberContentModel {
