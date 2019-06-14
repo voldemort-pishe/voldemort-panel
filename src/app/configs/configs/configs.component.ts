@@ -17,9 +17,13 @@ export class ConfigsComponent implements OnInit {
       url: 'company-members',
     },
     {
-      title: 'تراکنش‌های مالی',
-      url: 'transactions',
+      title: 'فرآیند استخدام',
+      url: 'company-pipeline',
     },
+    // {
+    //   title: 'تراکنش‌های مالی',
+    //   url: 'transactions',
+    // },
   ];
 
   constructor() { }

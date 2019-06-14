@@ -7,6 +7,7 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
 import { CompanyMemberListComponent } from './company-member-list/company-member-list.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { CompanyPipelineComponent } from './company-pipeline/company-pipeline.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from '@app/shared/shared.module';
     CompanyInfoComponent,
     CompanyMemberListComponent,
     TransactionsComponent,
+    CompanyPipelineComponent,
   ],
   imports: [
     CommonModule,
