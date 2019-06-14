@@ -11,9 +11,9 @@
 
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onMemberSelected($event)">
     <mat-option *ngFor="let member of matchedMembers$ | async" [value]="member">
-      <ngx-avatar [name]="member.include.user.firstName" [gravatarId]="member.data.userEmail" size="30">
+      <ngx-avatar [name]="member.include.user.firstName || '-'" [gravatarId]="member.data.userEmail" size="30">
       </ngx-avatar>
-      <span>{{member.include.user | fullName}} | </span>
+      <span *ngIf="member.include.user.firstName || member.include.user.lastName">{{member.include.user | fullName}} | </span>
       <small>{{member.data.userEmail}}</small>
     </mat-option>
   </mat-autocomplete>
