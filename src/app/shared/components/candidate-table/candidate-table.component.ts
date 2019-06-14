@@ -3,7 +3,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, PageEvent, MatSelectChange } from '@angular/material';
 import { CandidateContentModel } from '@app/shared/model/candidate.model';
 import { CandidateService, CandidateListRequest } from '@app/shared/services/data/candidate.service';
-import { JobService } from '@app/shared/services/data/job.service';
 import { CompanyPipelineService } from '@app/shared/services/data/company-pipeline.service';
 import { Pageable } from '@app/shared/model/pageable.model';
 import { HelpersService } from '@app/shared/services/helpers.service';
@@ -16,6 +15,8 @@ import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.
   styleUrls: ['./candidate-table.component.scss']
 })
 export class CandidateTableComponent implements OnInit {
+
+  CandidateState: typeof CandidateState = CandidateState;
 
   @Input() jobId: number;
   @Input() state: CandidateState;
@@ -36,7 +37,6 @@ export class CandidateTableComponent implements OnInit {
   constructor(
     private helpersService: HelpersService,
     private candidateService: CandidateService,
-    private jobService: JobService,
     private companyPipelineService: CompanyPipelineService,
   ) { }
 
@@ -91,11 +91,24 @@ export class CandidateTableComponent implements OnInit {
     this.fetch();
   }
 
-  onChangePipeline(candidate: CandidateContentModel, selectEvent: MatSelectChange) {
-    candidate.data.candidatePipeline = selectEvent.value;
-    this.candidateService.edit(candidate.data).subscribe(r => {
-      const msg = r.success ? 'مرحله‌ی کاندیدای مورد نظر به روز شد.' : r.niceErrorMessage;
+  onChangeState(candidate: CandidateContentModel, selectEvent: MatSelectChange) {
+    let state: CandidateState;
+    let pipeline: number;
+    if (typeof selectEvent.value === 'number') {
+      state = CandidateState.InProcess;
+      pipeline = selectEvent.value;
+    }
+    else {
+      state = selectEvent.value;
+    }
+
+    this.candidateService.updateState(candidate.data.id, state, pipeline).subscribe(r => {
+      const msg = r.success ? 'وضعیت کاندیدای مورد نظر به روز شد.' : r.niceErrorMessage;
       this.helpersService.showToast(msg);
+      if (r.success) {
+        candidate.data = r.data.data;
+        candidate.include = r.data.include;
+      }
     });
   }
 }

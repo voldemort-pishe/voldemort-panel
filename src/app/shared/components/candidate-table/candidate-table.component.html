@@ -82,9 +82,22 @@
           <th mat-header-cell *matHeaderCellDef> مرحله </th>
           <td mat-cell *matCellDef="let element">
             <mat-form-field>
-              <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="element.include.pipeline.id">
-                <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}
-                </mat-option>
+              <mat-select (selectionChange)="onChangeState(element, $event)"
+                [value]="element.data.candidatePipeline || element.data.state">
+
+                <mat-option [value]="CandidateState.Pending">{{CandidateState.Pending | candidateState}}</mat-option>
+                <mat-divider></mat-divider>
+
+                <mat-optgroup label="در جریان">
+                  <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}
+                  </mat-option>
+                </mat-optgroup>
+                <mat-divider></mat-divider>
+
+                <mat-option [value]="CandidateState.Rejected">{{CandidateState.Rejected | candidateState}}</mat-option>
+                <mat-divider></mat-divider>
+
+                <mat-option [value]="CandidateState.Accepted">{{CandidateState.Accepted | candidateState}}</mat-option>
               </mat-select>
             </mat-form-field>
           </td>

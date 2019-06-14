@@ -11,7 +11,7 @@ export class CandidateListMenuComponent implements OnInit {
 
   menuItems: { title: string; url: string; }[] = [
     {
-      title: 'فعال',
+      title: 'در انتظار',
       url: 'pending',
     },
     {
@@ -19,12 +19,12 @@ export class CandidateListMenuComponent implements OnInit {
       url: 'inprocess',
     },
     {
-      title: 'استخدام شده',
-      url: 'accepted',
-    },
-    {
       title: 'رد شده',
       url: 'rejected',
+    },
+    {
+      title: 'پذیرفته شده',
+      url: 'accepted',
     },
     {
       title: 'همه',

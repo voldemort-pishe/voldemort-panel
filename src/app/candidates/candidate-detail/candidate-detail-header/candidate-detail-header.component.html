@@ -18,10 +18,24 @@
             <mat-icon [inline]="true">work</mat-icon>
             <span>{{model.include.job.nameFa}}</span>
           </div>
+
           <mat-form-field class="pipeline-select">
-            <mat-select (selectionChange)="onChangePipeline($event)" [(value)]="model.include.pipeline.id">
-              <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}
-              </mat-option>
+            <mat-select (selectionChange)="onChangeState(model, $event)"
+              [value]="model.data.candidatePipeline || model.data.state">
+
+              <mat-option [value]="CandidateState.Pending">{{CandidateState.Pending | candidateState}}</mat-option>
+              <mat-divider></mat-divider>
+
+              <mat-optgroup label="در جریان">
+                <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}
+                </mat-option>
+              </mat-optgroup>
+              <mat-divider></mat-divider>
+
+              <mat-option [value]="CandidateState.Rejected">{{CandidateState.Rejected | candidateState}}</mat-option>
+              <mat-divider></mat-divider>
+
+              <mat-option [value]="CandidateState.Accepted">{{CandidateState.Accepted | candidateState}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

@@ -36,7 +36,12 @@ export class CandidateService {
     return this.api.post<CandidateContentModel>('candidate', candidate);
   }
 
-  edit(candidate: CandidateModel): Observable<ApiResponse<CandidateContentModel>> {
+  update(candidate: CandidateModel): Observable<ApiResponse<CandidateContentModel>> {
     return this.api.put<CandidateContentModel>('candidate', candidate);
+  }
+
+  updateState(id: number, state: CandidateState, pipeline?: number): Observable<ApiResponse<CandidateContentModel>> {
+    const data = { state: state, pipeline: pipeline };
+    return this.api.put<CandidateContentModel>(`candidate/${id}/state`, data);
   }
 }

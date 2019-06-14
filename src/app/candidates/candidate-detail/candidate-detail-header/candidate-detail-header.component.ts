@@ -6,6 +6,7 @@ import { CandidateContentModel } from '@app/shared/model/candidate.model';
 import { HelpersService } from '@app/shared/services/helpers.service';
 import { MatSelectChange } from '@angular/material';
 import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.model';
+import { CandidateState } from '@app/shared/model/enumeration/candidate-state';
 
 @Component({
   selector: 'anms-candidate-detail-header',
@@ -13,6 +14,8 @@ import { CompanyPipelineContentModel } from '@app/shared/model/company-pipeline.
   styleUrls: ['./candidate-detail-header.component.scss']
 })
 export class CandidateDetailHeaderComponent implements OnInit {
+
+  CandidateState: typeof CandidateState = CandidateState;
 
   id: number;
 
@@ -67,11 +70,24 @@ export class CandidateDetailHeaderComponent implements OnInit {
     });
   }
 
-  onChangePipeline(selectEvent: MatSelectChange) {
-    this.model.data.candidatePipeline = selectEvent.value;
-    this.candidateService.edit(this.model.data).subscribe(r => {
-      const msg = r.success ? 'مرحله‌ی کاندیدای مورد نظر به روز شد.' : r.niceErrorMessage;
+  onChangeState(candidate: CandidateContentModel, selectEvent: MatSelectChange) {
+    let state: CandidateState;
+    let pipeline: number;
+    if (typeof selectEvent.value === 'number') {
+      state = CandidateState.InProcess;
+      pipeline = selectEvent.value;
+    }
+    else {
+      state = selectEvent.value;
+    }
+
+    this.candidateService.updateState(candidate.data.id, state, pipeline).subscribe(r => {
+      const msg = r.success ? 'وضعیت کاندیدای مورد نظر به روز شد.' : r.niceErrorMessage;
       this.helpersService.showToast(msg);
+      if (r.success) {
+        candidate.data = r.data.data;
+        candidate.include = r.data.include;
+      }
     });
   }
 }

@@ -20,6 +20,7 @@ import { CandidateScheduleMemberStatusPipe } from './pipe/candidate-schedule-mem
 import { ScheduleStatusPipe } from './pipe/schedule-status.pipe';
 import { FeedbackRatingPipe } from './pipe/feedback-rating.pipe';
 import { LanguageTypePipe } from './pipe/language-type.pipe';
+import { CandidateStatePipe } from './pipe/candidate-state.pipe';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { LanguageTypePipe } from './pipe/language-type.pipe';
     JobStatusPipe,
     JobHireTeamRolePipe,
     ScheduleStatusPipe,
+    CandidateStatePipe,
     CandidateScheduleMemberStatusPipe,
     FeedbackRatingPipe,
     LanguageTypePipe,
@@ -68,6 +70,7 @@ import { LanguageTypePipe } from './pipe/language-type.pipe';
     JobStatusPipe,
     JobHireTeamRolePipe,
     ScheduleStatusPipe,
+    CandidateStatePipe,
     CandidateScheduleMemberStatusPipe,
     FeedbackRatingPipe,
     LanguageTypePipe,

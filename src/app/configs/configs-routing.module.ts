@@ -21,7 +21,7 @@ const routes: Routes = [
       {
         path: 'company-members',
         component: CompanyMemberListComponent,
-        data: { title: 'اعضای شرکت' },
+        data: { title: 'مدیریت اعضا' },
       },
       {
         path: 'company-pipeline',
