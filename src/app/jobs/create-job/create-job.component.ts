@@ -73,7 +73,7 @@ export class CreateJobComponent implements OnInit {
       mergeMap(jobResult => {
         if (jobResult.success) {
           const jobId = jobResult.data.data.id;
-          return this.jobHireTeamService.create(jobId, this.getHireTeamModels())
+          return this.jobHireTeamService.createList(jobId, this.getHireTeamModels())
             .pipe(map(r => { return { result: r, jobId: jobId }; }));
         }
         else

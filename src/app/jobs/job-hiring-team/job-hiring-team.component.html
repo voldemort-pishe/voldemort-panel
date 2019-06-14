@@ -1,31 +1,61 @@
-<table mat-table [dataSource]="dataSource" class="full-width">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> نام </th>
-    <td mat-cell *matCellDef="let element"> {{element.include.owner | fullName}} </td>
-  </ng-container>
+<ng-container *appLoading="isLoading">
+  <anms-error-message *ngIf="isErrorOccured" [message]="error" (retry)="fetch()"></anms-error-message>
 
-  <ng-container matColumnDef="createdDate">
-    <th mat-header-cell *matHeaderCellDef> تاریخ ایجاد </th>
-    <td mat-cell *matCellDef="let element"> {{element.data.createdDate | jalali}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef> نقش </th>
-    <td mat-cell *matCellDef="let element"> {{element.data.role | jobHireTeamRole}} </td>
-  </ng-container>
-
-  <!-- <ng-container matColumnDef="companyPipeline">
-      <th mat-header-cell *matHeaderCellDef> مرحله </th>
+  <table mat-table [dataSource]="items" class="full-width">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>نام</th>
       <td mat-cell *matCellDef="let element">
-        <mat-form-field>
-          <mat-select (selectionChange)="onChangePipeline(element, $event)" [(value)]="element.include.pipeline.id">
-            <mat-option *ngFor="let pipeline of pipelines" [value]="pipeline.data.id">{{pipeline.data.title}}</mat-option>
+        <span *ngIf="element.data.id != null">{{element.include.owner | fullName}}</span>
+        <mat-form-field *ngIf="element.data.id == null" floatLabel="never">
+          <mat-select placeholder="نام" [(ngModel)]="element.data.userId">
+            <mat-option *ngFor="let member of companyMembers" [value]="member.include.user.id">
+              {{member.include.user | fullName}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </td>
-    </ng-container> -->
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-  </tr>
-</table>
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>نقش</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.data.id != null">{{element.data.role | jobHireTeamRole}}</span>
+        <mat-form-field *ngIf="element.data.id == null" floatLabel="never">
+          <mat-select placeholder="نقش" [(ngModel)]="element.data.role">
+            <mat-option *ngFor="let jobHireTeamRole of JobHireTeamRoles" [value]="jobHireTeamRole">
+              {{jobHireTeamRole | jobHireTeamRole}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef>تاریخ ایجاد</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.data.createdDate">{{element.data.createdDate | jalali}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="operations">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" matTooltip="اضافه" matTooltipPosition="left" (click)="addItem()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let item">
+        <button *ngIf="item.data.id == null" mat-icon-button color="accent" matTooltip="ذخیره" matTooltipPosition="left"
+          (click)="saveItem(item)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" matTooltip="حذف" matTooltipPosition="left" (click)="deleteItem(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+</ng-container>

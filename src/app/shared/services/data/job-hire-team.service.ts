@@ -8,12 +8,16 @@ export class JobHireTeamService {
 
   constructor(private api: ApiService) { }
 
-  create(jobId: number, members: JobHireTeamModel[]): Observable<ApiResponse<JobHireTeamContentModel[]>> {
-    const req = { jobId: jobId, teams: members };
-    return this.api.post<JobHireTeamContentModel[]>('job-hire-team', req);
+  getList(jobId: number): Observable<ApiResponse<JobHireTeamContentModel[]>> {
+    return this.api.get(`job-hire-team/job/${jobId}`);
   }
 
-  getListByJobId(jobId: number): Observable<ApiResponse<JobHireTeamContentModel[]>> {
-    return this.api.get(`job-hire-team/job/${jobId}`);
+  createList(jobId: number, members: JobHireTeamModel[]): Observable<ApiResponse<JobHireTeamContentModel[]>> {
+    const data = { jobId: jobId, teams: members };
+    return this.api.post<JobHireTeamContentModel[]>('job-hire-team', data);
+  }
+
+  delete(id: number): Observable<ApiResponse<void>> {
+    return this.api.delete<void>(`job-hire-team/${id}`);
   }
 }

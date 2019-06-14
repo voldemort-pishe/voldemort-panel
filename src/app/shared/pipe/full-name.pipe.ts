@@ -7,6 +7,6 @@ export class FullNamePipe implements PipeTransform {
         if (value.firstName && value.lastName)
             return `${value.firstName} ${value.lastName}`;
         else
-            return value.firstName || value.lastName || value.name || value;
+            return value.firstName || value.lastName || value.name || value.email || value;
     }
 }
