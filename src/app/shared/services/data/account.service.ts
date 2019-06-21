@@ -18,6 +18,10 @@ export class AccountService {
         return this.api.post<MessageModel>('account/register', data);
     }
 
+    registerByInvite(data: any): Observable<ApiResponse<CredentialModel>> {
+        return this.api.post<CredentialModel>('account/register-by-invite', data);
+    }
+
     activate(otp: string): Observable<ApiResponse<CredentialModel>> {
         return this.api.get<CredentialModel>(`account/activate/${otp}`);
     }

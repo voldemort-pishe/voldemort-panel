@@ -41,12 +41,12 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.error = null;
     this.accountService.login(this.form.value).subscribe(r => {
-      this.isLoading = false;
       if (r.success) {
         this.authService.onLoggedIn(r.data.token);
         this.router.navigate(['dashboard']);
       }
       else {
+        this.isLoading = false;
         this.error = r.niceErrorMessage;
       }
     });

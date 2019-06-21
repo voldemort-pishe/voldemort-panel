@@ -1,0 +1,56 @@
+<div class="fx-row fx-center-center full-height scrollable-list container">
+  <mat-card class="card-center-header">
+    <mat-card-header>
+      <mat-card-title>ثبت نام</mat-card-title>
+      <mat-card-subtitle>لطفاً فرم زیر را جهت تکمیل ثبت نام خود با دقت پر کنید</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="requestForm" class="vertical-gap-20">
+        <mat-form-field class="full-width">
+          <input matInput type="text" name="firstName" placeholder="نام" formControlName="firstName" required>
+          <mat-error>حداقل ۳ کاراکتر مجاز است</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput type="text" name="lastName" placeholder="نام خانوادگی" formControlName="lastName" required>
+          <mat-error>حداقل ۳ کاراکتر مجاز است</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width ltr-input">
+          <input matInput type="tel" name="phoneNumber" minlength="11" maxlength="11" placeholder="تلفن همراه"
+            formControlName="cellphone" required>
+          <mat-error>شماره وارد شده صحبح نیست</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width ltr-input">
+          <input matInput type="password" name="password" placeholder="کلمه عبور" formControlName="password" required>
+          <mat-error>حداقل ۶ کاراکتر مجاز است</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width ltr-input">
+          <input matInput type="password" name="confirmpassword" placeholder="تکرار کلمه عبور"
+            formControlName="confirmPassword" required>
+          <mat-error>تکرار کلمه عبور با کلمه عبور یکسان نیست</mat-error>
+        </mat-form-field>
+
+        <div>
+          <mat-checkbox [(ngModel)]="isTermsAccepted" [ngModelOptions]="{standalone: true}">
+            قوانین را قبول دارم
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="error" class="warn-color">{{error}}</div>
+
+        <button mat-raised-button color="primary" type="submit" class="full-width" (click)="register()"
+          [disabled]="requestForm.invalid || !isTermsAccepted">
+          <span *appLoading="isSubmittingRequest; button:true; color: 'accent'">ثبت نام</span>
+        </button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions class="text-center">
+      <a routerLink="../login">ورود</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
